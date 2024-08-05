@@ -4,7 +4,11 @@ export type AtLeastOne<T> = readonly [T, ...T[]]
 
 export type Phrase = AtLeastOne<Colored>
 
+export type LaPhrase = [before: Colored, after: Phrase]
+
 export type PhraseArray = AtLeastOne<Phrase>
+
+export type LaPhraseArray = AtLeastOne<LaPhrase>
 
 export type AnyColorName =
   | "red"
@@ -62,23 +66,25 @@ export interface Word {
   readonly word: string
   readonly defnShort: string
   readonly defnLipamanka: string
-  readonly seeAlso: readonly Word[]
+  readonly seeAlso: readonly string[]
   readonly kind: WordKind
 }
 
-// content
+// text
 
-export interface SectionHeader {
-  readonly titleEng: string
-  readonly titleTok: string
-  readonly titleSp: string
-  readonly agenda: AtLeastOne<string>
+export interface TextFormatted {
+  readonly b?: true
+  readonly i?: true
+  readonly u?: true
+  readonly x?: true
+  readonly text: string
 }
 
-export interface NextClassVocab {
-  readonly titleEng: string
-  readonly vocab: readonly Word[]
-}
+export type TextItem = string | Colored | TextFormatted
+
+export type Text = AtLeastOne<TextItem>
+
+// sections
 
 export interface ExampleFromTok {
   readonly type: "ex:tok"
@@ -96,22 +102,97 @@ export interface ExampleFromEng {
   readonly tok: PhraseArray
 }
 
+export interface ExampleLa {
+  readonly type: "ex:la"
+  readonly tok: LaPhrase
+  readonly eng: LaPhraseArray
+}
+
 export interface ChallengeFromTok {
   readonly type: "ch:tok"
   readonly tok: Phrase
   readonly eng: PhraseArray
-  readonly hint: string | null
+  readonly hint?: string
 }
 
 export interface ChallengeFromEng {
   readonly type: "ch:eng"
   readonly eng: Phrase
   readonly tok: PhraseArray
-  readonly hint: string | null
+  readonly hint?: string
 }
 
-export type Item =
+export interface ChallengeLa {
+  readonly type: "ch:la"
+  readonly tok: LaPhrase
+  readonly eng: LaPhraseArray
+  readonly hint?: string
+}
+
+export interface ChallengeExplainDifference {
+  readonly type: "ch:diff"
+  readonly a: Phrase
+  readonly b: Phrase
+  readonly eng: AtLeastOne<Text>
+}
+
+export interface ExamplesAligned {
+  readonly type: "exs"
+  readonly entries: AtLeastOne<{ readonly tok: Phrase; readonly en: Phrase }>
+}
+
+export interface ListEntry {
+  readonly text: Text
+  readonly sub?: Text[]
+}
+
+export interface ListUl {
+  readonly type: "ul"
+  readonly items: AtLeastOne<ListEntry>
+}
+
+export type Section =
   | ExampleFromTok
   | ExampleFromEng
+  | ExampleLa
   | ChallengeFromEng
   | ChallengeFromTok
+  | ChallengeLa
+  | ChallengeExplainDifference
+  | ExamplesAligned
+  | ListUl
+
+export type Content = AtLeastOne<Section>
+
+// slides
+
+export interface Source {
+  title: string
+  author: string
+  url: string
+}
+
+export interface Slide {
+  readonly id: number
+  readonly refs?: readonly number[]
+  readonly notes?: Text[]
+}
+
+export interface SlideStandard extends Slide {
+  readonly title: Text
+  readonly content: Content
+  readonly vocab?: Word[]
+  readonly source?: Source
+}
+
+export interface SlideSectionHeader extends Slide {
+  readonly titleEng: string
+  readonly titleTok: string
+  readonly titleSp: string
+  readonly agenda: AtLeastOne<string>
+}
+
+export interface SlideNextClassVocab extends Slide {
+  readonly titleEng: string
+  readonly vocab: AtLeastOne<Word>
+}
