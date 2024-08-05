@@ -54,7 +54,7 @@ const tags: Record<string, Tag> = {
 }
 
 const taso: Colored = {
-  color: "black",
+  color: "text-black",
   text: "taso",
   prefix: null,
   postfix: null,

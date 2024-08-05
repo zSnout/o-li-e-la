@@ -6,7 +6,7 @@ export type Phrase = AtLeastOne<Colored>
 
 export type PhraseArray = AtLeastOne<Phrase>
 
-export type ColorName =
+export type AnyColorName =
   | "red"
   | "orange"
   | "amber"
@@ -25,9 +25,13 @@ export type ColorName =
   | "pink"
   | "rose"
 
-export type Color<T extends number = number> =
-  | `text-${ColorName}-${T}`
-  | "black"
+export type ColorName = "rose" | "green" | "sky" | "violet" | "orange"
+
+export type Color<
+  T extends number = number,
+  P extends string = "text",
+  C extends AnyColorName = ColorName,
+> = `${P}-${C}-${T}` | `${P}-black`
 
 export interface Affix {
   readonly color: Color
@@ -41,11 +45,25 @@ export interface Colored {
   readonly postfix: Affix | null
 }
 
+export interface WordKind {
+  readonly particle: boolean
+  readonly content: boolean
+  readonly prep: boolean
+  readonly preverb: boolean
+
+  readonly name: string
+  readonly abbr: string
+  readonly color: ColorName extends infer U extends string ?
+    `bg-${U}-500 text-${U}-50`
+  : never
+}
+
 export interface Word {
   readonly word: string
   readonly defnShort: string
   readonly defnLipamanka: string
-  readonly seeAlso: Word[]
+  readonly seeAlso: readonly Word[]
+  readonly kind: WordKind
 }
 
 // content
@@ -59,14 +77,14 @@ export interface SectionHeader {
 
 export interface NextClassVocab {
   readonly titleEng: string
-  readonly vocab: Word[]
+  readonly vocab: readonly Word[]
 }
 
 export interface ExampleFromTok {
   readonly type: "ex:tok"
   readonly tok: Phrase
   /** Intermediate English forms */
-  readonly inter: Phrase[]
+  readonly inter: readonly Phrase[]
   readonly eng: PhraseArray
 }
 
@@ -74,7 +92,7 @@ export interface ExampleFromEng {
   readonly type: "ex:eng"
   readonly eng: Phrase
   /** Intermediate English forms */
-  readonly inter: Phrase[]
+  readonly inter: readonly Phrase[]
   readonly tok: PhraseArray
 }
 
