@@ -4,35 +4,41 @@ function tag(
   tagColor: Color<800>,
   color: Color<600>,
   tagText: string,
-  isPostfix?: boolean,
+  isPostfix = false,
+  punctuation = false,
 ) {
   const affix: Affix = { color: tagColor, text: tagText }
   const prefix = isPostfix ? null : affix
   const postfix = isPostfix ? affix : null
 
-  function inner(text: string): Colored {
-    return { color, text, prefix, postfix }
+  return (text: string): Colored => {
+    return { color, text, prefix, postfix, punctuation }
   }
-
-  inner.body = function (text: string): Colored {
-    return { color, text, prefix: null, postfix: null }
-  }
-
-  inner.withTag = function (tag: string, text: string): Colored {
-    const affix: Affix = { color: tagColor, text: tag }
-    const prefix = isPostfix ? null : affix
-    const postfix = isPostfix ? affix : null
-    return { color, text, prefix, postfix }
-  }
-
-  return inner
 }
 
 type Tag = ReturnType<typeof tag>
 
+const AFFIX_NEXT_WORD_DECIDES = Symbol()
+const AFFIX_NONE = Symbol()
+
+function withAffix(
+  colored: Colored,
+  affix: string | typeof AFFIX_NEXT_WORD_DECIDES | typeof AFFIX_NONE,
+): Colored {
+  if (affix == AFFIX_NEXT_WORD_DECIDES || affix == AFFIX_NONE) {
+    return { ...colored, prefix: null, postfix: null }
+  } else {
+    return {
+      ...colored,
+      prefix: colored.prefix && { ...colored.prefix, text: affix },
+      postfix: colored.postfix && { ...colored.postfix, text: affix },
+    }
+  }
+}
+
 const li = tag("text-rose-800", "text-rose-600", "li")
 const e = tag("text-green-800", "text-green-600", "e")
-const en = tag("text-sky-800", "text-sky-600", "e")
+const en = tag("text-sky-800", "text-sky-600", "en")
 const la = tag("text-violet-800", "text-violet-600", "la", true)
 
 const lon = tag("text-orange-800", "text-orange-600", "lon")
@@ -58,6 +64,7 @@ const taso: Colored = {
   text: "taso",
   prefix: null,
   postfix: null,
+  punctuation: false,
 }
 
 function phrase(text: readonly Colored[]): Phrase {
@@ -68,124 +75,162 @@ function phrase(text: readonly Colored[]): Phrase {
   return text as Phrase
 }
 
-export function tok(strings: TemplateStringsArray) {
-  const output: Colored[] = []
+function createTagFunction(includeParticles: boolean) {
+  function inner(text: string) {
+    const output: Colored[] = []
 
-  let text = strings.join("").trim()
-  if (text.startsWith("taso,")) {
-    output.push(taso)
-    text = text.slice("taso,".length).trim()
-  }
-
-  const clauses = text.split(/\bla\b/g).map((x) => x.trim())
-  for (const clause of clauses.slice(0, -1)) {
-    output.push(la(clause))
-  }
-
-  const last = clauses[clauses.length - 1]!
-  const words = last.split(/\s+/g)
-  let currentPhrase = ""
-  let currentTag: Tag | undefined
-  for (let word of words) {
-    const tag = tags[word]
-    if (tag) {
-      if (currentTag) {
-        output.push(currentTag(currentPhrase))
-      } else if (currentPhrase) {
-        output.push(en.body(currentPhrase))
-      }
-
-      currentTag = tag
-      currentPhrase = ""
-      continue
+    if (text.startsWith("taso,")) {
+      output.push(taso)
+      text = text.slice("taso,".length).trim()
     }
 
-    if (word.startsWith("$")) {
-      word = word.slice(1)
-    }
-
-    if (currentPhrase) {
-      currentPhrase += " " + word
-    } else {
-      currentPhrase = word
-    }
-  }
-
-  if (currentTag) {
-    output.push(currentTag(currentPhrase))
-  } else if (currentPhrase) {
-    output.push(en.body(currentPhrase))
-  }
-
-  return phrase(output)
-}
-
-export function eng(strings: TemplateStringsArray) {
-  const output: Colored[] = []
-
-  let text = strings.join("").trim()
-  if (text.startsWith("taso,")) {
-    output.push(taso)
-    text = text.slice("taso,".length).trim()
-  }
-
-  const clauses = text.split(/\bla\b/g).map((x) => x.trim())
-  for (const clause of clauses.slice(0, -1)) {
-    output.push(la(clause))
-  }
-
-  const last = clauses[clauses.length - 1]!
-  const words = last.split(/\s+/g)
-  let currentPhrase = ""
-  let currentTag: { body(text: string): Colored } | undefined
-  for (let word of words) {
-    const tag = tags[word]
-    if (tag) {
-      if (currentTag) {
-        output.push(currentTag.body(currentPhrase))
-      } else if (currentPhrase) {
-        output.push(en.body(currentPhrase))
-      }
-
-      currentTag = tag
-      currentPhrase = ""
-      continue
-    }
-
-    if (word.startsWith("$")) {
-      word = word.slice(1)
-    }
-
-    if (currentPhrase) {
-      currentPhrase += " " + word
-    } else if (
-      currentTag === lon ||
-      currentTag === tawa ||
-      currentTag === tan ||
-      currentTag === sama ||
-      currentTag === kepeken
-    ) {
-      if (word == "_") {
-        currentTag = { body: currentTag.body.bind(null) }
+    const clauses = text.split(/\bla\b/g).map((x) => x.trim())
+    for (const clause of clauses.slice(0, -1)) {
+      if (includeParticles) {
+        output.push(la(clause))
       } else {
-        const tag = currentTag as Tag
-        currentTag = { body: tag.withTag.bind(null, word) }
+        output.push(withAffix(la(clause), AFFIX_NONE))
       }
-    } else {
-      currentPhrase = word
+    }
+
+    let last = clauses[clauses.length - 1]!
+
+    // mi/sina ... special handling
+    if (!/\bli\b/.test(last) && /^(?:mi|sina)\b/.test(last)) {
+      if (last.startsWith("mi")) {
+        last = `mi @li ${last.slice(2)}`
+      } else if (last.startsWith("sina")) {
+        last = `sina @li ${last.slice(4)}`
+      }
+    }
+
+    const words = last.match(/[.!?"'`,()]|[^.!?"'`,()\s]+/g) ?? []
+
+    let currentPhrase = ""
+    let currentTag: Tag | undefined
+    let currentAffix:
+      | string
+      | typeof AFFIX_NEXT_WORD_DECIDES
+      | typeof AFFIX_NONE
+      | undefined
+    let nextIsAnuClause = false
+
+    for (let word of words) {
+      if (".!?\"'`,()".includes(word)) {
+        pushCurrent()
+
+        output.push({
+          color: null,
+          text: word,
+          prefix: null,
+          postfix: null,
+          punctuation: true,
+        })
+
+        continue
+      }
+
+      if (word.startsWith("@")) {
+        const tag = tags[word.slice(1)]
+        if (!tag) {
+          throw new Error("Cannot use `@` on a nonexistent tag.")
+        }
+
+        if (nextIsAnuClause) {
+          pushCurrent()
+          currentTag = tag
+          currentAffix = "anu"
+        } else {
+          pushCurrent()
+          currentTag = tag
+          currentAffix = AFFIX_NONE
+        }
+
+        continue
+      }
+
+      const tag = tags[word]
+      if (tag) {
+        if (nextIsAnuClause) {
+          pushCurrent()
+          currentTag = tag
+          if (includeParticles) {
+            currentAffix = AFFIX_NEXT_WORD_DECIDES
+          } else {
+            currentAffix = "anu"
+          }
+        } else {
+          pushCurrent()
+          currentTag = tag
+          if (!includeParticles) {
+            if (
+              tag == lon ||
+              tag == tawa ||
+              tag == tan ||
+              tag == sama ||
+              tag == kepeken ||
+              tag == en
+            ) {
+              currentAffix = AFFIX_NEXT_WORD_DECIDES
+            } else {
+              currentAffix = AFFIX_NONE
+            }
+          }
+        }
+
+        continue
+      }
+
+      if (word == "anu") {
+        pushCurrent()
+        nextIsAnuClause = true
+        continue
+      }
+
+      if (word.startsWith("$")) {
+        word = word.slice(1)
+      }
+
+      if (currentPhrase) {
+        currentPhrase += " " + word
+      } else if (currentAffix == AFFIX_NEXT_WORD_DECIDES) {
+        currentAffix = word
+      } else {
+        currentPhrase = word
+      }
+    }
+
+    pushCurrent()
+
+    return phrase(output)
+
+    function pushCurrent() {
+      if (currentTag) {
+        let colored = currentTag(currentPhrase)
+        if (currentAffix !== undefined) {
+          colored = withAffix(colored, currentAffix)
+        }
+        output.push(colored)
+      } else if (currentPhrase) {
+        output.push(withAffix(en(currentPhrase), AFFIX_NONE))
+      }
+
+      currentTag = currentAffix = undefined
+      currentPhrase = ""
+      nextIsAnuClause = false
     }
   }
 
-  if (currentTag) {
-    output.push(currentTag.body(currentPhrase))
-  } else if (currentPhrase) {
-    output.push(en.body(currentPhrase))
+  return (strings: TemplateStringsArray) => {
+    const text = strings.join("").trim()
+    const items = text.match(/[^.!?]+[.!?]|[^.!?]+/g) ?? [text]
+    return items.map(inner).flat() as readonly Colored[] as Phrase
   }
-
-  return phrase(output)
 }
 
-const piBase = tag("text-orange-800", "text-orange-600", "").body
+export const tok = createTagFunction(true)
+export const eng = createTagFunction(false)
+
 const pi = tag("text-violet-800", "text-violet-600", "pi")
 
 export function tokPi(strings: TemplateStringsArray) {
@@ -194,9 +239,16 @@ export function tokPi(strings: TemplateStringsArray) {
       .join("")
       .trim()
       .split(/\bpi\b/g)
+      .map((x) => x.trim())
       .map((text, index) => {
         if (index == 0) {
-          return piBase(text)
+          return {
+            color: "text-orange-600",
+            text,
+            prefix: null,
+            postfix: null,
+            punctuation: false,
+          }
         } else {
           return pi(text)
         }

@@ -1,4 +1,4 @@
-// helpers and styling
+// #region helpers and styling
 
 export type AtLeastOne<T> = readonly [T, ...T[]]
 
@@ -28,8 +28,9 @@ export type AnyColorName =
   | "fuchsia"
   | "pink"
   | "rose"
+  | "slate"
 
-export type ColorName = "rose" | "green" | "sky" | "violet" | "orange"
+export type ColorName = "rose" | "green" | "sky" | "violet" | "orange" | "slate"
 
 export type Color<
   T extends number = number,
@@ -43,10 +44,11 @@ export interface Affix {
 }
 
 export interface Colored {
-  readonly color: Color
+  readonly color: Color | null
   readonly text: string
   readonly prefix: Affix | null
   readonly postfix: Affix | null
+  readonly punctuation: boolean
 }
 
 export interface WordKind {
@@ -70,27 +72,32 @@ export interface Word {
   readonly kind: WordKind
 }
 
-// text
+// #endregion
+
+// #region text
 
 export interface TextFormatted {
-  readonly b?: true
-  readonly i?: true
-  readonly u?: true
-  readonly x?: true
+  readonly b?: boolean
+  readonly i?: boolean
+  readonly u?: boolean
+  readonly x?: boolean
   readonly text: string
+  readonly length?: undefined
 }
 
-export type TextItem = string | Colored | TextFormatted
+export type TextItem = string | Phrase | TextFormatted
 
 export type Text = AtLeastOne<TextItem>
 
-// sections
+// #endregion
+
+// #region sections
 
 export interface ExampleFromTok {
   readonly type: "ex:tok"
   readonly tok: Phrase
   /** Intermediate English forms */
-  readonly inter: readonly Phrase[]
+  readonly inter?: readonly Phrase[]
   readonly eng: PhraseArray
 }
 
@@ -98,7 +105,7 @@ export interface ExampleFromEng {
   readonly type: "ex:eng"
   readonly eng: Phrase
   /** Intermediate English forms */
-  readonly inter: readonly Phrase[]
+  readonly inter?: readonly Phrase[]
   readonly tok: PhraseArray
 }
 
@@ -164,7 +171,9 @@ export type Section =
 
 export type Content = AtLeastOne<Section>
 
-// slides
+// #endregion
+
+// #region slides
 
 export interface Source {
   title: string
@@ -196,3 +205,5 @@ export interface SlideNextClassVocab extends Slide {
   readonly titleEng: string
   readonly vocab: AtLeastOne<Word>
 }
+
+// #endregion

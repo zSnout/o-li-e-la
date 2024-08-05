@@ -1,6 +1,6 @@
 import { For } from "solid-js"
 import type { ExampleFromTok } from "../lib/types"
-import { Phrase } from "./Phrase"
+import { Phrase } from "./PhraseEl"
 
 export function ExampleTok(props: { example: ExampleFromTok; class?: string }) {
   return (

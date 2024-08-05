@@ -29,6 +29,8 @@ export default {
           '"Carlito", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", var(--font-sp)',
         "ex-tok":
           '"Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace, var(--font-sp)',
+        "ex-title":
+          '"Bree Serif", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace, var(--font-sp)',
       },
       colors: {
         "z-border-grid-line": "var(--z-border-grid-line)",
