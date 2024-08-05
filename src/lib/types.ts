@@ -30,7 +30,14 @@ export type AnyColorName =
   | "rose"
   | "slate"
 
-export type ColorName = "rose" | "green" | "sky" | "violet" | "orange" | "slate"
+export type ColorName =
+  | "rose"
+  | "orange"
+  | "yellow"
+  | "green"
+  | "sky"
+  | "violet"
+  | "slate"
 
 export type Color<
   T extends number = number,

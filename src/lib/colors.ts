@@ -36,9 +36,13 @@ function withAffix(
   }
 }
 
+const EN_PARTICLE = "text-sky-800"
+
 const li = tag("text-rose-800", "text-rose-600", "li")
+const o = tag("text-rose-800", "text-rose-600", "o")
 const e = tag("text-green-800", "text-green-600", "e")
-const en = tag("text-sky-800", "text-sky-600", "en")
+const en = tag(EN_PARTICLE, "text-sky-600", "en")
+const sbj = tag(EN_PARTICLE, "text-sky-600", "en")
 const la = tag("text-violet-800", "text-violet-600", "la", true)
 
 const lon = tag("text-orange-800", "text-orange-600", "lon")
@@ -47,16 +51,21 @@ const tan = tag("text-orange-800", "text-orange-600", "tan")
 const sama = tag("text-orange-800", "text-orange-600", "sama")
 const kepeken = tag("text-orange-800", "text-orange-600", "kepeken")
 
+const interj = tag("text-yellow-800", "text-yellow-600", "")
+
 const tags: Record<string, Tag> = {
   li,
   e,
   en,
+  sbj,
   la,
+  o,
   lon,
   tawa,
   tan,
   sama,
   kepeken,
+  "@": interj,
 }
 
 const taso: Colored = {
@@ -95,7 +104,7 @@ function createTagFunction(includeParticles: boolean) {
 
     let last = clauses[clauses.length - 1]!
 
-    // mi/sina ... special handling
+    // mi/sina-only subject special handling
     if (!/\bli\b/.test(last) && /^(?:mi|sina)\b/.test(last)) {
       if (last.startsWith("mi")) {
         last = `mi @li ${last.slice(2)}`
@@ -104,7 +113,12 @@ function createTagFunction(includeParticles: boolean) {
       }
     }
 
-    const words = last.match(/[.!?"'`,()]|[^.!?"'`,()\s]+/g) ?? []
+    // mu/a/n/kin special handling
+    if (/^(?:mu|a|n|kin)(?:[.!?"'`,()]|$)/.test(last)) {
+      last = "@@ " + last
+    }
+
+    const words = last.match(/[.!?"`,()]|[^.!?"`,()\s]+/g) ?? []
 
     let currentPhrase = ""
     let currentTag: Tag | undefined
@@ -116,7 +130,7 @@ function createTagFunction(includeParticles: boolean) {
     let nextIsAnuClause = false
 
     for (let word of words) {
-      if (".!?\"'`,()".includes(word)) {
+      if (!nextIsAnuClause && '.!?"`,()'.includes(word)) {
         pushCurrent()
 
         output.push({
@@ -155,9 +169,9 @@ function createTagFunction(includeParticles: boolean) {
           pushCurrent()
           currentTag = tag
           if (includeParticles) {
-            currentAffix = AFFIX_NEXT_WORD_DECIDES
-          } else {
             currentAffix = "anu"
+          } else {
+            currentAffix = AFFIX_NEXT_WORD_DECIDES
           }
         } else {
           pushCurrent()
@@ -179,6 +193,12 @@ function createTagFunction(includeParticles: boolean) {
         }
 
         continue
+      }
+
+      if (nextIsAnuClause) {
+        throw new Error(
+          "`anu` must immediately be followed by a particle name.",
+        )
       }
 
       if (word == "anu") {
@@ -205,7 +225,29 @@ function createTagFunction(includeParticles: boolean) {
     return phrase(output)
 
     function pushCurrent() {
-      if (currentTag) {
+      // special "o" handling
+      if (currentTag == o && currentPhrase == "") {
+        const prev = output.pop()
+        if (prev) {
+          if (
+            (prev.prefix == null || prev.prefix.text == "en") &&
+            prev.postfix == null
+          ) {
+            if (includeParticles) {
+              output.push({
+                ...prev,
+                postfix: { color: EN_PARTICLE, text: "o" },
+              })
+            } else {
+              output.push(prev)
+            }
+          } else {
+            throw new Error(
+              "Postfix `o` cannot be used after another non-en clause without a punctuation mark separating them. For example, 'ona li moku, sina o' is valid, but 'ona li moku sina o' is not. However, 'jan A en jan E o' is perfectly valid.",
+            )
+          }
+        }
+      } else if (currentTag) {
         let colored = currentTag(currentPhrase)
         if (currentAffix !== undefined) {
           colored = withAffix(colored, currentAffix)

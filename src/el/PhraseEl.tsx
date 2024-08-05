@@ -16,7 +16,13 @@ export function PhraseEl(props: { children: Phrase; class?: string }) {
           ]}
         </span>
       )
-      return index == 0 || item.punctuation ? el : [" ", el]
+      return (
+          index == 0 ||
+            item.punctuation ||
+            (!item.prefix && item.text.startsWith("'"))
+        ) ?
+          el
+        : [" ", el]
     })
     .flat()
 }
