@@ -138,8 +138,8 @@ export interface Translated {
 }
 
 /** A collection of examples with the toki pona and English vertically aligned. */
-export interface ExampleSetMany {
-  readonly type: "exs:many"
+export interface ExampleSetAligned {
+  readonly type: "exs:aligned"
   readonly entries: AtLeastOne<Translated>
 }
 
@@ -151,7 +151,7 @@ export interface ExampleSetQA {
 }
 
 /** Any example. */
-export type Example = ExampleTok | ExampleLa | ExampleSetMany | ExampleSetQA
+export type Example = ExampleTok | ExampleLa | ExampleSetAligned | ExampleSetQA
 
 /** A challenge to translate from toki pona to English. */
 export interface ChallengeSingleTok {
@@ -180,10 +180,16 @@ export interface ChallengeEng {
   readonly label?: Text
 }
 
+/** A single prompt under discussion. */
+export interface ChallengeDiscussOnePrompt {
+  readonly prompt: Text
+  readonly notes?: readonly Text[]
+}
+
 /** A challenge set to talk about a set of prompts. */
 export interface ChallengeDiscuss {
   readonly type: "ch:discuss"
-  readonly items: AtLeastOne<Text>
+  readonly items: AtLeastOne<ChallengeDiscussOnePrompt>
   readonly label?: Text
   readonly notes?: readonly Text[]
 }
@@ -200,7 +206,9 @@ export interface ChallengeLa {
 export interface ChallengeExplainDifferenceOne {
   readonly a: Phrase<"tok">
   readonly b: Phrase<"tok">
-  readonly eng: AtLeastOne<Text>
+
+  /** Explanations of the differences in the two phrases. */
+  readonly explanation: AtLeastOne<Text>
 }
 
 /** A challenge to explain the differences between pairs of sentences. */

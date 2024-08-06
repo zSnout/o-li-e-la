@@ -10,7 +10,6 @@ import type {
   ToContent,
   Word,
 } from "../types"
-import { pilin } from "../vocab"
 
 export type ToContentItem = Content | ToContent<Content>
 export type ToContentArray = AtLeastOne<ToContentItem>
@@ -93,9 +92,6 @@ export function slide(...title: TextParams): SlideBuilderWithoutSource {
   return builder
 }
 
-import * as ex from "./ex"
+export * as ch from "./ch"
 export * as ex from "./ex"
-
-slide`the particle pi`
-  .vocab(pilin)
-  .content(ex.tok`mi wile toki tawa sina.`.eng`I li want to talk tawa to you.`)
+export { ul } from "./ul"

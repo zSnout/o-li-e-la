@@ -1,7 +1,7 @@
 import * as color from "../../colors"
 import type {
   AtLeastOneMutable,
-  ExampleSetMany,
+  ExampleSetAligned,
   ToContent,
   Translated,
 } from "../../types"
@@ -11,13 +11,13 @@ export interface NeedsEng {
   eng(strings: TemplateStringsArray): Done
 }
 
-export interface Done extends ToContent<ExampleSetMany> {
+export interface Done extends ToContent<ExampleSetAligned> {
   /** Add another item to the list. */
   tok(strings: TemplateStringsArray): NeedsEng
 }
 
-/** Builds an {@link ExampleSetMany} object, starting with a toki pona string. */
-export function many(stringsTok: TemplateStringsArray): NeedsEng {
+/** Builds an {@link ExampleSetAligned} object, starting with a toki pona string. */
+export function align(stringsTok: TemplateStringsArray): NeedsEng {
   return {
     eng(stringsEng) {
       const entries: AtLeastOneMutable<Translated> = [
@@ -40,43 +40,7 @@ export function many(stringsTok: TemplateStringsArray): NeedsEng {
           }
         },
         finalize() {
-          return { type: "exs:many", entries }
-        },
-      }
-
-      return Done
-    },
-  }
-}
-
-/**
- * Builds an uncolored {@link ExampleSetMany} object, starting with a toki pona
- * string.
- */
-many.plain = function (stringsTok: TemplateStringsArray): NeedsEng {
-  return {
-    eng(stringsEng) {
-      const entries: AtLeastOneMutable<Translated> = [
-        {
-          tok: color.ptok(stringsTok),
-          eng: color.peng(stringsEng),
-        },
-      ]
-
-      const Done: Done = {
-        tok(stringsTok) {
-          return {
-            eng(stringsEng) {
-              entries.push({
-                tok: color.ptok(stringsTok),
-                eng: color.peng(stringsEng),
-              })
-              return Done
-            },
-          }
-        },
-        finalize() {
-          return { type: "exs:many", entries }
+          return { type: "exs:aligned", entries }
         },
       }
 

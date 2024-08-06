@@ -12,10 +12,11 @@ import {
 } from "./el/Content"
 import { SlideManual, SlideStandardEl, SlideWithoutVocab } from "./el/Slide"
 import { Vocab } from "./el/Vocab"
-import { eng, peng, ptok, tok, tokPi } from "./lib/colors"
+import { eng, tok, tokPi } from "./lib/colors"
 import { text } from "./lib/text"
 import type { SlideStandard } from "./lib/types"
 import { pana, pilin } from "./lib/vocab"
+import { SLIDE_THE_PARTICLE_LA } from "./slides/test"
 
 export function SlideTestSyntaxHighlighting() {
   return (
@@ -204,14 +205,14 @@ export function SlideModifierStacking() {
       </InfoListUlEl>
       <ExampleSetManyEl>
         {{
-          type: "exs:many",
+          type: "exs:aligned",
           entries: [
-            { tok: ptok`kulupu`, eng: peng`group` },
-            { tok: ptok`kulupu jan`, eng: peng`group of people` },
-            { tok: ptok`kulupu jan suli`, eng: peng`large group of people` },
+            { tok: tok`~ kulupu`, eng: eng`~ group` },
+            { tok: tok`~ kulupu jan`, eng: eng`~ group of people` },
+            { tok: tok`~ kulupu jan suli`, eng: eng`~ large group of people` },
             {
-              tok: ptok`kulupu jan suli ike`,
-              eng: peng`bad, large group of people`,
+              tok: tok`~ kulupu jan suli ike`,
+              eng: eng`~ bad, large group of people`,
             },
           ],
         }}
@@ -221,13 +222,13 @@ export function SlideModifierStacking() {
           type: "ch:eng",
           items: [
             {
-              eng: peng`sleeping adult`,
-              tok: [ptok`jan suli lape`],
+              eng: eng`~ sleeping adult`,
+              tok: [tok`~ jan suli lape`],
               hint: text`decompose $"adult"`,
             },
             {
-              eng: peng`nice picture of fruit`,
-              tok: [ptok`sitelen kili pona`],
+              eng: eng`~ nice picture of fruit`,
+              tok: [tok`~ sitelen kili pona`],
               hint: text`find the core word first`,
             },
           ],
@@ -323,9 +324,9 @@ export function SlideRespondingToXAlaX() {
           type: "ch:discuss",
           label: text`Respond to these questions:`,
           items: [
-            text`akesi li moli ala moli?`,
-            text`mi o moli ala moli e ona?`,
-            text`sina pana ala pana e ona tawa sike?`,
+            { prompt: text`akesi li moli ala moli?` },
+            { prompt: text`mi o moli ala moli e ona?` },
+            { prompt: text`sina pana ala pana e ona tawa sike?` },
           ],
         }}
       </ChallengeDiscussEl>
@@ -347,21 +348,21 @@ const SLIDE_THE_PARTICLE_PI: SlideStandard = {
         {
           a: tokPi`tomo moku lili`,
           b: tokPi`tomo pi moku lili`,
-          eng: [
+          explanation: [
             text`While %"tomo moku lili" refers to a small food-place (like a small restaurant), %"tomo pi moku lili" refers to a small-food place (like a snack bar).`,
           ],
         },
         {
           a: tokPi`lipu sona suno`,
           b: tokPi`lipu pi sona suno`,
-          eng: [
+          explanation: [
             text`While %"lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), %"lipu pi sona suno" could be a book about sun-knowledge (like a book on astrophysics).`,
           ],
         },
         {
           a: tokPi`jan poka wawa`,
           b: tokPi`jan pi poka wawa`,
-          eng: [
+          explanation: [
             text`While %"jan poka wawa" is a powerful person who is close by, %"jan pi poka wawa" is a person who is **very** close by.`,
           ],
         },
@@ -370,4 +371,6 @@ const SLIDE_THE_PARTICLE_PI: SlideStandard = {
   ],
 }
 
-export default SlideTheParticlePi
+export default function () {
+  return <SlideStandardEl>{SLIDE_THE_PARTICLE_LA}</SlideStandardEl>
+}

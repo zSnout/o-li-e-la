@@ -8,7 +8,7 @@ import type {
   ChallengeTok,
   Content,
   ExampleLa,
-  ExampleSetMany,
+  ExampleSetAligned,
   ExampleSetQA,
   ExampleTok,
   InfoListUl,
@@ -74,7 +74,7 @@ export function ExampleLaEl(props: { children: ExampleLa }) {
   )
 }
 
-export function ExampleSetManyEl(props: { children: ExampleSetMany }) {
+export function ExampleSetManyEl(props: { children: ExampleSetAligned }) {
   return (
     <div class="my-4 grid grid-cols-2 gap-x-8">
       <For each={props.children.entries}>
@@ -195,7 +195,7 @@ export function ChallengeDiscussEl(props: { children: ChallengeDiscuss }) {
         <For each={props.children.items}>
           {(challenge) => (
             <p>
-              <TextEl>{challenge}</TextEl>
+              <TextEl>{challenge.prompt}</TextEl>
             </p>
           )}
         </For>

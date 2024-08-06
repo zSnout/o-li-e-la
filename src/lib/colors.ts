@@ -299,6 +299,25 @@ function createTagFunction<T extends PhraseLang>(
 
   return (strings: readonly string[]): Phrase<T> => {
     const text = strings.join("").trim()
+
+    if (text.startsWith("~")) {
+      return {
+        lang,
+        content: [
+          {
+            color: null,
+            text: text.slice(1).trim(),
+            prefix: null,
+            postfix: null,
+            punctuation: false,
+          },
+        ],
+      }
+    }
+
+    if (lang == "tok" && text.startsWith("%")) {
+      return tokPi([text.slice(1).trim()]) as Phrase<T>
+    }
     const items = text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]
     return phrase(items.map(inner).flat(), lang)
   }
@@ -325,36 +344,6 @@ export const eng = createTagFunction(false, "eng")
 
 export const tokLa = createLa(tok)
 export const engLa = createLa(eng)
-
-export function ptok(strings: readonly string[]): Phrase<"tok"> {
-  return {
-    lang: "tok",
-    content: [
-      {
-        color: null,
-        text: strings.join(""),
-        prefix: null,
-        postfix: null,
-        punctuation: false,
-      },
-    ],
-  }
-}
-
-export function peng(strings: readonly string[]): Phrase<"eng"> {
-  return {
-    lang: "eng",
-    content: [
-      {
-        color: null,
-        text: strings.join(""),
-        prefix: null,
-        postfix: null,
-        punctuation: false,
-      },
-    ],
-  }
-}
 
 const pi = tag("text-violet-800", "text-violet-600", "pi")
 
