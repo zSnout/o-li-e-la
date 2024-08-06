@@ -17,8 +17,12 @@ export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
 
 export const SLIDE_PREPOSITIONS_AS_PREDICATES =
   slide`prepositions as predicates`
-    .vocab(pilin)
-    .vocab(pana)
+    .vocab(
+      pilin,
+    )
+    .vocab(
+      pana,
+    )
     .content(
       ul`prepositions can be entire predicates, without needing a verb before them`,
       ex.tok`mi tawa tomo sina.`
@@ -26,14 +30,14 @@ export const SLIDE_PREPOSITIONS_AS_PREDICATES =
       ch.tok`ona li lon ma.`
         .eng`They lon 're_at a place.`
         .tok`sina kepeken ilo moku.`
-        .eng`You kepeken 're_using a fork`
+        .eng`You kepeken 're_using a fork.`
         .alt`You kepeken 're_using chopsticks.`
         .tok`ni li sama sina.`
         .eng`This sama is_like you.`,
       ch.eng`He tawa 's_going_to the school.`
         .tok`ona li tawa ma sona.`
         .eng`We tawa 're_walking_towards the loud sound.`
-        .tok`ona li tawa ma sona`,
+        .tok`mi tawa kalama suli.`,
     )
 
 export const SLIDE_LA_FOR_MARKING_TIME =
@@ -43,7 +47,8 @@ export const SLIDE_LA_FOR_MARKING_TIME =
       .eng`coming time la furry creatures li come tawa to the forest`,
     ch.la`tenpo weka la toki uta li ante mute`
       .eng`far time la spoken language li was very different`,
-    ch.eng
+    ch
+      .eng
       .label`Translate using "la":`
       .eng`Right now, la my parents li are grounding e me.`
       .tok`tenpo ni la mama mi li awen e mi lon tomo.`,
@@ -102,7 +107,8 @@ export const SLIDE_THE_PARTICLE_SEME =
   )
 
 export const SLIDE_RESPONDING_TO_X_ALA_X =
-  slide`responding to "@li X ala X"`(
+  slide`responding to "@li X ala X"`
+    .note`mu`.content(
     ex.qa`sina moku ala moku e kasi?`
       .eng`Did you li eat e the plants?`
       .tok`@li moku`
@@ -115,10 +121,15 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
       .eng`I li did that.`
       .alt`mi ni ala.`
       .eng`I li didn't do that.`,
-    ch.discuss
+    ch
+      .discuss
       .label`Respond to these questions:`
       .prompt`akesi li moli ala moli?`
+      .note`hi`
+      .note`world`
+      .note`goodbye`
       .prompt`mi o moli ala moli e ona?`
+      .note`goodbye`
       .prompt`sina pana ala pana e ona tawa sike?`,
   )
 

@@ -191,7 +191,6 @@ export interface ChallengeDiscuss {
   readonly type: "ch:discuss"
   readonly items: AtLeastOne<ChallengeDiscussOnePrompt>
   readonly label?: Text
-  readonly notes?: readonly Text[]
 }
 
 /** A challenge to translate from toki pona rendered with `la` boxes. */
@@ -199,7 +198,6 @@ export interface ChallengeLa {
   readonly type: "ch:la"
   readonly tok: LaPhrase<"tok">
   readonly eng: LaPhraseArray<"eng">
-  readonly hint?: Text
 }
 
 /** A challenge to explain the difference between two sentences. */

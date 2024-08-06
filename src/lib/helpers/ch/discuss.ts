@@ -14,10 +14,7 @@ export interface NeedsPrompt {
 
 export interface Done extends ToContent<ChallengeDiscuss>, NeedsPrompt {
   /** Adds a note to the last prompt. */
-  notePromptSpecific(...note: TextParams): Done
-
-  /** Adds a note to this discussion as a whole. */
-  noteOverall(...note: TextParams): DoneAndNonextendable
+  note(...note: TextParams): Done
 }
 
 export interface DoneAndNonextendable extends ToContent<ChallengeDiscuss> {
@@ -25,7 +22,6 @@ export interface DoneAndNonextendable extends ToContent<ChallengeDiscuss> {
 }
 
 function inner(prompt: Text, label?: Text): Done {
-  let global: Text[] = []
   let notes: Text[] = []
 
   const items: AtLeastOneMutable<ChallengeDiscussOnePrompt> = [
@@ -43,12 +39,8 @@ function inner(prompt: Text, label?: Text): Done {
       })
       return Done
     },
-    notePromptSpecific(...note) {
+    note(...note) {
       notes.push(text(...note))
-      return Done
-    },
-    noteOverall(...note) {
-      global.push(text(...note))
       return Done
     },
   }

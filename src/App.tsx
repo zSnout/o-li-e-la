@@ -1,5 +1,5 @@
 import { For } from "solid-js"
-import { Render } from "./el/Slide"
+import { PresenterNotes } from "./el/Slide"
 import {
   SLIDE_LA_FOR_MARKING_TIME,
   SLIDE_MODIFIER_STACKING,
@@ -24,8 +24,10 @@ const PRESENTATION = [
 
 export default function () {
   return (
-    <div class="flex flex-col items-center gap-4 p-8">
-      <For each={PRESENTATION}>{(slide) => <Render>{slide}</Render>}</For>
+    <div class="flex flex-wrap items-center gap-1">
+      <For each={PRESENTATION}>
+        {(slide) => <PresenterNotes>{slide}</PresenterNotes>}
+      </For>
     </div>
   )
 }

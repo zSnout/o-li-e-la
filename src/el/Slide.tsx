@@ -2,7 +2,8 @@ import { children, For, Show, type JSXElement, type Ref } from "solid-js"
 import { createScreenSize } from "../lib/size"
 import type { SlideStandard } from "../lib/types"
 import { Content, Title } from "./Content"
-import { Vocab } from "./Vocab"
+import { ContentPresenter } from "./ContentPresenter"
+import { Vocab, VocabPresenter } from "./Vocab"
 
 export function SlideBase(props: {
   fullscreen?: boolean
@@ -60,5 +61,56 @@ export function Render(props: {
         </ul>
       </Show>
     </SlideBase>
+  )
+}
+
+export function PresenterNotes(props: {
+  children: SlideStandard
+  ref?: Ref<HTMLDivElement>
+}) {
+  const vocab = children(() => (
+    <For each={props.children.vocab}>
+      {(word) => <VocabPresenter>{word}</VocabPresenter>}
+    </For>
+  ))
+
+  const main = children(() => (
+    <>
+      <For each={props.children.content}>
+        {(e) => <ContentPresenter>{e}</ContentPresenter>}
+      </For>
+    </>
+  ))
+
+  const hasVocab = () => !!props.children.vocab?.length
+
+  return (
+    <div class="flex flex-col bg-white">
+      <main class="flex flex-col gap-4">
+        <Show
+          when={(() => {
+            const m = main()
+            if (Array.isArray(m)) {
+              if (m.some((x) => x)) {
+                return m
+              } else {
+                return false
+              }
+            }
+            return m
+          })()}
+          fallback={
+            <p>There are no notes from pieces of content on this slide.</p>
+          }
+        >
+          {(x) => x()}
+        </Show>
+      </main>
+      <Show when={hasVocab()}>
+        <div class="mt-auto grid w-full grid-cols-[auto,auto] items-baseline pt-4">
+          {vocab()}
+        </div>
+      </Show>
+    </div>
   )
 }

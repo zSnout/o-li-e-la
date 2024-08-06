@@ -13,3 +13,15 @@ export function Vocab(props: { children: Word }) {
     </li>
   )
 }
+
+export function VocabPresenter(props: { children: Word }) {
+  return (
+    <>
+      <span class="whitespace-nowrap">
+        <strong>{props.children.word}</strong>{" "}
+        <span class="text-z-subtitle">({props.children.kind.abbr})</span>
+      </span>
+      <span>{props.children.defnShort}</span>
+    </>
+  )
+}
