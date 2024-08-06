@@ -1,11 +1,14 @@
-import { For } from "solid-js"
+import { For, Show } from "solid-js"
 import { LA_BORDER, LA_CONTENT, LA_PARTICLE } from "../lib/colors"
 import type {
+  ChallengeDiscuss,
   ChallengeEng,
+  ChallengeExplainDifference,
   ChallengeLa,
   ChallengeTok,
-  Content,
   ExampleLa,
+  ExampleSetMany,
+  ExampleSetQA,
   ExampleTok,
   InfoListUl,
   Text,
@@ -70,6 +73,72 @@ export function ExampleLaEl(props: { children: ExampleLa }) {
   )
 }
 
+export function ExampleSetManyEl(props: { children: ExampleSetMany }) {
+  return (
+    <div class="my-4 grid grid-cols-2 gap-x-8">
+      <For each={props.children.entries}>
+        {(entry) => (
+          <>
+            <p class="text-right font-ex-tok font-semibold">
+              <PhraseEl>{entry.tok}</PhraseEl>
+            </p>
+            <p class="font-ex-eng">
+              <PhraseEl>{entry.eng}</PhraseEl>
+            </p>
+          </>
+        )}
+      </For>
+    </div>
+  )
+}
+
+export function ExampleSetQAEl(props: { children: ExampleSetQA }) {
+  if (props.children.a.length == 1) {
+    return (
+      <div class="my-4 grid grid-cols-2 gap-x-8">
+        <p class="text-right font-ex-tok font-semibold">
+          <PhraseEl>{props.children.q.tok}</PhraseEl>
+        </p>
+        <p class="font-ex-tok font-semibold">
+          <PhraseEl>{props.children.a[0].tok}</PhraseEl>
+        </p>
+
+        <p class="text-right font-ex-eng">
+          <PhraseEl>{props.children.q.eng}</PhraseEl>
+        </p>
+        <p class="font-ex-eng">
+          <PhraseEl>{props.children.a[0].eng}</PhraseEl>
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div class="my-4 flex flex-col">
+      <p class="text-center font-ex-tok font-semibold">
+        <PhraseEl>{props.children.q.tok}</PhraseEl>
+      </p>
+      <p class="text-center font-ex-eng">
+        <PhraseEl>{props.children.q.eng}</PhraseEl>
+      </p>
+      <div class="mt-4 grid grid-cols-2 gap-x-8">
+        <For each={props.children.a}>
+          {(a) => (
+            <>
+              <p class="text-right font-ex-tok font-semibold">
+                <PhraseEl>{a.tok}</PhraseEl>
+              </p>
+              <p class="font-ex-eng">
+                <PhraseEl>{a.eng}</PhraseEl>
+              </p>
+            </>
+          )}
+        </For>
+      </div>
+    </div>
+  )
+}
+
 export function ChallengeTokEl(props: { children: ChallengeTok }) {
   return (
     <div class="my-4 flex flex-col items-center border-l border-z-ch px-4">
@@ -92,13 +161,67 @@ export function ChallengeEngEl(props: { children: ChallengeEng }) {
           <TextEl>{props.children.label}</TextEl>
         : "Translate:"}
       </p>
-      <For each={props.children.items}>
-        {(challenge) => (
-          <p>
-            <PhraseEl plain>{challenge.eng}</PhraseEl>
-          </p>
-        )}
-      </For>
+      <div class="grid w-full grid-cols-[1fr,2fr]">
+        <For each={props.children.items}>
+          {(challenge) => (
+            <>
+              <p classList={{ "grid-cols-2": !challenge.hint }}>
+                <PhraseEl plain>{challenge.eng}</PhraseEl>
+              </p>
+              <Show when={challenge.hint}>
+                <p>
+                  (hint: <TextEl>{challenge.hint!}</TextEl>)
+                </p>
+              </Show>
+            </>
+          )}
+        </For>
+      </div>
+    </div>
+  )
+}
+
+export function ChallengeDiscussEl(props: { children: ChallengeDiscuss }) {
+  return (
+    <div class="my-4 flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">
+      <p class="text-base text-z-subtitle">
+        {props.children.label ?
+          <TextEl>{props.children.label}</TextEl>
+        : "Discuss:"}
+      </p>
+      <div class="flex w-full flex-col">
+        <For each={props.children.items}>
+          {(challenge) => (
+            <p>
+              <TextEl>{challenge}</TextEl>
+            </p>
+          )}
+        </For>
+      </div>
+    </div>
+  )
+}
+
+export function ChallengeExplainDifferenceEl(props: {
+  children: ChallengeExplainDifference
+}) {
+  return (
+    <div class="my-4 flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">
+      <p class="text-base text-z-subtitle">Explain the difference between:</p>
+      <div class="grid w-full grid-cols-2">
+        <For each={props.children.items}>
+          {(challenge) => (
+            <>
+              <p class="font-ex-tok font-semibold">
+                <PhraseEl plain>{challenge.a}</PhraseEl>
+              </p>
+              <p class="font-ex-tok font-semibold">
+                <PhraseEl plain>{challenge.b}</PhraseEl>
+              </p>
+            </>
+          )}
+        </For>
+      </div>
     </div>
   )
 }
@@ -138,8 +261,4 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
       </For>
     </ul>
   )
-}
-
-export function ContentEl(props: { children: Content }) {
-  // TODO:
 }

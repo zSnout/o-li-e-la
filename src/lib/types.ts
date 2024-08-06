@@ -121,17 +121,27 @@ export interface ExampleLa {
   readonly eng: LaPhraseArray<"eng">
 }
 
+/** An object with its translation. */
+export interface Translated {
+  readonly tok: Phrase<"tok">
+  readonly eng: Phrase<"eng">
+}
+
 /** A collection of examples with the toki pona and English vertically aligned. */
-export interface ExampleSetAligned {
-  readonly type: "exs"
-  readonly entries: AtLeastOne<{
-    readonly tok: Phrase<"tok">
-    readonly en: Phrase<"eng">
-  }>
+export interface ExampleSetMany {
+  readonly type: "exs:many"
+  readonly entries: AtLeastOne<Translated>
+}
+
+/** A question-and-answer with English translations. */
+export interface ExampleSetQA {
+  readonly type: "exs:qa"
+  readonly q: Translated
+  readonly a: AtLeastOne<Translated>
 }
 
 /** Any example. */
-export type Example = ExampleTok | ExampleLa | ExampleSetAligned
+export type Example = ExampleTok | ExampleLa | ExampleSetMany | ExampleSetQA
 
 /** A challenge to translate from toki pona to English. */
 export interface ChallengeSingleTok {
@@ -150,7 +160,7 @@ export interface ChallengeTok {
 export interface ChallengeSingleEng {
   readonly eng: Phrase<"eng">
   readonly tok: PhraseArray<"tok">
-  readonly hint?: string
+  readonly hint?: Text
 }
 
 /** A challenge set to translate from English to toki pona. */
@@ -160,26 +170,40 @@ export interface ChallengeEng {
   readonly label?: Text
 }
 
+/** A challenge set to talk about a set of prompts. */
+export interface ChallengeDiscuss {
+  readonly type: "ch:discuss"
+  readonly items: AtLeastOne<Text>
+  readonly label?: Text
+  readonly notes?: readonly Text[]
+}
+
 /** A challenge to translate from toki pona rendered with `la` boxes. */
 export interface ChallengeLa {
   readonly type: "ch:la"
   readonly tok: LaPhrase<"tok">
   readonly eng: LaPhraseArray<"eng">
-  readonly hint?: string
+  readonly hint?: Text
 }
 
 /** A challenge to explain the difference between two sentences. */
-export interface ChallengeExplainDifference {
-  readonly type: "ch:diff"
+export interface ChallengeExplainDifferenceOne {
   readonly a: Phrase<"tok">
   readonly b: Phrase<"tok">
   readonly eng: AtLeastOne<Text>
+}
+
+/** A challenge to explain the differences between pairs of sentences. */
+export interface ChallengeExplainDifference {
+  readonly type: "ch:diff"
+  readonly items: AtLeastOne<ChallengeExplainDifferenceOne>
 }
 
 /** Any challenge. */
 export type Challenge =
   | ChallengeTok
   | ChallengeEng
+  | ChallengeDiscuss
   | ChallengeLa
   | ChallengeExplainDifference
 

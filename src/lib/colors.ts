@@ -53,7 +53,6 @@ const li = tag("text-rose-800", "text-rose-600", "li")
 const o = tag("text-rose-800", "text-rose-600", "o")
 const e = tag("text-green-800", "text-green-600", "e")
 const en = tag(EN_PARTICLE, "text-sky-600", "en")
-const sbj = tag(EN_PARTICLE, "text-sky-600", "en")
 const la = tag(LA_PARTICLE, LA_CONTENT, "la", true)
 const prela = tag(LA_PARTICLE, LA_CONTENT, "la")
 
@@ -69,7 +68,6 @@ const tags: Record<string, Tag> = {
   li,
   e,
   en,
-  sbj,
   la,
   prela,
   o,
@@ -139,7 +137,7 @@ function createTagFunction<T extends PhraseLang>(
 
     const words =
       last
-        .match(/\s?[.!?"`,()]|[^.!?"`,()\s]+/g)
+        .match(/\([^()]+\)|\s?[.!?"`,]|[^.!?"`,()\s]+/g)
         ?.map((x) => x.replace(/_/g, " ")) ?? []
 
     let currentPhrase = ""
@@ -152,7 +150,7 @@ function createTagFunction<T extends PhraseLang>(
     let nextIsAnuClause = false
 
     for (let word of words) {
-      if (!nextIsAnuClause && '.!?"`,()'.includes(word.trim())) {
+      if (!nextIsAnuClause && '.!?"`,'.includes(word.trim())) {
         pushCurrent()
 
         output.push({
@@ -163,6 +161,18 @@ function createTagFunction<T extends PhraseLang>(
           punctuation: true,
         })
 
+        continue
+      }
+
+      if (!nextIsAnuClause && word.startsWith("(")) {
+        pushCurrent()
+        output.push({
+          color: null,
+          text: word,
+          prefix: null,
+          postfix: null,
+          punctuation: false,
+        })
         continue
       }
 
@@ -286,7 +296,7 @@ function createTagFunction<T extends PhraseLang>(
     }
   }
 
-  return (strings: readonly string[]) => {
+  return (strings: readonly string[]): Phrase<T> => {
     const text = strings.join("").trim()
     const items = text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]
     return phrase(items.map(inner).flat(), lang)
@@ -296,9 +306,39 @@ function createTagFunction<T extends PhraseLang>(
 export const tok = createTagFunction(true, "tok")
 export const eng = createTagFunction(false, "eng")
 
+export function ptok(strings: readonly string[]): Phrase<"tok"> {
+  return {
+    lang: "tok",
+    content: [
+      {
+        color: null,
+        text: strings.join(""),
+        prefix: null,
+        postfix: null,
+        punctuation: false,
+      },
+    ],
+  }
+}
+
+export function peng(strings: readonly string[]): Phrase<"eng"> {
+  return {
+    lang: "eng",
+    content: [
+      {
+        color: null,
+        text: strings.join(""),
+        prefix: null,
+        postfix: null,
+        punctuation: false,
+      },
+    ],
+  }
+}
+
 const pi = tag("text-violet-800", "text-violet-600", "pi")
 
-export function tokPi(strings: TemplateStringsArray) {
+export function tokPi(strings: readonly string[]) {
   return phrase(
     strings
       .join("")
@@ -317,7 +357,8 @@ export function tokPi(strings: TemplateStringsArray) {
         } else {
           return pi(text)
         }
-      }),
+      })
+      .filter((x) => x.prefix || x.text),
     "tok",
   )
 }

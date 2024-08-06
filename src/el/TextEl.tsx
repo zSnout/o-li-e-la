@@ -6,10 +6,11 @@ export function TextEl(props: { children: Text }) {
     .map((text) =>
       typeof text == "object" ?
         "lang" in text ?
-          <PhraseEl>{text}</PhraseEl>
+          ["“", <PhraseEl>{text}</PhraseEl>, "”"]
         : <span
             classList={{
-              "font-strong": (text as TextFormatted).b,
+              "font-bold": (text as TextFormatted).b,
+              "text-z-heading": (text as TextFormatted).b,
               italic: (text as TextFormatted).i,
               underline: (text as TextFormatted).u,
               "line-through": (text as TextFormatted).x,

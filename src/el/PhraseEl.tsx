@@ -34,13 +34,13 @@ export function PhraseEl(props: {
         ) && " "}
         {item.prefix && [
           <span class={cls(item.prefix.color)}>{item.prefix.text}</span>,
-          " ",
+          item.text && " ",
         ]}
         <span class={item.color ? cls(item.color) : undefined}>
           {item.text}
         </span>
         {item.postfix && [
-          " ",
+          item.text && " ",
           <span class={cls(item.postfix.color)}>{item.postfix.text}</span>,
         ]}
       </span>
