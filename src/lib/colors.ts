@@ -49,6 +49,7 @@ const EN_PARTICLE = "text-sky-800"
 export const LA_PARTICLE = "text-violet-800"
 export const LA_CONTENT = "text-violet-600"
 export const LA_BORDER = "border-violet-800"
+export const LA_BORDER_GRAY = "border-slate-600"
 
 const li = tag("text-rose-800", "text-rose-600", "li")
 const o = tag("text-rose-800", "text-rose-600", "o")

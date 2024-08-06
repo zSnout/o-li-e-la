@@ -126,11 +126,11 @@ export const SLIDE_THE_PARTICLE_PI =
   slide`the particle %"pi"`(
     ch.diff`tomo moku lili`
       .against`tomo pi moku lili`
-      .explain`While %"tomo moku lili" refers to a small food-place (like a small restaurant), %"tomo pi moku lili" refers to a small-food place (like a snack bar).`,
-    ch.diff`lipu sona suno`
+      .explain`While %"tomo moku lili" refers to a small food-place (like a small restaurant), %"tomo pi moku lili" refers to a small-food place (like a snack bar).`
+      .also`lipu sona suno`
       .against`lipu pi sona suno`
-      .explain`While %"lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), %"lipu pi sona suno" could be a book about sun-knowledge (like a book on astrophysics).`,
-    ch.diff`jan poka mute`
+      .explain`While %"lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), %"lipu pi sona suno" could be a book about sun-knowledge (like a book on astrophysics).`
+      .also`jan poka mute`
       .against`jan pi poka mute`
       .explain`While %"jan poka mute" refers to many close people (maybe many friends, or maybe the people next to you in class), %"jan pi poka mute" refers to people who are very close by (think: the people next to you in a tight crowd).`,
   )

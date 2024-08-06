@@ -1,5 +1,10 @@
 import { For, Show } from "solid-js"
-import { LA_BORDER, LA_CONTENT, LA_PARTICLE } from "../lib/colors"
+import {
+  LA_BORDER,
+  LA_BORDER_GRAY,
+  LA_CONTENT,
+  LA_PARTICLE,
+} from "../lib/colors"
 import type {
   ChallengeDiscuss,
   ChallengeEng,
@@ -167,7 +172,7 @@ export function ChallengeEngEl(props: { children: ChallengeEng }) {
         <For each={props.children.items}>
           {(challenge) => (
             <>
-              <p classList={{ "grid-cols-2": !challenge.hint }}>
+              <p classList={{ "col-span-2": !challenge.hint }}>
                 <PhraseEl plain>{challenge.eng}</PhraseEl>
               </p>
               <Show when={challenge.hint}>
@@ -233,12 +238,13 @@ export function ChallengeLaEl(props: { children: ChallengeLa }) {
     <div class="mx-auto my-8 flex w-full flex-col items-center border-x border-l-z-ch border-r-transparent px-[calc(3rem_-_1px)]">
       <div class="flex w-full px-4 pb-1">
         <p class="whitespace-nowrap font-ex-tok font-semibold">
-          <span class={LA_CONTENT}>{props.children.tok[0]}</span>
-          <span class={LA_PARTICLE}> la</span>
+          {props.children.tok[0]} la
         </p>
       </div>
       <div
-        class={"flex w-full rounded-xl border-[0.25rem] px-3 py-1 " + LA_BORDER}
+        class={
+          "flex w-full rounded-xl border-[0.25rem] px-3 py-1 " + LA_BORDER_GRAY
+        }
       >
         <p class="whitespace-nowrap font-ex-tok font-semibold">
           <PhraseEl plain>{props.children.tok[1]}</PhraseEl>
@@ -250,18 +256,27 @@ export function ChallengeLaEl(props: { children: ChallengeLa }) {
 
 export function InfoListUlEl(props: { children: InfoListUl }) {
   return (
-    <ul class="my-4 pl-4 font-ex-eng">
-      <For each={props.children.items}>
-        {(item) => (
-          <li class="flex items-baseline gap-4">
-            <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-current" />
-            <span>
-              <TextEl>{item.text}</TextEl>
-            </span>
-          </li>
-        )}
-      </For>
-    </ul>
+    <Show
+      when={props.children.items.length != 1}
+      fallback={
+        <p class="font-ex-eng">
+          <TextEl>{props.children.items[0].text}</TextEl>
+        </p>
+      }
+    >
+      <ul class="my-4 pl-4 font-ex-eng">
+        <For each={props.children.items}>
+          {(item) => (
+            <li class="flex items-baseline gap-4">
+              <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-current" />
+              <span>
+                <TextEl>{item.text}</TextEl>
+              </span>
+            </li>
+          )}
+        </For>
+      </ul>
+    </Show>
   )
 }
 
@@ -271,7 +286,7 @@ export function Content(props: { children: Content }) {
       return <ExampleTokEl>{props.children}</ExampleTokEl>
     case "ex:la":
       return <ExampleLaEl>{props.children}</ExampleLaEl>
-    case "exs:many":
+    case "exs:aligned":
       return <ExampleSetManyEl>{props.children}</ExampleSetManyEl>
     case "exs:qa":
       return <ExampleSetQAEl>{props.children}</ExampleSetQAEl>

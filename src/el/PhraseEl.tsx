@@ -1,6 +1,6 @@
 import type { Color, Phrase, PhraseLang } from "../lib/types"
 
-const DEV_SHOW_COLORS = true
+const DEV_SHOW_COLORS = false
 
 export function PhraseEl(props: {
   children: Phrase<PhraseLang>
