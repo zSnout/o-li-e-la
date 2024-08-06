@@ -51,7 +51,7 @@ const tan = tag("text-orange-800", "text-orange-600", "tan")
 const sama = tag("text-orange-800", "text-orange-600", "sama")
 const kepeken = tag("text-orange-800", "text-orange-600", "kepeken")
 
-const interj = tag("text-yellow-800", "text-yellow-600", "")
+const interj = tag("text-fuchsia-800", "text-fuchsia-600", "")
 
 const tags: Record<string, Tag> = {
   li,
@@ -118,7 +118,10 @@ function createTagFunction(includeParticles: boolean) {
       last = "@@ " + last
     }
 
-    const words = last.match(/[.!?"`,()]|[^.!?"`,()\s]+/g) ?? []
+    const words =
+      last
+        .match(/[.!?"`,()]|[^.!?"`,()\s]+/g)
+        ?.map((x) => x.replace(/_/g, " ")) ?? []
 
     let currentPhrase = ""
     let currentTag: Tag | undefined
@@ -282,7 +285,7 @@ export function tokPi(strings: TemplateStringsArray) {
       .trim()
       .split(/\bpi\b/g)
       .map((x) => x.trim())
-      .map((text, index) => {
+      .map((text, index): Colored => {
         if (index == 0) {
           return {
             color: "text-orange-600",

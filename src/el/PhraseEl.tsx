@@ -19,7 +19,7 @@ export function PhraseEl(props: { children: Phrase; class?: string }) {
       return (
           index == 0 ||
             item.punctuation ||
-            (!item.prefix && item.text.startsWith("'"))
+            (item.prefix?.text ?? item.text).startsWith("'")
         ) ?
           el
         : [" ", el]

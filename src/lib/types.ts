@@ -33,7 +33,7 @@ export type AnyColorName =
 export type ColorName =
   | "rose"
   | "orange"
-  | "yellow"
+  | "fuchsia"
   | "green"
   | "sky"
   | "violet"
@@ -98,9 +98,10 @@ export type Text = AtLeastOne<TextItem>
 
 // #endregion
 
-// #region sections
+// #region content
 
-export interface ExampleFromTok {
+/** An example from toki pona to English. */
+export interface ExampleTok {
   readonly type: "ex:tok"
   readonly tok: Phrase
   /** Intermediate English forms */
@@ -108,34 +109,39 @@ export interface ExampleFromTok {
   readonly eng: PhraseArray
 }
 
-export interface ExampleFromEng {
-  readonly type: "ex:eng"
-  readonly eng: Phrase
-  /** Intermediate English forms */
-  readonly inter?: readonly Phrase[]
-  readonly tok: PhraseArray
-}
-
+/** An example using `la` boxes. */
 export interface ExampleLa {
   readonly type: "ex:la"
   readonly tok: LaPhrase
   readonly eng: LaPhraseArray
 }
 
-export interface ChallengeFromTok {
+/** A collection of examples with the toki pona and English vertically aligned. */
+export interface ExampleSetAligned {
+  readonly type: "exs"
+  readonly entries: AtLeastOne<{ readonly tok: Phrase; readonly en: Phrase }>
+}
+
+/** Any example. */
+export type Example = ExampleTok | ExampleLa | ExampleSetAligned
+
+/** A challenge to translate from toki pona to English. */
+export interface ChallengeTok {
   readonly type: "ch:tok"
   readonly tok: Phrase
   readonly eng: PhraseArray
   readonly hint?: string
 }
 
-export interface ChallengeFromEng {
+/** A challenge to translate from English to toki pona. */
+export interface ChallengeEng {
   readonly type: "ch:eng"
   readonly eng: Phrase
   readonly tok: PhraseArray
   readonly hint?: string
 }
 
+/** A challenge to translate from toki pona rendered with `la` boxes. */
 export interface ChallengeLa {
   readonly type: "ch:la"
   readonly tok: LaPhrase
@@ -143,6 +149,7 @@ export interface ChallengeLa {
   readonly hint?: string
 }
 
+/** A challenge to explain the difference between two */
 export interface ChallengeExplainDifference {
   readonly type: "ch:diff"
   readonly a: Phrase
@@ -150,66 +157,82 @@ export interface ChallengeExplainDifference {
   readonly eng: AtLeastOne<Text>
 }
 
-export interface ExamplesAligned {
-  readonly type: "exs"
-  readonly entries: AtLeastOne<{ readonly tok: Phrase; readonly en: Phrase }>
-}
+/** Any challenge. */
+export type Challenge =
+  | ChallengeTok
+  | ChallengeEng
+  | ChallengeLa
+  | ChallengeExplainDifference
 
+/** A list entry. */
 export interface ListEntry {
   readonly text: Text
   readonly sub?: Text[]
 }
 
-export interface ListUl {
+/** An unordered list. */
+export interface InfoListUl {
   readonly type: "ul"
   readonly items: AtLeastOne<ListEntry>
 }
 
-export type Section =
-  | ExampleFromTok
-  | ExampleFromEng
-  | ExampleLa
-  | ChallengeFromEng
-  | ChallengeFromTok
-  | ChallengeLa
-  | ChallengeExplainDifference
-  | ExamplesAligned
-  | ListUl
+/** Any informational section. */
+export type Info = InfoListUl
 
-export type Content = AtLeastOne<Section>
+/** Any piece of content. */
+export type Content = Example | Challenge | Info
+
+/** A set of content. */
+export type ContentArray = AtLeastOne<Content>
 
 // #endregion
 
 // #region slides
 
+/** The source of a slide's content. */
 export interface Source {
   title: string
   author: string
   url: string
 }
 
+/** A base interface all slides inherit from. */
 export interface Slide {
+  /** The automatically-generated ID of this slide. */
   readonly id: number
+
+  /** The IDs of slides referenced by this one. */
   readonly refs?: readonly number[]
+
+  /**
+   * Any notes added by the slide creator. These only show up in the presenter
+   * view.
+   */
   readonly notes?: Text[]
 }
 
+/**
+ * A regular slide, with a title, content, possible source, and possible vocab
+ * list.
+ */
 export interface SlideStandard extends Slide {
   readonly title: Text
-  readonly content: Content
+  readonly content: ContentArray
   readonly vocab?: Word[]
   readonly source?: Source
 }
 
+/** A slide introducing a new day, with multilingual titles and an agenda. */
 export interface SlideSectionHeader extends Slide {
-  readonly titleEng: string
-  readonly titleTok: string
-  readonly titleSp: string
-  readonly agenda: AtLeastOne<string>
+  readonly titleEng: Text
+  readonly titleTok: Text
+  readonly titleSp: Text
+  readonly agenda: AtLeastOne<Text>
 }
 
+/** A slide previewing next class's vocabulary. */
 export interface SlideNextClassVocab extends Slide {
-  readonly titleEng: string
+  readonly titleEng: Text
   readonly vocab: AtLeastOne<Word>
 }
 
