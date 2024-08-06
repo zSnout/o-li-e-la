@@ -17,12 +17,8 @@ export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
 
 export const SLIDE_PREPOSITIONS_AS_PREDICATES =
   slide`prepositions as predicates`
-    .vocab(
-      pilin,
-    )
-    .vocab(
-      pana,
-    )
+    .vocab(pilin)
+    .vocab(pana)
     .content(
       ul`prepositions can be entire predicates, without needing a verb before them`,
       ex.tok`mi tawa tomo sina.`
@@ -47,8 +43,7 @@ export const SLIDE_LA_FOR_MARKING_TIME =
       .eng`coming time la furry creatures li come tawa to the forest`,
     ch.la`tenpo weka la toki uta li ante mute`
       .eng`far time la spoken language li was very different`,
-    ch
-      .eng
+    ch.eng
       .label`Translate using "la":`
       .eng`Right now, la my parents li are grounding e me.`
       .tok`tenpo ni la mama mi li awen e mi lon tomo.`,
@@ -121,8 +116,7 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
       .eng`I li did that.`
       .alt`mi ni ala.`
       .eng`I li didn't do that.`,
-    ch
-      .discuss
+    ch.discuss
       .label`Respond to these questions:`
       .prompt`akesi li moli ala moli?`
       .note`hi`
