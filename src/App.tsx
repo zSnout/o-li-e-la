@@ -1,4 +1,10 @@
-import { ChallengeTokEl, ExampleTokEl, Title } from "./el/Content"
+import {
+  ChallengeEngEl,
+  ChallengeTokEl,
+  ExampleTokEl,
+  InfoListUlEl,
+  Title,
+} from "./el/Content"
 import { SlideWithVocab } from "./el/Slide"
 import { Vocab } from "./el/Vocab"
 import { eng, tok } from "./lib/colors"
@@ -26,6 +32,16 @@ export function App() {
   return (
     <SlideWithVocab vocab={[<Vocab word={pilin} />, <Vocab word={pana} />]}>
       <Title>{text`prepositions as predicates`}</Title>
+      <InfoListUlEl>
+        {{
+          type: "ul",
+          items: [
+            {
+              text: text`prepositions can be entire predicates, without needing a verb before them`,
+            },
+          ],
+        }}
+      </InfoListUlEl>
       <ExampleTokEl>
         {{
           type: "ex:tok",
@@ -53,6 +69,18 @@ export function App() {
           eng: [eng`This sama is_like you.`],
         }}
       </ChallengeTokEl>
+      <ChallengeEngEl>
+        {{
+          type: "ch:eng",
+          eng: eng`He tawa 's_going_to the school.`,
+          tok: [tok`ona li tawa ma sona.`],
+        }}
+        {{
+          type: "ch:eng",
+          eng: eng`We're walking towards the loud sound.`,
+          tok: [tok`ona li tawa ma sona.`],
+        }}
+      </ChallengeEngEl>
     </SlideWithVocab>
   )
 }

@@ -35,6 +35,7 @@ export default {
       colors: {
         "z-border-grid-line": "var(--z-border-grid-line)",
         "z-text-grid-label": "var(--z-text-grid-label)",
+        "z-ch": "var(--z-border)",
       },
       textColor: {
         "z-grid-label": "var(--z-text-grid-label)",

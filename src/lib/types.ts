@@ -46,12 +46,12 @@ export type Color<
 > = `${P}-${C}-${T}` | `${P}-black`
 
 export interface Affix {
-  readonly color: Color
+  readonly color: Color<800>
   readonly text: string
 }
 
 export interface Colored {
-  readonly color: Color | null
+  readonly color: Color<600> | null
   readonly text: string
   readonly prefix: Affix | null
   readonly postfix: Affix | null
@@ -167,7 +167,7 @@ export type Challenge =
 /** A list entry. */
 export interface ListEntry {
   readonly text: Text
-  readonly sub?: Text[]
+  // readonly sub?: Text[]
 }
 
 /** An unordered list. */
