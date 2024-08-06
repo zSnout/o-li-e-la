@@ -1,7 +1,10 @@
-import { createEffect, type JSXElement } from "solid-js"
+import { children, createEffect, For, Show, type JSXElement } from "solid-js"
 import { createScreenSize } from "../lib/size"
+import type { SlideStandard } from "../lib/types"
+import { Content, Title } from "./Content"
+import { Vocab } from "./Vocab"
 
-export function Slide(props: { children: JSXElement; class?: string }) {
+export function SlideBase(props: { children: JSXElement; class?: string }) {
   const size = createScreenSize()
   let el: HTMLDivElement
 
@@ -26,19 +29,40 @@ export function Slide(props: { children: JSXElement; class?: string }) {
 }
 
 export function SlideWithoutVocab(props: { children: JSXElement }) {
-  return <Slide class="p-8 pt-12">{props.children}</Slide>
+  return <SlideBase class="p-8 pt-12">{props.children}</SlideBase>
 }
 
-export function SlideWithVocab(props: {
+export function SlideManual(props: {
   children: JSXElement
-  vocab: JSXElement
+  vocab?: JSXElement
 }) {
+  const vocab = children(() => props.vocab)
+
   return (
-    <Slide class="grid grid-cols-[2fr,1fr] p-4">
-      <main class="py-8 pl-4 pr-8">{props.children}</main>
-      <ul class="flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
-        {props.vocab}
-      </ul>
-    </Slide>
+    <SlideBase class={vocab() ? "grid grid-cols-[2fr,1fr] p-4" : "p-8 pt-12"}>
+      <Show when={vocab()} fallback={props.children}>
+        <main class="py-8 pl-4 pr-8">{props.children}</main>
+        <ul class="flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
+          {props.vocab}
+        </ul>
+      </Show>
+    </SlideBase>
+  )
+}
+
+export function SlideStandardEl(props: { children: SlideStandard }) {
+  return (
+    <SlideManual
+      vocab={
+        props.children.vocab?.length ?
+          <For each={props.children.vocab}>
+            {(word) => <Vocab>{word}</Vocab>}
+          </For>
+        : undefined
+      }
+    >
+      <Title>{props.children.title}</Title>
+      <For each={props.children.content}>{(e) => <Content>{e}</Content>}</For>
+    </SlideManual>
   )
 }

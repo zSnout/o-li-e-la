@@ -6,6 +6,7 @@ import type {
   ChallengeExplainDifference,
   ChallengeLa,
   ChallengeTok,
+  Content,
   ExampleLa,
   ExampleSetMany,
   ExampleSetQA,
@@ -261,4 +262,33 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
       </For>
     </ul>
   )
+}
+
+export function Content(props: { children: Content }) {
+  switch (props.children.type) {
+    case "ex:tok":
+      return <ExampleTokEl>{props.children}</ExampleTokEl>
+    case "ex:la":
+      return <ExampleLaEl>{props.children}</ExampleLaEl>
+    case "exs:many":
+      return <ExampleSetManyEl>{props.children}</ExampleSetManyEl>
+    case "exs:qa":
+      return <ExampleSetQAEl>{props.children}</ExampleSetQAEl>
+    case "ch:tok":
+      return <ChallengeTokEl>{props.children}</ChallengeTokEl>
+    case "ch:eng":
+      return <ChallengeEngEl>{props.children}</ChallengeEngEl>
+    case "ch:discuss":
+      return <ChallengeDiscussEl>{props.children}</ChallengeDiscussEl>
+    case "ch:la":
+      return <ChallengeLaEl>{props.children}</ChallengeLaEl>
+    case "ch:diff":
+      return (
+        <ChallengeExplainDifferenceEl>
+          {props.children}
+        </ChallengeExplainDifferenceEl>
+      )
+    case "ul":
+      return <InfoListUlEl>{props.children}</InfoListUlEl>
+  }
 }

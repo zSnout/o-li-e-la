@@ -1,7 +1,6 @@
 import {
   ChallengeDiscussEl,
   ChallengeEngEl,
-  ChallengeExplainDifferenceEl,
   ChallengeLaEl,
   ChallengeTokEl,
   ExampleLaEl,
@@ -11,15 +10,18 @@ import {
   InfoListUlEl,
   Title,
 } from "./el/Content"
-import { SlideWithoutVocab, SlideWithVocab } from "./el/Slide"
+import { SlideManual, SlideStandardEl, SlideWithoutVocab } from "./el/Slide"
 import { Vocab } from "./el/Vocab"
 import { eng, peng, ptok, tok, tokPi } from "./lib/colors"
 import { text } from "./lib/text"
+import type { SlideStandard } from "./lib/types"
 import { pana, pilin } from "./lib/vocab"
 
 export function SlideTestSyntaxHighlighting() {
   return (
-    <SlideWithVocab vocab={[<Vocab word={pilin} />, <Vocab word={pana} />]}>
+    <SlideManual
+      vocab={[<Vocab children={pilin} />, <Vocab children={pana} />]}
+    >
       <Title>{text`the particle pi`}</Title>
       <ExampleTokEl>
         {{
@@ -30,13 +32,15 @@ export function SlideTestSyntaxHighlighting() {
           ],
         }}
       </ExampleTokEl>
-    </SlideWithVocab>
+    </SlideManual>
   )
 }
 
 export function SlidePrepositionsAsPredicates() {
   return (
-    <SlideWithVocab vocab={[<Vocab word={pilin} />, <Vocab word={pana} />]}>
+    <SlideManual
+      vocab={[<Vocab children={pilin} />, <Vocab children={pana} />]}
+    >
       <Title>{text`prepositions as predicates`}</Title>
       <InfoListUlEl>
         {{
@@ -92,7 +96,7 @@ export function SlidePrepositionsAsPredicates() {
           ],
         }}
       </ChallengeEngEl>
-    </SlideWithVocab>
+    </SlideManual>
   )
 }
 
@@ -330,39 +334,40 @@ export function SlideRespondingToXAlaX() {
 }
 
 export function SlideTheParticlePi() {
-  return (
-    <SlideWithoutVocab>
-      <Title>{text`the particle %"pi"`}</Title>
-      <ChallengeExplainDifferenceEl>
-        {{
-          type: "ch:diff",
-          items: [
-            {
-              a: tokPi`tomo moku lili`,
-              b: tokPi`tomo pi moku lili`,
-              eng: [
-                text`While %"tomo moku lili" refers to a small food-place (like a small restaurant), %"tomo pi moku lili" refers to a small-food place (like a snack bar).`,
-              ],
-            },
-            {
-              a: tokPi`lipu sona suno`,
-              b: tokPi`lipu pi sona suno`,
-              eng: [
-                text`While %"lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), %"lipu pi sona suno" could be a book about sun-knowledge (like a book on astrophysics).`,
-              ],
-            },
-            {
-              a: tokPi`jan poka wawa`,
-              b: tokPi`jan pi poka wawa`,
-              eng: [
-                text`While %"jan poka wawa" is a powerful person who is close by, %"jan pi poka wawa" is a person who is **very** close by.`,
-              ],
-            },
+  return <SlideStandardEl>{SLIDE_THE_PARTICLE_PI}</SlideStandardEl>
+}
+
+const SLIDE_THE_PARTICLE_PI: SlideStandard = {
+  id: 0,
+  title: text`the particle %"pi"`,
+  content: [
+    {
+      type: "ch:diff",
+      items: [
+        {
+          a: tokPi`tomo moku lili`,
+          b: tokPi`tomo pi moku lili`,
+          eng: [
+            text`While %"tomo moku lili" refers to a small food-place (like a small restaurant), %"tomo pi moku lili" refers to a small-food place (like a snack bar).`,
           ],
-        }}
-      </ChallengeExplainDifferenceEl>
-    </SlideWithoutVocab>
-  )
+        },
+        {
+          a: tokPi`lipu sona suno`,
+          b: tokPi`lipu pi sona suno`,
+          eng: [
+            text`While %"lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), %"lipu pi sona suno" could be a book about sun-knowledge (like a book on astrophysics).`,
+          ],
+        },
+        {
+          a: tokPi`jan poka wawa`,
+          b: tokPi`jan pi poka wawa`,
+          eng: [
+            text`While %"jan poka wawa" is a powerful person who is close by, %"jan pi poka wawa" is a person who is **very** close by.`,
+          ],
+        },
+      ],
+    },
+  ],
 }
 
 export default SlideTheParticlePi
