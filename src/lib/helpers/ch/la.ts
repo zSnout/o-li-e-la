@@ -1,12 +1,17 @@
 import * as color from "../../colors"
-import type { ExampleLa, LaPhraseArrayMutable, ToContent } from "../../types"
+import type {
+  ChallengeLa,
+  ExampleLa,
+  LaPhraseArrayMutable,
+  ToContent,
+} from "../../types"
 
 export interface Inter {
   /** Add an English translation for the last toki pona entry. */
   eng(strings: TemplateStringsArray): Eng
 }
 
-export interface Eng extends ToContent<ExampleLa> {
+export interface Eng extends ToContent<ChallengeLa> {
   /** An an alternate English translation. */
   alt(strings: TemplateStringsArray): Eng
 }
@@ -24,7 +29,7 @@ export function la(t: TemplateStringsArray) {
           return Eng
         },
         finalize() {
-          return { type: "ex:la", tok, eng }
+          return { type: "ch:la", tok, eng }
         },
       }
       return Eng

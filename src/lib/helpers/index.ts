@@ -1,4 +1,4 @@
-import { text } from "../text"
+import { text, type TextParams } from "../text"
 import type {
   AtLeastOne,
   Content,
@@ -7,11 +7,10 @@ import type {
   SlideStandard,
   Source,
   Text,
-  TextItem,
+  ToContent,
   Word,
 } from "../types"
 import { pilin } from "../vocab"
-import type { ToContent } from "./ex"
 
 export type ToContentItem = Content | ToContent<Content>
 export type ToContentArray = AtLeastOne<ToContentItem>
@@ -19,15 +18,37 @@ export type ToContentArray = AtLeastOne<ToContentItem>
 let id = 0
 
 export interface SlideBuilder {
+  /**
+   * Finalizes the slide and adds content to it.
+   *
+   * Alternate form of `.content()`.
+   */
   (...content: ToContentArray): SlideStandard
+
+  /**
+   * Finalizes the slide and adds content to it.
+   *
+   * Alternate form of `()`.
+   */
   content(...content: ToContentArray): SlideStandard
-  ref(slide: Slide): SlideBuilder
-  source(source: Source): SlideBuilder
-  vocab(word: Word): SlideBuilder
-  note(strings: TemplateStringsArray): SlideBuilder
+
+  /** Adds a reference to another slide. */
+  ref(slide: Slide): this
+
+  /** Adds a vocab word to this slide. */
+  vocab(word: Word): this
+
+  /** Adds a note to this slide visible in the presenter's view. */
+  note(...note: TextParams): this
 }
 
-export function slide(title: TemplateStringsArray): SlideBuilder {
+export interface SlideBuilderWithoutSource extends SlideBuilder {
+  /** Marks the source of this slide. */
+  source(source: Source): SlideBuilder
+}
+
+/** Builds a {@link SlideStandard} object, starting with the slide title. */
+export function slide(...title: TextParams): SlideBuilderWithoutSource {
   const refs: number[] = []
   const vocab: Word[] = []
   let source: Source | undefined
@@ -36,7 +57,7 @@ export function slide(title: TemplateStringsArray): SlideBuilder {
   function builder(...content: ToContentArray): SlideStandard {
     return {
       id: ++id,
-      title: text(title),
+      title: text(...title),
       refs,
       vocab,
       source,
@@ -64,11 +85,8 @@ export function slide(title: TemplateStringsArray): SlideBuilder {
     return builder
   }
 
-  builder.note = (
-    strings: TemplateStringsArray,
-    ...interps: (Text | TextItem)[]
-  ) => {
-    notes.push(text(strings, ...interps))
+  builder.note = (...note: TextParams) => {
+    notes.push(text(...note))
     return builder
   }
 

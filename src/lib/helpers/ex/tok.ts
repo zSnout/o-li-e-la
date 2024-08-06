@@ -1,6 +1,10 @@
-import type { ToContent } from "."
 import * as color from "../../colors"
-import type { ExampleTok, Phrase, PhraseArrayMutable } from "../../types"
+import type {
+  ExampleTok,
+  Phrase,
+  PhraseArrayMutable,
+  ToContent,
+} from "../../types"
 
 export interface Inter {
   /** Adds an intermediate English representation. */

@@ -1,6 +1,10 @@
-import type { ToContent } from "."
 import * as color from "../../colors"
-import type { AtLeastOneMutable, ExampleSetMany, Translated } from "../../types"
+import type {
+  AtLeastOneMutable,
+  ExampleSetMany,
+  ToContent,
+  Translated,
+} from "../../types"
 
 export interface NeedsEng {
   /** Add an English translation to the last toki pona entry. */

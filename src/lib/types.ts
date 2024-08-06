@@ -157,7 +157,7 @@ export type Example = ExampleTok | ExampleLa | ExampleSetMany | ExampleSetQA
 export interface ChallengeSingleTok {
   readonly tok: Phrase<"tok">
   readonly eng: PhraseArray<"eng">
-  readonly hint?: string
+  readonly hint?: Text
 }
 
 /** A challenge set to translate from toki pona to English. */
@@ -290,3 +290,7 @@ export interface SlideNextClassVocab extends Slide {
 }
 
 // #endregion
+
+export interface ToContent<T extends Content> {
+  finalize(): T
+}

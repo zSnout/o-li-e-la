@@ -141,6 +141,7 @@ export function ExampleSetQAEl(props: { children: ExampleSetQA }) {
 }
 
 export function ChallengeTokEl(props: { children: ChallengeTok }) {
+  // TODO: show hints
   return (
     <div class="my-4 flex flex-col items-center border-l border-z-ch px-4">
       <For each={props.children.items}>

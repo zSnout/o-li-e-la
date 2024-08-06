@@ -1,6 +1,11 @@
 import { eng, tok, tokPi } from "./colors"
 import type { Text, TextItem } from "./types"
 
+export type TextParams = [
+  strings: TemplateStringsArray,
+  ...interps: (Text | TextItem)[],
+]
+
 export function text(
   strings: TemplateStringsArray,
   ...interps: (Text | TextItem)[]

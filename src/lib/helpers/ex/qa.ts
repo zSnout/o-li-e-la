@@ -1,6 +1,10 @@
-import type { ToContent } from "."
 import * as color from "../../colors"
-import type { AtLeastOneMutable, ExampleSetQA, Translated } from "../../types"
+import type {
+  AtLeastOneMutable,
+  ExampleSetQA,
+  ToContent,
+  Translated,
+} from "../../types"
 
 export interface QNeedsEng {
   /** Add the English translation of the question. */
