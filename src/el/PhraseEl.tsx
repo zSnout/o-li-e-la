@@ -1,6 +1,6 @@
 import type { Color, Phrase } from "../lib/types"
 
-const DEV_SHOW_COLORS = false
+const DEV_SHOW_COLORS = true
 
 export function PhraseEl(props: { children: Phrase; plain?: boolean }) {
   function cls(text: Color<600 | 800>) {
