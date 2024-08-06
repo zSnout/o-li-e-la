@@ -49,7 +49,17 @@ export default {
     zSnoutTheme(),
 
     /** @type {import("tailwindcss/types/config").PluginCreator} */
-    ({ addVariant, matchVariant }) => {
+    ({ addVariant, matchVariant, addComponents }) => {
+      addComponents({
+        ".size-slide": {
+          width: "960px",
+          "min-width": "960px",
+          "max-width": "960px",
+          height: "540px",
+          "min-height": "540px",
+          "max-height": "540px",
+        },
+      })
       addVariant("xs", "@media (min-width: 400px)")
       addVariant("scrollbar", "&::-webkit-scrollbar")
       addVariant("hover", ["&:hover", "&.ctx"])
