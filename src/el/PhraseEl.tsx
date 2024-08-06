@@ -1,8 +1,11 @@
-import type { Color, Phrase } from "../lib/types"
+import type { Color, Phrase, PhraseLang } from "../lib/types"
 
 const DEV_SHOW_COLORS = true
 
-export function PhraseEl(props: { children: Phrase; plain?: boolean }) {
+export function PhraseEl(props: {
+  children: Phrase<PhraseLang>
+  plain?: boolean
+}) {
   function cls(text: Color<600 | 800>) {
     if (DEV_SHOW_COLORS && import.meta.env.DEV) {
       return text
@@ -15,7 +18,7 @@ export function PhraseEl(props: { children: Phrase; plain?: boolean }) {
     return text
   }
 
-  return props.children
+  return props.children.content
     .map((item, index) => (
       <span
         class={

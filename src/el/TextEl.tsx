@@ -5,8 +5,8 @@ export function TextEl(props: { children: Text }) {
   return props.children
     .map((text) =>
       typeof text == "object" ?
-        "phrase" in text ?
-          <PhraseEl>{text.phrase}</PhraseEl>
+        "lang" in text ?
+          <PhraseEl>{text}</PhraseEl>
         : <span
             classList={{
               "font-strong": (text as TextFormatted).b,

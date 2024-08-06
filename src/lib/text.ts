@@ -60,7 +60,7 @@ export function text(
         }
         const sub = text.slice(1, end)
         text = text.slice(end + 1)
-        output.push({ lang: "tok", phrase: tok([sub]) })
+        output.push(tok([sub]))
         continue
       }
 

@@ -2,13 +2,18 @@
 
 export type AtLeastOne<T> = readonly [T, ...T[]]
 
-export type Phrase = AtLeastOne<Colored>
+export type PhraseLang = "tok" | "eng"
 
-export type LaPhrase = [context: string, main: Phrase]
+export type Phrase<T extends PhraseLang> = {
+  lang: T
+  content: AtLeastOne<Colored>
+}
 
-export type PhraseArray = AtLeastOne<Phrase>
+export type LaPhrase<T extends PhraseLang> = [context: string, main: Phrase<T>]
 
-export type LaPhraseArray = AtLeastOne<LaPhrase>
+export type PhraseArray<T extends PhraseLang> = AtLeastOne<Phrase<T>>
+
+export type LaPhraseArray<T extends PhraseLang> = AtLeastOne<LaPhrase<T>>
 
 export type AnyColorName =
   | "red"
@@ -92,12 +97,7 @@ export interface TextFormatted {
   readonly length?: undefined
 }
 
-export interface TextPhrase {
-  readonly lang: "eng" | "tok"
-  readonly phrase: Phrase
-}
-
-export type TextItem = string | TextPhrase | TextFormatted
+export type TextItem = string | Phrase<PhraseLang> | TextFormatted
 
 export type Text = AtLeastOne<TextItem>
 
@@ -108,23 +108,26 @@ export type Text = AtLeastOne<TextItem>
 /** An example from toki pona to English. */
 export interface ExampleTok {
   readonly type: "ex:tok"
-  readonly tok: Phrase
+  readonly tok: Phrase<"tok">
   /** Intermediate English forms */
-  readonly inter?: readonly Phrase[]
-  readonly eng: PhraseArray
+  readonly inter?: readonly Phrase<"eng">[]
+  readonly eng: PhraseArray<"eng">
 }
 
 /** An example using `la` boxes. */
 export interface ExampleLa {
   readonly type: "ex:la"
-  readonly tok: LaPhrase
-  readonly eng: LaPhraseArray
+  readonly tok: LaPhrase<"tok">
+  readonly eng: LaPhraseArray<"eng">
 }
 
 /** A collection of examples with the toki pona and English vertically aligned. */
 export interface ExampleSetAligned {
   readonly type: "exs"
-  readonly entries: AtLeastOne<{ readonly tok: Phrase; readonly en: Phrase }>
+  readonly entries: AtLeastOne<{
+    readonly tok: Phrase<"tok">
+    readonly en: Phrase<"eng">
+  }>
 }
 
 /** Any example. */
@@ -132,8 +135,8 @@ export type Example = ExampleTok | ExampleLa | ExampleSetAligned
 
 /** A challenge to translate from toki pona to English. */
 export interface ChallengeSingleTok {
-  readonly tok: Phrase
-  readonly eng: PhraseArray
+  readonly tok: Phrase<"tok">
+  readonly eng: PhraseArray<"eng">
   readonly hint?: string
 }
 
@@ -145,8 +148,8 @@ export interface ChallengeTok {
 
 /** A challenge to translate from English to toki pona. */
 export interface ChallengeSingleEng {
-  readonly eng: Phrase
-  readonly tok: PhraseArray
+  readonly eng: Phrase<"eng">
+  readonly tok: PhraseArray<"tok">
   readonly hint?: string
 }
 
@@ -160,16 +163,16 @@ export interface ChallengeEng {
 /** A challenge to translate from toki pona rendered with `la` boxes. */
 export interface ChallengeLa {
   readonly type: "ch:la"
-  readonly tok: LaPhrase
-  readonly eng: LaPhraseArray
+  readonly tok: LaPhrase<"tok">
+  readonly eng: LaPhraseArray<"eng">
   readonly hint?: string
 }
 
 /** A challenge to explain the difference between two sentences. */
 export interface ChallengeExplainDifference {
   readonly type: "ch:diff"
-  readonly a: Phrase
-  readonly b: Phrase
+  readonly a: Phrase<"tok">
+  readonly b: Phrase<"tok">
   readonly eng: AtLeastOne<Text>
 }
 

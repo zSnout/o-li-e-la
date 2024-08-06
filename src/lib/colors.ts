@@ -1,4 +1,11 @@
-import type { Affix, Color, Colored, Phrase } from "./types"
+import type {
+  Affix,
+  AtLeastOne,
+  Color,
+  Colored,
+  Phrase,
+  PhraseLang,
+} from "./types"
 
 function tag(
   tagColor: Color<800>,
@@ -48,6 +55,7 @@ const e = tag("text-green-800", "text-green-600", "e")
 const en = tag(EN_PARTICLE, "text-sky-600", "en")
 const sbj = tag(EN_PARTICLE, "text-sky-600", "en")
 const la = tag(LA_PARTICLE, LA_CONTENT, "la", true)
+const prela = tag(LA_PARTICLE, LA_CONTENT, "la")
 
 const lon = tag("text-orange-800", "text-orange-600", "lon")
 const tawa = tag("text-orange-800", "text-orange-600", "tawa")
@@ -63,6 +71,7 @@ const tags: Record<string, Tag> = {
   en,
   sbj,
   la,
+  prela,
   o,
   lon,
   tawa,
@@ -80,15 +89,21 @@ const taso: Colored = {
   punctuation: false,
 }
 
-function phrase(text: readonly Colored[]): Phrase {
+function phrase<T extends PhraseLang>(
+  text: readonly Colored[],
+  lang: T,
+): Phrase<T> {
   if (text.length == 0) {
     throw new Error("Expected at least one word.")
   }
 
-  return text as Phrase
+  return { lang, content: text as AtLeastOne<Colored> }
 }
 
-function createTagFunction(includeParticles: boolean) {
+function createTagFunction<T extends PhraseLang>(
+  includeParticles: boolean,
+  lang: T,
+) {
   function inner(text: string) {
     const output: Colored[] = []
 
@@ -190,7 +205,8 @@ function createTagFunction(includeParticles: boolean) {
               tag == tan ||
               tag == sama ||
               tag == kepeken ||
-              tag == en
+              tag == en ||
+              tag == prela
             ) {
               currentAffix = AFFIX_NEXT_WORD_DECIDES
             } else {
@@ -229,7 +245,7 @@ function createTagFunction(includeParticles: boolean) {
 
     pushCurrent()
 
-    return phrase(output)
+    return output
 
     function pushCurrent() {
       // special "o" handling
@@ -273,12 +289,12 @@ function createTagFunction(includeParticles: boolean) {
   return (strings: readonly string[]) => {
     const text = strings.join("").trim()
     const items = text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]
-    return items.map(inner).flat() as readonly Colored[] as Phrase
+    return phrase(items.map(inner).flat(), lang)
   }
 }
 
-export const tok = createTagFunction(true)
-export const eng = createTagFunction(false)
+export const tok = createTagFunction(true, "tok")
+export const eng = createTagFunction(false, "eng")
 
 const pi = tag("text-violet-800", "text-violet-600", "pi")
 
@@ -302,5 +318,6 @@ export function tokPi(strings: TemplateStringsArray) {
           return pi(text)
         }
       }),
+    "tok",
   )
 }

@@ -92,7 +92,7 @@ export function SlidePrepositionsAsPredicates() {
   )
 }
 
-export function App() {
+export function SlideLaForMarkingTime() {
   return (
     <SlideWithoutVocab>
       <Title>{text`la for marking time`}</Title>
@@ -136,4 +136,47 @@ export function App() {
   )
 }
 
-export default App
+export function SlideTheParticleLa() {
+  return (
+    <SlideWithoutVocab>
+      <Title>{text`the particle la`}</Title>
+      <InfoListUlEl>
+        {{
+          type: "ul",
+          items: [
+            {
+              text: text`the particle "la" works like this, where the context phrase can be a phrase or a sentence`,
+            },
+          ],
+        }}
+      </InfoListUlEl>
+      <ExampleTokEl>
+        {{
+          type: "ex:tok",
+          tok: tok`[context phrase] la [main sentence].`,
+          eng: [
+            eng`prela In_the_context_of [context phrase], [main sentence].`,
+          ],
+        }}
+      </ExampleTokEl>
+      <ExampleLaEl>
+        {{
+          type: "ex:la",
+          tok: ["tenpo pini poka", tok`jan li alasa pona e mi`],
+          eng: [
+            ["a nearby finished time", eng`somebody li tried to improve  e me`],
+          ],
+        }}
+      </ExampleLaEl>
+      <ExampleLaEl>
+        {{
+          type: "ex:la",
+          tok: ["kon li wawa", tok`mi ken ala tawa lon wile`],
+          eng: [["the wind is strong", eng`I li cannot move lon on my will`]],
+        }}
+      </ExampleLaEl>
+    </SlideWithoutVocab>
+  )
+}
+
+export default SlideTheParticleLa

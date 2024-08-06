@@ -4,6 +4,7 @@ import type {
   ChallengeEng,
   ChallengeLa,
   ChallengeTok,
+  Content,
   ExampleLa,
   ExampleTok,
   InfoListUl,
@@ -137,4 +138,8 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
       </For>
     </ul>
   )
+}
+
+export function ContentEl(props: { children: Content }) {
+  // TODO:
 }
