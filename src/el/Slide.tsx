@@ -3,6 +3,7 @@ import { createScreenSize } from "../lib/size"
 import type { SlideStandard } from "../lib/types"
 import { Content, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
+import { TextEl } from "./TextEl"
 import { Vocab, VocabPresenter } from "./Vocab"
 
 export function SlideBase(props: {
@@ -74,12 +75,20 @@ export function PresenterNotes(props: {
     </For>
   ))
 
+  const notes = children(() => (
+    <For each={props.children.notes}>
+      {(note) => (
+        <p class="font-ex-eng">
+          <TextEl>{note}</TextEl>
+        </p>
+      )}
+    </For>
+  ))
+
   const main = children(() => (
-    <>
-      <For each={props.children.content}>
-        {(e) => <ContentPresenter>{e}</ContentPresenter>}
-      </For>
-    </>
+    <For each={props.children.content}>
+      {(e) => <ContentPresenter>{e}</ContentPresenter>}
+    </For>
   ))
 
   const hasVocab = () => !!props.children.vocab?.length
@@ -109,6 +118,11 @@ export function PresenterNotes(props: {
       <Show when={hasVocab()}>
         <div class="mt-auto grid w-full grid-cols-[auto,auto] items-baseline pt-4">
           {vocab()}
+        </div>
+      </Show>
+      <Show when={props.children.notes?.length}>
+        <div class="mt-auto grid w-full grid-cols-[auto,auto] items-baseline pt-4">
+          {notes()}
         </div>
       </Show>
     </div>

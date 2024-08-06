@@ -103,7 +103,7 @@ export const SLIDE_THE_PARTICLE_SEME =
 
 export const SLIDE_RESPONDING_TO_X_ALA_X =
   slide`responding to "@li X ala X"`
-    .note`mu`.content(
+    .note`hello *people*!`.content(
     ex.qa`sina moku ala moku e kasi?`
       .eng`Did you li eat e the plants?`
       .tok`@li moku`
