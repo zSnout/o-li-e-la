@@ -104,7 +104,7 @@ export function ChallengeEngEl(props: { children: ChallengeEng }) {
 
 export function ChallengeLaEl(props: { children: ChallengeLa }) {
   return (
-    <div class="mx-auto my-8 flex w-full flex-col items-center px-12">
+    <div class="mx-auto my-8 flex w-full flex-col items-center border-x border-l-z-ch border-r-transparent px-[calc(3rem_-_1px)]">
       <div class="flex w-full px-4 pb-1">
         <p class="whitespace-nowrap font-ex-tok font-semibold">
           <span class={LA_CONTENT}>{props.children.tok[0]}</span>
