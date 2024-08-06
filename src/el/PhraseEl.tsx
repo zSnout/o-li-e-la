@@ -1,12 +1,10 @@
 import type { Color, Phrase } from "../lib/types"
 
-export function PhraseEl(props: {
-  children: Phrase
-  class?: string
-  plain?: boolean
-}) {
+const DEV_SHOW_COLORS = false
+
+export function PhraseEl(props: { children: Phrase; plain?: boolean }) {
   function cls(text: Color<600 | 800>) {
-    if (import.meta.env.DEV) {
+    if (DEV_SHOW_COLORS && import.meta.env.DEV) {
       return text
     }
 
@@ -20,7 +18,11 @@ export function PhraseEl(props: {
   return props.children
     .map((item, index) => (
       <span
-        class={import.meta.env.DEV && props.plain ? "bg-slate-200" : undefined}
+        class={
+          DEV_SHOW_COLORS && import.meta.env.DEV && props.plain ?
+            "bg-slate-200"
+          : undefined
+        }
       >
         {!(
           index == 0 ||

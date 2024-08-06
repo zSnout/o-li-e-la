@@ -25,13 +25,17 @@ export function Slide(props: { children: JSXElement; class?: string }) {
   )
 }
 
+export function SlideWithoutVocab(props: { children: JSXElement }) {
+  return <Slide class="p-8 pt-12">{props.children}</Slide>
+}
+
 export function SlideWithVocab(props: {
   children: JSXElement
   vocab: JSXElement
 }) {
   return (
     <Slide class="grid grid-cols-[2fr,1fr] p-4">
-      <main class="flex flex-col gap-4 py-8 pl-4 pr-8">{props.children}</main>
+      <main class="py-8 pl-4 pr-8">{props.children}</main>
       <ul class="flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
         {props.vocab}
       </ul>

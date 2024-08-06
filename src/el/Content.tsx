@@ -1,7 +1,10 @@
 import { For } from "solid-js"
+import { LA_BORDER, LA_CONTENT, LA_PARTICLE } from "../lib/colors"
 import type {
   ChallengeEng,
+  ChallengeLa,
   ChallengeTok,
+  ExampleLa,
   ExampleTok,
   InfoListUl,
   Text,
@@ -11,7 +14,7 @@ import { TextEl } from "./TextEl"
 
 export function Title(props: { children: Text }) {
   return (
-    <h1 class="mb-4 font-ex-title text-4xl text-z-heading">
+    <h1 class="mb-8 font-ex-title text-4xl text-z-heading">
       <TextEl>{props.children}</TextEl>
     </h1>
   )
@@ -19,7 +22,7 @@ export function Title(props: { children: Text }) {
 
 export function ExampleTokEl(props: { children: ExampleTok }) {
   return (
-    <div class="flex flex-col items-center">
+    <div class="my-4 flex flex-col items-center">
       <p class="font-ex-tok font-semibold">
         <PhraseEl>{props.children.tok}</PhraseEl>
       </p>
@@ -39,10 +42,37 @@ export function ExampleTokEl(props: { children: ExampleTok }) {
   )
 }
 
-export function ChallengeTokEl(props: { children: readonly ChallengeTok[] }) {
+export function ExampleLaEl(props: { children: ExampleLa }) {
   return (
-    <div class="flex flex-col items-center border-l border-z-ch px-4">
-      <For each={props.children}>
+    <div class="mx-auto my-8 flex w-full flex-col items-center px-12">
+      <div class="flex w-full px-4 pb-1">
+        <p class="whitespace-nowrap font-ex-tok font-semibold">
+          <span class={LA_CONTENT}>{props.children.tok[0]}</span>
+          <span class={LA_PARTICLE}> la</span>
+        </p>
+        <p class="ml-auto whitespace-nowrap font-ex-eng">
+          <span class={LA_CONTENT}>{props.children.eng[0][0]}</span>
+          <span class={LA_PARTICLE}> la</span>
+        </p>
+      </div>
+      <div
+        class={"flex w-full rounded-xl border-[0.25rem] px-3 py-1 " + LA_BORDER}
+      >
+        <p class="whitespace-nowrap font-ex-tok font-semibold">
+          <PhraseEl>{props.children.tok[1]}</PhraseEl>
+        </p>
+        <p class="ml-auto whitespace-nowrap font-ex-eng">
+          <PhraseEl>{props.children.eng[0][1]}</PhraseEl>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export function ChallengeTokEl(props: { children: ChallengeTok }) {
+  return (
+    <div class="my-4 flex flex-col items-center border-l border-z-ch px-4">
+      <For each={props.children.items}>
         {(challenge) => (
           <p class="font-ex-tok font-semibold">
             <PhraseEl plain>{challenge.tok}</PhraseEl>
@@ -53,11 +83,15 @@ export function ChallengeTokEl(props: { children: readonly ChallengeTok[] }) {
   )
 }
 
-export function ChallengeEngEl(props: { children: readonly ChallengeEng[] }) {
+export function ChallengeEngEl(props: { children: ChallengeEng }) {
   return (
-    <div class="flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">
-      <p class="text-base text-z-subtitle">Translate:</p>
-      <For each={props.children}>
+    <div class="my-4 flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">
+      <p class="text-base text-z-subtitle">
+        {props.children.label ?
+          <TextEl>{props.children.label}</TextEl>
+        : "Translate:"}
+      </p>
+      <For each={props.children.items}>
         {(challenge) => (
           <p>
             <PhraseEl plain>{challenge.eng}</PhraseEl>
@@ -68,9 +102,29 @@ export function ChallengeEngEl(props: { children: readonly ChallengeEng[] }) {
   )
 }
 
+export function ChallengeLaEl(props: { children: ChallengeLa }) {
+  return (
+    <div class="mx-auto my-8 flex w-full flex-col items-center px-12">
+      <div class="flex w-full px-4 pb-1">
+        <p class="whitespace-nowrap font-ex-tok font-semibold">
+          <span class={LA_CONTENT}>{props.children.tok[0]}</span>
+          <span class={LA_PARTICLE}> la</span>
+        </p>
+      </div>
+      <div
+        class={"flex w-full rounded-xl border-[0.25rem] px-3 py-1 " + LA_BORDER}
+      >
+        <p class="whitespace-nowrap font-ex-tok font-semibold">
+          <PhraseEl plain>{props.children.tok[1]}</PhraseEl>
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export function InfoListUlEl(props: { children: InfoListUl }) {
   return (
-    <ul class="font-ex-eng">
+    <ul class="my-4 pl-4 font-ex-eng">
       <For each={props.children.items}>
         {(item) => (
           <li class="flex items-baseline gap-4">

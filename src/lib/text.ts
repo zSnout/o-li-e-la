@@ -1,4 +1,5 @@
-import type { Phrase, Text, TextItem } from "./types"
+import { tok } from "./colors"
+import type { Text, TextItem } from "./types"
 
 export function text(
   strings: TemplateStringsArray,
@@ -13,11 +14,7 @@ export function text(
     if (index > 0) {
       const inner = interps[index - 1]!
       if (Array.isArray(inner)) {
-        if (typeof inner[0] == "object" && "color" in inner[0]) {
-          output.push(inner as Phrase)
-        } else {
-          output.push(...(inner as Text))
-        }
+        output.push(...inner)
       } else {
         output.push(inner)
       }
@@ -56,7 +53,18 @@ export function text(
         continue
       }
 
-      const idx = text.match(/[*_]|~~/)?.index
+      if (text.startsWith('"')) {
+        const end = text.indexOf('"', 1)
+        if (end == -1) {
+          throw new Error("Unclosed double quote in text`...` call")
+        }
+        const sub = text.slice(1, end)
+        text = text.slice(end + 1)
+        output.push({ lang: "tok", phrase: tok([sub]) })
+        continue
+      }
+
+      const idx = text.match(/[*_"]|~~/)?.index
 
       const sub = idx == null ? text : text.slice(0, idx)
 

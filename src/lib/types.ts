@@ -4,7 +4,7 @@ export type AtLeastOne<T> = readonly [T, ...T[]]
 
 export type Phrase = AtLeastOne<Colored>
 
-export type LaPhrase = [before: Colored, after: Phrase]
+export type LaPhrase = [context: string, main: Phrase]
 
 export type PhraseArray = AtLeastOne<Phrase>
 
@@ -92,7 +92,12 @@ export interface TextFormatted {
   readonly length?: undefined
 }
 
-export type TextItem = string | Phrase | TextFormatted
+export interface TextPhrase {
+  readonly lang: "eng" | "tok"
+  readonly phrase: Phrase
+}
+
+export type TextItem = string | TextPhrase | TextFormatted
 
 export type Text = AtLeastOne<TextItem>
 
@@ -126,19 +131,30 @@ export interface ExampleSetAligned {
 export type Example = ExampleTok | ExampleLa | ExampleSetAligned
 
 /** A challenge to translate from toki pona to English. */
-export interface ChallengeTok {
-  readonly type: "ch:tok"
+export interface ChallengeSingleTok {
   readonly tok: Phrase
   readonly eng: PhraseArray
   readonly hint?: string
 }
 
+/** A challenge set to translate from toki pona to English. */
+export interface ChallengeTok {
+  readonly type: "ch:tok"
+  readonly items: AtLeastOne<ChallengeSingleTok>
+}
+
 /** A challenge to translate from English to toki pona. */
-export interface ChallengeEng {
-  readonly type: "ch:eng"
+export interface ChallengeSingleEng {
   readonly eng: Phrase
   readonly tok: PhraseArray
   readonly hint?: string
+}
+
+/** A challenge set to translate from English to toki pona. */
+export interface ChallengeEng {
+  readonly type: "ch:eng"
+  readonly items: AtLeastOne<ChallengeSingleEng>
+  readonly label?: Text
 }
 
 /** A challenge to translate from toki pona rendered with `la` boxes. */
@@ -149,7 +165,7 @@ export interface ChallengeLa {
   readonly hint?: string
 }
 
-/** A challenge to explain the difference between two */
+/** A challenge to explain the difference between two sentences. */
 export interface ChallengeExplainDifference {
   readonly type: "ch:diff"
   readonly a: Phrase

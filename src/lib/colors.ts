@@ -38,12 +38,16 @@ function withAffix(
 
 const EN_PARTICLE = "text-sky-800"
 
+export const LA_PARTICLE = "text-violet-800"
+export const LA_CONTENT = "text-violet-600"
+export const LA_BORDER = "border-violet-800"
+
 const li = tag("text-rose-800", "text-rose-600", "li")
 const o = tag("text-rose-800", "text-rose-600", "o")
 const e = tag("text-green-800", "text-green-600", "e")
 const en = tag(EN_PARTICLE, "text-sky-600", "en")
 const sbj = tag(EN_PARTICLE, "text-sky-600", "en")
-const la = tag("text-violet-800", "text-violet-600", "la", true)
+const la = tag(LA_PARTICLE, LA_CONTENT, "la", true)
 
 const lon = tag("text-orange-800", "text-orange-600", "lon")
 const tawa = tag("text-orange-800", "text-orange-600", "tawa")
@@ -120,7 +124,7 @@ function createTagFunction(includeParticles: boolean) {
 
     const words =
       last
-        .match(/[.!?"`,()]|[^.!?"`,()\s]+/g)
+        .match(/\s?[.!?"`,()]|[^.!?"`,()\s]+/g)
         ?.map((x) => x.replace(/_/g, " ")) ?? []
 
     let currentPhrase = ""
@@ -133,7 +137,7 @@ function createTagFunction(includeParticles: boolean) {
     let nextIsAnuClause = false
 
     for (let word of words) {
-      if (!nextIsAnuClause && '.!?"`,()'.includes(word)) {
+      if (!nextIsAnuClause && '.!?"`,()'.includes(word.trim())) {
         pushCurrent()
 
         output.push({
@@ -266,9 +270,9 @@ function createTagFunction(includeParticles: boolean) {
     }
   }
 
-  return (strings: TemplateStringsArray) => {
+  return (strings: readonly string[]) => {
     const text = strings.join("").trim()
-    const items = text.match(/[^.!?]+[.!?]|[^.!?]+/g) ?? [text]
+    const items = text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]
     return items.map(inner).flat() as readonly Colored[] as Phrase
   }
 }

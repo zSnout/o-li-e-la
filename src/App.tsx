@@ -1,17 +1,19 @@
 import {
   ChallengeEngEl,
+  ChallengeLaEl,
   ChallengeTokEl,
+  ExampleLaEl,
   ExampleTokEl,
   InfoListUlEl,
   Title,
 } from "./el/Content"
-import { SlideWithVocab } from "./el/Slide"
+import { SlideWithoutVocab, SlideWithVocab } from "./el/Slide"
 import { Vocab } from "./el/Vocab"
 import { eng, tok } from "./lib/colors"
 import { text } from "./lib/text"
 import { pana, pilin } from "./lib/vocab"
 
-export function Test() {
+export function SlideTestSyntaxHighlighting() {
   return (
     <SlideWithVocab vocab={[<Vocab word={pilin} />, <Vocab word={pana} />]}>
       <Title>{text`the particle pi`}</Title>
@@ -28,7 +30,7 @@ export function Test() {
   )
 }
 
-export function App() {
+export function SlidePrepositionsAsPredicates() {
   return (
     <SlideWithVocab vocab={[<Vocab word={pilin} />, <Vocab word={pana} />]}>
       <Title>{text`prepositions as predicates`}</Title>
@@ -52,36 +54,85 @@ export function App() {
       <ChallengeTokEl>
         {{
           type: "ch:tok",
-          tok: tok`ona li lon ma.`,
-          eng: [eng`They lon 're_at a place.`],
-        }}
-        {{
-          type: "ch:tok",
-          tok: tok`sina kepeken ilo moku.`,
-          eng: [
-            eng`You kepeken 're_using a fork.`,
-            eng`You kepeken 're_using chopsticks.`,
+          items: [
+            {
+              tok: tok`ona li lon ma.`,
+              eng: [eng`They lon 're_at a place.`],
+            },
+            {
+              tok: tok`sina kepeken ilo moku.`,
+              eng: [
+                eng`You kepeken 're_using a fork.`,
+                eng`You kepeken 're_using chopsticks.`,
+              ],
+            },
+            {
+              tok: tok`ni li sama sina.`,
+              eng: [eng`This sama is_like you.`],
+            },
           ],
-        }}
-        {{
-          type: "ch:tok",
-          tok: tok`ni li sama sina.`,
-          eng: [eng`This sama is_like you.`],
         }}
       </ChallengeTokEl>
       <ChallengeEngEl>
         {{
           type: "ch:eng",
-          eng: eng`He tawa 's_going_to the school.`,
-          tok: [tok`ona li tawa ma sona.`],
-        }}
-        {{
-          type: "ch:eng",
-          eng: eng`We tawa 're_walking_towards the loud sound.`,
-          tok: [tok`ona li tawa ma sona.`],
+          items: [
+            {
+              eng: eng`He tawa 's_going_to the school.`,
+              tok: [tok`ona li tawa ma sona.`],
+            },
+            {
+              eng: eng`We tawa 're_walking_towards the loud sound.`,
+              tok: [tok`ona li tawa ma sona.`],
+            },
+          ],
         }}
       </ChallengeEngEl>
     </SlideWithVocab>
+  )
+}
+
+export function App() {
+  return (
+    <SlideWithoutVocab>
+      <Title>{text`la for marking time`}</Title>
+      <InfoListUlEl>
+        {{
+          type: "ul",
+          items: [
+            {
+              text: text`"tenpo ... la" phrases are used to mark when something occurs in time`,
+            },
+          ],
+        }}
+      </InfoListUlEl>
+      <ExampleLaEl>
+        {{
+          type: "ex:la",
+          tok: ["tenpo kama", tok`soweli li kama tawa ma kasi`],
+          eng: [["coming time", eng`land mammals li come tawa to the forest`]],
+        }}
+      </ExampleLaEl>
+      <ChallengeLaEl>
+        {{
+          type: "ch:la",
+          tok: ["tenpo weka", tok`toki uta li ante mute`],
+          eng: [["far time", eng`spoken language li was very different`]],
+        }}
+      </ChallengeLaEl>
+      <ChallengeEngEl>
+        {{
+          type: "ch:eng",
+          label: text`Translate using "la":`,
+          items: [
+            {
+              eng: eng`Right now, la my parents li are grounding e me.`,
+              tok: [tok`tenpo ni la mama mi li awen e mi lon tomo.`],
+            },
+          ],
+        }}
+      </ChallengeEngEl>
+    </SlideWithoutVocab>
   )
 }
 

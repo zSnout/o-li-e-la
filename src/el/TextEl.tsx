@@ -1,14 +1,13 @@
-import type { JSXElement } from "solid-js"
-import type { Phrase, Text, TextFormatted } from "../lib/types"
+import type { Text, TextFormatted } from "../lib/types"
 import { PhraseEl } from "./PhraseEl"
 
 export function TextEl(props: { children: Text }) {
   return props.children
-    .map((text, index) => {
-      const el: JSXElement =
-        Array.isArray(text) ? <PhraseEl>{text as Phrase}</PhraseEl>
-        : typeof text == "object" ?
-          <span
+    .map((text) =>
+      typeof text == "object" ?
+        "phrase" in text ?
+          <PhraseEl>{text.phrase}</PhraseEl>
+        : <span
             classList={{
               "font-strong": (text as TextFormatted).b,
               italic: (text as TextFormatted).i,
@@ -18,13 +17,7 @@ export function TextEl(props: { children: Text }) {
           >
             {(text as TextFormatted).text}
           </span>
-        : text
-
-      if (index == 0) {
-        return el
-      } else {
-        return [" ", el]
-      }
-    })
+      : text,
+    )
     .flat()
 }
