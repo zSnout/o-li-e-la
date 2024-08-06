@@ -77,7 +77,7 @@ export function App() {
         }}
         {{
           type: "ch:eng",
-          eng: eng`We're walking towards the loud sound.`,
+          eng: eng`We tawa 're_walking_towards the loud sound.`,
           tok: [tok`ona li tawa ma sona.`],
         }}
       </ChallengeEngEl>
