@@ -2,6 +2,8 @@
 
 export type AtLeastOne<T> = readonly [T, ...T[]]
 
+export type AtLeastOneMutable<T> = [T, ...T[]]
+
 export type PhraseLang = "tok" | "eng"
 
 export type Phrase<T extends PhraseLang> = {
@@ -13,7 +15,15 @@ export type LaPhrase<T extends PhraseLang> = [context: string, main: Phrase<T>]
 
 export type PhraseArray<T extends PhraseLang> = AtLeastOne<Phrase<T>>
 
+export type PhraseArrayMutable<T extends PhraseLang> = AtLeastOneMutable<
+  Phrase<T>
+>
+
 export type LaPhraseArray<T extends PhraseLang> = AtLeastOne<LaPhrase<T>>
+
+export type LaPhraseArrayMutable<T extends PhraseLang> = AtLeastOneMutable<
+  LaPhrase<T>
+>
 
 export type AnyColorName =
   | "red"

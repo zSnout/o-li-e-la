@@ -3,6 +3,7 @@ import type {
   AtLeastOne,
   Color,
   Colored,
+  LaPhrase,
   Phrase,
   PhraseLang,
 } from "./types"
@@ -303,8 +304,27 @@ function createTagFunction<T extends PhraseLang>(
   }
 }
 
+function createLa<T extends PhraseLang>(
+  fn: (strings: readonly [string]) => Phrase<T>,
+) {
+  return (strings: readonly string[]): LaPhrase<T> => {
+    const text = strings.join("")
+    const split = text.split(/\bla\b/)
+    if (split.length < 2) {
+      throw new Error("Expected `la` to appear.")
+    }
+    if (split.length > 2) {
+      throw new Error("Expected exactly one instance of `la`.")
+    }
+    return [split[0]!, fn([split[1]!])]
+  }
+}
+
 export const tok = createTagFunction(true, "tok")
 export const eng = createTagFunction(false, "eng")
+
+export const tokLa = createLa(tok)
+export const engLa = createLa(eng)
 
 export function ptok(strings: readonly string[]): Phrase<"tok"> {
   return {
