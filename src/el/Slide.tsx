@@ -28,42 +28,26 @@ export function SlideBase(props: { children: JSXElement; class?: string }) {
   )
 }
 
-export function SlideWithoutVocab(props: { children: JSXElement }) {
-  return <SlideBase class="p-8 pt-12">{props.children}</SlideBase>
-}
+export function SlideStandardEl(props: { children: SlideStandard }) {
+  const vocab = children(() => (
+    <For each={props.children.vocab}>{(word) => <Vocab>{word}</Vocab>}</For>
+  ))
 
-export function SlideManual(props: {
-  children: JSXElement
-  vocab?: JSXElement
-}) {
-  const vocab = children(() => props.vocab)
+  const main = children(() => (
+    <>
+      <Title>{props.children.title}</Title>
+      <For each={props.children.content}>{(e) => <Content>{e}</Content>}</For>
+    </>
+  ))
 
   return (
     <SlideBase class={vocab() ? "grid grid-cols-[2fr,1fr] p-4" : "p-8 pt-12"}>
-      <Show when={vocab()} fallback={props.children}>
-        <main class="py-8 pl-4 pr-8">{props.children}</main>
+      <Show when={vocab()} fallback={main()}>
+        <main class="py-8 pl-4 pr-8">{main()}</main>
         <ul class="flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
-          {props.vocab}
+          {vocab()}
         </ul>
       </Show>
     </SlideBase>
-  )
-}
-
-export function SlideStandardEl(props: { children: SlideStandard }) {
-  // TODO: represent `source` and `id`
-  return (
-    <SlideManual
-      vocab={
-        props.children.vocab?.length ?
-          <For each={props.children.vocab}>
-            {(word) => <Vocab>{word}</Vocab>}
-          </For>
-        : undefined
-      }
-    >
-      <Title>{props.children.title}</Title>
-      <For each={props.children.content}>{(e) => <Content>{e}</Content>}</For>
-    </SlideManual>
   )
 }
