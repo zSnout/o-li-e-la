@@ -1,13 +1,20 @@
+import { createMemo } from "solid-js"
 import type { Color, Phrase, PhraseLang } from "../lib/types"
 
-const DEV_SHOW_COLORS = true
+const DEV_SHOW_COLORS = false
 const force = DEV_SHOW_COLORS && import.meta.env.DEV
 
 export function PhraseEl(props: {
   children: Phrase<PhraseLang>
   style?: "plain" | "force" | undefined
 }) {
-  const forced = () => props.style == "force" || force
+  const forced = createMemo(() => props.style == "force" || force)
+
+  const content = createMemo(() =>
+    forced() ?
+      (props.children.actual ?? props.children.content)
+    : props.children.content,
+  )
 
   function cls(text: Color<600 | 800>) {
     if (forced()) {
@@ -21,10 +28,7 @@ export function PhraseEl(props: {
     return text
   }
 
-  return (
-    forced() ?
-      (props.children.actual ?? props.children.content)
-    : props.children.content)
+  return content()
     .map((item, index) => (
       <span
         class={
