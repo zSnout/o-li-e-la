@@ -1,12 +1,15 @@
 import type { Text, TextFormatted } from "../lib/types"
 import { PhraseEl } from "./PhraseEl"
 
-export function TextEl(props: { children: Text }) {
+export function TextEl(props: {
+  children: Text
+  style?: "plain" | "force" | undefined
+}) {
   return props.children
     .map((text) =>
       typeof text == "object" ?
         "lang" in text ?
-          ["“", <PhraseEl>{text}</PhraseEl>, "”"]
+          ["“", <PhraseEl style={props.style}>{text}</PhraseEl>, "”"]
         : <span
             classList={{
               "font-bold": (text as TextFormatted).b,

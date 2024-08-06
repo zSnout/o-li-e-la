@@ -1,4 +1,4 @@
-import { eng, tok, tokPi } from "./colors"
+import { eng, piPhrase, tok } from "./colors"
 import type { Text, TextItem } from "./types"
 
 export type TextParams = [
@@ -76,7 +76,18 @@ export function text(
         }
         const sub = text.slice(2, end)
         text = text.slice(end + 1)
-        output.push(tokPi([sub]))
+        output.push(piPhrase([sub], "tok"))
+        continue
+      }
+
+      if (text.startsWith('$%"')) {
+        const end = text.indexOf('"', 3)
+        if (end == -1) {
+          throw new Error("Unclosed double quote in text`...` call")
+        }
+        const sub = text.slice(3, end)
+        text = text.slice(end + 1)
+        output.push(piPhrase([sub], "eng"))
         continue
       }
 
@@ -91,7 +102,7 @@ export function text(
         continue
       }
 
-      const idx = text.match(/[*_"]|[$%]"|~~/)?.index
+      const idx = text.match(/[*_"]|[$%]"|\$%"|~~/)?.index
 
       const sub = idx == null ? text : text.slice(0, idx)
 

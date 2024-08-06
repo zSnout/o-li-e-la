@@ -66,6 +66,7 @@ export function Render(props: {
 }
 
 export function PresenterNotes(props: {
+  class: string
   children: SlideStandard
   ref?: Ref<HTMLDivElement>
 }) {
@@ -94,7 +95,7 @@ export function PresenterNotes(props: {
   const hasVocab = () => !!props.children.vocab?.length
 
   return (
-    <div class="flex flex-col bg-white">
+    <div class={"flex flex-col " + props.class}>
       <main class="flex flex-col gap-4">
         <Show
           when={(() => {
@@ -109,7 +110,9 @@ export function PresenterNotes(props: {
             return m
           })()}
           fallback={
-            <p>There are no notes from pieces of content on this slide.</p>
+            <p class="font-sans">
+              There are no notes from pieces of content on this slide.
+            </p>
           }
         >
           {(x) => x()}

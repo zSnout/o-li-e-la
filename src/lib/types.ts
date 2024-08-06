@@ -9,6 +9,7 @@ export type PhraseLang = "tok" | "eng"
 export type Phrase<T extends PhraseLang> = {
   lang: T
   content: AtLeastOne<Colored>
+  actual?: AtLeastOne<Colored>
 }
 
 export type LaPhrase<T extends PhraseLang> = [context: string, main: Phrase<T>]

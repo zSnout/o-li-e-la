@@ -152,7 +152,7 @@ export function ChallengeTokEl(props: { children: ChallengeTok }) {
       <For each={props.children.items}>
         {(challenge) => (
           <p class="font-ex-tok font-semibold">
-            <PhraseEl plain>{challenge.tok}</PhraseEl>
+            <PhraseEl style="plain">{challenge.tok}</PhraseEl>
           </p>
         )}
       </For>
@@ -173,7 +173,7 @@ export function ChallengeEngEl(props: { children: ChallengeEng }) {
           {(challenge) => (
             <>
               <p classList={{ "col-span-2": !challenge.hint }}>
-                <PhraseEl plain>{challenge.eng}</PhraseEl>
+                <PhraseEl style="plain">{challenge.eng}</PhraseEl>
               </p>
               <Show when={challenge.hint}>
                 <p>
@@ -220,10 +220,10 @@ export function ChallengeExplainDifferenceEl(props: {
           {(challenge) => (
             <>
               <p class="font-ex-tok font-semibold">
-                <PhraseEl plain>{challenge.a}</PhraseEl>
+                <PhraseEl style="plain">{challenge.a}</PhraseEl>
               </p>
               <p class="font-ex-tok font-semibold">
-                <PhraseEl plain>{challenge.b}</PhraseEl>
+                <PhraseEl style="plain">{challenge.b}</PhraseEl>
               </p>
             </>
           )}
@@ -247,7 +247,7 @@ export function ChallengeLaEl(props: { children: ChallengeLa }) {
         }
       >
         <p class="whitespace-nowrap font-ex-tok font-semibold">
-          <PhraseEl plain>{props.children.tok[1]}</PhraseEl>
+          <PhraseEl style="plain">{props.children.tok[1]}</PhraseEl>
         </p>
       </div>
     </div>

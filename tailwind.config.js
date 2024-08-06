@@ -1,6 +1,7 @@
 // @ts-check
 
 import { zSnoutTheme } from "@zsnout/tailwind"
+import { theme } from "tailwindcss/defaultConfig"
 
 /** @type {import("tailwindcss").Config} */
 export default {
@@ -49,7 +50,7 @@ export default {
     zSnoutTheme(),
 
     /** @type {import("tailwindcss/types/config").PluginCreator} */
-    ({ addVariant, matchVariant, addComponents }) => {
+    ({ addVariant, matchVariant, addComponents, matchComponents }) => {
       addComponents({
         ".size-slide": {
           width: "960px",
@@ -60,6 +61,39 @@ export default {
           "max-height": "540px",
         },
       })
+      matchComponents(
+        {
+          wx(value) {
+            return { width: value, "min-width": value, "max-width": value }
+          },
+        },
+        {
+          supportsNegativeValues: true,
+          values: {
+            slide: "960px",
+            ...theme?.maxWidth,
+            ...theme?.width,
+            ...theme?.spacing,
+          },
+          type: "relative-size",
+        },
+      )
+      matchComponents(
+        {
+          hx(value) {
+            return { height: value, "min-height": value, "max-height": value }
+          },
+        },
+        {
+          supportsNegativeValues: true,
+          values: {
+            slide: "540px",
+            ...theme?.maxHeight,
+            ...theme?.height,
+            ...theme?.spacing,
+          },
+        },
+      )
       addVariant("xs", "@media (min-width: 400px)")
       addVariant("scrollbar", "&::-webkit-scrollbar")
       addVariant("hover", ["&:hover", "&.ctx"])

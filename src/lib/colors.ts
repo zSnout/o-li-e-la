@@ -299,28 +299,38 @@ function createTagFunction<T extends PhraseLang>(
   }
 
   return (strings: readonly string[]): Phrase<T> => {
-    const text = strings.join("").trim()
+    let text = strings.join("").trim()
 
-    if (text.startsWith("~")) {
+    const uncolor = text.startsWith("~")
+    if (uncolor) {
+      text = text.slice(1).trim()
+    }
+
+    const output =
+      text.startsWith("%") ?
+        piPhrase([text.slice(1).trim()], lang)
+      : phrase(
+          (text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]).map(inner).flat(),
+          lang,
+        )
+
+    if (uncolor) {
       return {
         lang,
         content: [
           {
             color: null,
-            text: text.slice(1).trim(),
+            text: text.startsWith("%") ? text.slice(1).trim() : text,
             prefix: null,
             postfix: null,
             punctuation: false,
           },
         ],
+        actual: output.content,
       }
+    } else {
+      return output
     }
-
-    if (lang == "tok" && text.startsWith("%")) {
-      return tokPi([text.slice(1).trim()]) as Phrase<T>
-    }
-    const items = text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]
-    return phrase(items.map(inner).flat(), lang)
   }
 }
 
@@ -348,7 +358,10 @@ export const engLa = createLa(eng)
 
 const pi = tag("text-violet-800", "text-violet-600", "pi")
 
-export function tokPi(strings: readonly string[]) {
+export function piPhrase<T extends PhraseLang>(
+  strings: readonly string[],
+  lang: T,
+) {
   return phrase(
     strings
       .join("")
@@ -369,6 +382,6 @@ export function tokPi(strings: readonly string[]) {
         }
       })
       .filter((x) => x.prefix || x.text),
-    "tok",
+    lang,
   )
 }

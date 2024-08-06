@@ -1,28 +1,38 @@
 import type { Color, Phrase, PhraseLang } from "../lib/types"
 
-const DEV_SHOW_COLORS = false
+const DEV_SHOW_COLORS = true
+const force = DEV_SHOW_COLORS && import.meta.env.DEV
 
 export function PhraseEl(props: {
   children: Phrase<PhraseLang>
-  plain?: boolean
+  style?: "plain" | "force" | undefined
 }) {
+  const forced = () => props.style == "force" || force
+
   function cls(text: Color<600 | 800>) {
-    if (DEV_SHOW_COLORS && import.meta.env.DEV) {
+    if (forced()) {
       return text
     }
 
-    if (props.plain) {
+    if (props.style == "plain") {
       return undefined
     }
 
     return text
   }
 
-  return props.children.content
+  return (
+    forced() ?
+      (props.children.actual ?? props.children.content)
+    : props.children.content)
     .map((item, index) => (
       <span
         class={
-          DEV_SHOW_COLORS && import.meta.env.DEV && props.plain ?
+          (
+            force &&
+            (props.style == "plain" ||
+              (props.style != "force" && props.children.actual))
+          ) ?
             "bg-slate-200"
           : undefined
         }

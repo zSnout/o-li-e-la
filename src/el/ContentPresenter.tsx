@@ -19,7 +19,7 @@ import { TextEl } from "./TextEl"
 export function TitlePresenter(props: { children: Text }) {
   return (
     <h1 class="font-ex-title text-lg text-z-heading">
-      <TextEl>{props.children}</TextEl>
+      <TextEl style="force">{props.children}</TextEl>
     </h1>
   )
 }
@@ -36,12 +36,12 @@ function Translation(props: {
           (props.og.lang == "tok" ? "font-ex-tok" : "font-ex-eng")
         }
       >
-        <PhraseEl>{props.og}</PhraseEl>
+        <PhraseEl style="force">{props.og}</PhraseEl>
       </p>
       <For each={props.tx}>
         {(x) => (
           <p class={x.lang == "tok" ? "font-ex-tok" : "font-ex-eng"}>
-            <PhraseEl>{x}</PhraseEl>
+            <PhraseEl style="force">{x}</PhraseEl>
           </p>
         )}
       </For>
@@ -53,12 +53,12 @@ function WithNote(props: { og: Text; notes: readonly Text[] }) {
   return (
     <div class="font-ex-eng">
       <p class="font-semibold">
-        <TextEl>{props.og}</TextEl>
+        <TextEl style="force">{props.og}</TextEl>
       </p>
       <For each={props.notes}>
         {(x) => (
           <p>
-            <TextEl>{x}</TextEl>
+            <TextEl style="force">{x}</TextEl>
           </p>
         )}
       </For>
@@ -82,14 +82,14 @@ export function ExampleLaEl(props: { children: ExampleLa }) {
         <p class="font-ex-tok font-semibold">
           <span class={LA_CONTENT}>{props.children.tok[0]}</span>
           <span class={LA_PARTICLE}> la </span>
-          <PhraseEl>{props.children.tok[1]}</PhraseEl>
+          <PhraseEl style="force">{props.children.tok[1]}</PhraseEl>
         </p>
         <For each={props.children.eng.slice(1)}>
           {(x) => (
             <p class="font-ex-eng">
               <span class={LA_CONTENT}>{x[0]}</span>
               <span class={LA_PARTICLE}> la </span>
-              <PhraseEl>{x[1]}</PhraseEl>
+              <PhraseEl style="force">{x[1]}</PhraseEl>
             </p>
           )}
         </For>
@@ -134,15 +134,15 @@ export function ChallengeExplainDifferenceEl(props: {
       {(item) => (
         <div>
           <p class="font-ex-tok font-semibold">
-            <PhraseEl>{item.a}</PhraseEl>
+            <PhraseEl style="force">{item.a}</PhraseEl>
           </p>
           <p class="font-ex-tok font-semibold">
-            <PhraseEl>{item.b}</PhraseEl>
+            <PhraseEl style="force">{item.b}</PhraseEl>
           </p>
           <For each={item.explanation}>
             {(x) => (
               <p class="font-ex-eng">
-                <TextEl>{x}</TextEl>
+                <TextEl style="force">{x}</TextEl>
               </p>
             )}
           </For>
@@ -158,14 +158,14 @@ export function ChallengeLaEl(props: { children: ChallengeLa }) {
       <p class="font-ex-tok font-semibold">
         <span class={LA_CONTENT}>{props.children.tok[0]}</span>
         <span class={LA_PARTICLE}> la </span>
-        <PhraseEl>{props.children.tok[1]}</PhraseEl>
+        <PhraseEl style="force">{props.children.tok[1]}</PhraseEl>
       </p>
       <For each={props.children.eng}>
         {(x) => (
           <p class="font-ex-eng">
             <span class={LA_CONTENT}>{x[0]}</span>
             <span class={LA_PARTICLE}> la </span>
-            <PhraseEl>{x[1]}</PhraseEl>
+            <PhraseEl style="force">{x[1]}</PhraseEl>
           </p>
         )}
       </For>

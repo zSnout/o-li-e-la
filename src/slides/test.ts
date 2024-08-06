@@ -74,18 +74,18 @@ export const SLIDE_MODIFIER_STACKING =
       .eng`~ large group of people`
       .tok`~ kulupu jan suli ike`
       .eng`~ bad, large group of people`,
-    ch.eng`~ sleeping adult`
-      .hint`decompose $"adult"`
-      .tok`~ jan suli lape`
-      .eng`~ nice picture of fruit`
+    ch.eng`~% sleeping adult`
+      .hint`decompose $%"adult"`
+      .tok`~% jan suli lape`
+      .eng`~% nice picture of fruit`
       .hint`find the core word first`
-      .tok`~ sitelen kili pona`,
+      .tok`~% sitelen kili pona`,
   )
 
 export const SLIDE_THE_PARTICLE_SEME =
   slide`the particle seme (for open-ended questions)`(
-    ul`to make a fill-in-the-blank question, make a normal sentence and use "seme" to replace what you want to know`
-      .li`don't change the word order from what the sentence would be without "seme"`
+    ul`to make a fill-in-the-blank question, make a normal sentence and use "@@ seme" to replace what you want to know`
+      .li`don't change the word order from what the sentence would be without "@@ seme"`
       .li`you can response with a full sentence, or with just what was asked for`,
     ex.qa`sina wile e seme?`
       .eng`You li want e what?`
@@ -106,7 +106,7 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
     .note`hello *people*!`.content(
     ex.qa`sina moku ala moku e kasi?`
       .eng`Did you li eat e the plants?`
-      .tok`@li moku`
+      .tok`@li moku.`
       .eng`li Eat (yes).`
       .alt`@li moku ala.`
       .eng`li Didn't eat (no).`
@@ -118,24 +118,24 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
       .eng`I li didn't do that.`,
     ch.discuss
       .label`Respond to these questions:`
-      .prompt`akesi li moli ala moli?`
+      .prompt`"~ akesi li moli ala moli?"`
       .note`hi`
       .note`world`
       .note`goodbye`
-      .prompt`mi o moli ala moli e ona?`
+      .prompt`"~ mi o moli ala moli e ona?"`
       .note`goodbye`
-      .prompt`sina pana ala pana e ona tawa sike?`,
+      .prompt`"~ sina pana ala pana e ona tawa sike?"`,
   )
 
 export const SLIDE_THE_PARTICLE_PI =
   slide`the particle %"pi"`(
-    ch.diff`tomo moku lili`
-      .against`tomo pi moku lili`
+    ch.diff`% tomo moku lili`
+      .against`% tomo pi moku lili`
       .explain`While %"tomo moku lili" refers to a small food-place (like a small restaurant), %"tomo pi moku lili" refers to a small-food place (like a snack bar).`
-      .also`lipu sona suno`
-      .against`lipu pi sona suno`
+      .also`% lipu sona suno`
+      .against`% lipu pi sona suno`
       .explain`While %"lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), %"lipu pi sona suno" could be a book about sun-knowledge (like a book on astrophysics).`
-      .also`jan poka mute`
-      .against`jan pi poka mute`
+      .also`% jan poka mute`
+      .against`% jan pi poka mute`
       .explain`While %"jan poka mute" refers to many close people (maybe many friends, or maybe the people next to you in class), %"jan pi poka mute" refers to people who are very close by (think: the people next to you in a tight crowd).`,
   )
