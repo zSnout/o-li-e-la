@@ -51,6 +51,7 @@ export function SlideManual(props: {
 }
 
 export function SlideStandardEl(props: { children: SlideStandard }) {
+  // TODO: represent `source` and `id`
   return (
     <SlideManual
       vocab={
