@@ -1,9 +1,10 @@
 import { text, type TextParams } from "../text"
 import type {
+  AnySlide,
   AtLeastOne,
   Content,
   ContentArray,
-  Slide,
+  SlideBase,
   SlideStandard,
   Source,
   Text,
@@ -30,7 +31,7 @@ export interface SlideBuilder {
   content(...content: ToContentArray): SlideStandard
 
   /** Adds a reference to another slide. */
-  ref(slide: Slide): this
+  ref(slide: SlideBase): this
 
   /** Adds a vocab word to this slide. */
   vocab(word: Word): this
@@ -44,7 +45,7 @@ export interface SlideBuilderWithoutSource extends SlideBuilder {
   source(source: Source): SlideBuilder
 }
 
-const slides: SlideStandard[] = []
+const slides: AnySlide[] = []
 
 /** Builds a {@link SlideStandard} object, starting with the slide title. */
 export function slide(...title: TextParams): SlideBuilderWithoutSource {
@@ -55,6 +56,7 @@ export function slide(...title: TextParams): SlideBuilderWithoutSource {
 
   function builder(...content: ToContentArray): SlideStandard {
     const slide: SlideStandard = {
+      type: "insa",
       id: slides.length,
       title: text(...title),
       refs,
@@ -73,7 +75,7 @@ export function slide(...title: TextParams): SlideBuilderWithoutSource {
 
   builder.content = builder
 
-  builder.ref = (slide: Slide) => {
+  builder.ref = (slide: SlideBase) => {
     refs.push(slide.id)
     return builder
   }
@@ -100,6 +102,6 @@ export * as ch from "./ch"
 export * as ex from "./ex"
 export { ul } from "./ul"
 
-const slidesReadonly: readonly SlideStandard[] = slides
+const slidesReadonly: readonly AnySlide[] = slides
 
 export { slidesReadonly as slides }

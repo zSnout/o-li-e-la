@@ -257,7 +257,7 @@ export interface Source {
 }
 
 /** A base interface all slides inherit from. */
-export interface Slide {
+export interface SlideBase {
   /** The automatically-generated ID of this slide. */
   readonly id: number
 
@@ -275,7 +275,8 @@ export interface Slide {
  * A regular slide, with a title, content, possible source, and possible vocab
  * list.
  */
-export interface SlideStandard extends Slide {
+export interface SlideStandard extends SlideBase {
+  readonly type: "insa"
   readonly title: Text
   readonly content: ContentArray
   readonly vocab?: Word[]
@@ -283,7 +284,8 @@ export interface SlideStandard extends Slide {
 }
 
 /** A slide introducing a new day, with multilingual titles and an agenda. */
-export interface SlideSectionHeader extends Slide {
+export interface SlideSectionHeader extends SlideBase {
+  readonly type: "open"
   readonly titleEng: Text
   readonly titleTok: Text
   readonly titleSp: Text
@@ -291,10 +293,14 @@ export interface SlideSectionHeader extends Slide {
 }
 
 /** A slide previewing next class's vocabulary. */
-export interface SlideNextClassVocab extends Slide {
+export interface SlideNextClassVocab extends SlideBase {
+  readonly type: "pini"
   readonly titleEng: Text
   readonly vocab: AtLeastOne<Word>
 }
+
+/** Any slide. */
+export type AnySlide = SlideStandard | SlideSectionHeader | SlideNextClassVocab
 
 // #endregion
 

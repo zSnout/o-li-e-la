@@ -1,39 +1,24 @@
 import { children, For, Show, type JSXElement } from "solid-js"
-import { createScreenSize } from "../lib/size"
-import type { SlideStandard } from "../lib/types"
+import type { AnySlide, SlideStandard } from "../lib/types"
 import { Content, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
 import { TextEl } from "./TextEl"
 import { Vocab, VocabPresenter } from "./Vocab"
 
-export function SlideBase(props: {
-  fullscreen?: boolean
-  children: JSXElement
-  class?: string
-}) {
-  const size = createScreenSize()
-
+function SlideBase(props: { children: JSXElement; class?: string }) {
   return (
     <div
       class={
-        "size-slide bg-white text-2xl text-z [--scale:1] " +
-        (props.fullscreen ?
-          "fixed left-1/2 top-1/2 m-auto origin-center -translate-x-1/2 -translate-y-1/2 scale-[--scale]"
-        : "") +
+        "size-slide bg-white text-2xl text-z " +
         (props.class ? " " + props.class : "")
       }
-      style={{ "--scale": Math.min(size.width / 960, size.height / 540) }}
     >
       {props.children}
     </div>
   )
 }
 
-export function Render(props: {
-  fullscreen?: boolean
-  children: SlideStandard
-  class?: string
-}) {
+function RenderStandard(props: { children: SlideStandard; class?: string }) {
   const vocab = children(() => (
     <For each={props.children.vocab}>{(word) => <Vocab>{word}</Vocab>}</For>
   ))
@@ -53,7 +38,6 @@ export function Render(props: {
         (hasVocab() ? "grid grid-cols-[2fr,1fr] p-4" : "p-8 pt-12") +
         (props.class ? " " + props.class : "")
       }
-      fullscreen={props.fullscreen}
     >
       <Show when={hasVocab()} fallback={main()}>
         <main class="py-8 pl-4 pr-8">{main()}</main>
@@ -62,6 +46,16 @@ export function Render(props: {
         </ul>
       </Show>
     </SlideBase>
+  )
+}
+
+export function Render(props: { children: AnySlide; class?: string }) {
+  return (
+    <Show when={props.children.type == "insa"}>
+      <RenderStandard class={props.class}>
+        {props.children as SlideStandard}
+      </RenderStandard>
+    </Show>
   )
 }
 
@@ -86,10 +80,7 @@ export function Scaled(props: {
   )
 }
 
-export function RenderScalable(props: {
-  children: SlideStandard
-  class?: string
-}) {
+export function RenderScalable(props: { children: AnySlide; class?: string }) {
   return (
     <svg viewBox="0 0 960 540" class={props.class}>
       <foreignObject x={0} y={0} width={960} height={540} viewBox="0 0 960 540">
@@ -99,8 +90,8 @@ export function RenderScalable(props: {
   )
 }
 
-export function PresenterNotes(props: {
-  class: string
+function PresenterNotesStandard(props: {
+  class?: string
   children: SlideStandard
 }) {
   const vocab = children(() => (
@@ -128,7 +119,11 @@ export function PresenterNotes(props: {
   const hasVocab = () => !!props.children.vocab?.length
 
   return (
-    <div class={"flex flex-col overflow-auto " + props.class}>
+    <div
+      class={
+        "flex flex-col overflow-auto" + (props.class ? " " + props.class : "")
+      }
+    >
       <main class="flex flex-col gap-4">
         <Show
           when={(() => {
@@ -162,5 +157,15 @@ export function PresenterNotes(props: {
         </div>
       </Show>
     </div>
+  )
+}
+
+export function PresenterNotes(props: { class?: string; children: AnySlide }) {
+  return (
+    <Show when={props.children.type == "insa"}>
+      <PresenterNotesStandard class={props.class}>
+        {props.children as SlideStandard}
+      </PresenterNotesStandard>
+    </Show>
   )
 }
