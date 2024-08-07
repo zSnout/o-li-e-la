@@ -2,21 +2,22 @@ import { faFaceSurprise } from "@fortawesome/free-regular-svg-icons"
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft"
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare"
 import { faExpand } from "@fortawesome/free-solid-svg-icons/faExpand"
-import { createMemo, For, Show } from "solid-js"
+import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { Fa } from "./el/Fa"
 import { PresenterNotes, Render, RenderScalable } from "./el/Slide"
+import { createEventListener } from "./lib/event"
 import { slides } from "./lib/helpers"
 import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
 import type { AnySlide } from "./lib/types"
-import { SLIDE_PREPOSITIONS_AS_PREDICATES } from "./slides/test"
+import "./slides/test"
 
-export function ViewAllSlides() {
+function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
-    <div class="flex flex-col items-center gap-4 p-8">
+    <div class="flex flex-col items-center gap-4 bg-black p-8">
       <For each={slides}>
         {(slide) => (
-          <div class="flex gap-4">
+          <div class="flex gap-4" onClick={() => props.set(slide)}>
             <Render class="rounded-xl">{slide}</Render>
             <PresenterNotes class="hx-slide wx-96 rounded-xl bg-white p-4">
               {slide}
@@ -28,13 +29,17 @@ export function ViewAllSlides() {
   )
 }
 
-export function PresenterView(props: { children: AnySlide }) {
+function PresenterView(props: {
+  children: AnySlide
+  set: (slide: AnySlide) => void
+  setPopup: (window: Window) => void
+}) {
+  const { set } = props
   const rem = createRemSize()
   const aspectRatio = createMemo(() => 960 / (540 + rem() + 540 / 2))
   const screen = createScreenSize()
   const w = createMemo(() => screen.width - 28 * rem())
   const h = createMemo(() => screen.height - 4 * rem())
-
   const prev = createMemo(() => slides[props.children.id - 1])
   const next = createMemo(() => slides[props.children.id + 1])
 
@@ -59,11 +64,17 @@ export function PresenterView(props: { children: AnySlide }) {
             <Fa class="size-4" icon={faArrowLeft} title={false} /> Home
           </button>
 
-          <button class="flex items-center justify-center gap-2 border-r border-z py-2 focus-visible:bg-z-body-selected focus-visible:outline-none hover:bg-z-body-selected">
+          <button
+            class="flex items-center justify-center gap-2 border-r border-z py-2 focus-visible:bg-z-body-selected focus-visible:outline-none hover:bg-z-body-selected"
+            onClick={() => postMessage(props.children)}
+          >
             <Fa class="size-4" icon={faExpand} title={false} /> Present
           </button>
 
-          <button class="flex items-center justify-center gap-2 py-2 focus-visible:bg-z-body-selected focus-visible:outline-none hover:bg-z-body-selected">
+          <button
+            class="flex items-center justify-center gap-2 py-2 focus-visible:bg-z-body-selected focus-visible:outline-none hover:bg-z-body-selected"
+            onClick={popup}
+          >
             <Fa class="size-4" icon={faArrowUpRightFromSquare} title={false} />{" "}
             Popup
           </button>
@@ -85,15 +96,105 @@ export function PresenterView(props: { children: AnySlide }) {
         }
       >
         {(slide) => (
-          <RenderScalable class="select-none rounded-xl">
+          <RenderScalable
+            class="select-none rounded-xl"
+            onClick={() => set(slide)}
+          >
             {slide}
           </RenderScalable>
         )}
       </Show>
     )
   }
+
+  function popup() {
+    const main = open(location.href)
+    if (!main) {
+      alert("Please allow permission to open a popup.")
+      return
+    }
+
+    main.onload = () => props.setPopup(main)
+  }
 }
 
-export default () => (
-  <PresenterView>{SLIDE_PREPOSITIONS_AS_PREDICATES}</PresenterView>
-)
+function Main(props: {
+  slide: AnySlide | undefined
+  set(slide: AnySlide | undefined): void
+}) {
+  const [popup, setPopup] = createSignal<WindowProxy>()
+
+  createEffect(() => popup()?.postMessage(props.slide))
+
+  return (
+    <Show when={props.slide} fallback={<ViewAllSlides set={props.set} />}>
+      <PresenterView set={props.set} setPopup={setPopup}>
+        {props.slide!}
+      </PresenterView>
+    </Show>
+  )
+}
+
+export type Msg = AnySlide | [AnySlide]
+
+export function Root() {
+  let source: Window | undefined
+  const [slide, setSlide] = createSignal<AnySlide>()
+  const [big, setBig] = createSignal(false)
+
+  createEventListener(window, "message", ({ data, source: s }) => {
+    if (s && "window" in s) {
+      source = s
+    }
+    if (Array.isArray(data)) {
+      const slide = data[0] as AnySlide
+      setSlide(slide)
+    } else {
+      const slide = data as AnySlide
+      setSlide(slide)
+      setBig(true)
+    }
+  })
+
+  createEventListener(window, "keydown", (event) => {
+    if (
+      (event.key == "ArrowLeft" || event.key == "ArrowRight") &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.altKey
+    ) {
+      const next = setSlide((prev) => {
+        if (!prev) {
+          return
+        }
+
+        const offset = event.key == "ArrowLeft" ? -1 : 1
+        const slide = slides[prev.id + offset]
+
+        if (!slide) {
+          alert("No more slides.")
+          return prev
+        }
+
+        return slide
+      })
+
+      if (big() && source != window && next) {
+        source?.postMessage([next])
+      }
+    }
+  })
+
+  return (
+    <Show
+      when={big() && slide()}
+      fallback={<Main slide={slide()} set={setSlide} />}
+    >
+      <RenderScalable class="hx-[min(100vh,56.25vw)] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        {slide()!}
+      </RenderScalable>
+    </Show>
+  )
+}
+
+export default Root

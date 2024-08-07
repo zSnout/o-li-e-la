@@ -1,4 +1,4 @@
-import { createMemo } from "solid-js"
+import { createMemo, For } from "solid-js"
 import type { Color, Phrase, PhraseLang } from "../lib/types"
 
 const DEV_SHOW_COLORS = false
@@ -28,36 +28,38 @@ export function PhraseEl(props: {
     return text
   }
 
-  return content()
-    .map((item, index) => (
-      <span
-        class={
-          (
-            force &&
-            (props.style == "plain" ||
-              (props.style != "force" && props.children.actual))
-          ) ?
-            "bg-slate-200"
-          : undefined
-        }
-      >
-        {!(
-          index == 0 ||
-          item.punctuation ||
-          (item.prefix?.text ?? item.text).startsWith("'")
-        ) && " "}
-        {item.prefix && [
-          <span class={cls(item.prefix.color)}>{item.prefix.text}</span>,
-          item.text && " ",
-        ]}
-        <span class={item.color ? cls(item.color) : undefined}>
-          {item.text}
+  return (
+    <For each={content()}>
+      {(item, index) => (
+        <span
+          class={
+            (
+              force &&
+              (props.style == "plain" ||
+                (props.style != "force" && props.children.actual))
+            ) ?
+              "bg-slate-200"
+            : undefined
+          }
+        >
+          {!(
+            index() == 0 ||
+            item.punctuation ||
+            (item.prefix?.text ?? item.text).startsWith("'")
+          ) && " "}
+          {item.prefix && [
+            <span class={cls(item.prefix.color)}>{item.prefix.text}</span>,
+            item.text && " ",
+          ]}
+          <span class={item.color ? cls(item.color) : undefined}>
+            {item.text}
+          </span>
+          {item.postfix && [
+            item.text && " ",
+            <span class={cls(item.postfix.color)}>{item.postfix.text}</span>,
+          ]}
         </span>
-        {item.postfix && [
-          item.text && " ",
-          <span class={cls(item.postfix.color)}>{item.postfix.text}</span>,
-        ]}
-      </span>
-    ))
-    .flat()
+      )}
+    </For>
+  )
 }

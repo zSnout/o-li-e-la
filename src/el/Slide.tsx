@@ -1,4 +1,4 @@
-import { children, For, Show, type JSXElement } from "solid-js"
+import { children, createMemo, For, Show, type JSXElement } from "solid-js"
 import type { AnySlide, SlideStandard } from "../lib/types"
 import { Content, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
@@ -19,16 +19,14 @@ function SlideBase(props: { children: JSXElement; class?: string }) {
 }
 
 function RenderStandard(props: { children: SlideStandard; class?: string }) {
-  const vocab = children(() => (
-    <For each={props.children.vocab}>{(word) => <Vocab>{word}</Vocab>}</For>
-  ))
-
-  const main = children(() => (
-    <>
-      <Title>{props.children.title}</Title>
-      <For each={props.children.content}>{(e) => <Content>{e}</Content>}</For>
-    </>
-  ))
+  function Main() {
+    return (
+      <>
+        <Title>{props.children.title}</Title>
+        <For each={props.children.content}>{(e) => <Content>{e}</Content>}</For>
+      </>
+    )
+  }
 
   const hasVocab = () => !!props.children.vocab?.length
 
@@ -39,10 +37,14 @@ function RenderStandard(props: { children: SlideStandard; class?: string }) {
         (props.class ? " " + props.class : "")
       }
     >
-      <Show when={hasVocab()} fallback={main()}>
-        <main class="py-8 pl-4 pr-8">{main()}</main>
+      <Show when={hasVocab()} fallback={<Main />}>
+        <main class="py-8 pl-4 pr-8">
+          <Main />
+        </main>
         <ul class="flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
-          {vocab()}
+          <For each={props.children.vocab}>
+            {(word) => <Vocab>{word}</Vocab>}
+          </For>
         </ul>
       </Show>
     </SlideBase>
@@ -80,9 +82,13 @@ export function Scaled(props: {
   )
 }
 
-export function RenderScalable(props: { children: AnySlide; class?: string }) {
+export function RenderScalable(props: {
+  children: AnySlide
+  class?: string
+  onClick?: () => void
+}) {
   return (
-    <svg viewBox="0 0 960 540" class={props.class}>
+    <svg viewBox="0 0 960 540" class={props.class} onClick={props.onClick}>
       <foreignObject x={0} y={0} width={960} height={540} viewBox="0 0 960 540">
         <Render>{props.children}</Render>
       </foreignObject>
@@ -94,67 +100,59 @@ function PresenterNotesStandard(props: {
   class?: string
   children: SlideStandard
 }) {
-  const vocab = children(() => (
-    <For each={props.children.vocab}>
-      {(word) => <VocabPresenter>{word}</VocabPresenter>}
-    </For>
-  ))
-
-  const notes = children(() => (
-    <For each={props.children.notes}>
-      {(note) => (
-        <p class="font-ex-eng">
-          <TextEl>{note}</TextEl>
-        </p>
-      )}
-    </For>
-  ))
-
   const main = children(() => (
     <For each={props.children.content}>
       {(e) => <ContentPresenter>{e}</ContentPresenter>}
     </For>
   ))
 
-  const hasVocab = () => !!props.children.vocab?.length
+  const isEmpty = createMemo(() => {
+    const m = main()
+    if (Array.isArray(m)) {
+      if (m.some((x) => x)) {
+        return false
+      }
+    } else if (m) {
+      return false
+    }
+
+    if (props.children.vocab?.length) {
+      return false
+    }
+
+    if (props.children.notes?.length) {
+      return false
+    }
+
+    return true
+  })
 
   return (
     <div
       class={
-        "flex flex-col overflow-auto" + (props.class ? " " + props.class : "")
+        "flex flex-col gap-4 overflow-auto" +
+        (props.class ? " " + props.class : "")
       }
     >
-      <main class="flex flex-col gap-4">
-        <Show
-          when={(() => {
-            const m = main()
-            if (Array.isArray(m)) {
-              if (m.some((x) => x)) {
-                return m
-              } else {
-                return false
-              }
-            }
-            return m
-          })()}
-          fallback={
-            <p class="font-sans">
-              There are no notes from pieces of content on this slide.
-            </p>
-          }
-        >
-          {(x) => x()}
-        </Show>
-      </main>
-      <Show when={hasVocab()}>
-        <div class="mt-auto grid w-full grid-cols-[auto,auto] items-baseline pt-4">
-          {vocab()}
+      <Show when={isEmpty()}>
+        <p class="font-sans italic">There are no notes on this slide.</p>
+      </Show>
+      {main()}
+      <Show when={props.children.vocab?.length}>
+        <div class="grid w-full grid-cols-[auto,auto] items-baseline pt-4">
+          <For each={props.children.vocab}>
+            {(word) => <VocabPresenter>{word}</VocabPresenter>}
+          </For>
         </div>
       </Show>
       <Show when={props.children.notes?.length}>
-        <div class="mt-auto grid w-full grid-cols-[auto,auto] items-baseline pt-4">
-          {notes()}
-        </div>
+        <For each={props.children.notes}>
+          {(note) => (
+            <p class="font-ex-eng">
+              <TextEl>{note}</TextEl>
+            </p>
+          )}
+        </For>
       </Show>
     </div>
   )
