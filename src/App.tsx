@@ -4,7 +4,7 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faAr
 import { faExpand } from "@fortawesome/free-solid-svg-icons/faExpand"
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { Fa } from "./el/Fa"
-import { PresenterNotes, Render, RenderScalable } from "./el/Slide"
+import { PresenterNotes, RenderScalable } from "./el/Slide"
 import { createEventListener } from "./lib/event"
 import { slides } from "./lib/helpers"
 import { createRemSize } from "./lib/rem"
@@ -14,15 +14,15 @@ import "./slides/test"
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
-    <div class="flex flex-col items-center gap-4 bg-black p-8">
+    <div class="grid w-full grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4 p-8">
       <For each={slides}>
         {(slide) => (
-          <div class="flex gap-4" onClick={() => props.set(slide)}>
-            <Render class="rounded-xl">{slide}</Render>
-            <PresenterNotes class="hx-slide wx-96 rounded-xl bg-white p-4">
-              {slide}
-            </PresenterNotes>
-          </div>
+          <RenderScalable
+            onClick={() => props.set(slide)}
+            class="cursor-pointer select-none rounded-xl"
+          >
+            {slide}
+          </RenderScalable>
         )}
       </For>
     </div>
