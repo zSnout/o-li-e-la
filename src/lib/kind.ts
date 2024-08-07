@@ -22,7 +22,7 @@ export const particle: WordKind = {
   color: "bg-orange-500 text-orange-50",
 }
 
-export const taso_nanpa: WordKind = {
+export const semiparticle: WordKind = {
   content: true,
   particle: true,
   prep: false,

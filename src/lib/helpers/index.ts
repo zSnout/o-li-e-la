@@ -101,6 +101,7 @@ export function slide(...title: TextParams): SlideBuilderWithoutSource {
 export * as ch from "./ch"
 export * as ex from "./ex"
 export { ul } from "./ul"
+export * as vocab from "./vocab"
 
 const slidesReadonly: readonly AnySlide[] = slides
 

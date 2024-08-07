@@ -1,0 +1,57 @@
+- word commonality
+- online communities
+- dictionaries
+- practice resources
+- what are semantic spaces
+- describe, don't identify
+- use metaphors
+- using words frames things
+- avoid lexicalization
+- mi/sina predicate
+- li
+- content/particle distinction (and not n/v)
+- what's unmarked
+- e
+- transitives
+- e ni
+- modifiers
+- modifier stacking
+- ala
+- pi
+- double pi
+- modifying mi/sina subject
+- prepositions
+- prepositional predicates
+- preposition ni
+- transitive prepositions
+- commands with o
+- addessing with o
+- "should" with o
+- headnouns
+- tokiponization
+- seme
+- X ala X
+- anu seme
+- anu
+- responding to yes/no
+- preverbs
+- preverb stacking
+- preverb ala
+- multiple li/e/o/anu
+- en
+- en is only for subjects
+- la
+- la is the most generic postposition
+- prep la
+- time la
+- if la
+- when la
+- opinion la
+- adverb la
+- question la
+- a
+- n
+- mu
+- kin
+- taso
+- exclamations

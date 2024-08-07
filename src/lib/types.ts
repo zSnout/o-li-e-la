@@ -89,8 +89,8 @@ export interface WordKind {
 
 export interface Word {
   readonly word: string
-  readonly defnShort: string
-  readonly defnLipamanka: string
+  readonly defnShort: Text
+  readonly defnLipamanka: Text
   readonly seeAlso: readonly string[]
   readonly kind: WordKind
 }
