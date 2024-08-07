@@ -14,8 +14,6 @@ import type {
 export type ToContentItem = Content | ToContent<Content>
 export type ToContentArray = AtLeastOne<ToContentItem>
 
-let id = 0
-
 export interface SlideBuilder {
   /**
    * Finalizes the slide and adds content to it.
@@ -46,6 +44,8 @@ export interface SlideBuilderWithoutSource extends SlideBuilder {
   source(source: Source): SlideBuilder
 }
 
+const slides: SlideStandard[] = []
+
 /** Builds a {@link SlideStandard} object, starting with the slide title. */
 export function slide(...title: TextParams): SlideBuilderWithoutSource {
   const refs: number[] = []
@@ -54,8 +54,8 @@ export function slide(...title: TextParams): SlideBuilderWithoutSource {
   const notes: Text[] = []
 
   function builder(...content: ToContentArray): SlideStandard {
-    return {
-      id: ++id,
+    const slide: SlideStandard = {
+      id: slides.length,
       title: text(...title),
       refs,
       vocab,
@@ -65,6 +65,10 @@ export function slide(...title: TextParams): SlideBuilderWithoutSource {
         "finalize" in x ? x.finalize() : x,
       ) as readonly Content[] as ContentArray,
     }
+
+    slides.push(slide)
+
+    return slide
   }
 
   builder.content = builder
@@ -95,3 +99,7 @@ export function slide(...title: TextParams): SlideBuilderWithoutSource {
 export * as ch from "./ch"
 export * as ex from "./ex"
 export { ul } from "./ul"
+
+const slidesReadonly: readonly SlideStandard[] = slides
+
+export { slidesReadonly as slides }
