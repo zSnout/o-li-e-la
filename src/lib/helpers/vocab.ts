@@ -1,6 +1,7 @@
 import * as kind from "../kind"
 import { text, type TextParams } from "../text"
 import type { Word, WordKind } from "../types"
+import { groups } from "./group"
 
 export interface NeedsWord {
   /** Adds the word itself. */
@@ -11,8 +12,8 @@ export interface NeedsDefn {
   /** References another word which is related to this one. */
   seeAlso(word: TemplateStringsArray): NeedsDefn
 
-  /** Sets the short definition of this word. */
-  short(...short: TextParams): NeedsLipa
+  /** Sets a single phrase which summarizes this word. */
+  short(...summary: TextParams): NeedsLipaOrMoreDefn
 }
 
 export interface NeedsLipa {
@@ -20,23 +21,59 @@ export interface NeedsLipa {
   lipa(...lipa: TextParams): Word
 }
 
+export interface NeedsLipaOrMoreDefn extends NeedsLipa {
+  /** Sets an additional inline definition. */
+  alt(...alt: TextParams): NeedsLipa
+}
+
 function create(kind: WordKind): NeedsWord {
-  return (word: TemplateStringsArray) => {
+  return (wordRaw: TemplateStringsArray) => {
+    const word = wordRaw.join("")
     const seeAlso: string[] = []
+    for (const group of groups) {
+      if (group.words.includes(word)) {
+        for (const related of group.words) {
+          if (word != related && !seeAlso.includes(related)) {
+            seeAlso.push(related)
+          }
+        }
+      }
+    }
     const NeedsDefn: NeedsDefn = {
-      seeAlso(word) {
-        seeAlso.push(word.join(""))
+      seeAlso(wordRaw) {
+        const word = wordRaw.join("")
+        if (!seeAlso.includes(word)) {
+          seeAlso.push(word)
+        }
         return NeedsDefn
       },
       short(...short) {
+        if (short.some((x) => /[,;]/.test(x.toString()))) {
+          throw new Error(
+            "The base definition cannot be multiple phrases. Use `.alt()` instead.",
+          )
+        }
         return {
           lipa(...lipa) {
             return {
               kind,
-              word: word.join(""),
+              word,
               defnShort: text(...short),
               defnLipamanka: text(...lipa),
               seeAlso,
+            }
+          },
+          alt(...alt) {
+            return {
+              lipa(...lipa) {
+                return {
+                  kind,
+                  word,
+                  defnShort: [...text(...short), ", ", ...text(...alt)],
+                  defnLipamanka: text(...lipa),
+                  seeAlso,
+                }
+              },
             }
           },
         }
