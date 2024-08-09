@@ -19,6 +19,9 @@ export interface NeedsDefn {
 export interface NeedsLipa {
   /** Sets the lipamanka description paragraph of this word. */
   lipa(...lipa: TextParams): Word
+
+  /** Marks this word as not having a lipamanka description. */
+  readonly noLipa: Word
 }
 
 function create(kind: WordKind): NeedsWord {
@@ -50,6 +53,15 @@ function create(kind: WordKind): NeedsWord {
               word,
               defnShort: text(...short),
               defnLipamanka: text(...lipa),
+              seeAlso,
+            }
+          },
+          get noLipa() {
+            return {
+              kind,
+              word,
+              defnShort: text(...short),
+              defnLipamanka: null,
               seeAlso,
             }
           },

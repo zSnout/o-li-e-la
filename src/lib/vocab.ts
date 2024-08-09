@@ -1,13 +1,20 @@
-import { content } from "../lib/helpers/vocab"
+import {
+  content,
+  particle,
+  prep,
+} from "../lib/helpers/vocab"
 import "./groups"
-
-// TODO: see also
 
 export const jan = content`jan`
   .short`person, people`
   .lipa`usage of jan differs a lot between groups of speakers, but many speakers use it broadly to refer to any sentient creature. But this can break down when you consider what sentience is and where we draw lines between ourselves and nature. This also gets complicated when we take into account nonhuman identities such as radical reclamation of dehumanization, which is awesome. many toki pona speakers specifically choose to not be a type of jan, so jan broadly cannot be applicable to all speakers of language. It's still used frequently to refer to a group of people, some of whom may not be humans, and especially "somebody," i.e. a hypothetical unspecified agent. If someone is not a jan, it's often rude to call them one--just stick with whatever word they've chosen for themselves.`
 
-export const lon = content`lon`
+export const li =
+  particle`li`
+    .short`[marks sentence predicate]`
+    .noLipa
+
+export const lon = prep`lon`
   .short`existence, truth, reality`
   .lipa`For many people, lon is core to the philosophy of toki pona. It's a key example that ties together the physical and metaphysical. lon is existence, lon is truth, lon is reality. lon is not only existing at a place, but also existing during a time, or in a context. lon's usage outside of a preposition mostly derives from this meaning of existing.`
 
@@ -45,7 +52,7 @@ export const sona = content`sona`
   .short`knowledge, know, memory`
   .lipa`The semantic space of sona contains all knowledge. If something is knowable or known, it is sona. For example, the knowledge of time of day can sona. Wisdom can be sona. sona can also be a skill. The knowledge of how to write a book can certainly be sona. Knowing about a person or who they are can be sona. A person's memory can be sona. If I were to describe information on a computer as "sona," I would be framing it as being known by the computer. A warning to english speaking learners: the type of knowledge that sona covers doesn't completely contain the english concept of "knowing someone." For that, it might be a better idea to explain what your relationship with that person is in more detail.`
 
-export const tawa = content`tawa`
+export const tawa = prep`tawa`
   .short`motion, move, wander, vibrate, walk`
   .lipa`tawa is motion. tawa frequently has a destination, and when used as a preposition, it marks the word after it as this destination. a destination isn't critical to tawa though; speakers will use tawa for vibrating or shaking in place, or wandering. When tawa is used as a preposition, it marks that which the motion approaches. This can be physical, but metaphysically tawa can mark a recipient, beneficiary, point of perspective, etc.`
 

@@ -90,7 +90,7 @@ export interface WordKind {
 export interface Word {
   readonly word: string
   readonly defnShort: Text
-  readonly defnLipamanka: Text
+  readonly defnLipamanka: Text | null
   readonly seeAlso: readonly string[]
   readonly kind: WordKind
 }
