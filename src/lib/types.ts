@@ -307,3 +307,9 @@ export type AnySlide = SlideStandard | SlideSectionHeader | SlideNextClassVocab
 export interface ToContent<T extends Content> {
   finalize(): T
 }
+
+export interface Group {
+  readonly id: number
+  readonly name: Text
+  readonly words: readonly string[]
+}

@@ -41,7 +41,10 @@
         }
       },
       {
-        "files": "src/lib/vocab.ts",
+        "files": [
+          "src/lib/vocab.ts",
+          "src/lib/groups.ts"
+        ],
         "options": {
           "printWidth": 0
         }
