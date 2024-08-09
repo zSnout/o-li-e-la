@@ -146,14 +146,27 @@ export function ExampleSetQAEl(props: { children: ExampleSetQA }) {
 }
 
 export function ChallengeTokEl(props: { children: ChallengeTok }) {
-  // TODO: show hints
   return (
-    <div class="my-4 flex flex-col items-center border-l border-z-ch px-4">
+    <div class="my-4 grid grid-cols-2 items-center gap-x-8 border-l border-z-ch px-4">
       <For each={props.children.items}>
         {(challenge) => (
-          <p class="font-ex-tok font-semibold">
-            <PhraseEl style="plain">{challenge.tok}</PhraseEl>
-          </p>
+          <>
+            <p
+              class="font-ex-tok font-semibold"
+              classList={{
+                "col-span-2": !challenge.hint,
+                "text-center": !challenge.hint,
+                "text-right": !!challenge.hint,
+              }}
+            >
+              <PhraseEl style="plain">{challenge.tok}</PhraseEl>
+            </p>
+            <Show when={challenge.hint}>
+              <p class="font-ex-eng">
+                (hint: <TextEl>{challenge.hint!}</TextEl>)
+              </p>
+            </Show>
+          </>
         )}
       </For>
     </div>
@@ -162,28 +175,28 @@ export function ChallengeTokEl(props: { children: ChallengeTok }) {
 
 export function ChallengeEngEl(props: { children: ChallengeEng }) {
   return (
-    <div class="my-4 flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">
-      <p class="text-base text-z-subtitle">
-        {props.children.label ?
-          <TextEl>{props.children.label}</TextEl>
-        : "Translate:"}
-      </p>
-      <div class="grid w-full grid-cols-[1fr,2fr]">
-        <For each={props.children.items}>
-          {(challenge) => (
-            <>
-              <p classList={{ "col-span-2": !challenge.hint }}>
-                <PhraseEl style="plain">{challenge.eng}</PhraseEl>
+    <div class="my-4 grid grid-cols-2 items-center gap-x-8 border-l border-z-ch px-4">
+      <For each={props.children.items}>
+        {(challenge) => (
+          <>
+            <p
+              class="font-ex-eng font-semibold"
+              classList={{
+                "col-span-2": !challenge.hint,
+                "text-center": !challenge.hint,
+                "text-right": !!challenge.hint,
+              }}
+            >
+              <PhraseEl style="plain">{challenge.eng}</PhraseEl>
+            </p>
+            <Show when={challenge.hint}>
+              <p class="font-ex-eng">
+                (hint: <TextEl>{challenge.hint!}</TextEl>)
               </p>
-              <Show when={challenge.hint}>
-                <p>
-                  (hint: <TextEl>{challenge.hint!}</TextEl>)
-                </p>
-              </Show>
-            </>
-          )}
-        </For>
-      </div>
+            </Show>
+          </>
+        )}
+      </For>
     </div>
   )
 }

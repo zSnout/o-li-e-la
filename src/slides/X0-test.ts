@@ -1,13 +1,16 @@
 import {
   ch,
   ex,
-  slide,
+  slideshow,
   ul,
 } from "../lib/helpers"
 import {
   pana,
   pilin,
 } from "../lib/vocab"
+
+const [slide] =
+  slideshow`Test of various functionalities`
 
 export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
   slide`syntax highlighting test`(

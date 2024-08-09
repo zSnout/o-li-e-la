@@ -15,7 +15,7 @@ export const li =
     .noLipa
 
 export const lon = prep`lon`
-  .short`existence, truth, reality`
+  .short`existence, truth, reality, be present`
   .lipa`For many people, lon is core to the philosophy of toki pona. It's a key example that ties together the physical and metaphysical. lon is existence, lon is truth, lon is reality. lon is not only existing at a place, but also existing during a time, or in a context. lon's usage outside of a preposition mostly derives from this meaning of existing.`
 
 export const mi = content`mi`

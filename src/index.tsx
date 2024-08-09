@@ -1,9 +1,9 @@
 /* @refresh reload */
-import { render } from "solid-js/web"
 
-import SlideLaForMarkingTime from "./App"
+import { render } from "solid-js/web"
+import App from "./App"
 import "./index.css"
 
 const root = document.getElementById("root")
 
-render(() => <SlideLaForMarkingTime />, root!)
+render(() => <App />, root!)

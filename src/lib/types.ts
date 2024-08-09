@@ -258,7 +258,10 @@ export interface Source {
 
 /** A base interface all slides inherit from. */
 export interface SlideBase {
-  /** The automatically-generated ID of this slide. */
+  /** The automatically-generated globally unique ID of this slide. */
+  readonly gid: number
+
+  /** The automatically-generated per-slideshow unique ID of this slide. */
   readonly id: number
 
   /** The IDs of slides referenced by this one. */

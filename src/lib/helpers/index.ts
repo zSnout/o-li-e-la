@@ -45,57 +45,75 @@ export interface SlideBuilderWithoutSource extends SlideBuilder {
   source(source: Source): SlideBuilder
 }
 
-const slides: AnySlide[] = []
+export interface SlideFunction {
+  /** Creates a new slide. */
+  (...title: TextParams): SlideBuilderWithoutSource
+}
 
-/** Builds a {@link SlideStandard} object, starting with the slide title. */
-export function slide(...title: TextParams): SlideBuilderWithoutSource {
-  const refs: number[] = []
-  const vocab: Word[] = []
-  let source: Source | undefined
-  const notes: Text[] = []
+export type SlideshowFnReturn = [
+  slide: SlideFunction,
+  slides: readonly AnySlide[],
+]
 
-  function builder(...content: ToContentArray): SlideStandard {
-    const slide: SlideStandard = {
-      type: "insa",
-      id: slides.length,
-      title: text(...title),
-      refs,
-      vocab,
-      source,
-      notes,
-      content: content.map((x) =>
-        "finalize" in x ? x.finalize() : x,
-      ) as readonly Content[] as ContentArray,
+const all: AnySlide[] = []
+
+export function slideshow(...title: TextParams): SlideshowFnReturn {
+  const slides: AnySlide[] = []
+
+  /** Builds a {@link SlideStandard} object, starting with the slide title. */
+  function slide(...title: TextParams): SlideBuilderWithoutSource {
+    const refs: number[] = []
+    const vocab: Word[] = []
+    let source: Source | undefined
+    const notes: Text[] = []
+
+    function builder(...content: ToContentArray): SlideStandard {
+      const slide: SlideStandard = {
+        type: "insa",
+        gid: all.length,
+        id: slides.length,
+        title: text(...title),
+        refs,
+        vocab,
+        source,
+        notes,
+        content: content.map((x) =>
+          "finalize" in x ? x.finalize() : x,
+        ) as readonly Content[] as ContentArray,
+      }
+
+      slides.push(slide)
+      all.push(slide)
+
+      return slide
     }
 
-    slides.push(slide)
+    builder.content = builder
 
-    return slide
-  }
+    builder.ref = (slide: SlideBase) => {
+      refs.push(slide.gid)
+      return builder
+    }
 
-  builder.content = builder
+    builder.source = (s: Source) => {
+      source = s
+      return builder
+    }
 
-  builder.ref = (slide: SlideBase) => {
-    refs.push(slide.id)
+    builder.vocab = (w: Word) => {
+      vocab.push(w)
+      return builder
+    }
+
+    builder.note = (...note: TextParams) => {
+      notes.push(text(...note))
+      return builder
+    }
+
     return builder
   }
 
-  builder.source = (s: Source) => {
-    source = s
-    return builder
-  }
-
-  builder.vocab = (w: Word) => {
-    vocab.push(w)
-    return builder
-  }
-
-  builder.note = (...note: TextParams) => {
-    notes.push(text(...note))
-    return builder
-  }
-
-  return builder
+  return [slide, slides]
 }
 
 export * as ch from "./ch"
@@ -103,6 +121,6 @@ export * as ex from "./ex"
 export { ul } from "./ul"
 export * as vocab from "./vocab"
 
-const slidesReadonly: readonly AnySlide[] = slides
+const slidesReadonly: readonly AnySlide[] = all
 
 export { slidesReadonly as slides }

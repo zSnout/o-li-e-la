@@ -124,7 +124,7 @@ function createTagFunction<T extends PhraseLang>(
     let last = clauses[clauses.length - 1]!
 
     // mi/sina-only subject special handling
-    if (!/\bli\b/.test(last) && /^(?:mi|sina)\b/.test(last)) {
+    if (!/\bli\b/.test(last) && /^(?:mi|sina)(?!\s*$)\b/.test(last)) {
       if (last.startsWith("mi")) {
         last = `mi @li ${last.slice(2)}`
       } else if (last.startsWith("sina")) {

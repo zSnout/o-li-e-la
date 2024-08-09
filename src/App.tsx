@@ -10,7 +10,8 @@ import { slides } from "./lib/helpers"
 import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
 import type { AnySlide } from "./lib/types"
-import "./slides/test"
+
+import "./slides/02-li"
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
@@ -40,8 +41,8 @@ function PresenterView(props: {
   const screen = createScreenSize()
   const w = createMemo(() => screen.width - 28 * rem())
   const h = createMemo(() => screen.height - 4 * rem())
-  const prev = createMemo(() => slides[props.children.id - 1])
-  const next = createMemo(() => slides[props.children.id + 1])
+  const prev = createMemo(() => slides[props.children.gid - 1])
+  const next = createMemo(() => slides[props.children.gid + 1])
 
   return (
     <div class="grid h-screen w-screen grid-cols-[1fr,24rem] bg-slate-300">
@@ -137,7 +138,17 @@ function Main(props: {
 
 export type Msg = AnySlide | [AnySlide]
 
+const SHOW_LATEST = true
+
 export function Root() {
+  if (import.meta.env.DEV && SHOW_LATEST) {
+    return (
+      <RenderScalable class="hx-[min(100vh,56.25vw)] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        {slides[slides.length - 1]!}
+      </RenderScalable>
+    )
+  }
+
   let source: Window | undefined
   const [slide, setSlide] = createSignal<AnySlide>()
   const [big, setBig] = createSignal(false)
@@ -169,7 +180,7 @@ export function Root() {
         }
 
         const offset = event.key == "ArrowLeft" ? -1 : 1
-        const slide = slides[prev.id + offset]
+        const slide = slides[prev.gid + offset]
 
         if (!slide) {
           alert("No more slides.")
