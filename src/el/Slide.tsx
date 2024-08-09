@@ -18,7 +18,7 @@ function SlideBase(props: { children: JSXElement; class?: string }) {
   )
 }
 
-function RenderStandard(props: { children: SlideStandard; class?: string }) {
+function RenderStandard(props: { children: SlideStandard }) {
   function Main() {
     return (
       <>
@@ -33,15 +33,15 @@ function RenderStandard(props: { children: SlideStandard; class?: string }) {
   return (
     <SlideBase
       class={
-        (hasVocab() ? "grid grid-cols-[2fr,1fr] p-4" : "p-8 pt-12") +
-        (props.class ? " " + props.class : "")
+        "p-4 px-8" +
+        (hasVocab() ? " grid grid-cols-[2fr,1fr] gap-8" : " flex flex-col")
       }
     >
-      <Show when={hasVocab()} fallback={<Main />}>
-        <main class="py-8 pl-4 pr-8">
-          <Main />
-        </main>
-        <ul class="flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
+      <main class="py-8">
+        <Main />
+      </main>
+      <Show when={hasVocab()}>
+        <ul class="hx-[calc(540px_-_2rem)] flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
           <For each={props.children.vocab}>
             {(word) => <Vocab>{word}</Vocab>}
           </For>
@@ -51,12 +51,10 @@ function RenderStandard(props: { children: SlideStandard; class?: string }) {
   )
 }
 
-export function Render(props: { children: AnySlide; class?: string }) {
+export function Render(props: { children: AnySlide }) {
   return (
     <Show when={props.children.type == "insa"}>
-      <RenderStandard class={props.class}>
-        {props.children as SlideStandard}
-      </RenderStandard>
+      <RenderStandard>{props.children as SlideStandard}</RenderStandard>
     </Show>
   )
 }

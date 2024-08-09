@@ -1,15 +1,7 @@
 import * as color from "../../colors"
-import type {
-  ExampleTok,
-  Phrase,
-  PhraseArrayMutable,
-  ToContent,
-} from "../../types"
+import type { ExampleTok, PhraseArrayMutable, ToContent } from "../../types"
 
-export interface Inter {
-  /** Adds an intermediate English representation. */
-  inter(strings: TemplateStringsArray): Inter
-
+export interface NeedsEng {
   /** Adds the final English translation. */
   eng(strings: TemplateStringsArray): Eng
 }
@@ -23,13 +15,7 @@ export interface Eng extends ToContent<ExampleTok> {
 export function tok(t: TemplateStringsArray) {
   const tok = color.tok(t)
 
-  const inter: Phrase<"eng">[] = []
-
-  const Inter: Inter = {
-    inter(strings) {
-      inter.push(color.eng(strings))
-      return Inter
-    },
+  const Eng: NeedsEng = {
     eng(strings) {
       const eng: PhraseArrayMutable<"eng"> = [color.eng(strings)]
       const Eng: Eng = {
@@ -38,12 +24,12 @@ export function tok(t: TemplateStringsArray) {
           return Eng
         },
         finalize() {
-          return { type: "ex:tok", tok, inter, eng }
+          return { type: "ex:tok", tok, eng }
         },
       }
       return Eng
     },
   }
 
-  return Inter
+  return Eng
 }

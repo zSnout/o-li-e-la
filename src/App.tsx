@@ -119,6 +119,30 @@ function PresenterView(props: {
   }
 }
 
+function SlideCreationView(props: { children: AnySlide }) {
+  const rem = createRemSize()
+  const aspectRatio = createMemo(() => 960 / 540)
+  const screen = createScreenSize()
+  const w = createMemo(() => screen.width - 26 * rem())
+  const h = createMemo(() => screen.height - 2 * rem())
+
+  return (
+    <div class="grid h-screen w-screen grid-cols-[1fr,24rem] bg-slate-300">
+      <div class="flex items-center justify-center p-4">
+        <div
+          class="flex flex-col gap-4"
+          style={{ width: Math.min(w(), aspectRatio() * h()) + "px" }}
+        >
+          <RenderScalable class="rounded-xl">{props.children}</RenderScalable>
+        </div>
+      </div>
+      <div class="flex h-screen flex-col bg-white">
+        <PresenterNotes class="flex-1 p-4">{props.children}</PresenterNotes>
+      </div>
+    </div>
+  )
+}
+
 function Main(props: {
   slide: AnySlide | undefined
   set(slide: AnySlide | undefined): void
@@ -142,11 +166,15 @@ const SHOW_LATEST = true
 
 export function Root() {
   if (import.meta.env.DEV && SHOW_LATEST) {
-    return (
-      <RenderScalable class="hx-[min(100vh,56.25vw)] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        {slides[slides.length - 1]!}
-      </RenderScalable>
-    )
+    const slide = slides[slides.length - 1]!
+    return <SlideCreationView>{slide}</SlideCreationView>
+    // return (
+    //   <div class="fixed left-0 top-0 h-screen w-screen bg-black">
+    //     <RenderScalable class="hx-[min(100vh,56.25vw)] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    //       {}
+    //     </RenderScalable>
+    //   </div>
+    // )
   }
 
   let source: Window | undefined

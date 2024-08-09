@@ -120,8 +120,6 @@ export type Text = AtLeastOne<TextItem>
 export interface ExampleTok {
   readonly type: "ex:tok"
   readonly tok: Phrase<"tok">
-  /** Intermediate English forms */
-  readonly inter?: readonly Phrase<"eng">[]
   readonly eng: PhraseArray<"eng">
 }
 
@@ -155,29 +153,16 @@ export interface ExampleSetQA {
 export type Example = ExampleTok | ExampleLa | ExampleSetAligned | ExampleSetQA
 
 /** A challenge to translate from toki pona to English. */
-export interface ChallengeSingleTok {
-  readonly tok: Phrase<"tok">
-  readonly eng: PhraseArray<"eng">
+export interface ChallengeTranslateOne {
+  readonly q: Phrase<PhraseLang>
+  readonly a: PhraseArray<PhraseLang>
   readonly hint?: Text
 }
 
 /** A challenge set to translate from toki pona to English. */
-export interface ChallengeTok {
-  readonly type: "ch:tok"
-  readonly items: AtLeastOne<ChallengeSingleTok>
-}
-
-/** A challenge to translate from English to toki pona. */
-export interface ChallengeSingleEng {
-  readonly eng: Phrase<"eng">
-  readonly tok: PhraseArray<"tok">
-  readonly hint?: Text
-}
-
-/** A challenge set to translate from English to toki pona. */
-export interface ChallengeEng {
-  readonly type: "ch:eng"
-  readonly items: AtLeastOne<ChallengeSingleEng>
+export interface ChallengeTranslate {
+  readonly type: "ch:tr"
+  readonly items: AtLeastOne<ChallengeTranslateOne>
   readonly label?: Text
 }
 
@@ -218,8 +203,7 @@ export interface ChallengeExplainDifference {
 
 /** Any challenge. */
 export type Challenge =
-  | ChallengeTok
-  | ChallengeEng
+  | ChallengeTranslate
   | ChallengeDiscuss
   | ChallengeLa
   | ChallengeExplainDifference
@@ -239,8 +223,15 @@ export interface InfoListUl {
 /** Any informational section. */
 export type Info = InfoListUl
 
+export interface Styled {
+  readonly type: "styled"
+  readonly my?: "auto" | undefined
+  readonly size?: "xl" | undefined
+  readonly content: AtLeastOne<Content>
+}
+
 /** Any piece of content. */
-export type Content = Example | Challenge | Info
+export type Content = Example | Challenge | Info | Styled
 
 /** A set of content. */
 export type ContentArray = AtLeastOne<Content>

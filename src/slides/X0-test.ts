@@ -27,16 +27,16 @@ export const SLIDE_PREPOSITIONS_AS_PREDICATES =
       ex.tok`mi tawa tomo sina.`
         .eng`I tawa 'm_going_to your house.`,
       ch.tok`ona li lon ma.`
-        .eng`They lon 're_at a place.`
+        .into`They lon 're_at a place.`
         .tok`sina kepeken ilo moku.`
-        .eng`You kepeken 're_using a fork.`
+        .into`You kepeken 're_using a fork.`
         .alt`You kepeken 're_using chopsticks.`
         .tok`ni li sama sina.`
-        .eng`This sama is_like you.`,
+        .into`This sama is_like you.`,
       ch.eng`He tawa 's_going_to the school.`
-        .tok`ona li tawa ma sona.`
+        .into`ona li tawa ma sona.`
         .eng`We tawa 're_walking_towards the loud sound.`
-        .tok`mi tawa kalama suli.`,
+        .into`mi tawa kalama suli.`,
     )
 
 export const SLIDE_LA_FOR_MARKING_TIME =
@@ -46,10 +46,9 @@ export const SLIDE_LA_FOR_MARKING_TIME =
       .eng`coming time la furry creatures li come tawa to the forest`,
     ch.la`tenpo weka la toki uta li ante mute`
       .eng`far time la spoken language li was very different`,
-    ch.eng
-      .label`Translate using "la":`
+    ch.label`Translate using "la":`
       .eng`Right now, la my parents li are grounding e me.`
-      .tok`tenpo ni la mama mi li awen e mi lon tomo.`,
+      .into`tenpo ni la mama mi li awen e mi lon tomo.`,
   )
 
 export const SLIDE_THE_PARTICLE_LA =
@@ -79,10 +78,10 @@ export const SLIDE_MODIFIER_STACKING =
       .eng`~ bad, large group of people`,
     ch.eng`~% sleeping adult`
       .hint`decompose $%"adult"`
-      .tok`~% jan suli lape`
+      .into`~% jan suli lape`
       .eng`~% nice picture of fruit`
       .hint`find the core word first`
-      .tok`~% sitelen kili pona`,
+      .into`~% sitelen kili pona`,
   )
 
 export const SLIDE_THE_PARTICLE_SEME =

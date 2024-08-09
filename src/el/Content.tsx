@@ -7,16 +7,16 @@ import {
 } from "../lib/colors"
 import type {
   ChallengeDiscuss,
-  ChallengeEng,
   ChallengeExplainDifference,
   ChallengeLa,
-  ChallengeTok,
+  ChallengeTranslate,
   Content,
   ExampleLa,
   ExampleSetAligned,
   ExampleSetQA,
   ExampleTok,
   InfoListUl,
+  Styled,
   Text,
 } from "../lib/types"
 import { PhraseEl } from "./PhraseEl"
@@ -37,17 +37,13 @@ export function ExampleTokEl(props: { children: ExampleTok }) {
         <PhraseEl>{props.children.tok}</PhraseEl>
       </p>
 
-      <For each={props.children.inter}>
+      <For each={props.children.eng}>
         {(phrase) => (
           <p class="font-ex-eng">
             <PhraseEl>{phrase}</PhraseEl>
           </p>
         )}
       </For>
-
-      <p class="font-ex-eng">
-        <PhraseEl>{props.children.eng[0]}</PhraseEl>
-      </p>
     </div>
   )
 }
@@ -145,49 +141,28 @@ export function ExampleSetQAEl(props: { children: ExampleSetQA }) {
   )
 }
 
-export function ChallengeTokEl(props: { children: ChallengeTok }) {
+export function ChallengeTranslateEl(props: { children: ChallengeTranslate }) {
   return (
-    <div class="my-4 grid grid-cols-2 items-center gap-x-8 border-l border-z-ch px-4">
+    <div class="my-4 grid grid-cols-2 gap-x-8 border-l border-z-ch px-4">
+      <Show when={props.children.label}>
+        <p class="col-span-2">
+          <TextEl>{props.children.label!}</TextEl>
+        </p>
+      </Show>
       <For each={props.children.items}>
         {(challenge) => (
           <>
             <p
-              class="font-ex-tok font-semibold"
+              class="font-semibold"
               classList={{
                 "col-span-2": !challenge.hint,
                 "text-center": !challenge.hint,
                 "text-right": !!challenge.hint,
+                "font-ex-tok": challenge.q.lang == "tok",
+                "font-ex-eng": challenge.q.lang == "eng",
               }}
             >
-              <PhraseEl style="plain">{challenge.tok}</PhraseEl>
-            </p>
-            <Show when={challenge.hint}>
-              <p class="font-ex-eng">
-                (hint: <TextEl>{challenge.hint!}</TextEl>)
-              </p>
-            </Show>
-          </>
-        )}
-      </For>
-    </div>
-  )
-}
-
-export function ChallengeEngEl(props: { children: ChallengeEng }) {
-  return (
-    <div class="my-4 grid grid-cols-2 items-center gap-x-8 border-l border-z-ch px-4">
-      <For each={props.children.items}>
-        {(challenge) => (
-          <>
-            <p
-              class="font-ex-eng font-semibold"
-              classList={{
-                "col-span-2": !challenge.hint,
-                "text-center": !challenge.hint,
-                "text-right": !!challenge.hint,
-              }}
-            >
-              <PhraseEl style="plain">{challenge.eng}</PhraseEl>
+              <PhraseEl style="plain">{challenge.q}</PhraseEl>
             </p>
             <Show when={challenge.hint}>
               <p class="font-ex-eng">
@@ -272,7 +247,7 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
     <Show
       when={props.children.items.length != 1}
       fallback={
-        <p class="font-ex-eng">
+        <p class="my-4 font-ex-eng">
           <TextEl>{props.children.items[0].text}</TextEl>
         </p>
       }
@@ -293,6 +268,20 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
   )
 }
 
+export function StyledEl(props: { children: Styled }) {
+  return (
+    <div
+      class="[:has(>&)]:flex [:has(>&)]:h-full [:has(>&)]:flex-col"
+      classList={{
+        "my-auto": props.children.my == "auto",
+        "text-4xl/[1.25]": props.children.size == "xl",
+      }}
+    >
+      <For each={props.children.content}>{(x) => <Content>{x}</Content>}</For>
+    </div>
+  )
+}
+
 export function Content(props: { children: Content }) {
   switch (props.children.type) {
     case "ex:tok":
@@ -303,10 +292,8 @@ export function Content(props: { children: Content }) {
       return <ExampleSetManyEl>{props.children}</ExampleSetManyEl>
     case "exs:qa":
       return <ExampleSetQAEl>{props.children}</ExampleSetQAEl>
-    case "ch:tok":
-      return <ChallengeTokEl>{props.children}</ChallengeTokEl>
-    case "ch:eng":
-      return <ChallengeEngEl>{props.children}</ChallengeEngEl>
+    case "ch:tr":
+      return <ChallengeTranslateEl>{props.children}</ChallengeTranslateEl>
     case "ch:discuss":
       return <ChallengeDiscussEl>{props.children}</ChallengeDiscussEl>
     case "ch:la":
@@ -319,5 +306,7 @@ export function Content(props: { children: Content }) {
       )
     case "ul":
       return <InfoListUlEl>{props.children}</InfoListUlEl>
+    case "styled":
+      return <StyledEl>{props.children}</StyledEl>
   }
 }

@@ -2,13 +2,11 @@ import { For, Show } from "solid-js"
 import { LA_CONTENT, LA_PARTICLE } from "../lib/colors"
 import type {
   ChallengeDiscuss,
-  ChallengeEng,
   ChallengeExplainDifference,
   ChallengeLa,
-  ChallengeTok,
+  ChallengeTranslate,
   Content,
   ExampleLa,
-  ExampleTok,
   Phrase,
   PhraseLang,
   Text,
@@ -66,14 +64,6 @@ function WithNote(props: { og: Text; notes: readonly Text[] }) {
   )
 }
 
-export function ExampleTokEl(props: { children: ExampleTok }) {
-  return (
-    <Show when={props.children.eng.length > 1}>
-      <Translation og={props.children.tok} tx={props.children.eng.slice(1)} />
-    </Show>
-  )
-}
-
 export function ExampleLaEl(props: { children: ExampleLa }) {
   // TODO: use <Translation />
   return (
@@ -98,18 +88,10 @@ export function ExampleLaEl(props: { children: ExampleLa }) {
   )
 }
 
-export function ChallengeTokEl(props: { children: ChallengeTok }) {
+export function ChallengeTranslateEl(props: { children: ChallengeTranslate }) {
   return (
     <For each={props.children.items}>
-      {(challenge) => <Translation og={challenge.tok} tx={challenge.eng} />}
-    </For>
-  )
-}
-
-export function ChallengeEngEl(props: { children: ChallengeEng }) {
-  return (
-    <For each={props.children.items}>
-      {(challenge) => <Translation og={challenge.eng} tx={challenge.tok} />}
+      {(challenge) => <Translation og={challenge.q} tx={challenge.a} />}
     </For>
   )
 }
@@ -175,14 +157,10 @@ export function ChallengeLaEl(props: { children: ChallengeLa }) {
 
 export function ContentPresenter(props: { children: Content }) {
   switch (props.children.type) {
-    case "ex:tok":
-      return <ExampleTokEl>{props.children}</ExampleTokEl>
     case "ex:la":
       return <ExampleLaEl>{props.children}</ExampleLaEl>
-    case "ch:tok":
-      return <ChallengeTokEl>{props.children}</ChallengeTokEl>
-    case "ch:eng":
-      return <ChallengeEngEl>{props.children}</ChallengeEngEl>
+    case "ch:tr":
+      return <ChallengeTranslateEl>{props.children}</ChallengeTranslateEl>
     case "ch:discuss":
       return <ChallengeDiscussEl>{props.children}</ChallengeDiscussEl>
     case "ch:la":
@@ -193,7 +171,14 @@ export function ContentPresenter(props: { children: Content }) {
           {props.children}
         </ChallengeExplainDifferenceEl>
       )
+    case "styled":
+      return (
+        <For each={props.children.content}>
+          {(x) => <ContentPresenter>{x}</ContentPresenter>}
+        </For>
+      )
 
+    case "ex:tok":
     case "exs:aligned":
     case "exs:qa":
     case "ul":

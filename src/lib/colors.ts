@@ -334,6 +334,8 @@ function createTagFunction<T extends PhraseLang>(
   }
 }
 
+export type TagFunction = (strings: readonly string[]) => Phrase<PhraseLang>
+
 function createLa<T extends PhraseLang>(
   fn: (strings: readonly [string]) => Phrase<T>,
 ) {

@@ -118,6 +118,7 @@ export function slideshow(...title: TextParams): SlideshowFnReturn {
 
 export * as ch from "./ch"
 export * as ex from "./ex"
+export { styled } from "./styled"
 export { ul } from "./ul"
 export * as vocab from "./vocab"
 
