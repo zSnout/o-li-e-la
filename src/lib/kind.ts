@@ -6,7 +6,7 @@ export const content: WordKind = {
   prep: false,
   preverb: false,
 
-  name: "content",
+  name: "content word",
   abbr: "c.",
   color: "bg-sky-500 text-sky-50",
 }

@@ -2,7 +2,6 @@ import {
   ch,
   ex,
   slideshow,
-  styled,
   ul,
 } from "../lib/helpers"
 import {
@@ -41,13 +40,20 @@ slide`"mi" and "sina" subjects`
   )
 
 slide`any word can be a predicate`
+  .note`Explain how even thought $"you li understand" and $"you li are knowledge" both translate to "sina sona", we can usually differentiate them using context.`
   .vocab(sona)
   .content(
     ul`you may have noticed: any word can be a predicate in toki pona! **there's no noun/adjective/verb distinction.**`,
-    ul`this *can* lead to confusing situations, but these are always solved with Context™.`,
-    ex.tok`mi sona.`
-      .eng`I li am knowledge.`
-      .alt`I li understand.`,
+    ex.tok`mi pona.`
+      .eng`I li am good.`,
+    ex.tok`mi sina.`
+      .eng`I li am you.`
+      .alt`I li am yours.`,
+    ul`try some more translations!`,
+    ch.eng`You li understand.`
+      .into`sina sona.`
+      .eng`You li are knowledge.`
+      .into`sina sona.`,
   )
 
 // slide`what is context?`(
@@ -56,12 +62,12 @@ slide`any word can be a predicate`
 //   ul`if we're at the beach `,
 // )
 
-slide`what is context?`(
-  styled()
-    .my("auto")
-    .size("xl")
-    .content(
-      ex.tok`o moku ala e telo.`
-        .eng`o Don't consume e the liquid.`,
-    ),
-)
+// slide`what is context?`(
+//   styled()
+//     .my("auto")
+//     .size("xl")
+//     .content(
+//       ex.tok`o moku ala e telo.`
+//         .eng`o Don't consume e the liquid.`,
+//     ),
+// )

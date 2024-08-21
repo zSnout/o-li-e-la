@@ -136,13 +136,6 @@ function PresenterNotesStandard(props: {
         <p class="font-sans italic">There are no notes on this slide.</p>
       </Show>
       {main()}
-      <Show when={props.children.vocab?.length}>
-        <div class="grid w-full grid-cols-[auto,auto] items-baseline pt-4">
-          <For each={props.children.vocab}>
-            {(word) => <VocabPresenter>{word}</VocabPresenter>}
-          </For>
-        </div>
-      </Show>
       <Show when={props.children.notes?.length}>
         <For each={props.children.notes}>
           {(note) => (
@@ -151,6 +144,21 @@ function PresenterNotesStandard(props: {
             </p>
           )}
         </For>
+      </Show>
+      <For each={props.children.vocab}>
+        {(word) => <VocabPresenter>{word}</VocabPresenter>}
+      </For>
+      <Show when={props.children.vocab?.some((x) => x.defnLipamanka)}>
+        <p class="font-ex-eng text-z-subtitle">
+          Paragraph-style word definitions available in the dropdowns above were
+          written by{" "}
+          <a
+            class="text-z-link underline underline-offset-2"
+            href="https://lipamanka.gay/essays/dictionary"
+          >
+            lipamanka
+          </a>
+        </p>
       </Show>
     </div>
   )

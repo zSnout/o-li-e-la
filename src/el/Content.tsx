@@ -145,7 +145,7 @@ export function ChallengeTranslateEl(props: { children: ChallengeTranslate }) {
   return (
     <div class="my-4 grid grid-cols-2 gap-x-8 border-l border-z-ch px-4">
       <Show when={props.children.label}>
-        <p class="col-span-2">
+        <p class="col-span-2 font-ex-eng">
           <TextEl>{props.children.label!}</TextEl>
         </p>
       </Show>

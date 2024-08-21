@@ -16,14 +16,17 @@ export function Vocab(props: { children: Word }) {
 
 export function VocabPresenter(props: { children: Word }) {
   return (
-    <>
-      <span class="whitespace-nowrap font-sans">
-        <strong class="font-ex-tok">{props.children.word}</strong>{" "}
-        <span class="text-z-subtitle">({props.children.kind.abbr})</span>
-      </span>
-      <span class="font-sans">
-        <TextEl>{props.children.defnShort}</TextEl>
-      </span>
-    </>
+    <details>
+      <summary class="font-sans">
+        <span class="font-semibold">{props.children.word}</span>{" "}
+        <span class="text-z-subtitle">({props.children.kind.name})</span>
+      </summary>
+
+      <p class="pl-8 font-ex-eng">
+        <TextEl>
+          {props.children.defnLipamanka ?? props.children.defnShort}
+        </TextEl>
+      </p>
+    </details>
   )
 }
