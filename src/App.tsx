@@ -11,7 +11,9 @@ import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
 import type { AnySlide } from "./lib/types"
 
-import "./slides/02-li"
+import "./slides/tok/02-li"
+
+const SHOW_LATEST = true
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
@@ -162,8 +164,6 @@ function Main(props: {
 
 export type Msg = AnySlide | [AnySlide]
 
-const SHOW_LATEST = true
-
 export function Root() {
   if (import.meta.env.DEV && SHOW_LATEST) {
     const slide = slides[slides.length - 1]!
@@ -171,7 +171,7 @@ export function Root() {
     // return (
     //   <div class="fixed left-0 top-0 h-screen w-screen bg-black">
     //     <RenderScalable class="hx-[min(100vh,56.25vw)] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-    //       {}
+    //       {slide}
     //     </RenderScalable>
     //   </div>
     // )

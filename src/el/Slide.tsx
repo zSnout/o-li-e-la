@@ -28,24 +28,32 @@ function RenderStandard(props: { children: SlideStandard }) {
     )
   }
 
-  const hasVocab = () => !!props.children.vocab?.length
-
   return (
-    <SlideBase
-      class={
-        "p-4 px-8" +
-        (hasVocab() ? " grid grid-cols-[2fr,1fr] gap-8" : " flex flex-col")
-      }
-    >
-      <main class="py-8">
+    <SlideBase class="flex">
+      <main class="flex-1 px-8 py-12">
         <Main />
       </main>
-      <Show when={hasVocab()}>
-        <ul class="hx-[calc(540px_-_2rem)] flex flex-col gap-4 border-l border-z p-4 pl-8 text-lg">
+      <Show when={props.children.vocab?.length}>
+        <ul class="wx-80 hx-[calc(540px_-_2rem)] my-4 ml-8 flex flex-col gap-4 border-l border-z py-4 pl-6 pr-8 text-lg">
           <For each={props.children.vocab}>
             {(word) => <Vocab>{word}</Vocab>}
           </For>
         </ul>
+      </Show>
+      <Show when={props.children.image} keyed>
+        {(image) => (
+          <img
+            src={image.src}
+            alt={image.alt}
+            class={"h-full" + (image.contain ? " " + image.contain : "")}
+            classList={{
+              "object-cover": !image.contain,
+              "object-contain": !!image.contain,
+              "aspect-square": image.aspect == "square",
+              "aspect-[8/9]": image.aspect == "half",
+            }}
+          />
+        )}
       </Show>
     </SlideBase>
   )
@@ -114,7 +122,7 @@ function PresenterNotesStandard(props: {
       return false
     }
 
-    if (props.children.vocab?.length) {
+    if (Array.isArray(props.children.vocab) && props.children.vocab?.length) {
       return false
     }
 
@@ -145,10 +153,15 @@ function PresenterNotesStandard(props: {
           )}
         </For>
       </Show>
-      <For each={props.children.vocab}>
+      <For each={Array.isArray(props.children.vocab) && props.children.vocab}>
         {(word) => <VocabPresenter>{word}</VocabPresenter>}
       </For>
-      <Show when={props.children.vocab?.some((x) => x.defnLipamanka)}>
+      <Show
+        when={
+          Array.isArray(props.children.vocab) &&
+          props.children.vocab?.some((x) => x.defnLipamanka)
+        }
+      >
         <p class="font-ex-eng text-z-subtitle">
           Paragraph-style word definitions available in the dropdowns above were
           written by{" "}
@@ -158,6 +171,7 @@ function PresenterNotesStandard(props: {
           >
             lipamanka
           </a>
+          .
         </p>
       </Show>
     </div>

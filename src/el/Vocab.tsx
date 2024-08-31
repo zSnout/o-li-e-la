@@ -7,7 +7,7 @@ export function Vocab(props: { children: Word }) {
       <div class="flex items-baseline gap-4">
         <h2 class="flex font-semibold text-z-heading">{props.children.word}</h2>
       </div>
-      <p class="pl-6 text-z">
+      <p class="text-balance pl-6 text-z">
         <TextEl>{props.children.defnShort}</TextEl>
       </p>
     </li>
@@ -23,7 +23,7 @@ export function VocabPresenter(props: { children: Word }) {
       </summary>
 
       <p class="pl-8 font-ex-eng">
-        <TextEl>
+        <TextEl style="plain">
           {props.children.defnLipamanka ?? props.children.defnShort}
         </TextEl>
       </p>

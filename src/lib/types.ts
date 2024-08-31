@@ -265,15 +265,30 @@ export interface SlideBase {
   readonly notes?: Text[]
 }
 
+/** The aspect ratio of an image on a slide. */
+export type SlideImageAspectRatio =
+  | "half" // 8/9 (half a slide's width)
+  | "square"
+  | "auto"
+
+/** An image displayed on a slide. */
+export interface SlideImage {
+  readonly aspect: SlideImageAspectRatio
+  readonly src: string
+  readonly alt: string
+  readonly contain?: string
+}
+
 /**
- * A regular slide, with a title, content, possible source, and possible vocab
- * list.
+ * A regular slide, with a title, content, possible source, possible vocab list,
+ * and possible image.
  */
 export interface SlideStandard extends SlideBase {
   readonly type: "insa"
   readonly title: Text
   readonly content: ContentArray
   readonly vocab?: Word[]
+  readonly image?: SlideImage
   readonly source?: Source
 }
 

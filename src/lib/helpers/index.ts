@@ -5,6 +5,8 @@ import type {
   Content,
   ContentArray,
   SlideBase,
+  SlideImage,
+  SlideImageAspectRatio,
   SlideStandard,
   Source,
   Text,
@@ -33,21 +35,34 @@ export interface SlideBuilder {
   /** Adds a reference to another slide. */
   ref(slide: SlideBase): this
 
+  /** Adds a note to this slide visible in the presenter's view. */
+  note(...note: TextParams): this
+
+  /** Marks the source of this slide. */
+  source(source: Source): Omit<this, "source">
+
   /** Adds a vocab word to this slide. */
   vocab(word: Word): this
 
-  /** Adds a note to this slide visible in the presenter's view. */
-  note(...note: TextParams): this
+  /** Marks the image of this slide. */
+  image: {
+    [K in SlideImageAspectRatio]: (
+      src: TemplateStringsArray,
+    ) => ImgBuilderNeedsAltOrContain<this>
+  }
 }
 
-export interface SlideBuilderWithoutSource extends SlideBuilder {
-  /** Marks the source of this slide. */
-  source(source: Source): SlideBuilder
+export interface ImgBuilderNeedsAlt<T> {
+  alt(alt: TemplateStringsArray): Omit<T, "image">
+}
+
+export interface ImgBuilderNeedsAltOrContain<T> extends ImgBuilderNeedsAlt<T> {
+  contain(bg: TemplateStringsArray): ImgBuilderNeedsAlt<T>
 }
 
 export interface SlideFunction {
   /** Creates a new slide. */
-  (...title: TextParams): SlideBuilderWithoutSource
+  (...title: TextParams): SlideBuilder
 }
 
 export type SlideshowFnReturn = [
@@ -57,15 +72,16 @@ export type SlideshowFnReturn = [
 
 const all: AnySlide[] = []
 
-export function slideshow(...title: TextParams): SlideshowFnReturn {
+export function slideshow(..._title: TextParams): SlideshowFnReturn {
   const slides: AnySlide[] = []
 
   /** Builds a {@link SlideStandard} object, starting with the slide title. */
-  function slide(...title: TextParams): SlideBuilderWithoutSource {
+  function slide(...title: TextParams): SlideBuilder {
     const refs: number[] = []
     const vocab: Word[] = []
     let source: Source | undefined
     const notes: Text[] = []
+    let image: SlideImage | undefined
 
     function builder(...content: ToContentArray): SlideStandard {
       const slide: SlideStandard = {
@@ -75,6 +91,7 @@ export function slideshow(...title: TextParams): SlideshowFnReturn {
         title: text(...title),
         refs,
         vocab,
+        image,
         source,
         notes,
         content: content.map((x) =>
@@ -108,6 +125,38 @@ export function slideshow(...title: TextParams): SlideshowFnReturn {
     builder.note = (...note: TextParams) => {
       notes.push(text(...note))
       return builder
+    }
+
+    function createImg(
+      aspect: SlideImageAspectRatio,
+    ): SlideBuilder["image"][SlideImageAspectRatio] {
+      return (src) => {
+        return {
+          alt(alt) {
+            image = { alt: alt[0]!, aspect, src: src[0]! }
+            return builder
+          },
+          contain([contain]) {
+            return {
+              alt(alt) {
+                image = {
+                  alt: alt[0]!,
+                  aspect,
+                  src: src[0]!,
+                  contain: contain!,
+                }
+                return builder
+              },
+            }
+          },
+        }
+      }
+    }
+
+    builder.image = {
+      half: createImg("half"),
+      auto: createImg("auto"),
+      square: createImg("square"),
     }
 
     return builder
