@@ -15,7 +15,7 @@ import type {
 } from "../types"
 
 export type ToContentItem = Content | ToContent<Content>
-export type ToContentArray = AtLeastOne<ToContentItem>
+export type ToContentArray = ToContentItem[]
 
 export interface SlideBuilder {
   /**
@@ -63,6 +63,9 @@ export interface ImgBuilderNeedsAltOrContain<T> extends ImgBuilderNeedsAlt<T> {
 export interface SlideFunction {
   /** Creates a new slide. */
   (...title: TextParams): SlideBuilder
+
+  /** Creates a new slide with larger text. */
+  suli(...title: TextParams): SlideBuilder
 }
 
 export type SlideshowFnReturn = [
@@ -75,94 +78,96 @@ const all: AnySlide[] = []
 export function slideshow(..._title: TextParams): SlideshowFnReturn {
   const slides: AnySlide[] = []
 
-  /** Builds a {@link SlideStandard} object, starting with the slide title. */
-  function slide(...title: TextParams): SlideBuilder {
-    const refs: number[] = []
-    const vocab: Word[] = []
-    let source: Source | undefined
-    const notes: Text[] = []
-    let image: SlideImage | undefined
+  function create(type: SlideStandard["type"]) {
+    /** Builds a {@link SlideStandard} object, starting with the slide title. */
+    return function (...title: TextParams): SlideBuilder {
+      const refs: number[] = []
+      const vocab: Word[] = []
+      let source: Source | undefined
+      const notes: Text[] = []
+      let image: SlideImage | undefined
 
-    function builder(...content: ToContentArray): SlideStandard {
-      const slide: SlideStandard = {
-        type: "insa",
-        gid: all.length,
-        id: slides.length,
-        title: text(...title),
-        refs,
-        vocab,
-        image,
-        source,
-        notes,
-        content: content.map((x) =>
-          "finalize" in x ? x.finalize() : x,
-        ) as readonly Content[] as ContentArray,
+      function builder(...content: ToContentArray): SlideStandard {
+        const slide: SlideStandard = {
+          type,
+          gid: all.length,
+          id: slides.length,
+          title: text(...title),
+          refs,
+          vocab,
+          image,
+          source,
+          notes,
+          content: content.map((x) =>
+            "finalize" in x ? x.finalize() : x,
+          ) as readonly Content[] as ContentArray,
+        }
+
+        slides.push(slide)
+        all.push(slide)
+
+        return slide
       }
 
-      slides.push(slide)
-      all.push(slide)
+      builder.content = builder
 
-      return slide
-    }
+      builder.ref = (slide: SlideBase) => {
+        refs.push(slide.gid)
+        return builder
+      }
 
-    builder.content = builder
+      builder.source = (s: Source) => {
+        source = s
+        return builder
+      }
 
-    builder.ref = (slide: SlideBase) => {
-      refs.push(slide.gid)
-      return builder
-    }
+      builder.vocab = (w: Word) => {
+        vocab.push(w)
+        return builder
+      }
 
-    builder.source = (s: Source) => {
-      source = s
-      return builder
-    }
+      builder.note = (...note: TextParams) => {
+        notes.push(text(...note))
+        return builder
+      }
 
-    builder.vocab = (w: Word) => {
-      vocab.push(w)
-      return builder
-    }
-
-    builder.note = (...note: TextParams) => {
-      notes.push(text(...note))
-      return builder
-    }
-
-    function createImg(
-      aspect: SlideImageAspectRatio,
-    ): SlideBuilder["image"][SlideImageAspectRatio] {
-      return (src) => {
-        return {
-          alt(alt) {
-            image = { alt: alt[0]!, aspect, src: src[0]! }
-            return builder
-          },
-          contain([contain]) {
-            return {
-              alt(alt) {
-                image = {
-                  alt: alt[0]!,
-                  aspect,
-                  src: src[0]!,
-                  contain: contain!,
-                }
-                return builder
-              },
-            }
-          },
+      function createImg(
+        aspect: SlideImageAspectRatio,
+      ): SlideBuilder["image"][SlideImageAspectRatio] {
+        return (src) => {
+          return {
+            alt(alt) {
+              image = { alt: alt[0]!, aspect, src: src[0]! }
+              return builder
+            },
+            contain([contain]) {
+              return {
+                alt(alt) {
+                  image = {
+                    alt: alt[0]!,
+                    aspect,
+                    src: src[0]!,
+                    contain: contain!,
+                  }
+                  return builder
+                },
+              }
+            },
+          }
         }
       }
-    }
 
-    builder.image = {
-      half: createImg("half"),
-      auto: createImg("auto"),
-      square: createImg("square"),
-    }
+      builder.image = {
+        half: createImg("half"),
+        auto: createImg("auto"),
+        square: createImg("square"),
+      }
 
-    return builder
+      return builder
+    }
   }
 
-  return [slide, slides]
+  return [Object.assign(create("insa"), { suli: create("suli") }), slides]
 }
 
 export * as ch from "./ch"

@@ -24,7 +24,7 @@ import { TextEl } from "./TextEl"
 
 export function Title(props: { children: Text }) {
   return (
-    <h1 class="mb-8 font-ex-title text-4xl text-z-heading">
+    <h1 class="mb-8 text-balance font-ex-title text-4xl text-z-heading">
       <TextEl>{props.children}</TextEl>
     </h1>
   )

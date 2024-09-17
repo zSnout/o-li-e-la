@@ -30,8 +30,17 @@ function RenderStandard(props: { children: SlideStandard }) {
 
   return (
     <SlideBase class="flex">
-      <main class="flex-1 px-8 py-12">
-        <Main />
+      <main
+        class={
+          "flex-1 px-8 py-12" +
+          (props.children.type == "suli" ?
+            " flex flex-col items-center justify-center text-center"
+          : "")
+        }
+      >
+        <div>
+          <Main />
+        </div>
       </main>
       <Show when={props.children.vocab?.length}>
         <ul class="wx-80 hx-[calc(540px_-_2rem)] my-4 ml-8 flex flex-col gap-4 border-l border-z py-4 pl-6 pr-8 text-lg">
@@ -61,7 +70,7 @@ function RenderStandard(props: { children: SlideStandard }) {
 
 export function Render(props: { children: AnySlide }) {
   return (
-    <Show when={props.children.type == "insa"}>
+    <Show when={props.children.type == "insa" || props.children.type == "suli"}>
       <RenderStandard>{props.children as SlideStandard}</RenderStandard>
     </Show>
   )
@@ -180,7 +189,7 @@ function PresenterNotesStandard(props: {
 
 export function PresenterNotes(props: { class?: string; children: AnySlide }) {
   return (
-    <Show when={props.children.type == "insa"}>
+    <Show when={props.children.type == "insa" || props.children.type == "suli"}>
       <PresenterNotesStandard class={props.class}>
         {props.children as SlideStandard}
       </PresenterNotesStandard>

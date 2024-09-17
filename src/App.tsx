@@ -11,7 +11,8 @@ import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
 import type { AnySlide } from "./lib/types"
 
-import "./slides/tok/02-li"
+import "./slides/tok/01-welcome"
+// import "./slides/tok/02-li"
 
 const SHOW_LATEST = true
 
@@ -125,11 +126,16 @@ function SlideCreationView(props: { children: AnySlide }) {
   const rem = createRemSize()
   const aspectRatio = createMemo(() => 960 / 540)
   const screen = createScreenSize()
-  const w = createMemo(() => screen.width - 26 * rem())
-  const h = createMemo(() => screen.height - 2 * rem())
+  const md = createMemo(() => screen.width >= 768)
+  const w = createMemo(() =>
+    md() ? screen.width - 26 * rem() : screen.width - 2 * rem(),
+  )
+  const h = createMemo(() =>
+    md() ? screen.height - 2 * rem() : screen.height - 26 * rem(),
+  )
 
   return (
-    <div class="grid h-screen w-screen grid-cols-[1fr,24rem] bg-slate-300">
+    <div class="grid h-screen w-screen grid-rows-[1fr,24rem] bg-slate-300 md:grid-cols-[1fr,24rem] md:grid-rows-1">
       <div class="flex items-center justify-center p-4">
         <div
           class="flex flex-col gap-4"
@@ -138,8 +144,10 @@ function SlideCreationView(props: { children: AnySlide }) {
           <RenderScalable class="rounded-xl">{props.children}</RenderScalable>
         </div>
       </div>
-      <div class="flex h-screen flex-col bg-white">
-        <PresenterNotes class="flex-1 p-4">{props.children}</PresenterNotes>
+      <div class="flex h-96 flex-col bg-white md:h-screen">
+        <PresenterNotes class="w-96 flex-1 p-4">
+          {props.children}
+        </PresenterNotes>
       </div>
     </div>
   )

@@ -234,7 +234,7 @@ export interface Styled {
 export type Content = Example | Challenge | Info | Styled
 
 /** A set of content. */
-export type ContentArray = AtLeastOne<Content>
+export type ContentArray = Content[]
 
 // #endregion
 
@@ -284,7 +284,7 @@ export interface SlideImage {
  * and possible image.
  */
 export interface SlideStandard extends SlideBase {
-  readonly type: "insa"
+  readonly type: "insa" | "suli"
   readonly title: Text
   readonly content: ContentArray
   readonly vocab?: Word[]
