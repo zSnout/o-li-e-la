@@ -22,13 +22,6 @@ const [
 ] =
   slideshow`welcome!`
 
-slide`important! read before using`(
-  ul`this slideshow software (%"o li e la") was custom-made by sakawi to help teach toki pona. they also find creating single-use software an incredibly joyful task.`,
-  ul`%"o li e la" was also created to move away from increasingly monopolistic mega-corporation-based cloud platforms. your content should be your own, and should be stored in plain text, the only format which will remain accessible forever.`,
-  ul`colors, fonts, and some text decorations are used as teaching tools. sentences look like "taso, context la subject li predicate e object lon preposition". phrases look like %"word pi word word".`,
-  ul`if you find issues with the content, styling, or usability of this tool, contact @zsakowitz on discord, and state your issue and that it pertains to the project %"o li e la".`,
-)
-
 slide.suli`welcome to toki pona club!`()
 
 slide.suli`our goals`(
@@ -55,7 +48,7 @@ slide.suli`why learn toki pona?`
     .li`__**it's easy and fun!**__`,
 )
 
-slide.suli`toki pona as art`
+slide.suli`sitelen sitelen art`
   .image
   .half`/jonathan-gabel-waso-walo.jpg`
   .alt`Jonathan Gabel's "waso walo", a three-column text about animals at night written using sitelen sitelen.`
@@ -65,7 +58,7 @@ slide.suli`toki pona as art`
         "waso walo",
       author:
         "Jonathan Gabel",
-      url: "https://arc.net/l/quote/sppmbuwf",
+      url: "https://jonathangabel.com/toki-pona/colors/#:~:text=others%20have%20made.-,practice%20sentences,-tenpo%20pimeja%20la",
     },
   )
   .content(
@@ -73,7 +66,7 @@ slide.suli`toki pona as art`
       .li`color and shading used to write`,
   )
 
-slide.suli`toki pona as art`
+slide.suli`sitelen pona art`
   .image
   .half`/ma-pona-banner-kala-pona.png`
   .contain``
@@ -92,7 +85,7 @@ slide.suli`toki pona as art`
       .li`uses sitelen pona as objects`,
   )
 
-// TODO: emojis, sitelen pona, stick figures
+// TODO: emojis, stick figures
 
 slide.suli`how can toki pona work?`
   .note`**General Ideas:** Words have big semantic spaces. In English, words like ~"complain" and ~"mousetrap" are very specific, but words like ~"fruit" and ~"bird" and ~"liquid" are quite general. toki pona only has these more general words!`
