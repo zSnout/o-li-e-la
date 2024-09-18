@@ -306,6 +306,11 @@ function createTagFunction<T extends PhraseLang>(
       text = text.slice(1).trim()
     }
 
+    const fontSp = text.startsWith("&")
+    if (fontSp) {
+      text = text.slice(1).trim()
+    }
+
     const output =
       text.startsWith("%") ?
         piPhrase([text.slice(1).trim()], lang)
@@ -313,6 +318,10 @@ function createTagFunction<T extends PhraseLang>(
           (text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]).map(inner).flat(),
           lang,
         )
+
+    if (fontSp) {
+      output.font = "sp"
+    }
 
     if (uncolor) {
       return {
@@ -327,6 +336,7 @@ function createTagFunction<T extends PhraseLang>(
           },
         ],
         actual: output.content,
+        font: output.font,
       }
     } else {
       return output

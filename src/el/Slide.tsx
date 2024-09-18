@@ -186,7 +186,7 @@ function PresenterNotesStandard(props: {
       <Show when={props.children.notes?.length}>
         <For each={props.children.notes}>
           {(note) => (
-            <p class="whitespace-pre-line font-ex-eng">
+            <p class="whitespace-pre-line font-ex-eng text-z">
               <TextEl>{note}</TextEl>
             </p>
           )}

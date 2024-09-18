@@ -9,7 +9,9 @@ import {
   pilin,
 } from "../lib/vocab"
 
-const [slide] =
+const [
+  slide,
+] =
   slideshow`Test of various functionalities`
 
 export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
@@ -20,8 +22,12 @@ export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
 
 export const SLIDE_PREPOSITIONS_AS_PREDICATES =
   slide`prepositions as predicates`
-    .vocab(pilin)
-    .vocab(pana)
+    .vocab(
+      pilin,
+    )
+    .vocab(
+      pana,
+    )
     .content(
       ul`prepositions can be entire predicates, without needing a verb before them`,
       ex.tok`mi tawa tomo sina.`
@@ -118,15 +124,16 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
       .eng`I li did that.`
       .alt`mi ni ala.`
       .eng`I li didn't do that.`,
-    ch.discuss
+    ch
+      .discuss
       .label`Respond to these questions:`
-      .prompt`"~ akesi li moli ala moli?"`
+      .prompt`~"akesi li moli ala moli?"`
       .note`hi`
       .note`world`
       .note`goodbye`
-      .prompt`"~ mi o moli ala moli e ona?"`
+      .prompt`~"mi o moli ala moli e ona?"`
       .note`goodbye`
-      .prompt`"~ sina pana ala pana e ona tawa sike?"`,
+      .prompt`~"sina pana ala pana e ona tawa sike?"`,
   )
 
 export const SLIDE_THE_PARTICLE_PI =

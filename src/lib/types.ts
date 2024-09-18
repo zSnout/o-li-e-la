@@ -6,8 +6,11 @@ export type AtLeastOneMutable<T> = [T, ...T[]]
 
 export type PhraseLang = "tok" | "eng"
 
+export type PhraseFont = "sp"
+
 export type Phrase<T extends PhraseLang> = {
   lang: T
+  font?: PhraseFont
   content: AtLeastOne<Colored>
   actual?: AtLeastOne<Colored>
 }

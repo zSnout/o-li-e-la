@@ -21,6 +21,8 @@ import type {
 } from "../lib/types"
 import { PhraseEl } from "./PhraseEl"
 import { TextEl } from "./TextEl"
+import { clsx } from "../lib/clsx"
+import { isSitelenPonaOnly } from "../lib/text"
 
 export function Title(props: { children: Text }) {
   return (
@@ -247,7 +249,14 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
     <Show
       when={props.children.items.length != 1}
       fallback={
-        <p class="my-4 font-ex-eng">
+        <p
+          class={clsx(
+            "font-ex-eng",
+            props.children.items.every((x) => isSitelenPonaOnly(x.text)) ?
+              "my-8 text-center text-5xl"
+            : "my-4",
+          )}
+        >
           <TextEl>{props.children.items[0].text}</TextEl>
         </p>
       }

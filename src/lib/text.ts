@@ -1,13 +1,15 @@
 import { eng, piPhrase, tok } from "./colors"
-import type { Text, TextItem } from "./types"
+import type { Phrase, PhraseLang, Text, TextItem } from "./types"
 
 export type TextParams = [
   strings: TemplateStringsArray,
   ...interps: (Text | TextItem)[],
 ]
 
+const textFn = text
+
 export function text(
-  strings: TemplateStringsArray,
+  strings: readonly string[],
   ...interps: (Text | TextItem)[]
 ): Text {
   const output: TextItem[] = []
@@ -25,7 +27,11 @@ export function text(
       }
     }
 
-    let text = strings[index]!
+    let text = strings[index]!.replace(
+      /[\p{L}\d?!.,]'/gu,
+      (x) => x[0] + "’",
+    ).replace(/'/gu, "‘")
+
     while (text) {
       if (text.startsWith("***")) {
         b = !b
@@ -58,14 +64,14 @@ export function text(
         continue
       }
 
-      if (text.startsWith('$"')) {
-        const end = text.indexOf('"', 2)
+      if (text.startsWith('$%"')) {
+        const end = text.indexOf('"', 3)
         if (end == -1) {
           throw new Error("Unclosed double quote in text`...` call")
         }
-        const sub = text.slice(2, end)
+        const sub = text.slice(3, end)
         text = text.slice(end + 1)
-        output.push(eng([sub]))
+        output.push(piPhrase([sub], "eng"))
         continue
       }
 
@@ -80,14 +86,14 @@ export function text(
         continue
       }
 
-      if (text.startsWith('$%"')) {
-        const end = text.indexOf('"', 3)
+      if (text.startsWith('$"')) {
+        const end = text.indexOf('"', 2)
         if (end == -1) {
           throw new Error("Unclosed double quote in text`...` call")
         }
-        const sub = text.slice(3, end)
+        const sub = text.slice(2, end)
         text = text.slice(end + 1)
-        output.push(piPhrase([sub], "eng"))
+        output.push(eng([sub]))
         continue
       }
 
@@ -102,7 +108,20 @@ export function text(
         continue
       }
 
-      const idx = text.match(/[*_"]|[$%]"|\$%"|~~/)?.index
+      if (text.startsWith('~"')) {
+        const end = text.indexOf('"', 2)
+        if (end == -1) {
+          throw new Error("Unclosed double quote in text`...` call")
+        }
+        const sub = text.slice(2, end)
+        text = text.slice(end + 1)
+        output.push("“")
+        output.push(...textFn([sub]))
+        output.push("”")
+        continue
+      }
+
+      const idx = text.match(/[*_"]|[$%~]"|\$%"|~~/)?.index
 
       const sub = idx == null ? text : text.slice(0, idx)
 
@@ -125,4 +144,15 @@ export function text(
   }
 
   return output as readonly TextItem[] as Text
+}
+
+export function isSitelenPonaOnly(
+  text: Text,
+): text is readonly [Phrase<PhraseLang> & { font: "sp" }] {
+  return (
+    text.length == 1 &&
+    typeof text[0] == "object" &&
+    "font" in text[0] &&
+    text[0].font == "sp"
+  )
 }

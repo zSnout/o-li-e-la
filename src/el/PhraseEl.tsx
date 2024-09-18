@@ -1,5 +1,6 @@
 import { createMemo, For } from "solid-js"
 import type { Color, Phrase, PhraseLang } from "../lib/types"
+import { clsx } from "../lib/clsx"
 
 const DEV_SHOW_COLORS = false
 const force = DEV_SHOW_COLORS && import.meta.env.DEV
@@ -32,15 +33,13 @@ export function PhraseEl(props: {
     <For each={content()}>
       {(item, index) => (
         <span
-          class={
-            (
-              force &&
+          class={clsx(
+            force &&
               (props.style == "plain" ||
-                (props.style != "force" && props.children.actual))
-            ) ?
-              "bg-slate-200"
-            : undefined
-          }
+                (props.style != "force" && props.children.actual)) &&
+              "bg-slate-200",
+            props.children.font == "sp" && "font-sp-sans",
+          )}
         >
           {!(
             index() == 0 ||

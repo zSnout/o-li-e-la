@@ -91,29 +91,55 @@ slide.suli`toki pona as art`
 
 // TODO: emojis, sitelen pona, stick figures
 
-// TODO: how can toki pona work?
+slide.suli`how can toki pona work?`
+  .note`**General Ideas:** Words have big semantic spaces. In English, words like ~"complain" and ~"mousetrap" are very specific, but words like ~"fruit" and ~"bird" and ~"liquid" are quite general. toki pona only has these more general words!`
+  .note`Those words could alternatively be ~"talking about bad things happening to me" and ~"animal hunting tool".`
+  .note`**Context:** Context helps identify shades of meaning. If I ask for a fruit at a banana shop, the cashier will understand I mean a banana. But if the shop sells more fruits, I can probably just call it the ~"stick-shaped fruit", or the ~"yellow fruit", or the ~"yellow stick-shaped fruit".`
+  .note`**Extra Sentences:** You might wonder, ~"If all I say is 'liquid', how do I know if the liquid is water or acid?" You can just say, ~"If you don't drink this liquid, you'll die. But if you drink *this* liquid, you will definitely die." (Sourced from lipamanka.)`
+  .note`**Useless Distinctions:** In English, we use the words ~"cat" and ~"dog" because they're convenient. But in toki pona, we'd probably prefer ~"soweli", the generic word for any furry creature, like a land mammal, since the distinction between a cat and a dog probably isn't important.`(
+  ul`words talk about general ideas`
+    .li`context helps identify meaning`
+    .li`extra sentences`
+    .li`most distinctions are unimportant`,
+)
 
-// slide`letters & pronunciation`
-//   .note`Tok Pisin is a language spoken throughout Papua New Guinea. It mainly descends from English, but has elements of other languages as well, including German, Malay, Portuguese, and Austronesian languages. It provides many of the words on the list here, and the word %"toki" itself comes from the name __Tok__ Pisin!`
-//   .vocabNoDefn(
-//     en,
-//     mi,
-//     lukin,
-//     ken,
-//     mun,
-//     toki,
-//     tu,
-//     wan,
-//   )
-//   .content(
-//     ul`consonants **(j k l m n p s t w)** are like English`
-//       .li`exception: **j** is pronounced as **y**`,
-//     ul`vowels **(a e i o u)** are similar to Spanish`
-//       .li`ah eh ee oh oo`,
-//     ch.discuss`try pronouncing the words on the right.`,
-//     ul`most of the words on the right either come from English or from Tok Pisin, an English-based creole. try guessing their meanings!`,
-//   )
+slide`letters & pronunciation`
+  .note`Tok Pisin is a language spoken throughout Papua New Guinea. It mainly descends from English, but has elements of other languages as well, including German, Malay, Portuguese, and Austronesian languages. It provides many of the words on the list here, and the word %"toki" itself comes from the name __Tok__ Pisin!`
+  .vocabNoDefn(
+    en,
+    mi,
+    lukin,
+    ken,
+    mun,
+    toki,
+    tu,
+    wan,
+  )
+  .content(
+    ul`consonants **(j k l m n p s t w)** are like English`
+      .li`exception: **j** is pronounced as **y**`,
+    ul`vowels **(a e i o u)** are similar to Spanish`
+      .li`ah eh ee oh oo`,
+    ch.discuss`try pronouncing the words on the right.`,
+    ul`most of the words on the right either come from English or from Tok Pisin, an English-based creole. try guessing their meanings!`,
+  )
 
-// TODO: intro to sitelen pona
+slide`sitelen pona`
+  .note`toki pona's alphabet is like English's alphabet, except that it's completely regular.`
+  .note`sitelen pona is like Chinese logographs, except that each word only has one meaning and the symbols look somewhat like what they mean.`(
+  ul`toki pona has two main writing systems`
+    .li`**the Latin alphabet** uses one letter per sound`
+    .li`**sitelen pona** uses one symbol per word`
+    .li`both systems are very common`,
+  ch.discuss`guess the meanings of the sitelen pona below.
+remember: toki pona words are quite general!`,
+  ul`"~&ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo"`,
+)
 
-// TODO: questions are valuable
+slide`questions are valuable`(
+  ul`the goal is to teach you, not to confuse you.`,
+  ul`don't understand something? ask!`
+    .li`need clarification? ask!`
+    .li`confused by grammar? ask!`
+    .li`confused by vocab? ask!`,
+)
