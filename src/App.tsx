@@ -36,7 +36,7 @@ function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
 
 function PresenterView(props: {
   children: AnySlide
-  set: (slide: AnySlide) => void
+  set: (slide: AnySlide | undefined) => void
   setPopup: (window: Window) => void
 }) {
   const { set } = props
@@ -65,7 +65,10 @@ function PresenterView(props: {
       <div class="flex h-screen flex-col bg-white">
         <PresenterNotes class="flex-1 p-4">{props.children}</PresenterNotes>
         <div class="grid grid-cols-3 border-t border-z font-sans text-z">
-          <button class="flex items-center justify-center gap-2 border-r border-z py-2 focus-visible:bg-z-body-selected focus-visible:outline-none hover:bg-z-body-selected">
+          <button
+            class="flex items-center justify-center gap-2 border-r border-z py-2 focus-visible:bg-z-body-selected focus-visible:outline-none hover:bg-z-body-selected"
+            onClick={() => props.set(undefined)}
+          >
             <Fa class="size-4" icon={faArrowLeft} title={false} /> Home
           </button>
 
