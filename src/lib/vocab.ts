@@ -6,6 +6,16 @@ import {
 } from "../lib/helpers/vocab"
 import "./groups"
 
+export const anpa =
+  content`anpa`
+    .short`lower, below, defeat`
+    .noLipa
+
+export const e =
+  particle`e`
+    .short`[before the direct object]`
+    .noLipa
+
 export const en =
   particle`en`
     .short`[joins two subjects]`
@@ -13,6 +23,10 @@ export const en =
 
 export const ken = preverb`ken`
   .short`ability, possibility, able to`
+  .lipa`TODO:`
+
+export const kijetesantakalu = content`kijetesantakalu`
+  .short`raccoon`
   .lipa`TODO:`
 
 export const jan = content`jan`
@@ -23,6 +37,11 @@ export const li =
   particle`li`
     .short`[marks sentence predicate]`
     .noLipa
+
+export const linja = content`linja`
+  .seeAlso`palisa`
+  .short`long, flexible thing`
+  .lipa`TODO:`
 
 export const lon = prep`lon`
   .short`existence, truth, reality, be present`
@@ -50,6 +69,11 @@ ni can also be used as a modifier to elaborate on a word in a sentence. If your 
 
 toki pona lacks proximity distinctions, unlike english. In english, the difference between "this" and "that" and "yonder" is how close the object is to the speaker and listener. toki pona's "ni" can fill the meaning of any of these. It is more general, but you can usually tell what it's talking about due to context. If you're worried that people might not be able to tell where something is, you can say how close it is by using "poka" and "weka," among other tools.`
 
+export const o =
+  particle`o`
+    .short`[for addressing and commands]`
+    .noLipa
+
 export const pana = content`pana`
   .short`set in motion, give, transfer`
   .lipa`The semantic space of pana contains all acts that set objects in motion. This can be a type of emmission. The act of a fire giving off heat it pana. The act of a child laughing is pana, because the child is emitting laughter, setting it in motion. Throwing a baseball, hitting a hockey puck, and kicking a football (the kind that Americans call a "soccer ball") are all pana. Defenestration is a type of pana, because you are setting something in motion (out a window). the object that does the act of pana doesn't have to set something in motion away from itself. Buying a piano online for a friend is pana, or at the very least the act of having the piano be delivered is pana. Less physical objects can be the subject of pana too: knowledge, advice, or good feelings (bad ones, too!).`
@@ -69,6 +93,10 @@ export const sina = content`sina`
 export const sona = content`sona`
   .short`knowledge, know, memory`
   .lipa`The semantic space of sona contains all knowledge. If something is knowable or known, it is sona. For example, the knowledge of time of day can sona. Wisdom can be sona. sona can also be a skill. The knowledge of how to write a book can certainly be sona. Knowing about a person or who they are can be sona. A person's memory can be sona. If I were to describe information on a computer as "sona," I would be framing it as being known by the computer. A warning to english speaking learners: the type of knowledge that sona covers doesn't completely contain the english concept of "knowing someone." For that, it might be a better idea to explain what your relationship with that person is in more detail.`
+
+export const suli = content`suli`
+  .short`big, important`
+  .lipa`TODO:`
 
 export const tawa = prep`tawa`
   .short`motion, move, wander, vibrate, walk`

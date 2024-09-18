@@ -292,6 +292,7 @@ export interface SlideStandard extends SlideBase {
   readonly content: ContentArray
   readonly vocab?: Word[]
   readonly vocabNoDefn?: Word[]
+  readonly vocabNoteOnly?: Word[]
   readonly image?: SlideImage
   readonly source?: Source
 }

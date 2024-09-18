@@ -27,10 +27,7 @@ export function text(
       }
     }
 
-    let text = strings[index]!.replace(
-      /[\p{L}\d?!.,]'/gu,
-      (x) => x[0] + "’",
-    ).replace(/'/gu, "‘")
+    let text = strings[index]!
 
     while (text) {
       if (text.startsWith("***")) {
@@ -123,7 +120,9 @@ export function text(
 
       const idx = text.match(/[*_"]|[$%~]"|\$%"|~~/)?.index
 
-      const sub = idx == null ? text : text.slice(0, idx)
+      const sub = (idx == null ? text : text.slice(0, idx))
+        .replace(/[\p{L}\d?!.,]'/gu, (x) => x[0] + "’")
+        .replace(/'/gu, "‘")
 
       if (b || i || u || x) {
         output.push({ b, i, u, x, text: sub })

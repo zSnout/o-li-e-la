@@ -175,12 +175,36 @@ function PresenterNotesStandard(props: {
   return (
     <div
       class={
-        "flex flex-col gap-4 overflow-auto" +
+        "flex flex-col gap-4 overflow-auto text-z" +
         (props.class ? " " + props.class : "")
       }
     >
+      <Show when={props.children.source} keyed>
+        {(source) => (
+          <div class="font-ex-eng text-z">
+            <p>Sourced from {source.author}’s</p>
+            <div class="pl-4">
+              <p class="font-bold text-z-heading">{source.title}</p>
+              <a
+                class="block truncate text-z-link underline underline-offset-2"
+                href={source.url}
+              >
+                {source.url.startsWith("https://www.reddit.com/r/") ?
+                  source.url.slice("https://www.reddit.com/".length)
+                : source.url.startsWith("https://") ?
+                  source.url.slice("https://".length)
+                : source.url.startsWith("http://") ?
+                  source.url.slice("http://".length)
+                : source.url}
+              </a>
+            </div>
+          </div>
+        )}
+      </Show>
       <Show when={isEmpty()}>
-        <p class="font-sans italic">There are no notes on this slide.</p>
+        <p class="font-sans italic text-z-subtitle">
+          There are no notes on this slide.
+        </p>
       </Show>
       {main()}
       <Show when={props.children.notes?.length}>
@@ -198,10 +222,14 @@ function PresenterNotesStandard(props: {
       <For each={props.children.vocabNoDefn}>
         {(word) => <VocabPresenter>{word}</VocabPresenter>}
       </For>
+      <For each={props.children.vocabNoteOnly}>
+        {(word) => <VocabPresenter>{word}</VocabPresenter>}
+      </For>
       <Show
         when={
           props.children.vocab?.some((x) => x.defnLipamanka) ||
-          props.children.vocabNoDefn?.some((x) => x.defnLipamanka)
+          props.children.vocabNoDefn?.some((x) => x.defnLipamanka) ||
+          props.children.vocabNoteOnly?.some((x) => x.defnLipamanka)
         }
       >
         <p class="font-ex-eng text-z-subtitle">

@@ -16,6 +16,12 @@ import type {
 export type ToContentItem = Content | ToContent<Content>
 export type ToContentArray = ToContentItem[]
 
+export interface SlideBuilderVocab<T> {
+  (...words: Word[]): T
+  noDefn(...words: Word[]): T
+  noteOnly(...words: Word[]): T
+}
+
 export interface SlideBuilder {
   /**
    * Finalizes the slide and adds content to it.
@@ -41,10 +47,7 @@ export interface SlideBuilder {
   source(source: Source): Omit<this, "source">
 
   /** Adds a vocab word to this slide. */
-  vocab(...words: Word[]): this
-
-  /** Adds definitionless vocab words to this slide. */
-  vocabNoDefn(...words: Word[]): this
+  vocab: SlideBuilderVocab<this>
 
   /** Marks the image of this slide. */
   image: {
@@ -83,6 +86,7 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
       const refs: number[] = []
       const vocab: Word[] = []
       const vocabNoDefn: Word[] = []
+      const vocabNoteOnly: Word[] = []
       let source: Source | undefined
       const notes: Text[] = []
       let image: SlideImage | undefined
@@ -96,6 +100,7 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
           refs,
           vocab,
           vocabNoDefn,
+          vocabNoteOnly,
           image,
           source,
           notes,
@@ -122,15 +127,22 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
         return builder
       }
 
-      builder.vocab = (...words: Word[]) => {
+      function v(...words: Word[]) {
         vocab.push(...words)
         return builder
       }
 
-      builder.vocabNoDefn = (...words: Word[]) => {
+      v.noDefn = (...words: Word[]) => {
         vocabNoDefn.push(...words)
         return builder
       }
+
+      v.noteOnly = (...words: Word[]) => {
+        vocabNoteOnly.push(...words)
+        return builder
+      }
+
+      builder.vocab = v
 
       builder.note = (...note: TextParams) => {
         notes.push(text(...note))
