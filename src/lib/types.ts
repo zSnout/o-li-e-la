@@ -309,6 +309,7 @@ export interface SlideSectionHeader extends SlideBase {
 
 /** A slide previewing next class's vocabulary. */
 export interface SlideReview extends SlideBase {
+  readonly index: number
   readonly type: "pini"
   readonly titleEng: Text
   readonly titles: Text[]

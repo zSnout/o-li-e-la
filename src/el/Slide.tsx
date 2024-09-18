@@ -166,9 +166,14 @@ function RenderReview(props: { children: SlideReview }) {
 export function PrintReview(props: { children: SlideReview }) {
   function Front() {
     return (
-      <div class="h-screen w-full break-inside-avoid border-z bg-white px-6 py-8 text-z last:border-l">
-        <h1 class="mb-4 text-balance text-center font-ex-title text-xl text-z-heading last:mb-0">
-          <TextEl>{props.children.titleEng}</TextEl>
+      <div class="h-screen w-full break-inside-avoid bg-white px-6 py-8 text-z">
+        <h1 class="mb-4 flex text-xl text-z-heading">
+          <span class="flex-1 text-balance text-center font-ex-title">
+            <TextEl>{props.children.titleEng}</TextEl>
+          </span>
+          <span class="font-ex-eng text-z-subtitle">
+            #{props.children.index}
+          </span>
         </h1>
         <div class="grid grid-cols-[auto,1fr] items-baseline gap-x-4">
           <For each={props.children.vocab}>
@@ -198,7 +203,7 @@ export function PrintReview(props: { children: SlideReview }) {
 
   function Back() {
     return (
-      <div class="h-screen w-full break-inside-avoid border-z bg-white px-6 py-8 text-z last:border-l">
+      <div class="h-screen w-full break-inside-avoid bg-white px-6 py-8 text-z">
         <div class="grid grid-cols-[auto,1fr] items-baseline gap-x-4">
           <For
             each={props.children.vocab}

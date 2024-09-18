@@ -4,19 +4,18 @@ import {
   slideshow,
   ul,
 } from "../../lib/helpers"
-import { text } from "../../lib/text"
 import {
   jan,
+  li,
+  lon,
   mi,
+  ni,
   pona,
   sina,
   sona,
-  toki,
-  tenpo,
   tawa,
-  lon,
-  ni,
-  li,
+  tenpo,
+  toki,
 } from "../../lib/vocab"
 
 const [
@@ -25,7 +24,9 @@ const [
     createReview,
   },
 ] =
-  slideshow`basic sentences`
+  slideshow(
+    2,
+  )`basic sentences`
 
 slide`"mi" and "sina" subjects`.vocab(
   mi,

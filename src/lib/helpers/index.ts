@@ -81,146 +81,149 @@ export type SlideshowFnReturn = [
 
 const all: AnySlide[] = []
 
-export function slideshow(..._title: TextParams): SlideshowFnReturn {
-  const slides: AnySlide[] = []
+export function slideshow(index: number) {
+  return (..._title: TextParams): SlideshowFnReturn => {
+    const slides: AnySlide[] = []
 
-  function create(suli: boolean) {
-    /** Builds a {@link SlideStandard} object, starting with the slide title. */
-    return function (...title: TextParams): SlideBuilder {
-      const refs: number[] = []
-      const vocab: Word[] = []
-      const vocabNoDefn: Word[] = []
-      const vocabNoteOnly: Word[] = []
-      let source: Source | undefined
-      const notes: Text[] = []
-      let image: SlideImage | undefined
+    function create(suli: boolean) {
+      /** Builds a {@link SlideStandard} object, starting with the slide title. */
+      return function (...title: TextParams): SlideBuilder {
+        const refs: number[] = []
+        const vocab: Word[] = []
+        const vocabNoDefn: Word[] = []
+        const vocabNoteOnly: Word[] = []
+        let source: Source | undefined
+        const notes: Text[] = []
+        let image: SlideImage | undefined
 
-      function builder(...content: ToContentArray): SlideStandard {
-        const slide: SlideStandard = {
-          type: "insa",
-          suli,
-          gid: all.length,
-          id: slides.length,
-          title: text(...title),
-          refs,
-          vocab,
-          vocabNoDefn,
-          vocabNoteOnly,
-          image,
-          source,
-          notes,
-          content: content.map((x) =>
-            "finalize" in x ? x.finalize() : x,
-          ) as readonly Content[] as ContentArray,
-        }
-
-        slides.push(slide)
-        all.push(slide)
-
-        return slide
-      }
-
-      builder.content = builder
-
-      builder.ref = (slide: SlideBase) => {
-        refs.push(slide.gid)
-        return builder
-      }
-
-      builder.source = (s: Source) => {
-        source = s
-        return builder
-      }
-
-      function v(...words: Word[]) {
-        vocab.push(...words)
-        return builder
-      }
-
-      v.noDefn = (...words: Word[]) => {
-        vocabNoDefn.push(...words)
-        return builder
-      }
-
-      v.noteOnly = (...words: Word[]) => {
-        vocabNoteOnly.push(...words)
-        return builder
-      }
-
-      builder.vocab = v
-
-      builder.note = (...note: TextParams) => {
-        notes.push(text(...note))
-        return builder
-      }
-
-      function createImg(
-        aspect: SlideImageAspectRatio,
-      ): SlideBuilder["image"][SlideImageAspectRatio] {
-        return (src) => {
-          let c: string | undefined
-          const obj: ImgBuilder<SlideBuilder> = {
-            alt(alt) {
-              image = {
-                alt: alt[0]!,
-                aspect,
-                src: src[0]!,
-                contain: c,
-              }
-              return builder
-            },
-            contain([contain]) {
-              c = contain
-              return obj
-            },
-          }
-          return obj
-        }
-      }
-
-      builder.image = {
-        half: createImg("half"),
-        auto: createImg("auto"),
-        square: createImg("square"),
-      }
-
-      return builder
-    }
-  }
-
-  return [
-    Object.assign(create(false), { suli: create(true) }),
-    {
-      slides,
-      createReview(...title) {
-        return (...content) => {
-          const slide: SlideReview = {
-            type: "pini",
+        function builder(...content: ToContentArray): SlideStandard {
+          const slide: SlideStandard = {
+            type: "insa",
+            suli,
             gid: all.length,
             id: slides.length,
+            title: text(...title),
+            refs,
+            vocab,
+            vocabNoDefn,
+            vocabNoteOnly,
+            image,
+            source,
+            notes,
             content: content.map((x) =>
               "finalize" in x ? x.finalize() : x,
             ) as readonly Content[] as ContentArray,
-            sources: slides
-              .map((x) => x.type == "insa" && x.source)
-              .filter((x) => !!x),
-            titleEng: text(...title),
-            vocab: slides
-              .map((x) => x.type == "insa" && x.vocab)
-              .filter((x) => !!x)
-              .flat()
-              .filter((x, i, a) => a.indexOf(x) == i),
-            titles: slides
-              .map((x) => x.type == "insa" && x.title)
-              .filter((x) => !!x),
           }
 
           slides.push(slide)
           all.push(slide)
+
+          return slide
         }
+
+        builder.content = builder
+
+        builder.ref = (slide: SlideBase) => {
+          refs.push(slide.gid)
+          return builder
+        }
+
+        builder.source = (s: Source) => {
+          source = s
+          return builder
+        }
+
+        function v(...words: Word[]) {
+          vocab.push(...words)
+          return builder
+        }
+
+        v.noDefn = (...words: Word[]) => {
+          vocabNoDefn.push(...words)
+          return builder
+        }
+
+        v.noteOnly = (...words: Word[]) => {
+          vocabNoteOnly.push(...words)
+          return builder
+        }
+
+        builder.vocab = v
+
+        builder.note = (...note: TextParams) => {
+          notes.push(text(...note))
+          return builder
+        }
+
+        function createImg(
+          aspect: SlideImageAspectRatio,
+        ): SlideBuilder["image"][SlideImageAspectRatio] {
+          return (src) => {
+            let c: string | undefined
+            const obj: ImgBuilder<SlideBuilder> = {
+              alt(alt) {
+                image = {
+                  alt: alt[0]!,
+                  aspect,
+                  src: src[0]!,
+                  contain: c,
+                }
+                return builder
+              },
+              contain([contain]) {
+                c = contain
+                return obj
+              },
+            }
+            return obj
+          }
+        }
+
+        builder.image = {
+          half: createImg("half"),
+          auto: createImg("auto"),
+          square: createImg("square"),
+        }
+
+        return builder
+      }
+    }
+
+    return [
+      Object.assign(create(false), { suli: create(true) }),
+      {
+        slides,
+        createReview(...title) {
+          return (...content) => {
+            const slide: SlideReview = {
+              index,
+              type: "pini",
+              gid: all.length,
+              id: slides.length,
+              content: content.map((x) =>
+                "finalize" in x ? x.finalize() : x,
+              ) as readonly Content[] as ContentArray,
+              sources: slides
+                .map((x) => x.type == "insa" && x.source)
+                .filter((x) => !!x),
+              titleEng: text(...title),
+              vocab: slides
+                .map((x) => x.type == "insa" && x.vocab)
+                .filter((x) => !!x)
+                .flat()
+                .filter((x, i, a) => a.indexOf(x) == i),
+              titles: slides
+                .map((x) => x.type == "insa" && x.title)
+                .filter((x) => !!x),
+            }
+
+            slides.push(slide)
+            all.push(slide)
+          }
+        },
       },
-    },
-  ]
+    ]
+  }
 }
 
 export * as ch from "./ch"

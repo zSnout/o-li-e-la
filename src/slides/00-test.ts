@@ -12,7 +12,9 @@ import {
 const [
   slide,
 ] =
-  slideshow`Test of various functionalities`
+  slideshow(
+    99,
+  )`Test of various functionalities`
 
 export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
   slide`syntax highlighting test`(

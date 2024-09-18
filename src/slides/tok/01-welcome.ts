@@ -20,7 +20,9 @@ const [
     createReview,
   },
 ] =
-  slideshow`welcome!`
+  slideshow(
+    1,
+  )`welcome!`
 
 slide.suli`welcome to toki pona club!`()
 

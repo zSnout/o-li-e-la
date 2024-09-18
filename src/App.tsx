@@ -9,7 +9,7 @@ import { createEventListener } from "./lib/event"
 import { slides } from "./lib/helpers"
 import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
-import type { AnySlide, SlideReview } from "./lib/types"
+import type { AnySlide } from "./lib/types"
 
 import "./slides/tok/00-prologue"
 import "./slides/tok/01-welcome"

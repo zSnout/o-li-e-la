@@ -6,7 +6,9 @@ import {
 const [
   slide,
 ] =
-  slideshow`prologue`
+  slideshow(
+    99,
+  )`prologue`
 
 slide`important! read before using`(
   ul`this slideshow software (%"o li e la") was custom-made by sakawi to help teach toki pona. they also find creating single-use software an incredibly joyful task.`,
