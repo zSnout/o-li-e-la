@@ -50,7 +50,7 @@ function RenderStandard(props: { children: SlideStandard }) {
       >
         <ul
           class={clsx(
-            "wx-80 hx-[calc(540px_-_2rem)] my-4 ml-8 flex flex-col border-l border-z py-4 pl-6 pr-8 text-lg",
+            "wx-80 hx-[calc(540px_-_2rem)] my-4 flex flex-col border-l border-z py-4 pl-6 pr-8 text-lg",
             props.children.vocab?.length ? "gap-4" : "gap-2",
           )}
         >

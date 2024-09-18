@@ -15,6 +15,7 @@ import {
   tawa,
   lon,
   ni,
+  li,
 } from "../../lib/vocab"
 
 const [
@@ -76,15 +77,7 @@ slide`context saves the day!`.source(
   .image
   .auto`/IMG_7604.jpeg`
   .alt`Person at the bottom of a tower with a kijetesantakalu at the top of the tower and an extended tail at the bottom.`
-  .note`This picture uses many words that haven't been introduced yet. That's okay; we're trying to get people into the toki pona mindset, not teach them vocabulary.`.vocab
-  .noteOnly
-  // kijetesantakalu,
-  // o,
-  // anpa,
-  // e,
-  // linja,
-  // suli,
-  ()(
+  .note`This picture uses many words that haven't been introduced yet. That's okay; we're trying to get people into the toki pona mindset, not teach them vocabulary.`(
   ul`$"you li understand" and $"you li are knowledge" are the same??`,
   ul`that's right! however, most of the time, you can easily distinguish this!`,
   ul`this person to the right is asking the raccoon in the tower $"raccoon o! raccoon o! o let down e your long and flexible thing!"`,
@@ -112,4 +105,15 @@ slide`more subjects with "li"`.vocab(
     .into`time li flows.`
     .tok`ni li mi.`
     .into`that li 's mine.`,
+)
+
+slide`some grammatical terms`.vocab(
+  li,
+)(
+  ul`~"content words" are meaning-words like "sona"`
+    .li`~"particles" are grammar-words like "li"`,
+  ul`these terms are often used in the toki pona community, so they're useful to know.`,
+  ch.discuss`is ~"mi" a content word or a particle?`
+    .prompt`is ~"lon" a content word or a particle?`
+    .prompt`is ~"tawa" a content word or a particle?`,
 )
