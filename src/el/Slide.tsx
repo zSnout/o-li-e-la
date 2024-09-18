@@ -163,6 +163,87 @@ function RenderReview(props: { children: SlideReview }) {
   )
 }
 
+export function PrintReview(props: { children: SlideReview }) {
+  function Front() {
+    return (
+      <div class="h-screen w-full break-inside-avoid border-z bg-white px-6 py-8 text-z last:border-l">
+        <h1 class="mb-4 text-balance text-center font-ex-title text-xl text-z-heading last:mb-0">
+          <TextEl>{props.children.titleEng}</TextEl>
+        </h1>
+        <div class="grid grid-cols-[auto,1fr] items-baseline gap-x-4">
+          <For each={props.children.vocab}>
+            {(word) => (
+              <>
+                <p class="font-bold text-z-heading">
+                  <span class="font-sp-sans">{word.word}</span>{" "}
+                  <span class="font-ex-eng">{word.word}</span>
+                </p>
+                <p class="font-ex-eng">
+                  <TextEl>{word.defnShort}</TextEl>
+                </p>
+              </>
+            )}
+          </For>
+        </div>
+        <Show when={props.children.content.length}>
+          <div class="group/small">
+            <For each={props.children.content}>
+              {(element) => <Content>{element}</Content>}
+            </For>
+          </div>
+        </Show>
+      </div>
+    )
+  }
+
+  function Back() {
+    return (
+      <div class="h-screen w-full break-inside-avoid border-z bg-white px-6 py-8 text-z last:border-l">
+        <div class="grid grid-cols-[auto,1fr] items-baseline gap-x-4">
+          <For
+            each={props.children.vocab}
+            fallback={
+              <p class="col-span-2 font-ex-eng italic text-z-subtitle">
+                This sheet does not include any vocabulary.
+              </p>
+            }
+          >
+            {(word) => (
+              <>
+                <p class="font-bold text-z-heading">
+                  <span class="font-sp-sans">{word.word}</span>{" "}
+                  <span class="font-ex-eng">{word.word}</span>
+                </p>
+                <p class="font-ex-eng">
+                  <TextEl>{word.defnShort}</TextEl>
+                </p>
+                <Show when={word.defnLipamanka}>
+                  <p class="col-span-2 line-clamp-3 pl-6 font-ex-eng text-xs text-z-subtitle">
+                    <TextEl>{word.defnLipamanka!}</TextEl>
+                  </p>
+                </Show>
+              </>
+            )}
+          </For>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div class="flex break-inside-auto">
+        <Front />
+        <Front />
+      </div>
+      <div class="flex break-inside-auto">
+        <Back />
+        <Back />
+      </div>
+    </>
+  )
+}
+
 export function Render(props: { children: AnySlide }) {
   return (
     <Switch>

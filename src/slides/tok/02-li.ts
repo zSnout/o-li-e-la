@@ -4,6 +4,7 @@ import {
   slideshow,
   ul,
 } from "../../lib/helpers"
+import { text } from "../../lib/text"
 import {
   jan,
   mi,
@@ -121,4 +122,15 @@ slide`some grammatical terms`.vocab(
     .prompt`is ~"tawa" a content word or a particle?`,
 )
 
-createReview`review: basic sentences`
+createReview`review: basic sentences`(
+  ul`"mi" or "sina" followed by a predicate (any content word) makes a complete sentence.`,
+  ex.tok`mi toki.`
+    .eng`I li speak.`,
+  ex.tok`sina sona.`
+    .eng`you li know.`,
+  ul`for subjects other than "mi" and "sina", say "li" in between the subject and the predicate.`,
+  ex.tok`sona li pona.`
+    .eng`knowledge li is good.`,
+  ex.tok`ni li $lon.`
+    .eng`that li 's true.`,
+)

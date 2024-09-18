@@ -4,12 +4,12 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faAr
 import { faExpand } from "@fortawesome/free-solid-svg-icons/faExpand"
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { Fa } from "./el/Fa"
-import { PresenterNotes, RenderScalable } from "./el/Slide"
+import { PresenterNotes, PrintReview, RenderScalable } from "./el/Slide"
 import { createEventListener } from "./lib/event"
 import { slides } from "./lib/helpers"
 import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
-import type { AnySlide } from "./lib/types"
+import type { AnySlide, SlideReview } from "./lib/types"
 
 import "./slides/tok/00-prologue"
 import "./slides/tok/01-welcome"
@@ -173,17 +173,10 @@ function Main(props: {
 
 export type Msg = AnySlide | [AnySlide]
 
-export function Root() {
+function Root() {
   if (import.meta.env.DEV && SHOW_LATEST) {
     const slide = slides[slides.length - 1]!
     return <SlideCreationView>{slide}</SlideCreationView>
-    // return (
-    //   <div class="fixed left-0 top-0 h-screen w-screen bg-black">
-    //     <RenderScalable class="hx-[min(100vh,56.25vw)] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-    //       {slide}
-    //     </RenderScalable>
-    //   </div>
-    // )
   }
 
   let source: Window | undefined
@@ -245,4 +238,18 @@ export function Root() {
   )
 }
 
-export default Root
+function Review() {
+  return (
+    <For each={slides.filter((x) => x.type == "pini")}>
+      {(x) => <PrintReview>{x}</PrintReview>}
+    </For>
+  )
+}
+
+export default function () {
+  if (new URL(location.href).searchParams.has("review")) {
+    return <Review />
+  } else {
+    return <Root />
+  }
+}

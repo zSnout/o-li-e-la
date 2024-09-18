@@ -253,7 +253,7 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
           class={clsx(
             "font-ex-eng",
             props.children.items.every((x) => isSitelenPonaOnly(x.text)) ?
-              "my-8 text-center text-5xl"
+              "my-8 text-center text-5xl group-[]/small:text-3xl"
             : "my-4",
           )}
         >
@@ -265,7 +265,7 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
         <For each={props.children.items}>
           {(item) => (
             <li class="flex items-baseline gap-4">
-              <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-z-text-dimmed" />
+              <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-z-text-dimmed group-[]/small:size-2 group-[]/small:min-w-2" />
               <span>
                 <TextEl>{item.text}</TextEl>
               </span>

@@ -75,7 +75,7 @@ export type SlideshowFnReturn = [
   SlideFunction,
   {
     slides: readonly AnySlide[]
-    createReview(...title: TextParams): void
+    createReview(...title: TextParams): (...content: ToContentArray) => void
   },
 ]
 
@@ -193,26 +193,31 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
     {
       slides,
       createReview(...title) {
-        const slide: SlideReview = {
-          type: "pini",
-          gid: all.length,
-          id: slides.length,
-          sources: slides
-            .map((x) => x.type == "insa" && x.source)
-            .filter((x) => !!x),
-          titleEng: text(...title),
-          vocab: slides
-            .map((x) => x.type == "insa" && x.vocab)
-            .filter((x) => !!x)
-            .flat()
-            .filter((x, i, a) => a.indexOf(x) == i),
-          titles: slides
-            .map((x) => x.type == "insa" && x.title)
-            .filter((x) => !!x),
-        }
+        return (...content) => {
+          const slide: SlideReview = {
+            type: "pini",
+            gid: all.length,
+            id: slides.length,
+            content: content.map((x) =>
+              "finalize" in x ? x.finalize() : x,
+            ) as readonly Content[] as ContentArray,
+            sources: slides
+              .map((x) => x.type == "insa" && x.source)
+              .filter((x) => !!x),
+            titleEng: text(...title),
+            vocab: slides
+              .map((x) => x.type == "insa" && x.vocab)
+              .filter((x) => !!x)
+              .flat()
+              .filter((x, i, a) => a.indexOf(x) == i),
+            titles: slides
+              .map((x) => x.type == "insa" && x.title)
+              .filter((x) => !!x),
+          }
 
-        slides.push(slide)
-        all.push(slide)
+          slides.push(slide)
+          all.push(slide)
+        }
       },
     },
   ]

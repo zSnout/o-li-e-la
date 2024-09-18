@@ -115,9 +115,11 @@ slide`letters & pronunciation`
     ul`consonants **(j k l m n p s t w)** are like English`
       .li`exception: **j** is pronounced as **y**`,
     ul`vowels **(a e i o u)** are similar to Spanish`
-      .li`ah eh ee oh oo`,
-    ch.discuss`try pronouncing the words on the right.`,
-    ul`most of the words on the right either come from English or from Tok Pisin, an English-based creole. try guessing their meanings!`,
+      .li`**ah eh ee oh oo**`,
+    ul`everything is lowercase except names`
+      .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
+    ul`try pronouncing the words on the right.`,
+    ul`bonus challenge: most of the words on the right either come from English or from Tok Pisin, an English-based creole. try guessing their meanings!`,
   )
 
 slide`sitelen pona`
@@ -140,4 +142,24 @@ slide`questions are valuable`(
     .li`confused by vocab? ask!`,
 )
 
-createReview`review: what is toki pona?`
+createReview`review: welcome!`(
+  ul`our goals:`,
+  ul`to teach you toki pona`
+    .li`to explore toki pona's culture`
+    .li`to have fun!`,
+  ul`what is toki pona?`,
+  ul`toki pona was created in 2001`
+    .li`by Canadian linguist Sonja Lang`
+    .li`it only has around 130 words`,
+  ul`spelling and pronunciation:`,
+  ul`consonants: **j k l m n p s t w**`
+    .li`**j** is pronounced like English **y**`,
+  ul`vowels **(a e i o u)** are like Spanish`
+    .li`**ah eh ee oh oo**`,
+  ul`everything is lowercase except names`
+    .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
+  ul`writing:`,
+  ul`toki pona has an alternate system called **sitelen pona**`
+    .li`sitelen pona uses one symbol per word`,
+  ul`"~&ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo"`,
+)
