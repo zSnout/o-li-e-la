@@ -7,12 +7,12 @@ import {
   Switch,
   type JSXElement,
 } from "solid-js"
-import type { AnySlide, SlideReview, SlideStandard, Source } from "../lib/types"
+import { clsx } from "../lib/clsx"
+import type { AnySlide, SlideReview, SlideStandard } from "../lib/types"
 import { Content, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
 import { TextEl } from "./TextEl"
 import { Vocab, VocabPresenter } from "./Vocab"
-import { clsx } from "../lib/clsx"
 
 function SlideBase(props: { children: JSXElement; class?: string }) {
   return (
@@ -142,11 +142,17 @@ function RenderReview(props: { children: SlideReview }) {
           </For>
         </ul>
         <Show when={props.children.sources.length}>
-          <ul class="mt-4 border-t border-z pt-4">
+          <ul class="mt-4 flex flex-col gap-4 border-t border-z pt-4">
             <For each={props.children.sources}>
               {(source) => (
-                <li>
-                  <SourceEl>{source}</SourceEl>
+                <li class="font-ex-eng text-z">
+                  <p class="text-z">
+                    <span class="font-bold text-z-heading">{source.title}</span>{" "}
+                    <span class="text-z-subtitle">by</span> {source.author}
+                  </p>
+                  <div class="pl-4">
+                    <SourceLink href={source.url} />
+                  </div>
                 </li>
               )}
             </For>
@@ -206,26 +212,20 @@ export function RenderScalable(props: {
   )
 }
 
-function SourceEl(props: { children: Source }) {
+function SourceLink(props: { href: string }) {
   return (
-    <div class="font-ex-eng text-z">
-      <p>Sourced from {props.children.author}’s</p>
-      <div class="pl-4">
-        <p class="font-bold text-z-heading">{props.children.title}</p>
-        <a
-          class="block truncate text-z-link underline underline-offset-2"
-          href={props.children.url}
-        >
-          {props.children.url.startsWith("https://www.reddit.com/r/") ?
-            props.children.url.slice("https://www.reddit.com/".length)
-          : props.children.url.startsWith("https://") ?
-            props.children.url.slice("https://".length)
-          : props.children.url.startsWith("http://") ?
-            props.children.url.slice("http://".length)
-          : props.children.url}
-        </a>
-      </div>
-    </div>
+    <a
+      class="block truncate text-z-link underline underline-offset-2"
+      href={props.href}
+    >
+      {props.href.startsWith("https://www.reddit.com/r/") ?
+        props.href.slice("https://www.reddit.com/".length)
+      : props.href.startsWith("https://") ?
+        props.href.slice("https://".length)
+      : props.href.startsWith("http://") ?
+        props.href.slice("http://".length)
+      : props.href}
+    </a>
   )
 }
 
@@ -268,7 +268,15 @@ function PresenterNotesStandard(props: {
       }
     >
       <Show when={props.children.source} keyed>
-        {(source) => <SourceEl>{source}</SourceEl>}
+        {(source) => (
+          <div class="font-ex-eng text-z">
+            <p>Sourced from {source.author}’s</p>
+            <div class="pl-4">
+              <p class="font-bold text-z-heading">{source.title}</p>
+              <SourceLink href={source.url} />
+            </div>
+          </div>
+        )}
       </Show>
       <Show when={isEmpty()}>
         <p class="font-sans italic text-z-subtitle">
@@ -317,12 +325,57 @@ function PresenterNotesStandard(props: {
   )
 }
 
+function PresenterNotesReview(props: {
+  children: SlideReview
+  class?: string
+}) {
+  return (
+    <div class={clsx("flex flex-col gap-4 overflow-auto text-z", props.class)}>
+      <p class="font-sans italic text-z-subtitle">
+        There are no notes on review slides.
+      </p>
+      <Show when={props.children.notes?.length}>
+        <For each={props.children.notes}>
+          {(note) => (
+            <p class="whitespace-pre-line font-ex-eng text-z">
+              <TextEl>{note}</TextEl>
+            </p>
+          )}
+        </For>
+      </Show>
+      <For each={props.children.vocab}>
+        {(word) => <VocabPresenter>{word}</VocabPresenter>}
+      </For>
+      <Show when={props.children.vocab?.some((x) => x.defnLipamanka)}>
+        <p class="font-ex-eng text-z-subtitle">
+          Paragraph-style word definitions available in the dropdowns above were
+          written by{" "}
+          <a
+            class="text-z-link underline underline-offset-2"
+            href="https://lipamanka.gay/essays/dictionary"
+          >
+            lipamanka
+          </a>
+          .
+        </p>
+      </Show>
+    </div>
+  )
+}
+
 export function PresenterNotes(props: { class?: string; children: AnySlide }) {
   return (
-    <Show when={props.children.type == "insa"}>
-      <PresenterNotesStandard class={props.class}>
-        {props.children as SlideStandard}
-      </PresenterNotesStandard>
-    </Show>
+    <Switch>
+      <Match when={props.children.type == "insa"}>
+        <PresenterNotesStandard class={props.class}>
+          {props.children as SlideStandard}
+        </PresenterNotesStandard>
+      </Match>
+      <Match when={props.children.type == "pini"}>
+        <PresenterNotesReview class={props.class}>
+          {props.children as SlideReview}
+        </PresenterNotesReview>
+      </Match>
+    </Switch>
   )
 }

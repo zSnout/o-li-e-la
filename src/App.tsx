@@ -15,7 +15,7 @@ import "./slides/tok/00-prologue"
 import "./slides/tok/01-welcome"
 import "./slides/tok/02-li"
 
-const SHOW_LATEST = true
+const SHOW_LATEST = false
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
