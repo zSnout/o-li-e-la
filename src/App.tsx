@@ -11,9 +11,9 @@ import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
 import type { AnySlide } from "./lib/types"
 
-import "./slides/00-test"
+// import "./slides/00-test"
 import "./slides/tok/01-welcome"
-// import "./slides/tok/02-li"
+import "./slides/tok/02-li"
 
 const SHOW_LATEST = true
 
