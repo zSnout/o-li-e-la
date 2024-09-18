@@ -91,23 +91,29 @@ slide.suli`toki pona as art`
 
 // TODO: emojis, sitelen pona, stick figures
 
-slide`letters & pronunciation`
-  .note`Tok Pisin is a language spoken throughout Papua New Guinea. It mainly descends from English, but has elements of other languages as well, including German, Malay, Portuguese, and Austronesian languages. It provides many of the words on the list here, and the word %"toki" itself comes from the name __Tok__ Pisin!`
-  .vocabNoDefn(
-    en,
-    mi,
-    lukin,
-    ken,
-    mun,
-    toki,
-    tu,
-    wan,
-  )
-  .content(
-    ul`consonants **(j k l m n p s t w)** are like English`
-      .li`exception: **j** is pronounced as **y**`,
-    ul`vowels **(a e i o u)** are similar to Spanish`
-      .li`ah eh ee oh oo`,
-    ch.discuss`try pronouncing the words on the right.`,
-    ul`most of the words on the right either come from English or from Tok Pisin, an English-based creole. try guessing their meanings!`,
-  )
+// TODO: how can toki pona work?
+
+// slide`letters & pronunciation`
+//   .note`Tok Pisin is a language spoken throughout Papua New Guinea. It mainly descends from English, but has elements of other languages as well, including German, Malay, Portuguese, and Austronesian languages. It provides many of the words on the list here, and the word %"toki" itself comes from the name __Tok__ Pisin!`
+//   .vocabNoDefn(
+//     en,
+//     mi,
+//     lukin,
+//     ken,
+//     mun,
+//     toki,
+//     tu,
+//     wan,
+//   )
+//   .content(
+//     ul`consonants **(j k l m n p s t w)** are like English`
+//       .li`exception: **j** is pronounced as **y**`,
+//     ul`vowels **(a e i o u)** are similar to Spanish`
+//       .li`ah eh ee oh oo`,
+//     ch.discuss`try pronouncing the words on the right.`,
+//     ul`most of the words on the right either come from English or from Tok Pisin, an English-based creole. try guessing their meanings!`,
+//   )
+
+// TODO: intro to sitelen pona
+
+// TODO: questions are valuable
