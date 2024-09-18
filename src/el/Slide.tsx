@@ -4,6 +4,7 @@ import { Content, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
 import { TextEl } from "./TextEl"
 import { Vocab, VocabPresenter } from "./Vocab"
+import { clsx } from "../lib/clsx"
 
 function SlideBase(props: { children: JSXElement; class?: string }) {
   return (
@@ -42,26 +43,55 @@ function RenderStandard(props: { children: SlideStandard }) {
           <Main />
         </div>
       </main>
-      <Show when={props.children.vocab?.length}>
-        <ul class="wx-80 hx-[calc(540px_-_2rem)] my-4 ml-8 flex flex-col gap-4 border-l border-z py-4 pl-6 pr-8 text-lg">
+      <Show
+        when={
+          props.children.vocab?.length || props.children.vocabNoDefn?.length
+        }
+      >
+        <ul
+          class={clsx(
+            "wx-80 hx-[calc(540px_-_2rem)] my-4 ml-8 flex flex-col border-l border-z py-4 pl-6 pr-8 text-lg",
+            props.children.vocab?.length ? "gap-4" : "gap-2",
+          )}
+        >
           <For each={props.children.vocab}>
             {(word) => <Vocab>{word}</Vocab>}
+          </For>
+          <For each={props.children.vocabNoDefn}>
+            {(word) => <Vocab noDefn>{word}</Vocab>}
           </For>
         </ul>
       </Show>
       <Show when={props.children.image} keyed>
         {(image) => (
-          <img
-            src={image.src}
-            alt={image.alt}
-            class={"h-full" + (image.contain ? " " + image.contain : "")}
-            classList={{
-              "object-cover": !image.contain,
-              "object-contain": !!image.contain,
-              "aspect-square": image.aspect == "square",
-              "aspect-[8/9]": image.aspect == "half",
-            }}
-          />
+          <>
+            <Show when={image.contain != null && image.aspect != "auto"}>
+              <div
+                class={clsx(
+                  "absolute right-0 flex h-full overflow-clip",
+                  image.aspect == "square" && "aspect-square",
+                  image.aspect == "half" && "aspect-[8/9]",
+                )}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  class="h-full w-full scale-110 object-cover opacity-50 blur"
+                />
+              </div>
+            </Show>
+            <img
+              src={image.src}
+              alt={image.alt}
+              class={clsx(
+                "relative h-full",
+                image.aspect == "square" && "aspect-square",
+                image.aspect == "half" && "aspect-[8/9]",
+                image.contain != null ? "object-contain" : "object-cover",
+                image.contain,
+              )}
+            />
+          </>
         )}
       </Show>
     </SlideBase>
@@ -131,7 +161,7 @@ function PresenterNotesStandard(props: {
       return false
     }
 
-    if (Array.isArray(props.children.vocab) && props.children.vocab?.length) {
+    if (props.children.vocab?.length) {
       return false
     }
 
@@ -156,19 +186,22 @@ function PresenterNotesStandard(props: {
       <Show when={props.children.notes?.length}>
         <For each={props.children.notes}>
           {(note) => (
-            <p class="font-ex-eng">
+            <p class="whitespace-pre-line font-ex-eng">
               <TextEl>{note}</TextEl>
             </p>
           )}
         </For>
       </Show>
-      <For each={Array.isArray(props.children.vocab) && props.children.vocab}>
+      <For each={props.children.vocab}>
+        {(word) => <VocabPresenter>{word}</VocabPresenter>}
+      </For>
+      <For each={props.children.vocabNoDefn}>
         {(word) => <VocabPresenter>{word}</VocabPresenter>}
       </For>
       <Show
         when={
-          Array.isArray(props.children.vocab) &&
-          props.children.vocab?.some((x) => x.defnLipamanka)
+          props.children.vocab?.some((x) => x.defnLipamanka) ||
+          props.children.vocabNoDefn?.some((x) => x.defnLipamanka)
         }
       >
         <p class="font-ex-eng text-z-subtitle">

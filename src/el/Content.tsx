@@ -24,7 +24,7 @@ import { TextEl } from "./TextEl"
 
 export function Title(props: { children: Text }) {
   return (
-    <h1 class="mb-8 text-balance font-ex-title text-4xl text-z-heading">
+    <h1 class="mb-8 text-balance font-ex-title text-4xl text-z-heading last:mb-0">
       <TextEl>{props.children}</TextEl>
     </h1>
   )
@@ -252,11 +252,11 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
         </p>
       }
     >
-      <ul class="my-4 pl-4 font-ex-eng">
+      <ul class="my-4 px-4 font-ex-eng">
         <For each={props.children.items}>
           {(item) => (
             <li class="flex items-baseline gap-4">
-              <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-current" />
+              <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-z-text-dimmed" />
               <span>
                 <TextEl>{item.text}</TextEl>
               </span>

@@ -2,8 +2,18 @@ import {
   content,
   particle,
   prep,
+  preverb,
 } from "../lib/helpers/vocab"
 import "./groups"
+
+export const en =
+  particle`en`
+    .short`[joins two subjects]`
+    .noLipa
+
+export const ken = preverb`ken`
+  .short`ability, possibility, able to`
+  .lipa`TODO:`
 
 export const jan = content`jan`
   .short`person, people`
@@ -18,9 +28,17 @@ export const lon = prep`lon`
   .short`existence, truth, reality, be present`
   .lipa`For many people, lon is core to the philosophy of toki pona. It's a key example that ties together the physical and metaphysical. lon is existence, lon is truth, lon is reality. lon is not only existing at a place, but also existing during a time, or in a context. lon's usage outside of a preposition mostly derives from this meaning of existing.`
 
+export const lukin = content`lukin`
+  .short`see, eye`
+  .lipa`TODO:`
+
 export const mi = content`mi`
   .short`I, we, me, us`
   .lipa`mi talks about the speaker. It can also refer to groups that include the speaker. Similarly to sina, when quoting others, it doesn't necesserily refer to the one who is speaking at the moment, and instead refers to the one being quoted. But besides situations like that, mi always includes the speaker.`
+
+export const mun = content`mun`
+  .short`night sky object`
+  .lipa`TODO:`
 
 export const ni = content`ni`
   .short`this, that`
@@ -63,3 +81,11 @@ export const tenpo = content`tenpo`
 export const toki = content`toki`
   .short`communicate, talk`
   .lipa`The semantic space of toki contains any form or act of communication. This can be communication using the mouth, such as spoken language, or communication using the hands, such as signed languages. This could be communication using a written medium. toki doesn't have to just be for humans. Bee dances are toki. toki doesn't have to be between two parties either. Communication with one's self (such as someone thinking or talking to themselves) is toki. toki can get very abstract. If I can feel the atmospheric pressure change and I can detect that it's probably going to rain later because I'm old, I could say that the sky is toki-ing to me. If I read a sign, the action that sign is doing can be toki.`
+
+export const tu = content`tu`
+  .short`two, split, part`
+  .lipa`TODO:`
+
+export const wan = content`wan`
+  .short`single, unified`
+  .lipa`TODO:`

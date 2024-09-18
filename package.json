@@ -37,7 +37,7 @@
       {
         "files": "src/slides/**/*",
         "options": {
-          "printWidth": 19
+          "printWidth": 0
         }
       },
       {

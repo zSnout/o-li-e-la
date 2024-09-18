@@ -1,3 +1,12 @@
+## Conventions
+
+- make lowercase...
+  - slide titles
+  - bullet points
+  - definitions
+- properly capitalize...
+  - prompts
+
 ## Usage
 
 ```bash

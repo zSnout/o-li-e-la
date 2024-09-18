@@ -1,15 +1,18 @@
+import { Show } from "solid-js"
 import type { Word } from "../lib/types"
 import { TextEl } from "./TextEl"
 
-export function Vocab(props: { children: Word }) {
+export function Vocab(props: { children: Word; noDefn?: boolean }) {
   return (
     <li class="flex w-full flex-col font-sans">
       <div class="flex items-baseline gap-4">
         <h2 class="flex font-semibold text-z-heading">{props.children.word}</h2>
       </div>
-      <p class="text-balance pl-6 text-z">
-        <TextEl>{props.children.defnShort}</TextEl>
-      </p>
+      <Show when={!props.noDefn}>
+        <p class="text-balance pl-6 text-z">
+          <TextEl>{props.children.defnShort!}</TextEl>
+        </p>
+      </Show>
     </li>
   )
 }

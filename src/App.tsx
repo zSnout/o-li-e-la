@@ -131,11 +131,11 @@ function SlideCreationView(props: { children: AnySlide }) {
     md() ? screen.width - 26 * rem() : screen.width - 2 * rem(),
   )
   const h = createMemo(() =>
-    md() ? screen.height - 2 * rem() : screen.height - 26 * rem(),
+    md() ? screen.height - 2 * rem() : screen.height - 11 * rem(),
   )
 
   return (
-    <div class="grid h-screen w-screen grid-rows-[1fr,24rem] bg-slate-300 md:grid-cols-[1fr,24rem] md:grid-rows-1">
+    <div class="grid h-screen w-screen grid-cols-1 grid-rows-[1fr,9rem] bg-slate-300 md:grid-cols-[1fr,24rem] md:grid-rows-1">
       <div class="flex items-center justify-center p-4">
         <div
           class="flex flex-col gap-4"
@@ -144,7 +144,7 @@ function SlideCreationView(props: { children: AnySlide }) {
           <RenderScalable class="rounded-xl">{props.children}</RenderScalable>
         </div>
       </div>
-      <div class="flex h-96 flex-col bg-white md:h-screen">
+      <div class="flex h-36 flex-col bg-white md:h-screen">
         <PresenterNotes class="w-96 flex-1 p-4">
           {props.children}
         </PresenterNotes>

@@ -1,7 +1,6 @@
 import { text, type TextParams } from "../text"
 import type {
   AnySlide,
-  AtLeastOne,
   Content,
   ContentArray,
   SlideBase,
@@ -42,22 +41,22 @@ export interface SlideBuilder {
   source(source: Source): Omit<this, "source">
 
   /** Adds a vocab word to this slide. */
-  vocab(word: Word): this
+  vocab(...words: Word[]): this
+
+  /** Adds definitionless vocab words to this slide. */
+  vocabNoDefn(...words: Word[]): this
 
   /** Marks the image of this slide. */
   image: {
     [K in SlideImageAspectRatio]: (
       src: TemplateStringsArray,
-    ) => ImgBuilderNeedsAltOrContain<this>
+    ) => ImgBuilder<this>
   }
 }
 
-export interface ImgBuilderNeedsAlt<T> {
+export interface ImgBuilder<T> {
   alt(alt: TemplateStringsArray): Omit<T, "image">
-}
-
-export interface ImgBuilderNeedsAltOrContain<T> extends ImgBuilderNeedsAlt<T> {
-  contain(bg: TemplateStringsArray): ImgBuilderNeedsAlt<T>
+  contain(bg: TemplateStringsArray): Omit<this, "contain">
 }
 
 export interface SlideFunction {
@@ -83,6 +82,7 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
     return function (...title: TextParams): SlideBuilder {
       const refs: number[] = []
       const vocab: Word[] = []
+      const vocabNoDefn: Word[] = []
       let source: Source | undefined
       const notes: Text[] = []
       let image: SlideImage | undefined
@@ -95,6 +95,7 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
           title: text(...title),
           refs,
           vocab,
+          vocabNoDefn,
           image,
           source,
           notes,
@@ -121,8 +122,13 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
         return builder
       }
 
-      builder.vocab = (w: Word) => {
-        vocab.push(w)
+      builder.vocab = (...words: Word[]) => {
+        vocab.push(...words)
+        return builder
+      }
+
+      builder.vocabNoDefn = (...words: Word[]) => {
+        vocabNoDefn.push(...words)
         return builder
       }
 
@@ -135,25 +141,23 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
         aspect: SlideImageAspectRatio,
       ): SlideBuilder["image"][SlideImageAspectRatio] {
         return (src) => {
-          return {
+          let c: string | undefined
+          const obj: ImgBuilder<SlideBuilder> = {
             alt(alt) {
-              image = { alt: alt[0]!, aspect, src: src[0]! }
+              image = {
+                alt: alt[0]!,
+                aspect,
+                src: src[0]!,
+                contain: c,
+              }
               return builder
             },
             contain([contain]) {
-              return {
-                alt(alt) {
-                  image = {
-                    alt: alt[0]!,
-                    aspect,
-                    src: src[0]!,
-                    contain: contain!,
-                  }
-                  return builder
-                },
-              }
+              c = contain
+              return obj
             },
           }
+          return obj
         }
       }
 
