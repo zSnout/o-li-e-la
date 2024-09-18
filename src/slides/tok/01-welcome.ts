@@ -16,6 +16,9 @@ import {
 
 const [
   slide,
+  {
+    createReview,
+  },
 ] =
   slideshow`welcome!`
 
@@ -143,3 +146,5 @@ slide`questions are valuable`(
     .li`confused by grammar? ask!`
     .li`confused by vocab? ask!`,
 )
+
+createReview`review: what is toki pona?`
