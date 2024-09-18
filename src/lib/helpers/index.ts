@@ -6,6 +6,7 @@ import type {
   SlideBase,
   SlideImage,
   SlideImageAspectRatio,
+  SlideReview,
   SlideStandard,
   Source,
   Text,
@@ -71,8 +72,11 @@ export interface SlideFunction {
 }
 
 export type SlideshowFnReturn = [
-  slide: SlideFunction,
-  slides: readonly AnySlide[],
+  SlideFunction,
+  {
+    slides: readonly AnySlide[]
+    createReview(...title: TextParams): void
+  },
 ]
 
 const all: AnySlide[] = []
@@ -80,7 +84,7 @@ const all: AnySlide[] = []
 export function slideshow(..._title: TextParams): SlideshowFnReturn {
   const slides: AnySlide[] = []
 
-  function create(type: SlideStandard["type"]) {
+  function create(suli: boolean) {
     /** Builds a {@link SlideStandard} object, starting with the slide title. */
     return function (...title: TextParams): SlideBuilder {
       const refs: number[] = []
@@ -93,7 +97,8 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
 
       function builder(...content: ToContentArray): SlideStandard {
         const slide: SlideStandard = {
-          type,
+          type: "insa",
+          suli,
           gid: all.length,
           id: slides.length,
           title: text(...title),
@@ -183,7 +188,34 @@ export function slideshow(..._title: TextParams): SlideshowFnReturn {
     }
   }
 
-  return [Object.assign(create("insa"), { suli: create("suli") }), slides]
+  return [
+    Object.assign(create(false), { suli: create(true) }),
+    {
+      slides,
+      createReview(...title) {
+        const slide: SlideReview = {
+          type: "pini",
+          gid: all.length,
+          id: slides.length,
+          sources: slides
+            .map((x) => x.type == "insa" && x.source)
+            .filter((x) => !!x),
+          titleEng: text(...title),
+          vocab: slides
+            .map((x) => x.type == "insa" && x.vocab)
+            .filter((x) => !!x)
+            .flat()
+            .filter((x, i, a) => a.indexOf(x) == i),
+          titles: slides
+            .map((x) => x.type == "insa" && x.title)
+            .filter((x) => !!x),
+        }
+
+        slides.push(slide)
+        all.push(slide)
+      },
+    },
+  ]
 }
 
 export * as ch from "./ch"

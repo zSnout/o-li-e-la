@@ -287,7 +287,8 @@ export interface SlideImage {
  * and possible image.
  */
 export interface SlideStandard extends SlideBase {
-  readonly type: "insa" | "suli"
+  readonly type: "insa"
+  readonly suli: boolean
   readonly title: Text
   readonly content: ContentArray
   readonly vocab?: Word[]
@@ -307,14 +308,16 @@ export interface SlideSectionHeader extends SlideBase {
 }
 
 /** A slide previewing next class's vocabulary. */
-export interface SlideNextClassVocab extends SlideBase {
+export interface SlideReview extends SlideBase {
   readonly type: "pini"
   readonly titleEng: Text
-  readonly vocab: AtLeastOne<Word>
+  readonly titles: Text[]
+  readonly vocab: Word[]
+  readonly sources: Source[]
 }
 
 /** Any slide. */
-export type AnySlide = SlideStandard | SlideSectionHeader | SlideNextClassVocab
+export type AnySlide = SlideStandard | SlideSectionHeader | SlideReview
 
 // #endregion
 

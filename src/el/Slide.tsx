@@ -1,5 +1,13 @@
-import { children, createMemo, For, Show, type JSXElement } from "solid-js"
-import type { AnySlide, SlideStandard } from "../lib/types"
+import {
+  children,
+  createMemo,
+  For,
+  Match,
+  Show,
+  Switch,
+  type JSXElement,
+} from "solid-js"
+import type { AnySlide, SlideReview, SlideStandard, Source } from "../lib/types"
 import { Content, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
 import { TextEl } from "./TextEl"
@@ -32,12 +40,11 @@ function RenderStandard(props: { children: SlideStandard }) {
   return (
     <SlideBase class="flex">
       <main
-        class={
-          "flex-1 px-8 py-12" +
-          (props.children.type == "suli" ?
-            " flex flex-col items-center justify-center text-center"
-          : "")
-        }
+        class={clsx(
+          "flex-1 px-8 py-12",
+          props.children.suli &&
+            "flex flex-col items-center justify-center text-center",
+        )}
       >
         <div>
           <Main />
@@ -98,11 +105,69 @@ function RenderStandard(props: { children: SlideStandard }) {
   )
 }
 
+function RenderReview(props: { children: SlideReview }) {
+  return (
+    <SlideBase class="flex">
+      <main class="grid flex-1 px-8 py-12">
+        <Title>{props.children.titleEng}</Title>
+        <table>
+          <tbody>
+            <For each={props.children.vocab}>
+              {(word) => (
+                <tr>
+                  <td class="font-ex-eng">
+                    <span class="font-sp-sans text-z-heading">{word.word}</span>{" "}
+                    <span class="text-z-heading">{word.word}</span>
+                  </td>
+                  <td class="font-ex-eng text-z">
+                    <TextEl>{word.defnShort}</TextEl>
+                  </td>
+                </tr>
+              )}
+            </For>
+          </tbody>
+        </table>
+      </main>
+      <div class="wx-96 hx-[calc(540px_-_2rem)] my-4 flex flex-col border-l border-z py-4 pl-6 pr-8 text-lg">
+        <ul>
+          <For each={props.children.titles}>
+            {(title) => (
+              <li class="flex items-baseline gap-4 font-ex-eng text-xl">
+                <span class="inline-block size-2 min-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed" />
+                <span>
+                  <TextEl>{title}</TextEl>
+                </span>
+              </li>
+            )}
+          </For>
+        </ul>
+        <Show when={props.children.sources.length}>
+          <ul class="mt-4 border-t border-z pt-4">
+            <For each={props.children.sources}>
+              {(source) => (
+                <li>
+                  <SourceEl>{source}</SourceEl>
+                </li>
+              )}
+            </For>
+          </ul>
+        </Show>
+      </div>
+    </SlideBase>
+  )
+}
+
 export function Render(props: { children: AnySlide }) {
   return (
-    <Show when={props.children.type == "insa" || props.children.type == "suli"}>
-      <RenderStandard>{props.children as SlideStandard}</RenderStandard>
-    </Show>
+    <Switch>
+      <Match when={props.children.type == "insa"}>
+        <RenderStandard>{props.children as SlideStandard}</RenderStandard>
+      </Match>
+
+      <Match when={props.children.type == "pini"}>
+        <RenderReview>{props.children as SlideReview}</RenderReview>
+      </Match>
+    </Switch>
   )
 }
 
@@ -138,6 +203,29 @@ export function RenderScalable(props: {
         <Render>{props.children}</Render>
       </foreignObject>
     </svg>
+  )
+}
+
+function SourceEl(props: { children: Source }) {
+  return (
+    <div class="font-ex-eng text-z">
+      <p>Sourced from {props.children.author}’s</p>
+      <div class="pl-4">
+        <p class="font-bold text-z-heading">{props.children.title}</p>
+        <a
+          class="block truncate text-z-link underline underline-offset-2"
+          href={props.children.url}
+        >
+          {props.children.url.startsWith("https://www.reddit.com/r/") ?
+            props.children.url.slice("https://www.reddit.com/".length)
+          : props.children.url.startsWith("https://") ?
+            props.children.url.slice("https://".length)
+          : props.children.url.startsWith("http://") ?
+            props.children.url.slice("http://".length)
+          : props.children.url}
+        </a>
+      </div>
+    </div>
   )
 }
 
@@ -180,26 +268,7 @@ function PresenterNotesStandard(props: {
       }
     >
       <Show when={props.children.source} keyed>
-        {(source) => (
-          <div class="font-ex-eng text-z">
-            <p>Sourced from {source.author}’s</p>
-            <div class="pl-4">
-              <p class="font-bold text-z-heading">{source.title}</p>
-              <a
-                class="block truncate text-z-link underline underline-offset-2"
-                href={source.url}
-              >
-                {source.url.startsWith("https://www.reddit.com/r/") ?
-                  source.url.slice("https://www.reddit.com/".length)
-                : source.url.startsWith("https://") ?
-                  source.url.slice("https://".length)
-                : source.url.startsWith("http://") ?
-                  source.url.slice("http://".length)
-                : source.url}
-              </a>
-            </div>
-          </div>
-        )}
+        {(source) => <SourceEl>{source}</SourceEl>}
       </Show>
       <Show when={isEmpty()}>
         <p class="font-sans italic text-z-subtitle">
@@ -250,7 +319,7 @@ function PresenterNotesStandard(props: {
 
 export function PresenterNotes(props: { class?: string; children: AnySlide }) {
   return (
-    <Show when={props.children.type == "insa" || props.children.type == "suli"}>
+    <Show when={props.children.type == "insa"}>
       <PresenterNotesStandard class={props.class}>
         {props.children as SlideStandard}
       </PresenterNotesStandard>

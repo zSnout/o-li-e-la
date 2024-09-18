@@ -20,6 +20,9 @@ import {
 
 const [
   slide,
+  {
+    createReview,
+  },
 ] =
   slideshow`basic sentences`
 
@@ -117,3 +120,5 @@ slide`some grammatical terms`.vocab(
     .prompt`is ~"lon" a content word or a particle?`
     .prompt`is ~"tawa" a content word or a particle?`,
 )
+
+createReview`review: basic sentences`
