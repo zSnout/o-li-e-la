@@ -17,8 +17,6 @@ import "./slides/tok/02-li"
 import "./slides/tok/03-objects"
 import "./slides/tok/04-modifiers"
 
-const SHOW_LATEST = true
-
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
     <div class="grid w-full grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4 p-8">
@@ -139,9 +137,18 @@ function SlideCreationView(props: { children: AnySlide }) {
   const h = createMemo(() =>
     md() ? screen.height - 2 * rem() : screen.height - 11 * rem(),
   )
+  const slideHeight = createMemo(
+    () => (screen.width - 2 * rem()) / aspectRatio() + 2 * rem(),
+  )
 
   return (
-    <div class="grid h-screen w-screen grid-cols-1 grid-rows-[1fr,9rem] bg-slate-300 md:grid-cols-[1fr,24rem] md:grid-rows-1">
+    <div
+      class="grid h-screen max-h-screen w-screen grid-cols-1 grid-rows-[var(--slide),var(--notes)] bg-slate-300 md:grid-cols-[1fr,24rem] md:grid-rows-1"
+      style={{
+        "--slide": slideHeight() + "px",
+        "--notes": screen.height - slideHeight() + "px",
+      }}
+    >
       <div class="flex items-center justify-center p-4">
         <div
           class="flex flex-col gap-4"
@@ -150,7 +157,7 @@ function SlideCreationView(props: { children: AnySlide }) {
           <RenderScalable class="rounded-xl">{props.children}</RenderScalable>
         </div>
       </div>
-      <div class="flex h-36 flex-col bg-white md:h-screen">
+      <div class="flex flex-col bg-white md:h-screen">
         <PresenterNotes class="w-96 flex-1 p-4">
           {props.children}
         </PresenterNotes>
@@ -178,12 +185,7 @@ function Main(props: {
 
 export type Msg = AnySlide | [AnySlide]
 
-function Root() {
-  if (import.meta.env.DEV && SHOW_LATEST) {
-    const slide = slides[slides.length - 1]!
-    return <SlideCreationView>{slide}</SlideCreationView>
-  }
-
+function Standard() {
   let source: Window | undefined
   const [slide, setSlide] = createSignal<AnySlide>()
   const [big, setBig] = createSignal(false)
@@ -252,9 +254,13 @@ function Review() {
 }
 
 export default function () {
-  if (new URL(location.href).searchParams.has("review")) {
+  const search = new URL(location.href).searchParams
+  if (search.has("review")) {
     return <Review />
+  } else if (search.has("latest")) {
+    const slide = slides[slides.length - 1]!
+    return <SlideCreationView>{slide}</SlideCreationView>
   } else {
-    return <Root />
+    return <Standard />
   }
 }
