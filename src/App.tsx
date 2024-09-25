@@ -14,8 +14,10 @@ import type { AnySlide } from "./lib/types"
 import "./slides/tok/00-prologue"
 import "./slides/tok/01-welcome"
 import "./slides/tok/02-li"
+import "./slides/tok/03-objects"
+import "./slides/tok/04-modifiers"
 
-const SHOW_LATEST = false
+const SHOW_LATEST = true
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (

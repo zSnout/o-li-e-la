@@ -66,6 +66,8 @@ const kepeken = tag("text-orange-800", "text-orange-600", "kepeken")
 
 const interj = tag("text-fuchsia-800", "text-fuchsia-600", "")
 
+const none = tag("text-current", "text-current", "")
+
 const tags: Record<string, Tag> = {
   li,
   e,
@@ -79,6 +81,7 @@ const tags: Record<string, Tag> = {
   sama,
   kepeken,
   "@": interj,
+  "~": none,
 }
 
 const taso: Colored = {

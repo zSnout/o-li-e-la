@@ -62,7 +62,7 @@ export type Color<
   T extends number = number,
   P extends string = "text",
   C extends AnyColorName = ColorName,
-> = `${P}-${C}-${T}` | `${P}-black`
+> = `${P}-${C}-${T}` | `${P}-black` | "text-current"
 
 export interface Affix {
   readonly color: Color<800>

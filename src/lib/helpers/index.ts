@@ -104,9 +104,11 @@ export function slideshow(index: number) {
             id: slides.length,
             title: text(...title),
             refs,
-            vocab,
-            vocabNoDefn,
-            vocabNoteOnly,
+            vocab: vocab.sort((a, b) => (a.word < b.word ? -1 : 1)),
+            vocabNoDefn: vocabNoDefn.sort((a, b) => (a.word < b.word ? -1 : 1)),
+            vocabNoteOnly: vocabNoteOnly.sort((a, b) =>
+              a.word < b.word ? -1 : 1,
+            ),
             image,
             source,
             notes,
@@ -211,7 +213,13 @@ export function slideshow(index: number) {
                 .map((x) => x.type == "insa" && x.vocab)
                 .filter((x) => !!x)
                 .flat()
-                .filter((x, i, a) => a.indexOf(x) == i),
+                .filter((x, i, a) => a.findIndex((y) => y.word == x.word) == i)
+                .sort((a, b) => (a.word < b.word ? -1 : 1))
+                .sort((a, b) =>
+                  a.defnLipamanka && !b.defnLipamanka ? -1
+                  : !a.defnLipamanka && b.defnLipamanka ? 1
+                  : 0,
+                ),
               titles: slides
                 .map((x) => x.type == "insa" && x.title)
                 .filter((x) => !!x),
