@@ -24,7 +24,7 @@ const [
     createReview,
   },
 ] =
-  slideshow.draft(
+  slideshow(
     4,
   )`modifiers`
 

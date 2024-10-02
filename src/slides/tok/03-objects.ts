@@ -24,7 +24,7 @@ const [
     createReview,
   },
 ] =
-  slideshow.draft(
+  slideshow(
     3,
   )`direct objects`
 
