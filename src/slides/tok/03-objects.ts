@@ -35,7 +35,7 @@ slide`recap: basic sentences`(
     .into`existence li is nice.`
     .tok`tenpo li tawa.`
     .into`time li ticks by.`,
-  ch.eng`li There are @en people.`
+  ch.eng`li there are @en people.`
     .into`jan li $lon.`
     .eng`you li yelled at your friends.`
     .into`sina toki.`
