@@ -1,5 +1,3 @@
-/* @refresh reload */
-
 import "./refresh"
 
 import { render } from "solid-js/web"

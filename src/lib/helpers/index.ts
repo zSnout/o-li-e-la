@@ -14,6 +14,20 @@ import type {
   Word,
 } from "../types"
 
+const DRAFTS = new URL(location.href).searchParams.get("drafts")
+const FILTER = new URL(location.href).searchParams.get("filter")
+
+function shouldShowSlide(isDraft: boolean, isReview: boolean) {
+  return (
+    (DRAFTS == "only" ? isDraft
+    : DRAFTS != null ? true
+    : !isDraft) &&
+    (FILTER == "review" ? isReview
+    : FILTER == "content" ? !isReview
+    : true)
+  )
+}
+
 export type ToContentItem = Content | ToContent<Content>
 export type ToContentArray = ToContentItem[]
 
@@ -120,8 +134,8 @@ function createSlideshowFn(draft: boolean) {
               ) as readonly Content[] as ContentArray,
             }
 
-            if (import.meta.env.DEV || !draft) {
-              slides.push(slide)
+            slides.push(slide)
+            if (shouldShowSlide(draft, false)) {
               all.push(slide)
             }
 
@@ -232,8 +246,8 @@ function createSlideshowFn(draft: boolean) {
                   .filter((x) => !!x),
               }
 
-              if (import.meta.env.DEV || !draft) {
-                slides.push(slide)
+              slides.push(slide)
+              if (shouldShowSlide(draft, true)) {
                 all.push(slide)
               }
             }

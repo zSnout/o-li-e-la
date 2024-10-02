@@ -102,7 +102,7 @@ slide.suli`how can toki pona work?`
 )
 
 slide`letters & pronunciation`
-  .note`Tok Pisin is a language spoken throughout Papua New Guinea. It mainly descends from English, but has elements of other languages as well, including German, Malay, Portuguese, and Austronesian languages. It provides many of the words on the list here, and the word %"toki" itself comes from the name __Tok__ Pisin!`.vocab
+  .note`Tok Pisin is a language spoken throughout Papua New Guinea. It mainly descends from English, but has elements of other languages as well, including German, Malay, Portuguese, and Austronesian languages. It provides many of the words on the list here, and the word "pb toki" itself comes from the name __Tok__ Pisin!`.vocab
   .noDefn(
     en,
     mi,

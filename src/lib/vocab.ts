@@ -199,3 +199,8 @@ export const kin =
 export const ala = content`ala`
   .short`not, nothing, no`
   .lipa`the semantic space of ala contains nothing. But don't be fooled, it isn't void of information. "ala li lukin e kili" can be "nobody's looking at the fruit." "jan li moku e ala" can mean "the person ate nothing." as a modifier, it actually reverses the semantic space of whatever words come before it, which no other content word does. "soweli li alasa ala e kili" can mean "the monky doesn't forage for fruit." An ijo ala is never a type of ijo. as a verb, ala can mean "erase" or "delete."`
+
+export const pi =
+  particle`pi`
+    .short`[groups modifiers after itself]`
+    .noLipa

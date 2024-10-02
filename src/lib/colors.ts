@@ -51,6 +51,9 @@ export const LA_CONTENT = "text-violet-600"
 export const LA_BORDER = "border-violet-800"
 export const LA_BORDER_GRAY = "border-slate-600"
 
+const pb = tag("text-orange-800", "text-orange-600", "")
+const pp = tag("text-violet-800", "text-violet-600", "pi")
+
 const li = tag("text-rose-800", "text-rose-600", "li")
 const o = tag("text-rose-800", "text-rose-600", "o")
 const e = tag("text-green-800", "text-green-600", "e")
@@ -82,6 +85,8 @@ const tags: Record<string, Tag> = {
   kepeken,
   "@": interj,
   "~": none,
+  pb,
+  pp,
 }
 
 const taso: Colored = {
@@ -210,6 +215,10 @@ function createTagFunction<T extends PhraseLang>(
           } else {
             currentAffix = AFFIX_NEXT_WORD_DECIDES
           }
+        } else if (tag == pb) {
+          pushCurrent()
+          currentTag = tag
+          currentAffix = AFFIX_NONE
         } else {
           pushCurrent()
           currentTag = tag
@@ -314,13 +323,10 @@ function createTagFunction<T extends PhraseLang>(
       text = text.slice(1).trim()
     }
 
-    const output =
-      text.startsWith("%") ?
-        piPhrase([text.slice(1).trim()], lang)
-      : phrase(
-          (text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]).map(inner).flat(),
-          lang,
-        )
+    const output = phrase(
+      (text.match(/[^.!?]*[.!?]|[^.!?]+/g) ?? [text]).map(inner).flat(),
+      lang,
+    )
 
     if (fontSp) {
       output.font = "sp"
@@ -370,33 +376,3 @@ export const eng = createTagFunction(false, "eng")
 
 export const tokLa = createLa(tok)
 export const engLa = createLa(eng)
-
-const pi = tag("text-violet-800", "text-violet-600", "pi")
-
-export function piPhrase<T extends PhraseLang>(
-  strings: readonly string[],
-  lang: T,
-) {
-  return phrase(
-    strings
-      .join("")
-      .trim()
-      .split(/\bpi\b/g)
-      .map((x) => x.trim())
-      .map((text, index): Colored => {
-        if (index == 0) {
-          return {
-            color: "text-orange-600",
-            text,
-            prefix: null,
-            postfix: null,
-            punctuation: false,
-          }
-        } else {
-          return pi(text)
-        }
-      })
-      .filter((x) => x.prefix || x.text),
-    lang,
-  )
-}
