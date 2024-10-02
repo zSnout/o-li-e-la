@@ -89,7 +89,11 @@ export type SlideshowFnReturn = [
   SlideFunction,
   {
     slides: readonly AnySlide[]
-    createReview(...title: TextParams): (...content: ToContentArray) => void
+    createReview(...title: TextParams): {
+      slide(...content: ToContentArray): {
+        sheet(...content: ToContentArray): void
+      }
+    }
   },
 ]
 
@@ -215,41 +219,51 @@ function createSlideshowFn(draft: boolean) {
         {
           slides,
           createReview(...title) {
-            return (...content) => {
-              const slide: SlideReview = {
-                index,
-                type: "pini",
-                gid: all.length,
-                id: slides.length,
-                content: content.map((x) =>
-                  "finalize" in x ? x.finalize() : x,
-                ) as readonly Content[] as ContentArray,
-                sources: slides
-                  .map((x) => x.type == "insa" && x.source)
-                  .filter((x) => !!x),
-                titleEng: text(...title),
-                vocab: slides
-                  .map((x) => x.type == "insa" && x.vocab)
-                  .filter((x) => !!x)
-                  .flat()
-                  .filter(
-                    (x, i, a) => a.findIndex((y) => y.word == x.word) == i,
-                  )
-                  .sort((a, b) => (a.word < b.word ? -1 : 1))
-                  .sort((a, b) =>
-                    a.defnLipamanka && !b.defnLipamanka ? -1
-                    : !a.defnLipamanka && b.defnLipamanka ? 1
-                    : 0,
-                  ),
-                titles: slides
-                  .map((x) => x.type == "insa" && x.title)
-                  .filter((x) => !!x),
-              }
+            return {
+              slide(...slideContent) {
+                return {
+                  sheet(...sheet) {
+                    const slide: SlideReview = {
+                      index,
+                      type: "pini",
+                      gid: all.length,
+                      id: slides.length,
+                      contentSlide: slideContent.map((x) =>
+                        "finalize" in x ? x.finalize() : x,
+                      ) as readonly Content[] as ContentArray,
+                      contentSheet: sheet.map((x) =>
+                        "finalize" in x ? x.finalize() : x,
+                      ) as readonly Content[] as ContentArray,
+                      sources: slides
+                        .map((x) => x.type == "insa" && x.source)
+                        .filter((x) => !!x),
+                      titleEng: text(...title),
+                      vocab: slides
+                        .map((x) => x.type == "insa" && x.vocab)
+                        .filter((x) => !!x)
+                        .flat()
+                        .filter(
+                          (x, i, a) =>
+                            a.findIndex((y) => y.word == x.word) == i,
+                        )
+                        .sort((a, b) => (a.word < b.word ? -1 : 1))
+                        .sort((a, b) =>
+                          a.defnLipamanka && !b.defnLipamanka ? -1
+                          : !a.defnLipamanka && b.defnLipamanka ? 1
+                          : 0,
+                        ),
+                      titles: slides
+                        .map((x) => x.type == "insa" && x.title)
+                        .filter((x) => !!x),
+                    }
 
-              slides.push(slide)
-              if (shouldShowSlide(draft, true)) {
-                all.push(slide)
-              }
+                    slides.push(slide)
+                    if (shouldShowSlide(draft, true)) {
+                      all.push(slide)
+                    }
+                  },
+                }
+              },
             }
           },
         },

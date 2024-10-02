@@ -45,10 +45,10 @@ slide`"mi" and "sina" subjects`.vocab(
     .alt`you li spoke.`,
   ul`try some translations!`,
   ch.tok`sina pona.`
-    .into`You li are good.`
+    .into`you li are good.`
     .tok`mi toki.`
     .into`I li 'm communicating.`
-    .alt`We li use sign language.`,
+    .alt`we li use sign language.`,
 )
 
 slide`any word can be a predicate`
@@ -81,7 +81,7 @@ slide`context saves the day!`.source(
 )
   .image
   .auto`/IMG_7604.jpeg`
-  .alt`Person at the bottom of a tower with a kijetesantakalu at the top of the tower and an extended tail at the bottom.`
+  .alt`person at the bottom of a tower with a kijetesantakalu at the top of the tower and an extended tail at the bottom.`
   .note`This picture uses many words that haven't been introduced yet. That's okay; we're trying to get people into the toki pona mindset, not teach them vocabulary.`(
   ul`$"you li understand" and $"you li are knowledge" are the same??`,
   ul`that's right! however, most of the time, you can easily distinguish this!`,
@@ -123,15 +123,28 @@ slide`some grammatical terms`.vocab(
     .prompt`is ~"tawa" a content word or a particle?`,
 )
 
-createReview`review: basic sentences`(
-  ul`"mi" or "sina" followed by a predicate (any content word) makes a complete sentence.`,
-  ex.tok`mi toki.`
-    .eng`I li speak.`,
-  ex.tok`sina sona.`
-    .eng`you li know.`,
-  ul`for subjects other than "mi" and "sina", say "li" in between the subject and the predicate.`,
-  ex.tok`sona li pona.`
-    .eng`knowledge li is good.`,
-  ex.tok`ni li $lon.`
-    .eng`that li 's true.`,
-)
+createReview`review: basic sentences`
+  .slide(
+    ul`"mi" or "sina" followed by a predicate (any content word) makes a complete sentence.`,
+    ex.align`mi toki.`
+      .eng`I li speak.`
+      .tok`sina sona.`
+      .eng`you li know.`,
+    ul`for subjects other than "mi" and "sina", say "li" in between the subject and the predicate.`,
+    ex.tok`sona li pona.`
+      .eng`knowledge li is good.`,
+    ex.tok`ni li $lon.`
+      .eng`that li 's true.`,
+  )
+  .sheet(
+    ul`"mi" or "sina" followed by a predicate (any content word) makes a complete sentence.`,
+    ex.tok`mi toki.`
+      .eng`I li speak.`,
+    ex.tok`sina sona.`
+      .eng`you li know.`,
+    ul`for subjects other than "mi" and "sina", say "li" in between the subject and the predicate.`,
+    ex.tok`sona li pona.`
+      .eng`knowledge li is good.`,
+    ex.tok`ni li $lon.`
+      .eng`that li 's true.`,
+  )

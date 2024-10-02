@@ -35,15 +35,15 @@ export const SLIDE_PREPOSITIONS_AS_PREDICATES =
       ex.tok`mi tawa tomo sina.`
         .eng`I tawa 'm_going_to your house.`,
       ch.tok`ona li lon ma.`
-        .into`They lon 're_at a place.`
+        .into`they lon 're_at a place.`
         .tok`sina kepeken ilo moku.`
-        .into`You kepeken 're_using a fork.`
-        .alt`You kepeken 're_using chopsticks.`
+        .into`you kepeken 're_using a fork.`
+        .alt`you kepeken 're_using chopsticks.`
         .tok`ni li sama sina.`
-        .into`This sama is_like you.`,
-      ch.eng`He tawa 's_going_to the school.`
+        .into`this sama is_like you.`,
+      ch.eng`he tawa 's_going_to the school.`
         .into`ona li tawa ma sona.`
-        .eng`We tawa 're_walking_towards the loud sound.`
+        .eng`we tawa 're_walking_towards the loud sound.`
         .into`mi tawa kalama suli.`,
     )
 
@@ -55,7 +55,7 @@ export const SLIDE_LA_FOR_MARKING_TIME =
     ch.la`tenpo weka la toki uta li ante mute`
       .eng`far time la spoken language li was very different`,
     ch.label`Translate using "la":`
-      .eng`Right now, la my parents li are grounding e me.`
+      .eng`right now, la my parents li are grounding e me.`
       .into`tenpo ni la mama mi li awen e mi lon tomo.`,
   )
 
@@ -98,13 +98,13 @@ export const SLIDE_THE_PARTICLE_SEME =
       .li`don't change the word order from what the sentence would be without "@@ seme"`
       .li`you can response with a full sentence, or with just what was asked for`,
     ex.qa`sina wile e seme?`
-      .eng`You li want e what?`
+      .eng`you li want e what?`
       .tok`@e kasi.`
       .eng`e A plant.`,
     ex.qa`seme li lon tomo ni?`
-      .eng`What lon 's_in this building?`
+      .eng`what lon 's_in this building?`
       .tok`akesi li lon tomo ni.`
-      .eng`Reptiles lon are_in this building.`,
+      .eng`reptiles lon are_in this building.`,
     ex.qa`ni li seme?`
       .eng`li What is @en this?`
       .tok`@li esun moku.`
@@ -115,7 +115,7 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
   slide`responding to "@li X ala X"`
     .note`hello *people*!`.content(
     ex.qa`sina moku ala moku e kasi?`
-      .eng`Did you li eat e the plants?`
+      .eng`did you li eat e the plants?`
       .tok`@li moku.`
       .eng`li Eat (yes).`
       .alt`@li moku ala.`

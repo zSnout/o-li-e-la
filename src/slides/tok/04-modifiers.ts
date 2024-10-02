@@ -43,12 +43,12 @@ slide`basics of modifiers`.vocab(
     .eng`~many people`,
   ex.tok`mi pali mute e musi.`
     .eng`I li often work on e art.`
-    .alt`We li worked hard on e the board game.`,
+    .alt`we li worked hard on e the board game.`,
   ch.tok`ona kin li sona e ni.`
-    .into`They too li know e that.`
+    .into`they too li know e that.`
     .tok`ni ale li kama e pilin ike.`
-    .into`All those things li bring about e negative feelings.`,
-  ch.eng`That time li doesn't work.`
+    .into`all those things li bring about e negative feelings.`,
+  ch.eng`that time li doesn't work.`
     .into`tenpo ni li ike.`,
 )
 
@@ -72,9 +72,9 @@ slide`clarifications + practice`.vocab(
   ch.eng`I ~ also li saw e that.`
     .into`mi kin li lukin e ni.`
     .alt`mi lukin e ni kin.`
-    .eng`Y'all li really want e buildings.`
+    .eng`y'all li really want e buildings.`
     .into`sina ale li wile mute e tomo.`
-    .eng`Those games li aren't fun.`
+    .eng`those games li aren't fun.`
     .into`musi ni li musi ala.`,
 )
 
@@ -87,12 +87,12 @@ slide`negation`.vocab(
 )(
   ul`most modifiers add specificity to the base word. however, ~"ala" instead _negates_ a phrase!`,
   ex.tok`tomo li lukin ala e sina.`
-    .eng`The buildings li aren't watching e you.`,
+    .eng`the buildings li aren't watching e you.`,
   ch.tok`ale ala li pona.`
-    .into`Not everything li is fine.`,
-  ch.eng`No eyes li are mine.`
+    .into`not everything li is fine.`,
+  ch.eng`no eyes li are mine.`
     .into`lukin ala li mi.`
-    .eng`He li has no opinion.`
+    .eng`he li has no opinion.`
     .into`ona li pilin ala.`,
 )
 
@@ -111,13 +111,13 @@ slide`multiple modifiers + practice`.vocab(
     .tok`~tomo musi ni`
     .eng`~this entertaining building`,
   ex.tok`tomo sina ala li pona lukin.`
-    .eng`None of your houses li are pretty.`,
+    .eng`none of your houses li are pretty.`,
   ch.tok`nimi ni li pona ala.`
-    .into`That word li isn't real.`
-    .alt`That name li isn't correct.`
+    .into`that word li isn't real.`
+    .alt`that name li isn't correct.`
     .tok`suli ni li lili pilin e mi.`
-    .into`These grand scales li make e me li feel small.`,
-  ch.eng`Your name li is very nice.`
+    .into`these grand scales li make e me li feel small.`,
+  ch.eng`your name li is very nice.`
     .into`nimi sina li pona mute.`
     .alt`nimi sina li pona a!`
     .alt`nimi sina li pona mute a!`,
@@ -151,13 +151,13 @@ slide`practice (last one!)`.vocab(
   ch.tok`mi $lon ala e sona sina.`
     .into`I li have unexisted/falsified e your knowledge.`
     .tok`jan pi mute ike li $lon.`
-    .into`Too many people li are here.`,
-  ch.eng`She li does her homework quite well.`
+    .into`too many people li are here.`,
+  ch.eng`she li does her homework quite well.`
     .into`ona li pali mute.`
     .alt`ona li pali pona a!`
-    .eng`They all li aren't here.`
+    .eng`they all li aren't here.`
     .into`ona ale li $lon ala.`
-    .eng`All-knowing people tell lies.`
+    .eng`all-knowing people tell lies.`
     .into`jan pi sona ale li toki pi $lon ala.`,
   ch.discuss`Do you think ~"mi pi li pali" is a grammatical phrase?`
     .note`Absolutely not. "pp" is only for grouping modifiers, and "li" isn't a modifier. Maybe you meant "pb mi pali"?`
@@ -167,6 +167,36 @@ slide`practice (last one!)`.vocab(
     .prompt`Why or why not? If not, how could you fix it?`,
 )
 
-createReview`review: modifiers and "pp"`(
-  ul`to modify a word, put the _modifer_ after the _base word_`,
-)
+createReview`review: modifiers and "pp"`
+  .slide(
+    ul`to modify a word, put a _modifer_ after the _base word_. multiple modifiers all modify the first word.`,
+    ex.align`~jan`
+      .eng`~person`
+      .tok`~jan pona`
+      .eng`~good person`
+      .tok`~jan pona musi`
+      .eng`~funny, good people`,
+    ul`to make a phrase modify another phrase, use "pp".`,
+    ex.align`pb pali musi mute`
+      .eng`pb many fun activities`
+      .tok`pb pali pp musi mute`
+      .eng`pp very fun pb activity`,
+  )
+  .sheet(
+    ul`to modify a word, put the _modifer_ after the _base word_`,
+    ex.align`~jan`
+      .eng`~person`
+      .tok`~jan pona`
+      .eng`~good person`
+      .tok`~jan pona musi`
+      .eng`~funny, good people`,
+    ul`to make a phrase modify another phrase, use "pp".`,
+    ex.align`pb pali musi mute`
+      .eng`pb many fun activities`
+      .tok`pb pali pp musi mute`
+      .eng`pp very fun pb activity`,
+    ex.align`pb nimi pali ni`
+      .eng`pb this activity-related name`
+      .tok`pb nimi pp pali ni`
+      .eng`pp this activity's pb name`,
+  )

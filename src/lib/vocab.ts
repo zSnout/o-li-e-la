@@ -63,7 +63,7 @@ export const linja = content`linja`
   .lipa`If it's long an you can tie it into a knot, it's linja! linja implies flexibility. By calling something linja, you are framing it as something that could be bent significantly, even if it can't. Let's say I call a metal bar a linja. I'm implying to me that I can bend it easily, that to me it is flimsy. But most of the time, linja are things like string or cooked spaghetti. Dried spaghetti would not be a linja because it's brittle. If I draw a line, perhaps it can be linja, because even though it is drawn and cannot be moved around on the page, it might be representing something that could.`
 
 export const lon = prep`lon`
-  .short`existence, truth, reality, be present`
+  .short`exist, true, real, be present`
   .lipa`For many people, lon is core to the philosophy of toki pona. It's a key example that ties together the physical and metaphysical. lon is existence, lon is truth, lon is reality. lon is not only existing at a place, but also existing during a time, or in a context. lon's usage outside of a preposition mostly derives from this meaning of existing.`
 
 export const lukin = preverb`lukin`
@@ -114,7 +114,7 @@ export const pona = content`pona`
   .lipa`pona is a biased word. It defines toki pona's design goals and names them as good. "pona" can be any good quality, but to truely understand pona, one must understand the reason behind each decision made when creating toki pona. This is why in toki pona it's so easy to call the language "toki pona"--it's the language that most closely fits the design goals, which are also the semantic space of the word "pona." you'll seldom see speakers who disagree with this and describe toki pona as not pona, but that's because most of the people who don't like toki pona's design don't speak it very well if at all.`
 
 export const sina = content`sina`
-  .short`you, listener, reader, addressee`
+  .short`you, listener, addressee`
   .lipa`sina is the listener, reader, the one who interprets what the speaker says, or any group that contains them. Similarly to mi, when quoting others, it doesn't necesserily refer to the one who is listening at the moment, and instead refers to the one listening from when the quote is from. But besides situations like that, sina always includes the listener. Many people also use sina as a general hypothetical pronoun, similar to "one" in english when used as a pronoun. Others use sina when talking to inanimate objects. Perhaps this frames the object as listening. I recommend playing around with this at least a little bit.`
 
 export const sona = content`sona`
@@ -134,11 +134,11 @@ export const taso = content`taso`
   .lipa`taso doesn't actually change the semantic space of a word it modifies. instead, it trims away the possibility of other things filling the role of that object in a sentence. taso says that only the word it modifies does whatever it does. it's almost the inverse of ala in that instead of canceling out the semantic space of everything before it that it modifies, it cancels out everything else. taso is also used as a conjunction at the beginning of a sentence, meaning something similar to "but" in english.`
 
 export const tawa = prep`tawa`
-  .short`motion, move, wander, vibrate, walk`
+  .short`motion, vibrate, walk`
   .lipa`tawa is motion. tawa frequently has a destination, and when used as a preposition, it marks the word after it as this destination. a destination isn't critical to tawa though; speakers will use tawa for vibrating or shaking in place, or wandering. When tawa is used as a preposition, it marks that which the motion approaches. This can be physical, but metaphysically tawa can mark a recipient, beneficiary, point of perspective, etc.`
 
 export const tenpo = content`tenpo`
-  .short`time, situation, duration, event`
+  .short`situation, duration, event`
   .lipa`you'll usually hear people say that tenpo means "time." but what does that mean? what even is the abstract concept of time? this definition isn't very useful, so a different angle I suggest people take is to look at tenpo as either a situation or a duration. tenpo could be that one time I robbed a bank, or all the times I cooked with shmalts. tenpo could be a minute, or an hour, or an eon (1 billion years). tenpo can be the time when the sun shines, or the cycle it takes for the earth to rotate around the sun, or for the earth to rotate such that the sun goes away and comes back. tenpo can be the time when it's dark, the time when it's cold or warm, the time it takes for the moon to go through all its phases, the time it takes for markets to set up and disband a few times a week, the time when we work, the time when we sleep, the time when we travel, or the time when we arrive. tenpo can talk about the abstract concept of time, but usually it is used to talk about specific events, situations, and durations.`
 
 export const toki = content`toki`
@@ -176,7 +176,7 @@ export const musi = content`musi`
   .lipa`The semantic space of musi contains all things funny, entertaining, enticing, and interesting. An enjoyable book is musi. A good joke is musi. A game is musi. A documentary about fish is musi. The act of enjoying something or just enjoying one's self is musi. Some speakers disagree about whether something serious like a documentary about the holocaust can be musi. I encourage discussion about this, because I don't have a good answer at the moment.`
 
 export const sitelen = content`sitelen`
-  .short`image, symbol, picture, writing`
+  .short`symbol, picture, write`
   .lipa`sitelen are depictions, such as images or symbols. A painting or a photograph are both sitelen. It's also common to see sitelen used to describe a symbol in a writing system. The letter Q and the maya glyph for b'alam (jaguar) are both sitelen. sitelen is usually used for things that were created, but these don't need to be organized. A random scribble is still a sitelen even though it doesn't necesserily represent anything. pure random noise has the potential to be a sitelen too, but doing so will likely frame the noise as having some sort of order to it. perhaps it was chosen? maybe it's being used for something? maybe it's a mistake? explore sitelen!`
 
 export const tomo = content`tomo`
@@ -193,7 +193,7 @@ export const jo = content`jo`
 
 export const kin =
   content`kin`
-    .short`also, too, as well, additionally`
+    .short`also, too, additionally`
     .noLipa
 
 export const ala = content`ala`
@@ -202,5 +202,5 @@ export const ala = content`ala`
 
 export const pi =
   particle`pi`
-    .short`[groups modifiers after itself]`
+    .short`[regroups modifiers]`
     .noLipa

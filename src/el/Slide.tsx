@@ -108,16 +108,31 @@ function RenderStandard(props: { children: SlideStandard }) {
 function RenderReview(props: { children: SlideReview }) {
   return (
     <SlideBase class="flex">
-      <main class="grid flex-1 px-8 py-12">
+      <main class="flex-1 px-8 py-12">
         <Title>{props.children.titleEng}</Title>
+        <For each={props.children.contentSlide}>
+          {(e) => <Content>{e}</Content>}
+        </For>
+      </main>
+      <div class="wx-80 hx-[calc(540px_-_2rem)] my-4 flex flex-col border-l border-z py-4 pl-6 pr-8 text-lg">
         <table>
           <tbody>
-            <For each={props.children.vocab}>
+            <For
+              each={props.children.vocab}
+              fallback={
+                <tr>
+                  <td class="font-ex-eng italic text-z-subtitle">
+                    No vocabulary taught in this section.
+                  </td>
+                </tr>
+              }
+            >
               {(word) => (
                 <tr>
-                  <td class="font-ex-eng">
-                    <span class="font-sp-sans text-z-heading">{word.word}</span>{" "}
-                    <span class="text-z-heading">{word.word}</span>
+                  <td class="pr-4 font-ex-eng">
+                    <span class="font-semibold text-z-heading">
+                      {word.word}
+                    </span>
                   </td>
                   <td class="font-ex-eng text-z">
                     <TextEl>{word.defnShort}</TextEl>
@@ -127,20 +142,6 @@ function RenderReview(props: { children: SlideReview }) {
             </For>
           </tbody>
         </table>
-      </main>
-      <div class="wx-96 hx-[calc(540px_-_2rem)] my-4 flex flex-col border-l border-z py-4 pl-6 pr-8 text-lg">
-        <ul>
-          <For each={props.children.titles}>
-            {(title) => (
-              <li class="flex items-baseline gap-4 font-ex-eng text-xl">
-                <span class="inline-block size-2 min-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed" />
-                <span>
-                  <TextEl>{title}</TextEl>
-                </span>
-              </li>
-            )}
-          </For>
-        </ul>
         <Show when={props.children.sources.length}>
           <ul class="mt-4 flex flex-col gap-4 border-t border-z pt-4">
             <For each={props.children.sources}>
@@ -190,9 +191,9 @@ export function PrintReview(props: { children: SlideReview }) {
             )}
           </For>
         </div>
-        <Show when={props.children.content.length}>
+        <Show when={props.children.contentSheet.length}>
           <div class="group/small">
-            <For each={props.children.content}>
+            <For each={props.children.contentSheet}>
               {(element) => <Content>{element}</Content>}
             </For>
           </div>

@@ -32,14 +32,14 @@ slide`recap: basic sentences`(
   ch.tok`mi sona.`
     .into`I li know.`
     .tok`lon li pona.`
-    .into`Existence li is nice.`
+    .into`existence li is nice.`
     .tok`tenpo li tawa.`
-    .into`Time li ticks by.`,
+    .into`time li ticks by.`,
   ch.eng`li There are @en people.`
     .into`jan li $lon.`
-    .eng`You li yelled at your friends.`
+    .eng`you li yelled at your friends.`
     .into`sina toki.`
-    .eng`Facts li are mine.`
+    .eng`facts li are mine.`
     .into`sona li mi.`,
 )
 
@@ -57,7 +57,7 @@ slide`basics of "e"`.vocab(
     .eng`they li know e a lot.`,
   ch.tok`ona li toki e tan.`
     .into`she li said e the reason.`,
-  ch.eng`It li knows e the people.`
+  ch.eng`it li knows e the people.`
     .into`ona li sona e jan.`,
 )
 
@@ -73,34 +73,46 @@ slide`~"make ..." predicates with "e"`.vocab(
   .note`"@li wawa" and "@li awen" are wonderful for the second, but, again, they haven't appeared yet.`(
   ul`"e" can also mean ~"to give a target a quality"`,
   ex.tok`sina kama e ona.`
-    .eng`You li make-arrive e him.`
-    .alt`You li bring e him.`,
+    .eng`you li make-arrive e him.`
+    .alt`you li bring e him.`,
   ex.tok`ona li ken e toki.`
-    .eng`They li turned on e video call chat.`,
+    .eng`they li turned on e video call chat.`,
   ch.tok`sona li ken e sina.`
-    .into`Knowledge li gives e you li possibilities.`
+    .into`knowledge li gives e you li possibilities.`
     .tok`pilin li lili e $tan.`
-    .into`Feelings li make e reasons li insignificant.`,
-  ch.eng`Time li fades e memories.`
+    .into`feelings li make e reasons li insignificant.`,
+  ch.eng`time li fades e memories.`
     .into`tenpo li ike e sona.`
     .alt`tenpo li lili e sona.`
     .alt`tenpo li weka e sona.`
-    .eng`Writing strengthens them.`
+    .eng`writing strengthens them.`
     .into`sitelen li pona e ona.`
     .alt`sitelen li wawa e ona.`
     .alt`sitelen li awen e ona.`,
 )
 
-createReview`review: direct objects with "e"`(
-  ul`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
-  ex.tok`mi wile e ni.`
-    .eng`I li want e that.`,
-  ex.tok`ona li sona e mute.`
-    .eng`they li know e a lot.`,
-  ul`"e" can also mean ~"to give a target a quality"`,
-  ex.tok`sina kama e ona.`
-    .eng`You li make-arrive e him.`
-    .alt`You li bring e him.`,
-  ex.tok`tenpo li ike e sona.`
-    .eng`Time li worsens e memories.`,
-)
+createReview`review: direct objects with "e"`
+  .slide(
+    ul`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
+    ex.tok`mi wile e ni.`
+      .eng`I li want e that.`,
+    ex.tok`ona li sona e mute.`
+      .eng`they li know e a lot.`,
+    ul`"e" can also mean ~"to give a target a quality"`,
+    ex.tok`sina kama e ona.`
+      .eng`you li make-arrive e him.`
+      .alt`you li bring e him.`,
+  )
+  .sheet(
+    ul`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
+    ex.tok`mi wile e ni.`
+      .eng`I li want e that.`,
+    ex.tok`ona li sona e mute.`
+      .eng`they li know e a lot.`,
+    ul`"e" can also mean ~"to give a target a quality"`,
+    ex.tok`sina kama e ona.`
+      .eng`you li make-arrive e him.`
+      .alt`you li bring e him.`,
+    ex.tok`tenpo li ike e sona.`
+      .eng`time li worsens e memories.`,
+  )

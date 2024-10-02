@@ -144,24 +144,36 @@ slide`questions are valuable`(
     .li`confused by vocab? ask!`,
 )
 
-createReview`review: welcome!`(
-  ul`our goals:`,
-  ul`to teach you toki pona`
-    .li`to explore toki pona's culture`
-    .li`to have fun!`,
-  ul`what is toki pona?`,
-  ul`toki pona was created in 2001`
-    .li`by Canadian linguist Sonja Lang`
-    .li`it only has around 130 words`,
-  ul`spelling and pronunciation:`,
-  ul`consonants: **j k l m n p s t w**`
-    .li`**j** is pronounced like English **y**`,
-  ul`vowels **(a e i o u)** are like Spanish`
-    .li`**ah eh ee oh oo**`,
-  ul`everything is lowercase except names`
-    .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
-  ul`writing:`,
-  ul`toki pona has an alternate system called **sitelen pona**`
-    .li`sitelen pona uses one symbol per word`,
-  ul`"~&ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo"`,
-)
+createReview`review: welcome!`
+  .slide(
+    ul`goal: teach toki pona (a 130-word language)`
+      .li`toki pona was created in 2001 by Sonja Lang`,
+    ul`consonants: **j k l m n p s t w**`
+      .li`vowels **(a e i o u)** are like **ah eh ee l__o__t uu**`
+      .li`everything is lowercase except names`
+      .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
+    ul`toki pona often uses **sitelen pona** to write`
+      .li`sitelen pona uses one symbol per word:`,
+    ul`"~&ala alasa ale jan kasi kili mun pakala seme tenpo"`,
+  )
+  .sheet(
+    ul`our goals:`,
+    ul`to teach you toki pona`
+      .li`to explore toki pona's culture`
+      .li`to have fun!`,
+    ul`what is toki pona?`,
+    ul`toki pona was created in 2001`
+      .li`by Canadian linguist Sonja Lang`
+      .li`it only has around 130 words`,
+    ul`spelling and pronunciation:`,
+    ul`consonants: **j k l m n p s t w**`
+      .li`**j** is pronounced like English **y**`,
+    ul`vowels **(a e i o u)** are like Spanish`
+      .li`**ah eh ee oh oo**`,
+    ul`everything is lowercase except names`
+      .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
+    ul`writing:`,
+    ul`toki pona has an alternate system called **sitelen pona**`
+      .li`sitelen pona uses one symbol per word`,
+    ul`"~&ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo"`,
+  )

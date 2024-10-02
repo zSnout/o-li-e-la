@@ -315,7 +315,8 @@ export interface SlideReview extends SlideBase {
   readonly titles: Text[]
   readonly vocab: Word[]
   readonly sources: Source[]
-  readonly content: Content[]
+  readonly contentSlide: Content[]
+  readonly contentSheet: Content[]
 }
 
 /** Any slide. */
