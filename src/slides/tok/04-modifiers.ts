@@ -5,17 +5,17 @@ import {
   ul,
 } from "../../lib/helpers"
 import {
-  nimi,
-  pali,
+  a,
+  ala,
+  ale,
+  kin,
+  lukin,
   ma,
   musi,
-  tomo,
-  ale,
-  lukin,
-  jo,
-  kin,
+  nimi,
+  pali,
   taso,
-  ala,
+  tomo,
 } from "../../lib/vocab"
 
 const [
@@ -24,7 +24,7 @@ const [
     createReview,
   },
 ] =
-  slideshow(
+  slideshow.draft(
     4,
   )`modifiers`
 
@@ -55,7 +55,7 @@ slide`basics of modifiers`.vocab(
     .into`tenpo ni li ike.`,
 )
 
-slide`more practice`.vocab(
+slide`clarifications + practice`.vocab(
   kin,
   taso,
   musi,
@@ -82,7 +82,32 @@ slide`more practice`.vocab(
     .into`musi ni li musi ala.`,
 )
 
-// TODO: multiple modifiers
+slide`multiple modifiers + practice`.vocab(
+  tomo,
+  lukin,
+  ala,
+  ma,
+  nimi,
+  a,
+)(
+  ul`words can have multiple modifiers. all modifiers modify the initial base word.`,
+  ex.align`~tomo`
+    .eng`~building`
+    .tok`~tomo musi`
+    .eng`~entertaining building`
+    .tok`~tomo musi ni`
+    .eng`~this entertaining building`,
+  ex.tok`tomo sina ala li pona lukin.`
+    .eng`None of your houses li are pretty.`,
+  ch.tok`nimi ni li pona ala.`
+    .into`That word li isn't real.`
+    .alt`That name li isn't correct.`
+    .tok`ma ni taso li lili a!`
+    .into`Only this place li is small!`,
+  // ch.eng`sina a li ni`,
+)
+
+createReview`review:`
 
 // TODO: ala
 

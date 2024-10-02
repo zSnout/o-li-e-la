@@ -16,6 +16,7 @@ import "./slides/tok/01-welcome"
 import "./slides/tok/02-li"
 import "./slides/tok/03-objects"
 import "./slides/tok/04-modifiers"
+import { clsx } from "./lib/clsx"
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
@@ -140,10 +141,18 @@ function SlideCreationView(props: { children: AnySlide }) {
   const slideHeight = createMemo(
     () => (screen.width - 2 * rem()) / aspectRatio() + 2 * rem(),
   )
+  const twoCol = createMemo(() =>
+    slideHeight() < screen.height - 12 * rem() ? false : md(),
+  )
 
   return (
     <div
-      class="grid h-screen max-h-screen w-screen grid-cols-1 grid-rows-[var(--slide),var(--notes)] bg-slate-300 md:grid-cols-[1fr,24rem] md:grid-rows-1"
+      class={clsx(
+        "grid h-screen max-h-screen w-screen bg-slate-300",
+        twoCol() ?
+          "grid-cols-[1fr,24rem] grid-rows-1"
+        : "grid-cols-1 grid-rows-[var(--slide),var(--notes)]",
+      )}
       style={{
         "--slide": slideHeight() + "px",
         "--notes": screen.height - slideHeight() + "px",
@@ -152,12 +161,16 @@ function SlideCreationView(props: { children: AnySlide }) {
       <div class="flex items-center justify-center p-4">
         <div
           class="flex flex-col gap-4"
-          style={{ width: Math.min(w(), aspectRatio() * h()) + "px" }}
+          style={{
+            width:
+              twoCol() ? Math.min(w(), aspectRatio() * h()) + "px" : "100%",
+            height: twoCol() ? undefined : "100%",
+          }}
         >
           <RenderScalable class="rounded-xl">{props.children}</RenderScalable>
         </div>
       </div>
-      <div class="flex flex-col bg-white md:h-screen">
+      <div class="flex flex-col bg-white" classList={{ "h-screen": twoCol() }}>
         <PresenterNotes class="w-96 flex-1 p-4">
           {props.children}
         </PresenterNotes>

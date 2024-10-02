@@ -1,10 +1,16 @@
 import {
   content,
+  emoticle,
   particle,
   prep,
   preverb,
 } from "../lib/helpers/vocab"
 import "./groups"
+
+export const a =
+  emoticle`a`
+    .short`[emphasis or emotion]`
+    .noLipa
 
 export const anpa =
   content`anpa`

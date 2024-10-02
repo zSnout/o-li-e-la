@@ -54,3 +54,14 @@ export const preverb: WordKind = {
   abbr: "pv.",
   color: "bg-rose-500 text-rose-50",
 }
+
+export const emoticle: WordKind = {
+  content: true,
+  particle: true,
+  prep: false,
+  preverb: true,
+
+  name: "emoticle",
+  abbr: "emo.",
+  color: "bg-fuchsia-500 text-fuchsia-50",
+}
