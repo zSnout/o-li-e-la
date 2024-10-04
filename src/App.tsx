@@ -18,13 +18,13 @@ import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
 import type { AnySlide } from "./lib/types"
 
+import { TextEl } from "./el/TextEl"
 import { clsx } from "./lib/clsx"
 import "./slides/tok/00-prologue"
 import "./slides/tok/01-welcome"
 import "./slides/tok/02-li"
 import "./slides/tok/03-objects"
 import "./slides/tok/04-modifiers"
-import { TextEl } from "./el/TextEl"
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
@@ -283,16 +283,16 @@ function Collect() {
           const vocab = collectVocabStats(collected)
           return (
             <div>
-              <div class="mb-2 bg-z-body-selected px-3 py-2 font-ex-eng text-xl font-semibold text-z-heading">
-                <p>
-                  <TextEl>{slideshow.title}</TextEl>
-                </p>
-                <div class="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] items-center gap-x-2 text-sm text-z first:*:mt-0 last:*:mb-0">
-                  <For each={[...vocab].filter(([k]) => /^[A-Za-z]+$/.test(k))}>
+              <p class="bg-z-body-selected px-3 py-2 font-ex-eng text-xl font-semibold text-z-heading">
+                <TextEl>{slideshow.title}</TextEl> ({vocab.size} words used)
+              </p>
+              <Show when={vocab.size}>
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(3rem,1fr))] items-center gap-x-2 px-3 py-2 font-ex-eng text-z first:*:mt-0 last:*:mb-0">
+                  <For each={[...vocab]}>
                     {([word, stat]) => (
                       <p>
-                        <span class="font-ex-tok">{word}</span>{" "}
-                        <span class="text-z-subtitle">
+                        <span class="font-sp-sans">{word}</span>
+                        <span class="text-sm text-z-subtitle">
                           {[...stat.values()].reduce(
                             (a, b) => a + b.inChallengePrompts + b.inExamples,
                             0,
@@ -302,26 +302,23 @@ function Collect() {
                     )}
                   </For>
                 </div>
-                {/* <div class="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] items-center gap-x-2 text-z first:*:mt-0 last:*:mb-0">
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(3rem,1fr))] items-center gap-x-2 border-l border-z bg-slate-100 px-3 py-2 font-ex-eng text-z first:*:mt-0 last:*:mb-0">
                   <For each={[...vocab].filter(([k]) => /^[A-Za-z]+$/.test(k))}>
                     {([word, stat]) => (
-                      <For each={[...stat]}>
-                        {([color, stat]) => (
-                          <p>
-                            <span class={clsx("font-ex-tok", color)}>
-                              {word}
-                            </span>{" "}
-                            <span class="text-z-subtitle">
-                              {stat.inChallengePrompts + stat.inExamples}
-                            </span>
-                          </p>
-                        )}
-                      </For>
+                      <p>
+                        <span class="font-sp-sans">{word}</span>
+                        <span class="text-sm text-z-subtitle">
+                          {[...stat.values()].reduce(
+                            (a, b) => a + b.inChallengeAnswers,
+                            0,
+                          )}
+                        </span>
+                      </p>
                     )}
                   </For>
-                </div> */}
-              </div>
-              <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] items-center gap-2 text-z first:*:mt-0 last:*:mb-0">
+                </div>
+              </Show>
+              <div class="mt-2 grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] items-center gap-2 text-z first:*:mt-0 last:*:mb-0">
                 <For each={collected}>
                   {(x) => <CollectedEl>{x}</CollectedEl>}
                 </For>

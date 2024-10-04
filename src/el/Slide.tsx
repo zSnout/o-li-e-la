@@ -567,7 +567,7 @@ function words(phrase: Phrase<PhraseLang>) {
     }
   }
 
-  return words
+  return words.filter((x) => /^[A-Za-z]+$/.test(x.word))
 }
 
 export function collectVocabStats(
