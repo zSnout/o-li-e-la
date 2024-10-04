@@ -226,15 +226,8 @@ export interface InfoListUl {
 /** Any informational section. */
 export type Info = InfoListUl
 
-export interface Styled {
-  readonly type: "styled"
-  readonly my?: "auto" | undefined
-  readonly size?: "xl" | undefined
-  readonly content: AtLeastOne<Content>
-}
-
 /** Any piece of content. */
-export type Content = Example | Challenge | Info | Styled
+export type Content = Example | Challenge | Info
 
 /** A set of content. */
 export type ContentArray = Content[]
@@ -298,15 +291,6 @@ export interface SlideStandard extends SlideBase {
   readonly source?: Source
 }
 
-/** A slide introducing a new day, with multilingual titles and an agenda. */
-export interface SlideSectionHeader extends SlideBase {
-  readonly type: "open"
-  readonly titleEng: Text
-  readonly titleTok: Text
-  readonly titleSp: Text
-  readonly agenda: AtLeastOne<Text>
-}
-
 /** A slide previewing next class's vocabulary. */
 export interface SlideReview extends SlideBase {
   readonly index: number
@@ -320,7 +304,7 @@ export interface SlideReview extends SlideBase {
 }
 
 /** Any slide. */
-export type AnySlide = SlideStandard | SlideSectionHeader | SlideReview
+export type AnySlide = SlideStandard | SlideReview
 
 // #endregion
 
@@ -332,4 +316,34 @@ export interface Group {
   readonly id: number
   readonly name: Text
   readonly words: readonly string[]
+}
+
+export type CollectedInner =
+  | { type: "ex:tok"; tok: Phrase<"tok">; eng: PhraseArray<"eng"> }
+  | { type: "ch:tok"; tok: Phrase<"tok">; eng: PhraseArray<"eng"> }
+  | { type: "ch:eng"; eng: Phrase<"eng">; tok: PhraseArray<"tok"> }
+  | { type: "unimpl"; msg: string }
+
+export type Collected = Readonly<CollectedInner>
+
+export interface Slideshow {
+  readonly title: Text
+  readonly slides: readonly AnySlide[]
+}
+
+export interface StatMut {
+  inExamples: number
+  inChallengePrompts: number
+  inChallengeAnswers: number
+}
+
+export interface Stat extends Readonly<StatMut> {}
+
+export type VocabStatMut = Map<Color<600 | 800> | null, StatMut>
+
+export type VocabStat = ReadonlyMap<Color<600 | 800> | null, Stat>
+
+export interface ColoredWord {
+  readonly word: string
+  readonly color: Color<600 | 800> | null
 }

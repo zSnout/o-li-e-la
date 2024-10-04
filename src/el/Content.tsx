@@ -1,10 +1,12 @@
 import { For, Show } from "solid-js"
+import { clsx } from "../lib/clsx"
 import {
   LA_BORDER,
   LA_BORDER_GRAY,
   LA_CONTENT,
   LA_PARTICLE,
 } from "../lib/colors"
+import { isSitelenPonaOnly } from "../lib/text"
 import type {
   ChallengeDiscuss,
   ChallengeExplainDifference,
@@ -14,15 +16,13 @@ import type {
   ExampleLa,
   ExampleSetAligned,
   ExampleSetQA,
-  ExampleTok,
   InfoListUl,
-  Styled,
+  Phrase,
+  PhraseArray,
   Text,
 } from "../lib/types"
 import { PhraseEl } from "./PhraseEl"
 import { TextEl } from "./TextEl"
-import { clsx } from "../lib/clsx"
-import { isSitelenPonaOnly } from "../lib/text"
 
 export function Title(props: { children: Text }) {
   return (
@@ -32,16 +32,40 @@ export function Title(props: { children: Text }) {
   )
 }
 
-export function ExampleTokEl(props: { children: ExampleTok }) {
+export function ExampleTokEl(props: {
+  tok: Phrase<"tok">
+  eng: PhraseArray<"eng">
+}) {
   return (
     <div class="my-4 flex flex-col items-center">
       <p class="font-ex-tok font-semibold">
-        <PhraseEl>{props.children.tok}</PhraseEl>
+        <PhraseEl>{props.tok}</PhraseEl>
       </p>
 
-      <For each={props.children.eng}>
+      <For each={props.eng}>
         {(phrase) => (
           <p class="font-ex-eng">
+            <PhraseEl>{phrase}</PhraseEl>
+          </p>
+        )}
+      </For>
+    </div>
+  )
+}
+
+export function ExampleEngEl(props: {
+  eng: Phrase<"eng">
+  tok: PhraseArray<"tok">
+}) {
+  return (
+    <div class="my-4 flex flex-col items-center">
+      <p class="font-ex-eng font-semibold">
+        <PhraseEl>{props.eng}</PhraseEl>
+      </p>
+
+      <For each={props.tok}>
+        {(phrase) => (
+          <p class="font-ex-tok">
             <PhraseEl>{phrase}</PhraseEl>
           </p>
         )}
@@ -277,24 +301,10 @@ export function InfoListUlEl(props: { children: InfoListUl }) {
   )
 }
 
-export function StyledEl(props: { children: Styled }) {
-  return (
-    <div
-      class="[:has(>&)]:flex [:has(>&)]:h-full [:has(>&)]:flex-col"
-      classList={{
-        "my-auto": props.children.my == "auto",
-        "text-4xl/[1.25]": props.children.size == "xl",
-      }}
-    >
-      <For each={props.children.content}>{(x) => <Content>{x}</Content>}</For>
-    </div>
-  )
-}
-
 export function Content(props: { children: Content }) {
   switch (props.children.type) {
     case "ex:tok":
-      return <ExampleTokEl>{props.children}</ExampleTokEl>
+      return <ExampleTokEl tok={props.children.tok} eng={props.children.eng} />
     case "ex:la":
       return <ExampleLaEl>{props.children}</ExampleLaEl>
     case "exs:aligned":
@@ -315,7 +325,5 @@ export function Content(props: { children: Content }) {
       )
     case "ul":
       return <InfoListUlEl>{props.children}</InfoListUlEl>
-    case "styled":
-      return <StyledEl>{props.children}</StyledEl>
   }
 }

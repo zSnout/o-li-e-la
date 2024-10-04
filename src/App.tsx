@@ -4,19 +4,27 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faAr
 import { faExpand } from "@fortawesome/free-solid-svg-icons/faExpand"
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { Fa } from "./el/Fa"
-import { PresenterNotes, PrintReview, RenderScalable } from "./el/Slide"
+import {
+  collect,
+  CollectedEl,
+  collectVocabStats,
+  PresenterNotes,
+  PrintReview,
+  RenderScalable,
+} from "./el/Slide"
 import { createEventListener } from "./lib/event"
-import { slides } from "./lib/helpers"
+import { slides, slideshows } from "./lib/helpers"
 import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
 import type { AnySlide } from "./lib/types"
 
+import { clsx } from "./lib/clsx"
 import "./slides/tok/00-prologue"
 import "./slides/tok/01-welcome"
 import "./slides/tok/02-li"
 import "./slides/tok/03-objects"
 import "./slides/tok/04-modifiers"
-import { clsx } from "./lib/clsx"
+import { TextEl } from "./el/TextEl"
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
@@ -266,10 +274,74 @@ function Review() {
   )
 }
 
+function Collect() {
+  return (
+    <div class="flex flex-col gap-12 px-6 py-8">
+      <For each={slideshows}>
+        {(slideshow) => {
+          const collected = collect(slideshow.slides)
+          const vocab = collectVocabStats(collected)
+          return (
+            <div>
+              <div class="mb-2 bg-z-body-selected px-3 py-2 font-ex-eng text-xl font-semibold text-z-heading">
+                <p>
+                  <TextEl>{slideshow.title}</TextEl>
+                </p>
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] items-center gap-x-2 text-sm text-z first:*:mt-0 last:*:mb-0">
+                  <For each={[...vocab].filter(([k]) => /^[A-Za-z]+$/.test(k))}>
+                    {([word, stat]) => (
+                      <p>
+                        <span class="font-ex-tok">{word}</span>{" "}
+                        <span class="text-z-subtitle">
+                          {[...stat.values()].reduce(
+                            (a, b) => a + b.inChallengePrompts + b.inExamples,
+                            0,
+                          )}
+                        </span>
+                      </p>
+                    )}
+                  </For>
+                </div>
+                {/* <div class="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] items-center gap-x-2 text-z first:*:mt-0 last:*:mb-0">
+                  <For each={[...vocab].filter(([k]) => /^[A-Za-z]+$/.test(k))}>
+                    {([word, stat]) => (
+                      <For each={[...stat]}>
+                        {([color, stat]) => (
+                          <p>
+                            <span class={clsx("font-ex-tok", color)}>
+                              {word}
+                            </span>{" "}
+                            <span class="text-z-subtitle">
+                              {stat.inChallengePrompts + stat.inExamples}
+                            </span>
+                          </p>
+                        )}
+                      </For>
+                    )}
+                  </For>
+                </div> */}
+              </div>
+              <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] items-center gap-2 text-z first:*:mt-0 last:*:mb-0">
+                <For each={collected}>
+                  {(x) => <CollectedEl>{x}</CollectedEl>}
+                </For>
+              </div>
+            </div>
+          )
+        }}
+      </For>
+    </div>
+  )
+}
+
 export default function () {
   const search = new URL(location.href).searchParams
   if (search.has("review")) {
     return <Review />
+  } else if (search.has("collect")) {
+    document.documentElement.classList.remove("bg-slate-300")
+    document.documentElement.classList.add("bg-white")
+    return <Collect />
   } else if (search.has("latest")) {
     const slide = slides[slides.length - 1]!
     return <SlideCreationView>{slide}</SlideCreationView>

@@ -7,6 +7,7 @@ import type {
   SlideImage,
   SlideImageAspectRatio,
   SlideReview,
+  Slideshow,
   SlideStandard,
   Source,
   Text,
@@ -103,6 +104,11 @@ function createSlideshowFn(draft: boolean) {
   return function (index: number) {
     return (..._title: TextParams): SlideshowFnReturn => {
       const slides: AnySlide[] = []
+
+      const slideshow: Slideshow = {
+        title: text(..._title),
+        slides,
+      }
 
       function create(suli: boolean) {
         /** Builds a {@link SlideStandard} object, starting with the slide title. */
@@ -214,6 +220,8 @@ function createSlideshowFn(draft: boolean) {
         }
       }
 
+      slideshowsMut.push(slideshow)
+
       return [
         Object.assign(create(false), { suli: create(true) }),
         {
@@ -278,10 +286,11 @@ export const slideshow = Object.assign(createSlideshowFn(false), {
 
 export * as ch from "./ch"
 export * as ex from "./ex"
-export { styled } from "./styled"
 export { ul } from "./ul"
 export * as vocab from "./vocab"
 
+const slideshowsMut: Slideshow[] = []
 const slidesReadonly: readonly AnySlide[] = all
+const slideshowsReadonly: readonly Slideshow[] = slideshowsMut
 
-export { slidesReadonly as slides }
+export { slidesReadonly as slides, slideshowsReadonly as slideshows }

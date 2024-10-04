@@ -5,11 +5,25 @@ import {
   Match,
   Show,
   Switch,
+  type JSX,
   type JSXElement,
 } from "solid-js"
 import { clsx } from "../lib/clsx"
-import type { AnySlide, SlideReview, SlideStandard } from "../lib/types"
-import { Content, Title } from "./Content"
+import type {
+  AnySlide,
+  Collected,
+  Color,
+  ColoredWord,
+  Phrase,
+  PhraseArray,
+  PhraseLang,
+  SlideReview,
+  SlideStandard,
+  StatMut,
+  VocabStat,
+  VocabStatMut,
+} from "../lib/types"
+import { Content, ExampleEngEl, ExampleTokEl, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
 import { TextEl } from "./TextEl"
 import { Vocab, VocabPresenter } from "./Vocab"
@@ -465,4 +479,176 @@ export function PresenterNotes(props: { class?: string; children: AnySlide }) {
       </Match>
     </Switch>
   )
+}
+
+function unimpl(msg: string) {
+  return { type: "unimpl", msg } as const
+}
+
+export function collect(slides: readonly AnySlide[]): readonly Collected[] {
+  const items: Collected[] = []
+
+  for (const slide of slides) {
+    if (slide.type == "insa") {
+      for (const content of slide.content) {
+        switch (content.type) {
+          case "ex:tok":
+            items.push(content)
+            break
+          case "ex:la":
+            items.push(unimpl("ex:la is not yet implemented"))
+            break
+          case "exs:aligned":
+            for (const entry of content.entries) {
+              items.push({ type: "ex:tok", tok: entry.tok, eng: [entry.eng] })
+            }
+            break
+          case "exs:qa":
+            items.push(unimpl("exs:qa is not yet implemented"))
+            break
+          case "ch:tr":
+            for (const entry of content.items) {
+              if (entry.q.lang == "eng") {
+                items.push({
+                  type: "ch:eng",
+                  eng: entry.q as Phrase<"eng">,
+                  tok: entry.a as PhraseArray<"tok">,
+                })
+              } else {
+                items.push({
+                  type: "ch:tok",
+                  tok: entry.q as Phrase<"tok">,
+                  eng: entry.a as PhraseArray<"eng">,
+                })
+              }
+            }
+            break
+          case "ch:discuss":
+            items.push(unimpl("ch:discuss is not yet implemented"))
+            break
+          case "ch:la":
+            items.push(unimpl("ch:la is not yet implemented"))
+            break
+          case "ch:diff":
+            items.push(unimpl("ch:diff is not yet implemented"))
+            break
+          case "ul":
+            // intentionally ignored
+            break
+        }
+      }
+    }
+  }
+
+  return items
+}
+
+function words(phrase: Phrase<PhraseLang>) {
+  const words: ColoredWord[] = []
+
+  for (const el of phrase.content) {
+    for (const word of el.text
+      .trim()
+      .split(/\s+/g)
+      .filter((x) => x)) {
+      words.push({ word, color: el.color })
+    }
+
+    if (el.prefix) {
+      for (const word of el.prefix.text.split(/\s+/g).filter((x) => x)) {
+        words.push({ word, color: el.prefix.color })
+      }
+    }
+
+    if (el.postfix) {
+      for (const word of el.postfix.text.split(/\s+/g).filter((x) => x)) {
+        words.push({ word, color: el.postfix.color })
+      }
+    }
+  }
+
+  return words
+}
+
+export function collectVocabStats(
+  collected: readonly Collected[],
+): Map<string, VocabStat> {
+  const output = new Map<string, VocabStatMut>()
+
+  for (const entry of collected) {
+    switch (entry.type) {
+      case "unimpl":
+        break
+      case "ex:tok":
+        for (const { word, color } of words(entry.tok)) {
+          inc(word, color, "inExamples")
+        }
+        break
+      case "ch:tok":
+        for (const { word, color } of words(entry.tok)) {
+          inc(word, color, "inChallengePrompts")
+        }
+        break
+      case "ch:eng":
+        for (const e of entry.tok) {
+          for (const { word, color } of words(e)) {
+            inc(word, color, "inChallengeAnswers")
+          }
+        }
+        break
+    }
+  }
+
+  return output
+
+  function inc(
+    word: string,
+    color: Color<600 | 800> | null,
+    type: keyof StatMut,
+  ) {
+    let data = output.get(word)
+    if (!data) {
+      data = new Map()
+      output.set(word, data)
+    }
+    let self = data.get(color)
+    if (!self) {
+      self = { inChallengeAnswers: 0, inChallengePrompts: 0, inExamples: 0 }
+      data.set(color, self)
+    }
+    self[type]++
+  }
+}
+
+export function CollectedEl(props: { children: Collected }) {
+  switch (props.children.type) {
+    case "unimpl":
+      return (
+        <p class="text-center font-ex-eng text-sm italic text-z-subtitle">
+          {props.children.msg}
+        </p>
+      )
+    case "ex:tok":
+      return <ExampleTokEl {...props.children} />
+    case "ch:tok":
+      return (
+        <Ch>
+          <ExampleTokEl {...props.children} />
+        </Ch>
+      )
+    case "ch:eng":
+      return (
+        <Ch>
+          <ExampleEngEl {...props.children} />
+        </Ch>
+      )
+  }
+
+  function Ch(props: { children: JSX.Element }) {
+    return (
+      <div class="flex h-full items-center justify-center border-l border-z bg-slate-100 px-4">
+        {props.children}
+      </div>
+    )
+  }
 }
