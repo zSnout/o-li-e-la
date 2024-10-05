@@ -18,7 +18,7 @@ slide.suli`thanks for choosing ~"o li e la"`(
     .li`thanks for picking us :)`,
 )
 
-slide`IF YOU ARE TEACHING TOKI PONA`(
+slide`if you are teaching toki pona (1/2)`(
   ul`click any slide in the main view to open __**presenter mode**__`
     .li`presenter mode shows speaker notes and other tools`
     .li`you'll also see possible answers to challenges`,
@@ -27,13 +27,20 @@ slide`IF YOU ARE TEACHING TOKI PONA`(
     .li`it's also linked to your presenter mode window`
     .li`drag the tab onto your second screen to start`,
   ul`reload or press ~"Home" to see the full deck (NOT your browser's back button!!!)`,
-  ch.discuss`note that challenges like this one have grey lines on their left sides`
-    .prompt`normal examples never have a grey line`,
 )
 
-slide`IF YOU ARE CONTRIBUTING TO THE SLIDE DECK`(
-  ul`the simple way: send examples and challenges to @zsakowitz on discord`,
-  ul`this software supports these types of content (shown on the next few slides):`,
+slide`if you are teaching toki pona (2/2)`(
+  ul`examples are always colored, like so:`,
+  ex.tok`suwi o, @@ mu a!`
+    .eng`hey you o, @@ hi!`,
+  ul`challenges are grayscale and have a thin grey line on their left sides, like so:`,
+  ch.discuss`how do you like this software so far?`,
+  ul`to make review sheets, go back to the /?view=home URL you got from sakawi, then select the very wide button labeled ~"Review sheets". print them on at least 8.5x11in paper with **double-sided mode enabled, margins set to none, and background graphics enabled**.`,
+)
+
+slide`if you are contributing to the slide deck (tysm :3)`(
+  ul`send examples and challenges to @zsakowitz on discord`,
+  ul`the software accepts these types of content (shown on the next three slides):`,
   ul`regular translations`
     .li`translations using la-boxes`
     .li`translations using Q/A-style alignment`
@@ -86,4 +93,8 @@ slide`challenges (normal, la-box, discuss, comparison)`(
   ch.diff`toki ni li nanpa wan`
     .against`toki ni li nanpa tu`
     .explain`there are different numbers for each piece of text.`,
+)
+
+slide.suli`that's it!`(
+  ul`sorry for the text walls earlier :>`,
 )
