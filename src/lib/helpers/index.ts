@@ -223,7 +223,9 @@ function createSlideshowFn(kind: Kind) {
         }
       }
 
-      slideshowsMut.push(slideshow)
+      if (shouldShowSlide(kind, true) || shouldShowSlide(kind, false)) {
+        slideshowsMut.push(slideshow)
+      }
 
       return [
         Object.assign(create(false), { suli: create(true) }),

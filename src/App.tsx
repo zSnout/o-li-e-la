@@ -335,9 +335,43 @@ function Review() {
 
 function Collect() {
   const slideshowWordLists = getSlideBasedVocab()
+
   return (
     <div class="flex flex-col gap-24 px-6 py-8">
-      <For each={slideshows}>
+      <div class="flex flex-col gap-4 bg-z-body-selected px-3 py-2 font-ex-eng text-z">
+        <p class="text-xl font-semibold text-z-heading">
+          Welcome to collect view!
+        </p>
+        <p>
+          This view shows every example and challenge used across the slide
+          decks you selected in{" "}
+          <a
+            href="/?view=home"
+            class="text-z-link underline underline-offset-2"
+          >
+            /?view=home
+          </a>
+          . If a translation isn't in a box, it's used as an example. If it is
+          in a box, it's a challenge, and only the first line is shown on the
+          slide deck. (The other lines are possible challenge responses, and are
+          only visible in speaker notes.)
+        </p>
+        <p>
+          Each section also has vocab counts, so you can see how many times a
+          word is used. The words are primarily grouped by which section first
+          introduced them.{" "}
+          <strong class="text-z-heading">
+            If you're contributing examples, please provide examples which use
+            words with low usage counts.
+          </strong>{" "}
+          Note that usage counts do NOT include challenge responses.
+        </p>
+      </div>
+      <For
+        each={slideshows.filter(
+          (x) => collect(x.slides).filter((x) => x.type != "unimpl").length,
+        )}
+      >
         {(slideshow) => {
           const collected = collect(slideshow.slides)
           const vocab = [...collectVocabStats(collected)]
