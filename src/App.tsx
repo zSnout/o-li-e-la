@@ -276,16 +276,6 @@ function Review() {
 }
 
 function Collect() {
-  function countVisible(stat: VocabStat | undefined) {
-    let retval = 0
-    for (const entry of stat?.values() || []) {
-      retval += entry.inChallengePrompts + entry.inExamples
-    }
-    return retval
-  }
-  function statOf(vocab: [string, VocabStat][], word: string) {
-    return vocab.find((x) => x[0] == word)
-  }
   const slideshowWordLists = getSlideBasedVocab()
   return (
     <div class="flex flex-col gap-24 px-6 py-8">
@@ -298,37 +288,7 @@ function Collect() {
               <p class="bg-z-body-selected px-3 py-2 font-ex-eng text-xl font-semibold text-z-heading">
                 <TextEl>{slideshow.title}</TextEl> ({vocab.length} words used)
               </p>
-              <For
-                each={slideshowWordLists.filter(({ words }) =>
-                  vocab.some(([k]) => words.includes(k)),
-                )}
-              >
-                {({ words, index }) => (
-                  <div class="grid grid-cols-[repeat(auto-fill,minmax(3rem,1fr))] items-center gap-x-2 px-3 py-1 font-ex-eng text-z first:*:mt-0 last:*:mb-0">
-                    <p class="text-xl font-semibold text-z-heading">
-                      {index.toString().padStart(2, "0")}
-                    </p>
-                    <For
-                      each={words
-                        .slice()
-                        .sort(
-                          (a, b) =>
-                            countVisible(statOf(vocab, b)?.[1]) -
-                            countVisible(statOf(vocab, a)?.[1]),
-                        )}
-                    >
-                      {(word) => (
-                        <p>
-                          <span class="font-sp-sans text-3xl">{word}</span>
-                          <span class="text-z-subtitle">
-                            {countVisible(statOf(vocab, word)?.[1])}
-                          </span>
-                        </p>
-                      )}
-                    </For>
-                  </div>
-                )}
-              </For>
+              <VocabGroup vocab={vocab} />
               <div class="mt-2 grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] items-center gap-2 text-z first:*:mt-0 last:*:mb-0">
                 <For each={collected}>
                   {(x) => <CollectedEl>{x}</CollectedEl>}
@@ -340,6 +300,54 @@ function Collect() {
       </For>
     </div>
   )
+
+  function countVisible(stat: VocabStat | undefined) {
+    let retval = 0
+    for (const entry of stat?.values() || []) {
+      retval += entry.inChallengePrompts + entry.inExamples
+    }
+    return retval
+  }
+
+  function statOf(vocab: [string, VocabStat][], word: string) {
+    return vocab.find((x) => x[0] == word)
+  }
+
+  function VocabGroup({ vocab }: { vocab: [string, VocabStat][] }) {
+    return (
+      <For
+        each={slideshowWordLists.filter(({ words }) =>
+          vocab.some(([k]) => words.includes(k)),
+        )}
+      >
+        {({ words, index }) => (
+          <div class="mt-2 grid grid-cols-[repeat(auto-fill,minmax(3rem,1fr))] items-center gap-x-2 border-l border-z bg-slate-100 px-3 py-1 font-ex-eng text-z first:*:mt-0 last:*:mb-0">
+            <p class="text-xl font-semibold text-z-heading">
+              {index.toString().padStart(2, "0")}
+            </p>
+            <For
+              each={words
+                .slice()
+                .sort(
+                  (a, b) =>
+                    countVisible(statOf(vocab, b)?.[1]) -
+                    countVisible(statOf(vocab, a)?.[1]),
+                )}
+            >
+              {(word) => (
+                <p>
+                  <span class="font-sp-sans text-3xl">{word}</span>
+                  <span class="text-z-subtitle">
+                    {countVisible(statOf(vocab, word)?.[1])}
+                  </span>
+                </p>
+              )}
+            </For>
+          </div>
+        )}
+      </For>
+    )
+  }
 }
 
 export default function () {

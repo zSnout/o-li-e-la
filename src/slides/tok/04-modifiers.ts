@@ -159,7 +159,7 @@ slide`practice (last one!)`.vocab(
     .into`ona ale li $lon ala.`
     .eng`all-knowing people li tell ~ lies.`
     .into`jan pi sona ale li toki pi $lon ala.`
-    .alt`jan pi sona ale li toki e ijo pi lon ala.`,
+    .alt`jan pi sona ale li toki e ijo pi $lon ala.`,
   ch.discuss`Do you think ~"mi pi li pali" is a grammatical phrase?`
     .note`Absolutely not. "pp" is only for grouping modifiers, and "li" isn't a modifier. Maybe you meant "pb mi pali"?`
     .prompt`Why or why not? If not, how could you fix it?`,
