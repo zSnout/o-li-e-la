@@ -105,8 +105,8 @@ slide`more subjects with "li"`.vocab(
   ch.eng`that li 's wonderful!`
     .into`ni li pona!`
     .eng`that's running away.`
-    .into`ni li tawa.`,
-  ch.tok`tenpo li tawa.`
+    .into`ni li $tawa.`,
+  ch.tok`tenpo li $tawa.`
     .into`time li flows.`
     .tok`ni li mi.`
     .into`that li 's mine.`,

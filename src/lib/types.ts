@@ -328,6 +328,7 @@ export type Collected = Readonly<CollectedInner>
 
 export interface Slideshow {
   readonly title: Text
+  readonly index: number
   readonly slides: readonly AnySlide[]
 }
 

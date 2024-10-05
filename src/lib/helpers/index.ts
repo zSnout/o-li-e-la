@@ -107,6 +107,7 @@ function createSlideshowFn(draft: boolean) {
 
       const slideshow: Slideshow = {
         title: text(..._title),
+        index,
         slides,
       }
 

@@ -31,9 +31,9 @@ const [
 slide`recap: basic sentences`(
   ch.tok`mi sona.`
     .into`I li know.`
-    .tok`lon li pona.`
+    .tok`$lon li pona.`
     .into`existence li is nice.`
-    .tok`tenpo li tawa.`
+    .tok`tenpo li $tawa.`
     .into`time li ticks by.`,
   ch.eng`li there are @en people.`
     .into`jan li $lon.`
@@ -85,7 +85,7 @@ slide`~"make ..." predicates with "e"`.vocab(
     .into`tenpo li ike e sona.`
     .alt`tenpo li lili e sona.`
     .alt`tenpo li weka e sona.`
-    .eng`writing strengthens them.`
+    .eng`writing li strengthens e them.`
     .into`sitelen li pona e ona.`
     .alt`sitelen li wawa e ona.`
     .alt`sitelen li awen e ona.`,

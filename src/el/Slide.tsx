@@ -9,6 +9,7 @@ import {
   type JSXElement,
 } from "solid-js"
 import { clsx } from "../lib/clsx"
+import { slideshows } from "../lib/helpers"
 import type {
   AnySlide,
   Collected,
@@ -618,6 +619,23 @@ export function collectVocabStats(
     }
     self[type]++
   }
+}
+
+export function getSlideBasedVocab(): readonly {
+  index: number
+  words: readonly string[]
+}[] {
+  return slideshows.map((slideshow) => ({
+    index: slideshow.index,
+    words: slideshow.slides
+      .reduce<string[]>((a, b) => {
+        if (b.type == "insa" && b.vocab) {
+          a.push(...b.vocab.map((x) => x.word))
+        }
+        return a
+      }, [])
+      .filter((x, i, a) => a.indexOf(x) == i),
+  }))
 }
 
 export function CollectedEl(props: { children: Collected }) {

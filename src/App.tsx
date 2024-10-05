@@ -8,6 +8,7 @@ import {
   collect,
   CollectedEl,
   collectVocabStats,
+  getSlideBasedVocab,
   PresenterNotes,
   PrintReview,
   RenderScalable,
@@ -16,7 +17,7 @@ import { createEventListener } from "./lib/event"
 import { slides, slideshows } from "./lib/helpers"
 import { createRemSize } from "./lib/rem"
 import { createScreenSize } from "./lib/size"
-import type { AnySlide } from "./lib/types"
+import type { AnySlide, VocabStat } from "./lib/types"
 
 import { TextEl } from "./el/TextEl"
 import { clsx } from "./lib/clsx"
@@ -275,49 +276,59 @@ function Review() {
 }
 
 function Collect() {
+  function countVisible(stat: VocabStat | undefined) {
+    let retval = 0
+    for (const entry of stat?.values() || []) {
+      retval += entry.inChallengePrompts + entry.inExamples
+    }
+    return retval
+  }
+  function statOf(vocab: [string, VocabStat][], word: string) {
+    return vocab.find((x) => x[0] == word)
+  }
+  const slideshowWordLists = getSlideBasedVocab()
   return (
-    <div class="flex flex-col gap-12 px-6 py-8">
+    <div class="flex flex-col gap-24 px-6 py-8">
       <For each={slideshows}>
         {(slideshow) => {
           const collected = collect(slideshow.slides)
-          const vocab = collectVocabStats(collected)
+          const vocab = [...collectVocabStats(collected)]
           return (
             <div>
               <p class="bg-z-body-selected px-3 py-2 font-ex-eng text-xl font-semibold text-z-heading">
-                <TextEl>{slideshow.title}</TextEl> ({vocab.size} words used)
+                <TextEl>{slideshow.title}</TextEl> ({vocab.length} words used)
               </p>
-              <Show when={vocab.size}>
-                <div class="grid grid-cols-[repeat(auto-fill,minmax(3rem,1fr))] items-center gap-x-2 px-3 py-2 font-ex-eng text-z first:*:mt-0 last:*:mb-0">
-                  <For each={[...vocab]}>
-                    {([word, stat]) => (
-                      <p>
-                        <span class="font-sp-sans">{word}</span>
-                        <span class="text-sm text-z-subtitle">
-                          {[...stat.values()].reduce(
-                            (a, b) => a + b.inChallengePrompts + b.inExamples,
-                            0,
-                          )}
-                        </span>
-                      </p>
-                    )}
-                  </For>
-                </div>
-                <div class="grid grid-cols-[repeat(auto-fill,minmax(3rem,1fr))] items-center gap-x-2 border-l border-z bg-slate-100 px-3 py-2 font-ex-eng text-z first:*:mt-0 last:*:mb-0">
-                  <For each={[...vocab].filter(([k]) => /^[A-Za-z]+$/.test(k))}>
-                    {([word, stat]) => (
-                      <p>
-                        <span class="font-sp-sans">{word}</span>
-                        <span class="text-sm text-z-subtitle">
-                          {[...stat.values()].reduce(
-                            (a, b) => a + b.inChallengeAnswers,
-                            0,
-                          )}
-                        </span>
-                      </p>
-                    )}
-                  </For>
-                </div>
-              </Show>
+              <For
+                each={slideshowWordLists.filter(({ words }) =>
+                  vocab.some(([k]) => words.includes(k)),
+                )}
+              >
+                {({ words, index }) => (
+                  <div class="grid grid-cols-[repeat(auto-fill,minmax(3rem,1fr))] items-center gap-x-2 px-3 py-1 font-ex-eng text-z first:*:mt-0 last:*:mb-0">
+                    <p class="text-xl font-semibold text-z-heading">
+                      {index.toString().padStart(2, "0")}
+                    </p>
+                    <For
+                      each={words
+                        .slice()
+                        .sort(
+                          (a, b) =>
+                            countVisible(statOf(vocab, b)?.[1]) -
+                            countVisible(statOf(vocab, a)?.[1]),
+                        )}
+                    >
+                      {(word) => (
+                        <p>
+                          <span class="font-sp-sans text-3xl">{word}</span>
+                          <span class="text-z-subtitle">
+                            {countVisible(statOf(vocab, word)?.[1])}
+                          </span>
+                        </p>
+                      )}
+                    </For>
+                  </div>
+                )}
+              </For>
               <div class="mt-2 grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] items-center gap-2 text-z first:*:mt-0 last:*:mb-0">
                 <For each={collected}>
                   {(x) => <CollectedEl>{x}</CollectedEl>}
