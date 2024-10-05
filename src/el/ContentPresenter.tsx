@@ -171,13 +171,6 @@ export function ContentPresenter(props: { children: Content }) {
           {props.children}
         </ChallengeExplainDifferenceEl>
       )
-    case "styled":
-      return (
-        <For each={props.children.content}>
-          {(x) => <ContentPresenter>{x}</ContentPresenter>}
-        </For>
-      )
-
     case "ex:tok":
     case "exs:aligned":
     case "exs:qa":
