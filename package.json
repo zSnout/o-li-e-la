@@ -15,7 +15,7 @@
     "solid-js": "^1.8.18"
   },
   "devDependencies": {
-    "@zsnout/tailwind": "^0.1.12",
+    "@zsnout/tailwind": "^0.1.15",
     "autoprefixer": "^10.4.20",
     "prettier": "^3.3.3",
     "prettier-plugin-jsdoc": "^1.3.0",

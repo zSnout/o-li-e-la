@@ -7,7 +7,7 @@ const [
   slide,
 ] =
   slideshow(
-    99,
+    97,
   )`prologue`
 
 slide`important! read before using`(

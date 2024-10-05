@@ -3,18 +3,18 @@ import {
   ex,
   slideshow,
   ul,
-} from "../lib/helpers"
+} from "../../lib/helpers"
 import {
   pana,
   pilin,
-} from "../lib/vocab"
+} from "../../lib/vocab"
 
 const [
   slide,
 ] =
-  slideshow(
+  slideshow.test(
     99,
-  )`Test of various functionalities`
+  )`test of various functionalities`
 
 export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
   slide`syntax highlighting test`(
@@ -139,14 +139,14 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
   )
 
 export const SLIDE_THE_PARTICLE_PI =
-  slide`the particle %"pi"`(
-    ch.diff`% tomo moku lili`
-      .against`% tomo pi moku lili`
-      .explain`While %"tomo moku lili" refers to a small food-place (like a small restaurant), %"tomo pi moku lili" refers to a small-food place (like a snack bar).`
-      .also`% lipu sona suno`
-      .against`% lipu pi sona suno`
-      .explain`While %"lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), %"lipu pi sona suno" could be a book about sun-knowledge (like a book on astrophysics).`
-      .also`% jan poka mute`
-      .against`% jan pi poka mute`
-      .explain`While %"jan poka mute" refers to many close people (maybe many friends, or maybe the people next to you in class), %"jan pi poka mute" refers to people who are very close by (think: the people next to you in a tight crowd).`,
+  slide`the particle "pp"`(
+    ch.diff`pb tomo moku lili`
+      .against`pb tomo pp moku lili`
+      .explain`While "pb tomo moku lili" refers to a small food-place (like a small restaurant), "pb tomo pp moku lili" refers to a small-food place (like a snack bar).`
+      .also`pb lipu sona suno`
+      .against`pb lipu pp sona suno`
+      .explain`While "pb lipu sona suno" refers to a lit-up sheet of knowledge (like a page of a Kindle reader), "pb lipu pp sona suno" could be a book about sun-knowledge (like a book on astrophysics).`
+      .also`pb jan poka mute`
+      .against`pb jan pp poka mute`
+      .explain`While "pb jan poka mute" refers to many close people (maybe many friends, or maybe the people next to you in class), "pb jan pp poka mute" refers to people who are very close by (think: the people next to you in a tight crowd).`,
   )

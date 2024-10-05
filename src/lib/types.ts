@@ -348,3 +348,5 @@ export interface ColoredWord {
   readonly word: string
   readonly color: Color<600 | 800> | null
 }
+
+export type Kind = "done" | "draft" | "test" | "meta"

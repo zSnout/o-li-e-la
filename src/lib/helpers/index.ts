@@ -1,8 +1,10 @@
+import { FILTER, KINDS } from "../query"
 import { text, type TextParams } from "../text"
 import type {
   AnySlide,
   Content,
   ContentArray,
+  Kind,
   SlideBase,
   SlideImage,
   SlideImageAspectRatio,
@@ -15,14 +17,14 @@ import type {
   Word,
 } from "../types"
 
-const DRAFTS = new URL(location.href).searchParams.get("drafts")
-const FILTER = new URL(location.href).searchParams.get("filter")
-
-function shouldShowSlide(isDraft: boolean, isReview: boolean) {
+function shouldShowSlide(kind: Kind, isReview: boolean) {
   return (
-    (DRAFTS == "only" ? isDraft
-    : DRAFTS != null ? true
-    : !isDraft) &&
+    {
+      done: !KINDS.includes("!done"),
+      draft: KINDS.includes("draft"),
+      meta: KINDS.includes("meta"),
+      test: KINDS.includes("test"),
+    }[kind] &&
     (FILTER == "review" ? isReview
     : FILTER == "content" ? !isReview
     : true)
@@ -100,7 +102,7 @@ export type SlideshowFnReturn = [
 
 const all: AnySlide[] = []
 
-function createSlideshowFn(draft: boolean) {
+function createSlideshowFn(kind: Kind) {
   return function (index: number) {
     return (..._title: TextParams): SlideshowFnReturn => {
       const slides: AnySlide[] = []
@@ -146,7 +148,7 @@ function createSlideshowFn(draft: boolean) {
             }
 
             slides.push(slide)
-            if (shouldShowSlide(draft, false)) {
+            if (shouldShowSlide(kind, false)) {
               all.push(slide)
             }
 
@@ -267,7 +269,7 @@ function createSlideshowFn(draft: boolean) {
                     }
 
                     slides.push(slide)
-                    if (shouldShowSlide(draft, true)) {
+                    if (shouldShowSlide(kind, true)) {
                       all.push(slide)
                     }
                   },
@@ -281,8 +283,10 @@ function createSlideshowFn(draft: boolean) {
   }
 }
 
-export const slideshow = Object.assign(createSlideshowFn(false), {
-  draft: createSlideshowFn(true),
+export const slideshow = Object.assign(createSlideshowFn("done"), {
+  draft: createSlideshowFn("draft"),
+  test: createSlideshowFn("test"),
+  meta: createSlideshowFn("meta"),
 })
 
 export * as ch from "./ch"

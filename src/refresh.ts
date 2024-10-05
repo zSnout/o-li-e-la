@@ -1,5 +1,7 @@
+import { VIEW } from "./lib/query"
+
 if (import.meta.env.DEV) {
-  if (new URL(location.href).searchParams.has("latest")) {
+  if (VIEW == "latest") {
     setTimeout(() => location.reload(), 200)
   }
 }
