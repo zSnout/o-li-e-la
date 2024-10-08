@@ -51,9 +51,11 @@ export const SLIDE_LA_FOR_MARKING_TIME =
   slide`la for marking time`(
     ul`"tenpo ... la" phrases are used to mark when something occurs in time`,
     ex.la`tenpo kama la soweli kama tawa ma kasi`
-      .eng`coming time la furry creatures li come tawa to the forest`,
+      .eng`coming time la furry creatures li come tawa to the forest`
+      .full`in the future, la furry creatures li will come tawa to the forest`,
     ch.la`tenpo weka la toki uta li ante mute`
-      .eng`far time la spoken language li was very different`,
+      .eng`far time la spoken language li was/will be very different`
+      .full`in a distant time, spoken language was/will be very different`,
     ch.label`Translate using "la":`
       .eng`right now, la my parents li are grounding e me.`
       .into`tenpo ni la mama mi li awen e mi lon tomo.`,
@@ -65,9 +67,11 @@ export const SLIDE_THE_PARTICLE_LA =
     ex.tok`[context phrase] la [main sentence].`
       .eng`prela In_the_context_of [context phrase], [main sentence].`,
     ex.la`tenpo pini poka la jan li alasa pona e mi`
-      .eng`a nearby finished time la somebody li tried to improve e me`,
+      .eng`nearby past la somebody li tried to improve e me`
+      .full`recently, la somebody li tried to improve e me`,
     ex.la`kon li wawa la mi ken ala tawa lon wile`
-      .eng`the wind is strong la I li cannot move lon on my will`,
+      .eng`the wind is strong la I li cannot move lon on my will`
+      .full`because the wind is strong, la I li cannot move lon on my will`,
   )
 
 export const SLIDE_MODIFIER_STACKING =

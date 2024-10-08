@@ -38,7 +38,8 @@ slide`basics of "la"`.vocab(
     .eng`prela In_the_context_of [context_phrase], [main sentence].`,
   ul`we will use boxes to represent how "la" provides context for a sentence:`,
   ex.la`tenpo pini la mi moku`
-    .eng`finished time la I li eat`,
+    .eng`past la I li eat`
+    .full`in the past, la I ate`,
   ch.discuss`Translate the above to a coherent English sentence.`,
 )
 
@@ -50,7 +51,11 @@ slide`"la" for chaining`.vocab(
     .li`conditional = ~"if ... then ..."`
     .li`causative = ~"because of ... this happened: ..."`,
   ex.la`lape la mi pona pilin`
-    .eng`sleep la I li 'm happy`,
+    .eng`sleep la I li 'm happy`
+    .full`when I sleep, la I li 'm happy`
+    .full`in sleep, la I li 'm happy`,
   ch.la`suno la ona li lape ala`
-    .eng`sun la they don't sleep`,
+    .eng`sun la they don't sleep`
+    .full`because of the sun, they don't sleep`
+    .full`when the sun's up, they don't sleep`,
 )

@@ -83,7 +83,7 @@ export function ExampleLaEl(props: { children: ExampleLa }) {
           <span class={LA_PARTICLE}> la</span>
         </p>
         <p class="ml-auto whitespace-nowrap font-ex-eng">
-          <span class={LA_CONTENT}>{props.children.eng[0][0]}</span>
+          <span class={LA_CONTENT}>{props.children.eng[0].la[0]}</span>
           <span class={LA_PARTICLE}> la</span>
         </p>
       </div>
@@ -94,7 +94,7 @@ export function ExampleLaEl(props: { children: ExampleLa }) {
           <PhraseEl>{props.children.tok[1]}</PhraseEl>
         </p>
         <p class="ml-auto whitespace-nowrap font-ex-eng">
-          <PhraseEl>{props.children.eng[0][1]}</PhraseEl>
+          <PhraseEl>{props.children.eng[0].la[1]}</PhraseEl>
         </p>
       </div>
     </div>

@@ -74,13 +74,24 @@ export function ExampleLaEl(props: { children: ExampleLa }) {
           <span class={LA_PARTICLE}> la </span>
           <PhraseEl style="force">{props.children.tok[1]}</PhraseEl>
         </p>
+        {/* TODO: show eng[0].full */}
         <For each={props.children.eng.slice(1)}>
           {(x) => (
-            <p class="font-ex-eng">
-              <span class={LA_CONTENT}>{x[0]}</span>
-              <span class={LA_PARTICLE}> la </span>
-              <PhraseEl style="force">{x[1]}</PhraseEl>
-            </p>
+            <>
+              <p class="font-ex-eng">
+                <span class={LA_CONTENT}>{x.la[0]}</span>
+                <span class={LA_PARTICLE}> la </span>
+                <PhraseEl style="force">{x.la[1]}</PhraseEl>
+              </p>
+
+              <For each={x.full}>
+                {(x) => (
+                  <p class="font-ex-eng">
+                    <PhraseEl style="force">{x}</PhraseEl>
+                  </p>
+                )}
+              </For>
+            </>
           )}
         </For>
       </div>
@@ -144,11 +155,20 @@ export function ChallengeLaEl(props: { children: ChallengeLa }) {
       </p>
       <For each={props.children.eng}>
         {(x) => (
-          <p class="font-ex-eng">
-            <span class={LA_CONTENT}>{x[0]}</span>
-            <span class={LA_PARTICLE}> la </span>
-            <PhraseEl style="force">{x[1]}</PhraseEl>
-          </p>
+          <>
+            <p class="font-ex-eng">
+              <span class={LA_CONTENT}>{x.la[0]}</span>
+              <span class={LA_PARTICLE}> la </span>
+              <PhraseEl style="force">{x.la[1]}</PhraseEl>
+            </p>
+            <For each={x.full}>
+              {(x) => (
+                <p class="font-ex-eng">
+                  <PhraseEl style="force">{x}</PhraseEl>
+                </p>
+              )}
+            </For>
+          </>
         )}
       </For>
     </div>

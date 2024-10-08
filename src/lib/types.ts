@@ -22,6 +22,11 @@ export type LaPhrase<T extends PhraseLang> = readonly [
   main: Phrase<T>,
 ]
 
+export interface LaFull<T extends PhraseLang> {
+  readonly la: LaPhrase<T>
+  readonly full: PhraseArray<T>
+}
+
 export type PhraseArray<T extends PhraseLang> = AtLeastOne<Phrase<T>>
 
 export type PhraseArrayMut<T extends PhraseLang> = AtLeastOneMut<Phrase<T>>
@@ -29,6 +34,10 @@ export type PhraseArrayMut<T extends PhraseLang> = AtLeastOneMut<Phrase<T>>
 export type LaPhraseArray<T extends PhraseLang> = AtLeastOne<LaPhrase<T>>
 
 export type LaPhraseArrayMut<T extends PhraseLang> = AtLeastOneMut<LaPhrase<T>>
+
+export type LaFullArray<T extends PhraseLang> = AtLeastOne<LaFull<T>>
+
+export type LaFullArrayMut<T extends PhraseLang> = AtLeastOneMut<LaFull<T>>
 
 export type AnyColorName =
   | "red"
@@ -131,7 +140,7 @@ export interface ExampleTok {
 export interface ExampleLa {
   readonly type: "ex:la"
   readonly tok: LaPhrase<"tok">
-  readonly eng: LaPhraseArray<"eng">
+  readonly eng: LaFullArray<"eng">
 }
 
 /** An object with its translation. */
@@ -187,7 +196,7 @@ export interface ChallengeDiscuss {
 export interface ChallengeLa {
   readonly type: "ch:la"
   readonly tok: LaPhrase<"tok">
-  readonly eng: LaPhraseArray<"eng">
+  readonly eng: LaFullArray<"eng">
 }
 
 /** A challenge to explain the difference between two sentences. */
@@ -321,8 +330,10 @@ export interface Group {
 
 export type CollectedInner =
   | { type: "ex:tok"; tok: Phrase<"tok">; eng: PhraseArray<"eng"> }
+  | { type: "ex:la"; tok: Phrase<"tok">; eng: LaFullArray<"eng"> }
   | { type: "ch:tok"; tok: Phrase<"tok">; eng: PhraseArray<"eng"> }
   | { type: "ch:eng"; eng: Phrase<"eng">; tok: PhraseArray<"tok"> }
+  | { type: "ch:la"; tok: Phrase<"tok">; eng: LaFullArray<"eng"> }
   | { type: "ch:discuss"; prompt: Text }
   | { type: "ch:diff"; a: Phrase<"tok">; b: Phrase<"tok"> }
   | { type: "unimpl"; msg: string }

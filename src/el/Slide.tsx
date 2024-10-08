@@ -18,7 +18,6 @@ import type {
   ColoredWord,
   Phrase,
   PhraseArray,
-  PhraseArrayMut,
   PhraseLang,
   SlideReview,
   SlideStandard,
@@ -501,9 +500,9 @@ export function collect(slides: readonly AnySlide[]): readonly Collected[] {
             break
           case "ex:la":
             items.push({
-              type: "ex:tok",
+              type: "ex:la",
               tok: undoLa(content.tok),
-              eng: content.eng.map(undoLa) as PhraseArrayMut<"eng">,
+              eng: content.eng,
             })
             break
           case "exs:aligned":
@@ -550,9 +549,9 @@ export function collect(slides: readonly AnySlide[]): readonly Collected[] {
             break
           case "ch:la":
             items.push({
-              type: "ch:tok",
+              type: "ch:la",
               tok: undoLa(content.tok),
-              eng: content.eng.map(undoLa) as PhraseArrayMut<"eng">,
+              eng: content.eng,
             })
             break
           case "ul":

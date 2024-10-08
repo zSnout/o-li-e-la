@@ -1,40 +1,71 @@
 import * as color from "../../colors"
 import type {
   ChallengeLa,
-  ExampleLa,
-  LaPhraseArrayMut,
+  LaFullArrayMut,
+  PhraseArrayMut,
   ToContent,
 } from "../../types"
 
-export interface Inter {
-  /** Add an English translation for the last toki pona entry. */
-  eng(strings: TemplateStringsArray): Eng
+export interface Eng {
+  /** Add a new English translation using la for the entry. */
+  eng(strings: TemplateStringsArray): Full
 }
 
-export interface Eng extends ToContent<ChallengeLa> {
-  /** An an alternate English translation. */
-  alt(strings: TemplateStringsArray): Eng
+export interface Full {
+  /**
+   * Add a complete, coherent sentence for the last la-based English
+   * translation.
+   */
+  full(strings: TemplateStringsArray): Done
 }
+
+export interface Done extends Eng, Full, ToContent<ChallengeLa> {}
 
 /** Builds an {@link ExampleLa} object, starting from a toki pona phrase. */
-export function la(t: TemplateStringsArray) {
+export function la(t: TemplateStringsArray): Eng {
   const tok = color.tokLa(t)
 
-  const Inter: Inter = {
-    eng(strings) {
-      const eng: LaPhraseArrayMut<"eng"> = [color.engLa(strings)]
-      const Eng: Eng = {
-        alt(strings) {
-          eng.push(color.engLa(strings))
-          return Eng
-        },
-        finalize() {
-          return { type: "ch:la", tok, eng }
+  return {
+    eng(engStrings) {
+      return {
+        full(fullStrings) {
+          let full: PhraseArrayMut<"eng"> = [color.eng(fullStrings)]
+
+          const eng: LaFullArrayMut<"eng"> = [
+            {
+              la: color.engLa(engStrings),
+              full,
+            },
+          ]
+
+          const done: Done = {
+            eng(engStrings) {
+              return {
+                full(fullStrings) {
+                  eng.push({
+                    la: color.engLa(engStrings),
+                    full: (full = [color.eng(fullStrings)]),
+                  })
+                  return done
+                },
+              }
+            },
+            full(strings) {
+              full.push(color.eng(strings))
+              return done
+            },
+            finalize() {
+              return {
+                type: "ch:la",
+                tok,
+                eng,
+              }
+            },
+          }
+
+          return done
         },
       }
-      return Eng
     },
   }
-
-  return Inter
 }

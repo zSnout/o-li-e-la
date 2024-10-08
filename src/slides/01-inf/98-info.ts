@@ -58,7 +58,8 @@ slide`content types (text, list, plain example, and la-box)`(
   ex.tok`ni li toki Inli e toki pona lon kule`
     .eng`this li makes into English e toki pona text lon using colors`,
   ex.la`tenpo ni la poki pi nimi La li kule`
-    .eng`now la contextualizing boxes li are colored`,
+    .eng`now la contextualizing boxes li are colored`
+    .full`now, la contextualizing boxes li are colored`,
 )
 
 slide`example types (aligned examples and aligned Q/As)`(
@@ -88,7 +89,8 @@ slide`challenges (normal, la-box, discuss, comparison)`(
   ch.eng`this li is a car`
     .into`ni li soweli $tawa`,
   ch.la`tenpo weka la mi seme?`
-    .eng`a while ago la li who ~ was @en I?`,
+    .eng`far time la li who was @en I?`
+    .full`a while ago, la li who was @en I?`,
   ch.discuss`what is the meaning of life?`,
   ch.diff`toki ni li nanpa wan`
     .against`toki ni li nanpa tu`
