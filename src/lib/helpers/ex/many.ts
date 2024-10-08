@@ -1,6 +1,6 @@
 import * as color from "../../colors"
 import type {
-  AtLeastOneMutable,
+  AtLeastOneMut,
   ExampleSetAligned,
   ToContent,
   Translated,
@@ -20,7 +20,7 @@ export interface Done extends ToContent<ExampleSetAligned> {
 export function align(stringsTok: TemplateStringsArray): NeedsEng {
   return {
     eng(stringsEng) {
-      const entries: AtLeastOneMutable<Translated> = [
+      const entries: AtLeastOneMut<Translated> = [
         {
           tok: color.tok(stringsTok),
           eng: color.eng(stringsEng),

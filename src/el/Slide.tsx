@@ -9,6 +9,7 @@ import {
   type JSXElement,
 } from "solid-js"
 import { clsx } from "../lib/clsx"
+import { undoLa } from "../lib/colors"
 import { slideshows } from "../lib/helpers"
 import type {
   AnySlide,
@@ -17,6 +18,7 @@ import type {
   ColoredWord,
   Phrase,
   PhraseArray,
+  PhraseArrayMut,
   PhraseLang,
   SlideReview,
   SlideStandard,
@@ -26,6 +28,7 @@ import type {
 } from "../lib/types"
 import { Content, ExampleEngEl, ExampleTokEl, Title } from "./Content"
 import { ContentPresenter } from "./ContentPresenter"
+import { PhraseEl } from "./PhraseEl"
 import { TextEl } from "./TextEl"
 import { Vocab, VocabPresenter } from "./Vocab"
 
@@ -497,7 +500,11 @@ export function collect(slides: readonly AnySlide[]): readonly Collected[] {
             items.push(content)
             break
           case "ex:la":
-            items.push(unimpl("ex:la is not yet implemented"))
+            items.push({
+              type: "ex:tok",
+              tok: undoLa(content.tok),
+              eng: content.eng.map(undoLa) as PhraseArrayMut<"eng">,
+            })
             break
           case "exs:aligned":
             for (const entry of content.entries) {
@@ -525,13 +532,28 @@ export function collect(slides: readonly AnySlide[]): readonly Collected[] {
             }
             break
           case "ch:discuss":
-            items.push(unimpl("ch:discuss is not yet implemented"))
-            break
-          case "ch:la":
-            items.push(unimpl("ch:la is not yet implemented"))
+            for (const entry of content.items) {
+              items.push({
+                type: "ch:discuss",
+                prompt: entry.prompt,
+              })
+            }
             break
           case "ch:diff":
-            items.push(unimpl("ch:diff is not yet implemented"))
+            for (const entry of content.items) {
+              items.push({
+                type: "ch:diff",
+                a: entry.a,
+                b: entry.b,
+              })
+            }
+            break
+          case "ch:la":
+            items.push({
+              type: "ch:tok",
+              tok: undoLa(content.tok),
+              eng: content.eng.map(undoLa) as PhraseArrayMut<"eng">,
+            })
             break
           case "ul":
             // intentionally ignored
@@ -597,6 +619,14 @@ export function collectVocabStats(
           }
         }
         break
+      case "ch:discuss":
+        break
+      case "ch:diff":
+        for (const e of [entry.a, entry.b]) {
+          for (const { word, color } of words(e)) {
+            inc(word, color, "inChallengeAnswers")
+          }
+        }
     }
   }
 
@@ -660,11 +690,33 @@ export function CollectedEl(props: { children: Collected }) {
           <ExampleEngEl {...props.children} />
         </Ch>
       )
+    case "ch:discuss":
+      return (
+        <Ch>
+          <p class="my-2 font-ex-eng">
+            <TextEl>{props.children.prompt}</TextEl>
+          </p>
+        </Ch>
+      )
+    case "ch:diff":
+      return (
+        <Ch>
+          <p class="mb-2 mt-4 w-full text-left font-ex-eng text-sm text-z-subtitle">
+            Explain the difference between...
+          </p>
+          <p class="font-ex-tok font-semibold">
+            <PhraseEl>{props.children.a}</PhraseEl>
+          </p>
+          <p class="mb-4 font-ex-tok font-semibold">
+            <PhraseEl>{props.children.b}</PhraseEl>
+          </p>
+        </Ch>
+      )
   }
 
   function Ch(props: { children: JSX.Element }) {
     return (
-      <div class="flex h-full items-center justify-center border-l border-z bg-slate-100 px-4">
+      <div class="flex h-full flex-col items-center justify-center border-l border-z bg-slate-100 px-4">
         {props.children}
       </div>
     )

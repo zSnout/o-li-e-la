@@ -2,7 +2,7 @@ import * as color from "../../colors"
 import type {
   ChallengeLa,
   ExampleLa,
-  LaPhraseArrayMutable,
+  LaPhraseArrayMut,
   ToContent,
 } from "../../types"
 
@@ -22,7 +22,7 @@ export function la(t: TemplateStringsArray) {
 
   const Inter: Inter = {
     eng(strings) {
-      const eng: LaPhraseArrayMutable<"eng"> = [color.engLa(strings)]
+      const eng: LaPhraseArrayMut<"eng"> = [color.engLa(strings)]
       const Eng: Eng = {
         alt(strings) {
           eng.push(color.engLa(strings))

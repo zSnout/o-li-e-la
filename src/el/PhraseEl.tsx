@@ -44,7 +44,7 @@ export function PhraseEl(props: {
           {!(
             index() == 0 ||
             item.punctuation ||
-            (item.prefix?.text ?? item.text).startsWith("'")
+            /^['’:;!?.-]/.test(item.prefix?.text ?? item.text)
           ) && " "}
           {item.prefix && [
             <span class={cls(item.prefix.color)}>{item.prefix.text}</span>,

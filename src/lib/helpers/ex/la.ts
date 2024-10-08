@@ -1,5 +1,5 @@
 import * as color from "../../colors"
-import type { ExampleLa, LaPhraseArrayMutable, ToContent } from "../../types"
+import type { ExampleLa, LaPhraseArrayMut, ToContent } from "../../types"
 
 export interface Inter {
   /** Add an English translation for the last toki pona entry. */
@@ -17,7 +17,7 @@ export function la(t: TemplateStringsArray) {
 
   const Inter: Inter = {
     eng(strings) {
-      const eng: LaPhraseArrayMutable<"eng"> = [color.engLa(strings)]
+      const eng: LaPhraseArrayMut<"eng"> = [color.engLa(strings)]
       const Eng: Eng = {
         alt(strings) {
           eng.push(color.engLa(strings))

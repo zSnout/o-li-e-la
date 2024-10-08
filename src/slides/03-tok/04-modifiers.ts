@@ -96,7 +96,8 @@ slide`negation`.vocab(
     .into`ona li pilin ala.`,
 )
 
-slide`multiple modifiers + practice`.vocab(
+slide`multiple modifiers + practice`
+  .note`TODO: REMOVE ME; SAKAWI GO OVER E NI PLZ (we forgot this in class) (TWO REMINDERS LEFT)`.vocab(
   tomo,
   lukin,
   suli,
@@ -123,7 +124,8 @@ slide`multiple modifiers + practice`.vocab(
     .alt`nimi sina li pona mute a!`,
 )
 
-slide`grouping modifiers with "pp"`.vocab(
+slide`grouping modifiers with "pp"`
+  .note`TODO: REMOVE ME; SAKAWI GO OVER E NI PLZ (we forgot this in class) (ONE REMINDER LEFT)`.vocab(
   pi,
   musi,
   nimi,
@@ -145,7 +147,8 @@ slide`grouping modifiers with "pp"`.vocab(
     .explain`"pb tomo ike mute" could mean "many bad buildings", whereas "pb tomo pp ike mute" is more like "very-bad building(s)".`,
 )
 
-slide`practice (last one!)`.vocab(
+slide`practice (last one!)`
+  .note`TODO: REMOVE ME; SAKAWI GO OVER E NI PLZ (we forgot this in class) (NEXT SLIDE IS REVIEW: DO E NI NOW)`.vocab(
   pi,
 )(
   ch.tok`mi $lon ala e sona sina.`

@@ -1,5 +1,5 @@
 import * as color from "../../colors"
-import type { ExampleTok, PhraseArrayMutable, ToContent } from "../../types"
+import type { ExampleTok, PhraseArrayMut, ToContent } from "../../types"
 
 export interface NeedsEng {
   /** Adds the final English translation. */
@@ -17,7 +17,7 @@ export function tok(t: TemplateStringsArray) {
 
   const Eng: NeedsEng = {
     eng(strings) {
-      const eng: PhraseArrayMutable<"eng"> = [color.eng(strings)]
+      const eng: PhraseArrayMut<"eng"> = [color.eng(strings)]
       const Eng: Eng = {
         alt(strings) {
           eng.push(color.eng(strings))

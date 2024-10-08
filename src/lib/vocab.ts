@@ -98,7 +98,7 @@ export const o =
     .noLipa
 
 export const ona = content`ona`
-  .short`third-person pronoun`
+  .short`they, it, she, he (3rd prsn.)`
   .lipa`ona is the only third person pronoun in toki pona. unlike ni, ona is seldom used except for to point at objects from previous sentences, i.e. toki ponists don't usually use it to talk about things they're pointing at. ona has no animacy connotation, just as no toki pona word does (except for maybe jan). ona can just as easily refer to a block of wood or a doorknob as it can to a human or animal. It also has no gender connotation, just like every other toki pona word, so it can just as easily mean he or she or they.`
 
 export const pana = content`pana`
@@ -138,7 +138,7 @@ export const tawa = prep`tawa`
   .lipa`tawa is motion. tawa frequently has a destination, and when used as a preposition, it marks the word after it as this destination. a destination isn't critical to tawa though; speakers will use tawa for vibrating or shaking in place, or wandering. When tawa is used as a preposition, it marks that which the motion approaches. This can be physical, but metaphysically tawa can mark a recipient, beneficiary, point of perspective, etc.`
 
 export const tenpo = content`tenpo`
-  .short`situation, duration, event`
+  .short`time, situation, event`
   .lipa`you'll usually hear people say that tenpo means ~"time." but what does that mean? what even is the abstract concept of time? this definition isn't very useful, so a different angle I suggest people take is to look at tenpo as either a situation or a duration. tenpo could be that one time I robbed a bank, or all the times I cooked with shmalts. tenpo could be a minute, or an hour, or an eon (1 billion years). tenpo can be the time when the sun shines, or the cycle it takes for the earth to rotate around the sun, or for the earth to rotate such that the sun goes away and comes back. tenpo can be the time when it's dark, the time when it's cold or warm, the time it takes for the moon to go through all its phases, the time it takes for markets to set up and disband a few times a week, the time when we work, the time when we sleep, the time when we travel, or the time when we arrive. tenpo can talk about the abstract concept of time, but usually it is used to talk about specific events, situations, and durations.`
 
 export const toki = content`toki`

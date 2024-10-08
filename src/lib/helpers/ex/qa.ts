@@ -1,6 +1,6 @@
 import * as color from "../../colors"
 import type {
-  AtLeastOneMutable,
+  AtLeastOneMut,
   ExampleSetQA,
   ToContent,
   Translated,
@@ -42,7 +42,7 @@ export function qa(stringsTok: TemplateStringsArray): QNeedsEng {
         tok(stringsTok) {
           return {
             eng(stringsEng) {
-              const a: AtLeastOneMutable<Translated> = [
+              const a: AtLeastOneMut<Translated> = [
                 { tok: color.tok(stringsTok), eng: color.eng(stringsEng) },
               ]
 

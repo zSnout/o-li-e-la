@@ -1,7 +1,7 @@
 import { tok } from "../../colors"
 import { text, type TextParams } from "../../text"
 import type {
-  AtLeastOneMutable,
+  AtLeastOneMut,
   ChallengeExplainDifference,
   ChallengeExplainDifferenceOne,
   Text,
@@ -31,9 +31,9 @@ export function diff(stringsA: TemplateStringsArray): NeedsSecondItem {
     against(stringsB) {
       return {
         explain(...explanation) {
-          let expls: AtLeastOneMutable<Text> = [text(...explanation)]
+          let expls: AtLeastOneMut<Text> = [text(...explanation)]
 
-          const items: AtLeastOneMutable<ChallengeExplainDifferenceOne> = [
+          const items: AtLeastOneMut<ChallengeExplainDifferenceOne> = [
             { a: tok(stringsA), b: tok(stringsB), explanation: expls },
           ]
 

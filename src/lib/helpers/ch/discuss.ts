@@ -1,6 +1,6 @@
 import { text, type TextParams } from "../../text"
 import type {
-  AtLeastOneMutable,
+  AtLeastOneMut,
   ChallengeDiscuss,
   ChallengeDiscussOnePrompt,
   Text,
@@ -24,9 +24,7 @@ export interface DoneAndNonextendable extends ToContent<ChallengeDiscuss> {
 function inner(prompt: Text, label?: Text): Done {
   let notes: Text[] = []
 
-  const items: AtLeastOneMutable<ChallengeDiscussOnePrompt> = [
-    { prompt, notes },
-  ]
+  const items: AtLeastOneMut<ChallengeDiscussOnePrompt> = [{ prompt, notes }]
 
   const Done: Done = {
     finalize() {

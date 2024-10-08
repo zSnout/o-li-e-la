@@ -377,6 +377,7 @@ function Collect() {
           return (
             <div>
               <p class="bg-z-body-selected px-3 py-2 font-ex-eng text-xl font-semibold text-z-heading">
+                {slideshow.index.toString().padStart(2, "0")} —{" "}
                 <TextEl>{slideshow.title}</TextEl> ({vocab.length} words used)
               </p>
               <VocabGroup vocab={vocab} />

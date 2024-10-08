@@ -1,10 +1,10 @@
 import * as color from "../../colors"
 import { text, type TextParams } from "../../text"
 import type {
-  AtLeastOneMutable,
+  AtLeastOneMut,
   ChallengeTranslate,
   ChallengeTranslateOne,
-  PhraseArrayMutable,
+  PhraseArrayMut,
   PhraseLang,
   Text,
   ToContent,
@@ -39,9 +39,9 @@ export function create(
 ): NeedsAnswerOrHint {
   function inner(stringsA: TemplateStringsArray, hint?: Text): Done {
     let fn = afn
-    let a: PhraseArrayMutable<PhraseLang> = [afn(stringsA)]
+    let a: PhraseArrayMut<PhraseLang> = [afn(stringsA)]
 
-    const items: AtLeastOneMutable<ChallengeTranslateOne> = [
+    const items: AtLeastOneMut<ChallengeTranslateOne> = [
       { q: qfn(stringsQ), a, hint },
     ]
 

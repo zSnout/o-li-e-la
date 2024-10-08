@@ -2,32 +2,33 @@
 
 export type AtLeastOne<T> = readonly [T, ...T[]]
 
-export type AtLeastOneMutable<T> = [T, ...T[]]
+export type AtLeastOneMut<T> = [T, ...T[]]
 
 export type PhraseLang = "tok" | "eng"
 
 export type PhraseFont = "sp"
 
-export type Phrase<T extends PhraseLang> = {
+export interface PhraseMut<T extends PhraseLang> {
   lang: T
   font?: PhraseFont
   content: AtLeastOne<Colored>
   actual?: AtLeastOne<Colored>
 }
 
-export type LaPhrase<T extends PhraseLang> = [context: string, main: Phrase<T>]
+export interface Phrase<T extends PhraseLang> extends Readonly<PhraseMut<T>> {}
+
+export type LaPhrase<T extends PhraseLang> = readonly [
+  context: string,
+  main: Phrase<T>,
+]
 
 export type PhraseArray<T extends PhraseLang> = AtLeastOne<Phrase<T>>
 
-export type PhraseArrayMutable<T extends PhraseLang> = AtLeastOneMutable<
-  Phrase<T>
->
+export type PhraseArrayMut<T extends PhraseLang> = AtLeastOneMut<Phrase<T>>
 
 export type LaPhraseArray<T extends PhraseLang> = AtLeastOne<LaPhrase<T>>
 
-export type LaPhraseArrayMutable<T extends PhraseLang> = AtLeastOneMutable<
-  LaPhrase<T>
->
+export type LaPhraseArrayMut<T extends PhraseLang> = AtLeastOneMut<LaPhrase<T>>
 
 export type AnyColorName =
   | "red"
@@ -322,6 +323,8 @@ export type CollectedInner =
   | { type: "ex:tok"; tok: Phrase<"tok">; eng: PhraseArray<"eng"> }
   | { type: "ch:tok"; tok: Phrase<"tok">; eng: PhraseArray<"eng"> }
   | { type: "ch:eng"; eng: Phrase<"eng">; tok: PhraseArray<"tok"> }
+  | { type: "ch:discuss"; prompt: Text }
+  | { type: "ch:diff"; a: Phrase<"tok">; b: Phrase<"tok"> }
   | { type: "unimpl"; msg: string }
 
 export type Collected = Readonly<CollectedInner>

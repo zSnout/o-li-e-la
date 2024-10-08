@@ -1,11 +1,12 @@
 import type {
   Affix,
-  AtLeastOne,
+  AtLeastOneMut,
   Color,
   Colored,
   LaPhrase,
   Phrase,
   PhraseLang,
+  PhraseMut,
 } from "./types"
 
 function tag(
@@ -68,7 +69,6 @@ const sama = tag("text-orange-800", "text-orange-600", "sama")
 const kepeken = tag("text-orange-800", "text-orange-600", "kepeken")
 
 const interj = tag("text-fuchsia-800", "text-fuchsia-600", "")
-
 const none = tag("text-current", "text-current", "")
 
 const tags: Record<string, Tag> = {
@@ -97,15 +97,12 @@ const taso: Colored = {
   punctuation: false,
 }
 
-function phrase<T extends PhraseLang>(
-  text: readonly Colored[],
-  lang: T,
-): Phrase<T> {
+function phrase<T extends PhraseLang>(text: Colored[], lang: T): PhraseMut<T> {
   if (text.length == 0) {
     throw new Error("Expected at least one word.")
   }
 
-  return { lang, content: text as AtLeastOne<Colored> }
+  return { lang, content: text as AtLeastOneMut<Colored> }
 }
 
 function createTagFunction<T extends PhraseLang>(
@@ -311,7 +308,7 @@ function createTagFunction<T extends PhraseLang>(
   }
 
   return (strings: readonly string[]): Phrase<T> => {
-    let text = strings.join("").trim()
+    let text = strings.join("").trim().replace(/'/g, "’")
 
     const uncolor = text.startsWith("~")
     if (uncolor) {
@@ -369,6 +366,10 @@ function createLa<T extends PhraseLang>(
     }
     return [split[0]!, fn([split[1]!])]
   }
+}
+
+export function undoLa<T extends PhraseLang>(phrase: LaPhrase<T>): Phrase<T> {
+  return { ...phrase[1], content: [la(phrase[0]), ...phrase[1].content] }
 }
 
 export const tok = createTagFunction(true, "tok")
