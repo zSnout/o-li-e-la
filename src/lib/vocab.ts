@@ -204,3 +204,46 @@ export const pi =
   particle`pi`
     .short`[regroups modifiers]`
     .noLipa
+
+export const pini = content`pini`
+  .short`finish, stop, end, close`
+  .lipa`pini is the moment something comes to a close. this can be as simple as a door shutting or a light turning off, but it can be more abstract, like a department at a college fizzling out. pini has no connotations of irreversability, unlike ~"pinis" in its language of origin (tok pisin), which can grammatically specify irreversability.`
+
+export const ilo = content`ilo`
+  .short`tool, machine, device`
+  .lipa`The semantic space of ilo contains things that are used towards a goal. It’s easy to say that everything can be used. Likewise if something is being used or can commonly be used, it is easy to call it an ilo. If I am using a hammer to hammer a nail into the wall, that is an ilo. If i am using a psychological method to calm myself down when i’m stressed, that can be an ilo as well. Without much context, ilo can refer to things that are commonly used as tools. With the context of it being used for something, though, anything can be an ilo.`
+
+export const ante = content`ante`
+  .short`different, modify, other`
+  .lipa`ante describes a different thing. there are loads of things in the world, and every thing has similarities and differences to other things. In a specific context, if one wishes to frame the differences between objects, ante is incredibly useful. It can refer to the different object itself, qualities of difference, or the concept of change itself. It can also be used as a verb to mean ~"alter" or ~"change."`
+
+export const lape = content`lape`
+  .short`sleep, rest, break`
+  .lipa`The semantic space of lape contains sleep and rests. More abstractly, lape can mean anything from a short break from walking to a gap year in college, and less abstractly lape can mean a nap or sleeping. Using lape to describe an action often implies that the level of effort or involvement is lower when compared to surrounding activities.`
+
+export const moku = content`moku`
+  .short`eat, drink, food, consume`
+  .lipa`moku is food! moku is also eating that same food. in fact, anything that can be eaten can be moku. even if it's not edible, you can use moku to describe it! doing so implies that it is in some context eaten, though, so be careful. There's a quote from Charlie and the Chocolate Factory (2005). ~"Everything here is edible; even I'm edible. But that, dear children, is cannibalism, and is in fact frowned upon in most societies." Use this ancient wisdom from two decades ago to guide your moku usage.`
+
+export const sama = prep`sama`
+  .short`same, similar, like`
+  .lipa`sama can be all qualities of similarities and samenesses. Two siblings are sama because they have a parent in common. two stringed instruments are sama because they both have strings. Two action figures of the same exact character are sama.`
+
+export const kalama = content`kalama`
+  .short`SHORTDEFNGOESHERE`
+  .lipa`The semantic space of kalama contains all noises and sounds and any act of creating a noise or sound. Any sound from any source can be a kalama. Music is a kalama. A scream is kalama. The sound that a tree makes when it falls in the forest is a kalama. A sound doesn't have to travel through air to be a kalama: whale noises are kalama, and a heartbeat through a stethoscope is kalama. kalama could be an absolute pitch, or multiple. It could be sound designed to sound a certain way, or chaotic noise.
+
+From jan Olipija on how kalama's semantic space extends to vibrations with her perspective as a member of the Deaf/hard of hearing community:
+
+~"seeing as sound is vibration and one often causes the other, many [deaf/hard of hearing] can perceive via vibrations what hearing people would perceive as sound. e.g. stamping on the floor, thumpy thumpy dance music or hammering from the downstairs flat renovating their bathroom waking you up at 8am. thus vibrations could be considered a form of kalama, especially to [deaf/hard of hearing] people."
+
+~"instead or in addition to kute, this form of kalama would pair with the verb pilin. e.g. 'mi pilin lon noka mi e kalama ilo tan supa anpa.'"`
+
+export const suno = content`suno`
+  .short`light, shine, glow, sun`
+  .lipa`suno is an object that emits light or the light itself. It can be brightness or a shimmer or a sparkle. the sun is a suno, a lamp is a suno, but sunlight and lamplight are also suno. many people use suno by itself to mean a day cycle, framing a day as a type of light. this kind of framing is interesting because it doesn't sit right with all speakers, but it's understandable, so speakers can learn more about how each other see the world this way.`
+
+export const la =
+  particle`la`
+    .short`[between context and main]`
+    .noLipa

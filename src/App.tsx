@@ -56,8 +56,6 @@ import {
 } from "./lib/query"
 import { text } from "./lib/text"
 
-// slide import order is quite particular
-
 import "./slides/00-pre/97-prologue"
 import "./slides/01-inf/98-info"
 import "./slides/02-dev/99-test"
@@ -65,6 +63,7 @@ import "./slides/03-tok/01-welcome"
 import "./slides/03-tok/02-li"
 import "./slides/03-tok/03-objects"
 import "./slides/03-tok/04-modifiers"
+import "./slides/03-tok/05-la"
 
 function ViewAllSlides(props: { set(slide: AnySlide | undefined): void }) {
   return (
@@ -524,7 +523,7 @@ function Home() {
         </div>
         <div class="absolute right-0 top-0 p-2">
           <Fa
-            class="icon-blue-500 size-4"
+            class="size-4 icon-blue-500"
             icon={faExternalLink}
             title="Open Link"
           />
@@ -543,7 +542,7 @@ function Home() {
       <button
         class={clsx(
           "z-field flex flex-1 flex-col items-center gap-1 px-2 pb-1 text-left shadow-none",
-          active && "icon-blue-500 border-z-focus bg-blue-50 ring",
+          active && "border-z-focus bg-blue-50 ring icon-blue-500",
         )}
         onClick={() => set("filter", props.filter)}
       >
@@ -561,7 +560,7 @@ function Home() {
       <button
         class={clsx(
           "z-field flex flex-1 flex-col items-center gap-1 px-4 pb-1 text-left shadow-none",
-          active && "icon-blue-500 border-z-focus bg-blue-50 ring",
+          active && "border-z-focus bg-blue-50 ring icon-blue-500",
         )}
         onClick={() => setKind(props.kind, !KINDS.includes(props.kind))}
       >
