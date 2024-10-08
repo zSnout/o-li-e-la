@@ -230,13 +230,10 @@ export const sama = prep`sama`
   .lipa`sama can be all qualities of similarities and samenesses. Two siblings are sama because they have a parent in common. two stringed instruments are sama because they both have strings. Two action figures of the same exact character are sama.`
 
 export const kalama = content`kalama`
-  .short`SHORTDEFNGOESHERE`
+  .short`noise, sound`
   .lipa`The semantic space of kalama contains all noises and sounds and any act of creating a noise or sound. Any sound from any source can be a kalama. Music is a kalama. A scream is kalama. The sound that a tree makes when it falls in the forest is a kalama. A sound doesn't have to travel through air to be a kalama: whale noises are kalama, and a heartbeat through a stethoscope is kalama. kalama could be an absolute pitch, or multiple. It could be sound designed to sound a certain way, or chaotic noise.
-
 From jan Olipija on how kalama's semantic space extends to vibrations with her perspective as a member of the Deaf/hard of hearing community:
-
 ~"seeing as sound is vibration and one often causes the other, many [deaf/hard of hearing] can perceive via vibrations what hearing people would perceive as sound. e.g. stamping on the floor, thumpy thumpy dance music or hammering from the downstairs flat renovating their bathroom waking you up at 8am. thus vibrations could be considered a form of kalama, especially to [deaf/hard of hearing] people."
-
 ~"instead or in addition to kute, this form of kalama would pair with the verb pilin. e.g. 'mi pilin lon noka mi e kalama ilo tan supa anpa.'"`
 
 export const suno = content`suno`
@@ -247,3 +244,24 @@ export const la =
   particle`la`
     .short`[between context and main]`
     .noLipa
+
+export const mu = content`mu`
+  .short`animal noise`
+  .lipa`The semantic space of mu contains noises coming from things being framed as living. A lion's roar is mu. A cough is mu. Humans are animals, but often when they say things, we can understand them, so we might choose to use a different word over mu. But mu is often used to describe languages and vocalizations that are not understood by the speaker. Adjacently, many people describe non-language vocalizations as mu, such as coughs, sneezes, or vocal stims.
+By using mu to describe a noise, you are ascribing some level of livingness to the thing that produced it. Using mu to describe a robot's noise makes the robot feel more like a living thing. This can be taken to any extreme, and it often ends up seeming humorous. For example, the sound of some sizzling bacon could be a mu, which is thought provoking. But the sound of a waterfall can also be mu, which is thought provoking in a completely different way. Ascribing qualities of life and animacy to bacon and waterfalls are very different situations. With bacon, it becomes a joke, where the punchline is that mu is an "animal noise" and sizzling is an "animal noise." But with a waterfall, it becomes a deep philosophical musing about what life is.
+
+Using mu to describe the vocalizations of animals is usually a safe bet, but using it in other circumstances can be very profound.`
+
+export const ijo = content`ijo`
+  .short`thing, entity, being`
+  .lipa`Everything is within the semantic space of ijo. If a thing is a thing, it is an ijo. This could be anything or something. This could be a physical object, an idea, an action, a place, a sentient being, or any other thing. You are in the semantic space of ijo.
+Some people refuse to use ijo for sentient things. They claim it has inanimate connotations. I don't see why this would happen unless toki pona speakers assumed it was the same as english ~"thing" or portuguese ~"coisa" etc. In reality, toki pona words don't have the history of dehumanization that words like ~"thing" in english have. In toki pona, humans are as ijo as a dog or a book or a galaxy.`
+
+export const wawa = content`wawa`
+  .short`power, strength, energy`
+  .lipa`wawa is qualities of power and strength. A very strong person is wawa. The strength required to talk to new people one has never met before is wawa. wawa focuses less on the ability or possibility itself and more on the power and motivation behind it. wawa belongs to things with agency. If something is enabled, it is wawa. For example, if a lightbulb has been turned on, it becomes wawa. wawa is used frequently to refer to energy itself, both in an abstract sense (such as spoons or motivation) and in a physical sense, such as electricity or force. Many people aren't wawa until they drink their morning coffee. The coffee makes them wawa.
+Another great angle of ~"wawa" is the concept of saturation and concentration. For example, a strong drink (as in, one that has a lot of alcohol) is wawa, but as you dilute it with water, it becomes less wawa. Another example is paint. Saturated paint mixed with a neutral shade of paint (like gray, black, or white) will slowly and slowly become less wawa. Depending on how salty water is, one could describe it as wawa, for example if comparing saltwater fish to freshwater fish.`
+
+export const nasin = content`nasin`
+  .short`method, path, doctrine`
+  .lipa`nasin ties together method and path. Physically, a nasin is a path or direction one follows, a road you can drive along, any way to reach a location, or perhaps even to wander. metaphysically, nasin refers to a way to live your life, a way to make something, or any other method. just as easily as main street can be a nasin, so can communism or the pomodoro technique or setting an alarm or islam. It doesn't need a specific destination, but there's usually some purpose to it.`

@@ -65,37 +65,33 @@ function WithNote(props: { og: Text; notes: readonly Text[] }) {
 }
 
 export function ExampleLaEl(props: { children: ExampleLa }) {
-  // TODO: use <Translation />
   return (
-    <Show when={props.children.eng.length > 1}>
-      <div class="flex flex-col">
-        <p class="font-ex-tok font-semibold">
-          <span class={LA_CONTENT}>{props.children.tok[0]}</span>
-          <span class={LA_PARTICLE}> la </span>
-          <PhraseEl style="force">{props.children.tok[1]}</PhraseEl>
-        </p>
-        {/* TODO: show eng[0].full */}
-        <For each={props.children.eng.slice(1)}>
-          {(x) => (
-            <>
-              <p class="font-ex-eng">
-                <span class={LA_CONTENT}>{x.la[0]}</span>
-                <span class={LA_PARTICLE}> la </span>
-                <PhraseEl style="force">{x.la[1]}</PhraseEl>
-              </p>
+    <div class="flex flex-col">
+      <p class="font-ex-tok font-semibold">
+        <span class={LA_CONTENT}>{props.children.tok[0]}</span>
+        <span class={LA_PARTICLE}> la </span>
+        <PhraseEl style="force">{props.children.tok[1]}</PhraseEl>
+      </p>
+      <For each={props.children.eng}>
+        {(x) => (
+          <>
+            <p class="font-ex-eng">
+              <span class={LA_CONTENT}>{x.la[0]}</span>
+              <span class={LA_PARTICLE}> la </span>
+              <PhraseEl style="force">{x.la[1]}</PhraseEl>
+            </p>
 
-              <For each={x.full}>
-                {(x) => (
-                  <p class="font-ex-eng">
-                    <PhraseEl style="force">{x}</PhraseEl>
-                  </p>
-                )}
-              </For>
-            </>
-          )}
-        </For>
-      </div>
-    </Show>
+            <For each={x.full}>
+              {(x) => (
+                <p class="font-ex-eng">
+                  <PhraseEl style="force">{x}</PhraseEl>
+                </p>
+              )}
+            </For>
+          </>
+        )}
+      </For>
+    </div>
   )
 }
 

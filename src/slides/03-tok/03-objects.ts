@@ -13,9 +13,9 @@ import {
   mute,
   ona,
   pilin,
+  sitelen,
   tan,
   wile,
-  sitelen,
 } from "../../lib/vocab"
 
 const [
@@ -55,7 +55,7 @@ slide`basics of "e"`.vocab(
     .eng`I li want e that.`,
   ex.tok`ona li sona e mute.`
     .eng`they li know e a lot.`,
-  ch.tok`ona li toki e $tan.`
+  ch.tok`ona li toki e tan.`
     .into`she li said e the reason.`,
   ch.eng`it li knows e the people.`
     .into`ona li sona e jan.`,
@@ -91,45 +91,43 @@ slide`~"make ..." predicates with "e"`.vocab(
     .alt`sitelen li awen e ona.`,
 )
 
-slide`"e ni" to embed sentences`.vocab(
-  sitelen,
-  ona,
-  wile,
-)(
-  ul`in english, we sometimes embed sentences, as in ~"I want __you to duplicate the paintings__"`
-    .li`toki pona doesn't allow sentence embedding, but we can use "e ni" to point at a sentence`,
-  ex.tok`ona li wile e ni @~ : @en sina @li mute e sitelen`
-    .eng`it li wants e this @~ : @en you li duplicate e the paintings`
-    .alt`it li wants e you to duplicate the paintings`,
-  ch.tok`sitelen li kama e ni @~ : @en pilin li pona`
-    .into`the picture li makes e this li happen @~ : @en feelings li are better`
-    .alt`@~ because of the picture, @en the feelings li are happier`,
-)
-
 createReview`review: direct objects with "e"`
   .slide(
-    ul`use "e" to add a direct object to a sentence`,
-    ex.tok`ona li wile e sona.`
-      .eng`they li want e knowledge.`,
+    ul`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
+    ex.tok`mi wile e ni.`
+      .eng`I li want e that.`,
+    ex.tok`ona li sona e mute.`
+      .eng`they li know e a lot.`,
     ul`"e" can also mean ~"to give a target a quality"`,
-    ex.tok`tenpo li ike e sona.`
-      .eng`time li worsens e memories.`,
-    ul`use "e" with "ni" to make entire sentences into objects`,
-    ex.tok`ona li wile e ni @~ : @en sina @li mute e sitelen`
-      .eng`it li wants e this @~ : @en you li duplicate e the paintings`
-      .alt`it li wants e you to duplicate the paintings`,
+    ex.tok`sina kama e ona.`
+      .eng`you li make-arrive e him.`
+      .alt`you li bring e him.`,
   )
   .sheet(
     ul`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
-    ex.tok`ona li wile e sona.`
-      .eng`they li want e knowledge.`,
+    ex.tok`mi wile e ni.`
+      .eng`I li want e that.`,
+    ex.tok`ona li sona e mute.`
+      .eng`they li know e a lot.`,
     ul`"e" can also mean ~"to give a target a quality"`,
     ex.tok`sina kama e ona.`
-      .eng`you li make-arrive (bring) e him.`,
+      .eng`you li make-arrive e him.`
+      .alt`you li bring e him.`,
     ex.tok`tenpo li ike e sona.`
       .eng`time li worsens e memories.`,
-    ul`use "e" with "ni" to make entire sentences into objects`,
-    ex.tok`ona li wile e ni @~ : @en sina @li mute e sitelen`
-      .eng`it li wants e this @~ : @en you li duplicate e the paintings`
-      .alt`it li wants e you to duplicate the paintings`,
   )
+
+// slide`"e ni" to embed sentences`.vocab(
+//   sitelen,
+//   ona,
+//   wile,
+// )(
+//   ul`in english, we sometimes embed sentences, as in ~"I want __you to duplicate the paintings__"`
+//     .li`toki pona doesn't allow sentence embedding, but we can use "e ni" to point at a sentence`,
+//   ex.tok`ona li wile e ni @~ : @en sina @li mute e sitelen`
+//     .eng`it li wants e this @~ : @en you li duplicate e the paintings`
+//     .alt`it li wants e you to duplicate the paintings`,
+//   ch.tok`sitelen li kama e ni @~ : @en pilin li pona`
+//     .into`the picture li makes e this li happen @~ : @en feelings li are better`
+//     .alt`@~ because of the picture, @en the feelings li are happier`,
+// )
