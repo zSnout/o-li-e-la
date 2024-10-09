@@ -131,7 +131,7 @@ function RenderReview(props: { children: SlideReview }) {
           {(e) => <Content>{e}</Content>}
         </For>
       </main>
-      <div class="wx-80 hx-[calc(540px_-_2rem)] my-4 flex flex-col border-l border-z py-4 pl-6 pr-8 text-lg">
+      <div class="wx-80 hx-[calc(540px_-_2rem)] my-4 flex flex-col whitespace-nowrap border-l border-z py-4 pl-6 pr-8 text-lg">
         <table>
           <tbody>
             <For

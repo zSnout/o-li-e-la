@@ -75,9 +75,9 @@ slide`"la" for themes and topics`.vocab(
   ul`"la" is often used to set an overall theme`
     .li`$"postla regarding ..."`
     .li`$"postla speaking_of ..."`,
-  ex.la`ilo la mi wawa`
-    .eng`tools la I li 'm powerful`
-    .full`I li 'm powerful @postla using tools`,
+  ex.la`ilo la mi wawa e mute`
+    .eng`tools la I li empower e many things`
+    .full`Using tools, la I li make e many things li more pwoerful.`,
   ch.la`ma weka la soweli li ilo`
     .eng`distant place la creatures li are robots`
     .full`in far places, la creatures li are robots`,
@@ -98,9 +98,9 @@ slide`"la" for sentence-level modifiers`.vocab(
   ch.la`ken la mi kama`
     .eng`possible la I li 'll show up`
     .full`maybe la I li 'll show up`,
-  ch.eng`unrelatedly, la my eraser li is gone`
-    .into`ante la ilo weka mi li $lon ala`
-    .alt`ante la ilo weka mi li weka`,
+  ch.eng`unrelatedly, la my eraser li has erased the people`
+    .into`ante la ilo weka mi li $lon ala e jan`
+    .alt`ante la ilo weka mi li weka e jan`,
 )
 
 slide`"la" for perspective and opinions`.vocab(
@@ -119,5 +119,54 @@ slide`"la" for perspective and opinions`.vocab(
     .full`to me, la the roads li feel robotic`,
   ch.discuss`Give a perspective of your own using "la".`,
 )
+
+slide`"la" for location`.vocab(
+  mu,
+  wawa,
+  weka,
+  ante,
+)
+  .note`Interestingly, $"tenpo weka la" can be both the distant past and the distant future! From that, we can interpret this either as the weakness of young children or the weakness of old age.`(
+  ul`"la" can give locations in space and time`
+    .li`$"postla at ..." or $"postla in ..."`
+    .li`$"postla during ..."`,
+  ex.la`tenpo weka la sina wawa lili`
+    .eng`distant time la you li 're a little strong`
+    .full`a long time ago, la you li were a little strong`
+    .full`in a long time, la you li will be a little strong`,
+  ch.la`tomo mu la mi weka`
+    .eng`music room la I li 'm absent`
+    .full`I li 'm absent @prela from the music room`,
+  ch.eng`in the spy center, la we li know e everything`
+    .into`ma lukin la mi sona e ale`,
+)
+
+createReview`review: "la"`
+  .slide(
+    ul`"la" goes between $"context la" and ~"the main sentence"`,
+    ex.la`tenpo la mi ante e moku mi`
+      .eng`time la I li change e my food`
+      .full`sometimes la I li change e what I eat`,
+    ul`the context can be a full sentence or just a phrase`,
+    ex.la`sina mu suli la mi $lon ala e sina`
+      .eng`if you're loud, la we li 'll remove e you`
+      .full`if you're loud, la we li 'll remove e you`,
+  )
+  .sheet(
+    ul`"la" goes between $"context la" and ~"the main sentence"`,
+    ex.la`tenpo la mi ante e moku mi`
+      .eng`time la I li change e my food`
+      .full`sometimes la I li change e what I eat`,
+    ul`the context can be a full sentence or just a phrase`,
+    ex.la`sina mu suli la mi $lon ala e sina`
+      .eng`if you're loud, la we li 'll remove e you`
+      .full`if you're loud, la we li 'll remove e you`,
+    ul`some kinds of context "la" can provide:`,
+    ul`chains: $"postla if ..." or $"postla because_of ..."`
+      .li`themes: $"postla regarding ..."`
+      .li`adverbs: $"@prela similarly ..." or $"@prela unrelatedly ..." or $"@prela possibly ..."`
+      .li`opinions: $"postla from_the_perspective_of ..."`
+      .li`locations: $"postla at ..." or $"postla during ..."`,
+  )
 
 // TODO: show .eng[0].full in speaker view

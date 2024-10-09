@@ -242,7 +242,7 @@ export const suno = content`suno`
 
 export const la =
   particle`la`
-    .short`[between context and main]`
+    .short`[after context]`
     .noLipa
 
 export const mu = content`mu`
