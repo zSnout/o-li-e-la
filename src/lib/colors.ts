@@ -61,6 +61,7 @@ const e = tag("text-green-800", "text-green-600", "e")
 const en = tag(EN_PARTICLE, "text-sky-600", "en")
 const la = tag(LA_PARTICLE, LA_CONTENT, "la", true)
 const prela = tag(LA_PARTICLE, LA_CONTENT, "la")
+const postla = tag(LA_PARTICLE, LA_CONTENT, "la")
 
 const lon = tag("text-orange-800", "text-orange-600", "lon")
 const tawa = tag("text-orange-800", "text-orange-600", "tawa")
@@ -77,6 +78,7 @@ const tags: Record<string, Tag> = {
   en,
   la,
   prela,
+  postla,
   o,
   lon,
   tawa,
@@ -227,7 +229,8 @@ function createTagFunction<T extends PhraseLang>(
               tag == sama ||
               tag == kepeken ||
               tag == en ||
-              tag == prela
+              tag == prela ||
+              tag == postla
             ) {
               currentAffix = AFFIX_NEXT_WORD_DECIDES
             } else {

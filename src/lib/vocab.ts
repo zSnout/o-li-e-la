@@ -168,7 +168,7 @@ export const pali = content`pali`
   .lipa`pali is work. But what does that mean? In toki pona, pali needs at least a little bit of effort, and it needs to make a little bit of something. But if it only had a little of each, calling it ~"pali" might be a worse choice than using another word. Just because eating requires a little work and makes energy inside of your body doesn't mean pali will be understood. So almost always, pali will either require a lot of effort or create a significant thing. A professional potter making pottery might not require a lot of effort because they are skilled enough, but it will create a significant object. And on the reverse, learning a new language may not create a significant object (just some new knowledge in your head), but it does require a lot of effort.`
 
 export const ma = content`ma`
-  .short`place, location, earth, land, soil`
+  .short`place, location, earth, land`
   .lipa`ma is a place or location. This can be a physical one, like a country or spot on the ground. It's far more common to see ma used to talk about grounded locations, but it's also used to talk about anything from a treebranch something's on or even an airplane miles or kilomiters above the ground. ma can sometimes be the ground itself, like dirt or rocks, or even an entire planet with a hard surface. don't confuse ma with kiwen though, because ma has connotations of location and ground that kiwen doesn't.`
 
 export const musi = content`musi`
@@ -265,3 +265,11 @@ Another great angle of ~"wawa" is the concept of saturation and concentration. F
 export const nasin = content`nasin`
   .short`method, path, doctrine`
   .lipa`nasin ties together method and path. Physically, a nasin is a path or direction one follows, a road you can drive along, any way to reach a location, or perhaps even to wander. metaphysically, nasin refers to a way to live your life, a way to make something, or any other method. just as easily as main street can be a nasin, so can communism or the pomodoro technique or setting an alarm or islam. It doesn't need a specific destination, but there's usually some purpose to it.`
+
+export const weka = content`weka`
+  .short`far, distant, remove`
+  .lipa`weka describes distance. It is similar to other location words in that it can describe a place, but instead of describing a specific relation to proximity, it describes the lack thereof. Hence, weka describes a place that is not nearby. This could be outside a house or simply outside of reality. It can describe the act of dissapearing or vanishing. Transitively, it can mean the act of removal or stealing. weka can also be more passive as an action, such as ignoring, just as easily as it can be an active action like getting rid of something.`
+
+export const soweli = content`soweli`
+  .short`fuzzy creature, land mammal`
+  .lipa`soweli describes creatures with several distinctive traits. soweli tend to be fluffy. soweli tend to be larger than a plum. Their legs tend to be under them, and they tend to have four of them. When they want to move quickly, they run on their legs, with moments where all legs are off the ground. They are warm to the touch.`

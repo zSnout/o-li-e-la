@@ -606,6 +606,16 @@ export function collectVocabStats(
           inc(word, color, "inExamples")
         }
         break
+      case "ex:la":
+        for (const { word, color } of words(entry.tok)) {
+          inc(word, color, "inExamples")
+        }
+        break
+      case "ch:la":
+        for (const { word, color } of words(entry.tok)) {
+          inc(word, color, "inChallengePrompts")
+        }
+        break
       case "ch:tok":
         for (const { word, color } of words(entry.tok)) {
           inc(word, color, "inChallengePrompts")
@@ -681,6 +691,30 @@ export function CollectedEl(props: { children: Collected }) {
       return (
         <Ch>
           <ExampleTokEl {...props.children} />
+        </Ch>
+      )
+    case "ex:la":
+      return (
+        <ExampleTokEl
+          tok={props.children.tok}
+          eng={
+            props.children.eng.flatMap(
+              ({ la, full }) => [undoLa(la), ...full] as const,
+            ) satisfies Phrase<"eng">[] as readonly Phrase<"eng">[] as PhraseArray<"eng">
+          }
+        />
+      )
+    case "ch:la":
+      return (
+        <Ch>
+          <ExampleTokEl
+            tok={props.children.tok}
+            eng={
+              props.children.eng.flatMap(
+                ({ la, full }) => [undoLa(la), ...full] as const,
+              ) satisfies Phrase<"eng">[] as readonly Phrase<"eng">[] as PhraseArray<"eng">
+            }
+          />
         </Ch>
       )
     case "ch:eng":

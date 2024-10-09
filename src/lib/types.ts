@@ -242,6 +242,10 @@ export type Content = Example | Challenge | Info
 /** A set of content. */
 export type ContentArray = Content[]
 
+export interface ToContent<T extends Content> {
+  finalize(): T
+}
+
 // #endregion
 
 // #region slides
@@ -318,14 +322,11 @@ export type AnySlide = SlideStandard | SlideReview
 
 // #endregion
 
-export interface ToContent<T extends Content> {
-  finalize(): T
-}
+// #region collect
 
-export interface Group {
-  readonly id: number
-  readonly name: Text
-  readonly words: readonly string[]
+export interface ColoredWord {
+  readonly word: string
+  readonly color: Color<600 | 800> | null
 }
 
 export type CollectedInner =
@@ -340,12 +341,6 @@ export type CollectedInner =
 
 export type Collected = Readonly<CollectedInner>
 
-export interface Slideshow {
-  readonly title: Text
-  readonly index: number
-  readonly slides: readonly AnySlide[]
-}
-
 export interface StatMut {
   inExamples: number
   inChallengePrompts: number
@@ -358,9 +353,18 @@ export type VocabStatMut = Map<Color<600 | 800> | null, StatMut>
 
 export type VocabStat = ReadonlyMap<Color<600 | 800> | null, Stat>
 
-export interface ColoredWord {
-  readonly word: string
-  readonly color: Color<600 | 800> | null
+// #endregion stats
+
+export interface Group {
+  readonly id: number
+  readonly name: Text
+  readonly words: readonly string[]
+}
+
+export interface Slideshow {
+  readonly title: Text
+  readonly index: number
+  readonly slides: readonly AnySlide[]
 }
 
 export type Kind = "done" | "draft" | "test" | "meta"
