@@ -18,10 +18,6 @@ import { plugin as l } from "./lib2/plugins/text/styled"
 import { plugin as m, tokipona } from "./lib2/plugins/vocab/tokipona"
 import { Slideshow } from "./lib2/slideshow"
 
-if (!import.meta.env.DEV) {
-  throw new Error("stop prod build")
-}
-
 const root = document.getElementById("root")
 
 render(() => {
