@@ -1,20 +1,16 @@
 import { For, Show } from "solid-js"
-import { clsx } from "../clsx"
-import { definePluginByData } from "../define"
-import type { Aside, Content } from "../types"
+import { clsx } from "../../clsx"
+import { definePlugin } from "../../define"
+import type { Aside, Content, Slide } from "../../types"
 
-export const plugin = definePluginByData<
-  "slide",
-  "@slideshow",
-  {
-    content: readonly Content[]
-    aside?: Aside
-    centered?: boolean
-  }
->("slide", "@slideshow", {
+export const plugin = definePlugin<{
+  content: readonly Content[]
+  aside?: Aside
+  centered?: boolean
+}>()("slide", "standard", {
   render(data, slideshow) {
     return (
-      <article class="size-slide flex bg-white text-2xl text-z">
+      <article class="size-slide relative flex bg-white text-2xl text-z">
         <main
           class={clsx(
             "w-full px-8 py-12",
@@ -30,10 +26,10 @@ export const plugin = definePluginByData<
       </article>
     )
   },
-  collect(data, slideshow) {
-    const res = data.content.map((content) => slideshow.ContentCollect(content))
+  entry(data, slideshow) {
+    const res = data.content.map((content) => slideshow.ContentEntry(content))
     if (data.aside) {
-      res.push(slideshow.AsideCollect(data.aside))
+      res.push(slideshow.AsideEntry(data.aside))
     }
     return res
   },
@@ -47,3 +43,11 @@ export const plugin = definePluginByData<
     return res
   },
 })
+
+export function standard(
+  content: readonly Content[],
+  aside?: Aside,
+  centered?: boolean,
+): Slide {
+  return ["standard", { content, aside, centered }]
+}
