@@ -48,3 +48,21 @@ capabilities for it.
 See `types.ts` for the full interface of what a particular kind of extension
 must provide. In particular, many extension kinds must provide output for the
 viewer, presenter, and collect view, as these typically vary wildly.
+
+An extension is typically a self-contained file which exports at least two
+things. First, the extension's definition itself, which is by convention named
+`ext`. Second, a builder to construct an item for that extension, which is by
+convention named after the extension itself.
+
+An extension requires an ID to differentiate itself from other extensions of the
+same kind. The core libraries here use only letters and underscores in their
+names. It is recommended that third-party extensions use their package name
+followed by `::` followed by the extension name to avoid conflicts with future
+standard extensions.
+
+For instance, if `@zsnout/ithkuil` provided a text extension which rendered
+Ithkuil script, it would be recommended to give it an ID of
+`@zsnout/ithkuil::script`.
+
+As it is so common, the plain text extension uses the ID of the empty string
+`""`.
