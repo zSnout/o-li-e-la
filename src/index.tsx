@@ -12,6 +12,7 @@ import { ext as e, title } from "./lib2/exts/content/title"
 import { ext as f } from "./lib2/exts/content/titleIndexed"
 import { ext as n, ul } from "./lib2/exts/content/ul"
 import { ext as g } from "./lib2/exts/note/p"
+import { ext as o, image } from "./lib2/exts/slide/image"
 import { ext as h, standard } from "./lib2/exts/slide/standard"
 import { arr, ext as i } from "./lib2/exts/text/arr"
 import { ext as j } from "./lib2/exts/text/fmt"
@@ -24,7 +25,7 @@ import { SLIDE_TEST_SYNTAX_HIGHLIGHTING } from "./slides/02-dev/99-test"
 const root = document.getElementById("root")
 
 render(() => {
-  const s = new Slideshow().add(a, b, c, d, e, f, g, h, i, j, l, k, m, n)
+  const s = new Slideshow().add(a, b, c, d, e, f, g, h, i, j, l, k, m, n, o)
   const slide = standard(
     [
       title(str("goodbye world")),
@@ -60,11 +61,12 @@ oo, o ni ala a! o weka ala e tomo ante ale a! ante la sina wile e kili ^e anu pa
     ),
     // image("https://placecats.com/400/200", "", "contain", "half"),
   )
-
+  const slide2 = image("/jonathan-gabel-waso-walo.jpg", "")
   return (
     <div class="flex flex-col gap-4">
       <Render>{SLIDE_TEST_SYNTAX_HIGHLIGHTING}</Render>
       {s.Slide(slide)}
+      {s.Slide(slide2)}
       <div class="w-96 bg-z-body">{s.SlidePresenter(slide)}</div>
     </div>
   )
