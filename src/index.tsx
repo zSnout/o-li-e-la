@@ -6,11 +6,14 @@ import { pilin } from "./lib/vocab"
 
 import { all, aside, content, slide, text, vocab } from "./lib2/ext"
 import { Exts } from "./lib2/exts"
+import { startBackgroundProcess } from "./lib2/slideshow"
 
 const root = document.getElementById("root")
 
 render(() => {
-  const s = new Exts().add(...all())
+  const exts = new Exts().add(...all())
+  startBackgroundProcess(exts)
+
   const slide1 = slide.standard(
     [
       content.title(text.str("goodbye world")),
@@ -48,8 +51,8 @@ oo, o ni ala a! o weka ala e tomo ante ale a! ante la sina wile e kili ^e anu pa
   const slide2 = slide.image("/jonathan-gabel-waso-walo.jpg", "")
   return (
     <div class="flex flex-col gap-4">
-      {s.Slide(slide1)}
-      {s.Slide(slide2)}
+      {exts.Slide(slide1)}
+      {exts.Slide(slide2)}
     </div>
   )
 }, root!)
