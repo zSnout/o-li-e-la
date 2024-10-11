@@ -1,0 +1,1 @@
+export { tokipona } from "./tokipona"

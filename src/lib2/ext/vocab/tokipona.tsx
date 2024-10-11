@@ -7,11 +7,11 @@ export const ext = defineExt<{
   defnLipamanka?: Text
   kind: { name: string }
 }>()("vocab", "tokipona", {
-  render(data, slideshow) {
+  render(data, exts) {
     return (
       <li class="flex w-full flex-col font-sans">
         <strong class="font-semibold text-z-heading">{data.word}</strong>
-        <p class="text-balance pl-6 text-z">{slideshow.Text(data.defnShort)}</p>
+        <p class="text-balance pl-6 text-z">{exts.Text(data.defnShort)}</p>
       </li>
     )
   },
@@ -22,7 +22,7 @@ export const ext = defineExt<{
       </li>
     )
   },
-  presenter(data, slideshow) {
+  presenter(data, exts) {
     return (
       <details>
         <summary class="font-sans marker:text-z-dimmed">
@@ -32,7 +32,7 @@ export const ext = defineExt<{
         </summary>
 
         <p class="pl-8 pt-1 font-ex-eng text-z">
-          {slideshow.Text(data.defnLipamanka ?? data.defnShort)}
+          {exts.Text(data.defnLipamanka ?? data.defnShort)}
         </p>
       </details>
     )

@@ -3,15 +3,15 @@ import { defineExt } from "../../define"
 import type { Aside, Vocab } from "../../types"
 
 export const ext = defineExt<readonly Vocab[]>()("aside", "vocab", {
-  slide(data, slideshow) {
+  slide(data, exts) {
     return (
       <ul class="wx-80 hx-[calc(540px_-_2rem)] my-4 flex flex-col gap-4 border-l border-z py-4 pl-6 pr-8 text-lg">
-        <For each={data}>{(word) => slideshow.Vocab(word)}</For>
+        <For each={data}>{(word) => exts.Vocab(word)}</For>
       </ul>
     )
   },
-  presenter(data, slideshow) {
-    return <For each={data}>{(word) => slideshow.VocabPresenter(word)}</For>
+  presenter(data, exts) {
+    return <For each={data}>{(word) => exts.VocabPresenter(word)}</For>
   },
   entry(): undefined {},
 })

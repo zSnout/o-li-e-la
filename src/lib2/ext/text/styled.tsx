@@ -3,6 +3,7 @@ import type { Text, TextOf } from "../../types"
 import { arr } from "./arr"
 import { str } from "./str"
 
+/** Removes any applied styles when rendered as a challenge. */
 export const ext = defineExt<[classes: string, content: string]>()(
   "text",
   "styled",
@@ -10,6 +11,10 @@ export const ext = defineExt<[classes: string, content: string]>()(
     render(data) {
       return <span class={data[0]}>{data[1]}</span>
     },
+    renderChallenge(data) {
+      return <span>{data[1]}</span>
+    },
+    entry(): undefined {},
   },
 )
 

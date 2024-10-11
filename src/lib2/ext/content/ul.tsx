@@ -3,35 +3,37 @@ import { defineExt } from "../../define"
 import { finishAll, type Content, type Into, type Text } from "../../types"
 
 export const ext = defineExt<readonly Text[]>()("content", "ul", {
-  slide(data, slideshow) {
+  slide(data, exts) {
     return (
       <ul class="my-4 px-4 font-ex-eng">
         <For each={data}>
           {(item) => (
             <li class="flex items-baseline gap-4">
               <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-z-text-dimmed group-[]/small:size-2 group-[]/small:min-w-2" />
-              <span>{slideshow.Text(item)}</span>
+              <span>{exts.Text(item)}</span>
             </li>
           )}
         </For>
       </ul>
     )
   },
-  print(data, slideshow) {
+  print(data, exts) {
     return (
       <ul class="my-4 px-4 font-ex-eng">
         <For each={data}>
           {(item) => (
             <li class="flex items-baseline gap-4">
               <span class="inline-block size-2 min-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed" />
-              <span>{slideshow.Text(item)}</span>
+              <span>{exts.Text(item)}</span>
             </li>
           )}
         </For>
       </ul>
     )
   },
-  entry(): undefined {},
+  entry(data, exts) {
+    return <For each={data}>{(x) => exts.TextEntry(x)}</For>
+  },
   presenter(): undefined {},
 })
 

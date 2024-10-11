@@ -9,6 +9,14 @@ export const ext = defineExt<string>()("text", "", {
       return data
     }
   },
+  renderChallenge(data) {
+    if (data.includes("\n")) {
+      return <span class="whitespace-pre-line">{data}</span>
+    } else {
+      return data
+    }
+  },
+  entry(): undefined {},
 })
 
 export function str(text: string): Text {

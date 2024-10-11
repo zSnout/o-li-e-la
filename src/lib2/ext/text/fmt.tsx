@@ -12,7 +12,7 @@ export const ext = defineExt<{
   x: boolean
   content: Text
 }>()("text", "fmt", {
-  render(data, slideshow) {
+  render(data, exts) {
     return (
       <span
         class={clsx(
@@ -22,9 +22,26 @@ export const ext = defineExt<{
           data.x && "line-through",
         )}
       >
-        {slideshow.Text(data.content)}
+        {exts.Text(data.content)}
       </span>
     )
+  },
+  renderChallenge(data, exts) {
+    return (
+      <span
+        class={clsx(
+          data.b && "font-semibold text-z-heading",
+          data.i && "italic",
+          data.u && "underline underline-offset-2",
+          data.x && "line-through",
+        )}
+      >
+        {exts.TextChallenge(data.content)}
+      </span>
+    )
+  },
+  entry(data, exts) {
+    return exts.TextEntry(data.content)
   },
 })
 

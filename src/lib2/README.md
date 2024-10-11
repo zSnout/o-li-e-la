@@ -9,7 +9,7 @@ For example, an extension called `text/styled` renders colored text items, the
 and the `aside/vocab` extension renders an aside with vocabulary.
 
 To maximize extensibility, all non-core functionality is provided through
-extensions. The central manager in `lib2`, known as `Slideshow`, is really only
+extensions. The central manager in `lib2`, known as `Exts`, is really only
 responsible for holding extensions together and providing a convenient way to
 render them.
 

@@ -1,10 +1,21 @@
 import type { JSX } from "solid-js"
-import type { Slideshow } from "./slideshow"
+import type { Exts } from "./exts"
 
 export declare const KIND: unique symbol
 export declare const LANG: unique symbol
 
-export type ItemUntagged = readonly [extId: string, data: unknown]
+export type Json =
+  | number
+  | string
+  | boolean
+  | null
+  | undefined
+  | readonly Json[]
+  | { readonly [x: string]: Json }
+
+export type Many<T> = readonly [T, ...T[]]
+
+export type ItemUntagged = readonly [extId: string, data: Json]
 export type Item<K extends string> = ItemUntagged & { [KIND]?: K }
 
 export type Aside = Item<"aside">
@@ -17,56 +28,73 @@ export type Text = Item<"text">
 export type Vocab = Item<"vocab">
 
 export type TextOf<K extends string> = Item<"text"> & { [LANG]?: K }
+export type TextCtx<K extends string> = readonly [
+  ctx: TextOf<K>,
+  main: TextOf<K>,
+]
+export type TextCtxFull<K extends string> = readonly [
+  split: TextCtx<K>,
+  full: Many<TextOf<K>>,
+]
 
 export interface Ext<K extends string, I extends string> {
-  props?: unknown
   id: I
   kind: K
 }
 
-export interface ExtAside<T, I extends string> extends Ext<"aside", I> {
-  slide(data: T, slideshow: Slideshow): JSX.Element
-  presenter(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
-  entry(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
+export interface ExtAside<T extends Json, I extends string>
+  extends Ext<"aside", I> {
+  slide(data: T, exts: Exts): JSX.Element
+  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
+  entry(data: NoInfer<T>, exts: Exts): JSX.Element
 }
 
-export interface ExtContent<T, I extends string> extends Ext<"content", I> {
-  slide(data: T, slideshow: Slideshow): JSX.Element
-  print(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
-  presenter(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
-  entry(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
+export interface ExtContent<T extends Json, I extends string>
+  extends Ext<"content", I> {
+  slide(data: T, exts: Exts): JSX.Element
+  print(data: NoInfer<T>, exts: Exts): JSX.Element
+  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
+  entry(data: NoInfer<T>, exts: Exts): JSX.Element
 }
 
-export interface ExtEntry<T, I extends string> extends Ext<"entry", I> {
-  render(data: T, slideshow: Slideshow): JSX.Element
+export interface ExtEntry<T extends Json, I extends string>
+  extends Ext<"entry", I> {
+  render(data: T, exts: Exts): JSX.Element
 }
 
-export interface ExtNote<T, I extends string> extends Ext<"note", I> {
-  presenter(data: T, slideshow: Slideshow): JSX.Element
+export interface ExtNote<T extends Json, I extends string>
+  extends Ext<"note", I> {
+  presenter(data: T, exts: Exts): JSX.Element
 }
 
-export interface ExtPrint<T, I extends string> extends Ext<"print", I> {
-  render(data: T, slideshow: Slideshow): JSX.Element
-  entry(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
+export interface ExtPrint<T extends Json, I extends string>
+  extends Ext<"print", I> {
+  render(data: T, exts: Exts): JSX.Element
+  entry(data: NoInfer<T>, exts: Exts): JSX.Element
 }
 
-export interface ExtSlide<T, I extends string> extends Ext<"slide", I> {
-  render(data: T, slideshow: Slideshow): JSX.Element
-  presenter(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
-  entry(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
+export interface ExtSlide<T extends Json, I extends string>
+  extends Ext<"slide", I> {
+  render(data: T, exts: Exts): JSX.Element
+  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
+  entry(data: NoInfer<T>, exts: Exts): JSX.Element
 }
 
-export interface ExtText<T, I extends string> extends Ext<"text", I> {
-  render(data: T, slideshow: Slideshow): JSX.Element
+export interface ExtText<T extends Json, I extends string>
+  extends Ext<"text", I> {
+  render(data: T, exts: Exts): JSX.Element
+  renderChallenge(data: T, exts: Exts): JSX.Element
+  entry(data: NoInfer<T>, exts: Exts): JSX.Element
 }
 
-export interface ExtVocab<T, I extends string> extends Ext<"vocab", I> {
-  render(data: T, slideshow: Slideshow): JSX.Element
-  withoutDefinition(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
-  presenter(data: NoInfer<T>, slideshow: Slideshow): JSX.Element
+export interface ExtVocab<T extends Json, I extends string>
+  extends Ext<"vocab", I> {
+  render(data: T, exts: Exts): JSX.Element
+  withoutDefinition(data: NoInfer<T>, exts: Exts): JSX.Element
+  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
 }
 
-export interface ExtKinds<T, I extends string> {
+export interface ExtKinds<T extends Json, I extends string> {
   aside: ExtAside<T, I>
   entry: ExtEntry<T, I>
   content: ExtContent<T, I>
@@ -77,9 +105,9 @@ export interface ExtKinds<T, I extends string> {
   vocab: ExtVocab<T, I>
 }
 
-export type ExtKindsUntyped = ExtKinds<unknown, string>
+export type ExtKindsUntyped = ExtKinds<Json, string>
 
-export type SlideshowData = {
+export type ExtsData = {
   readonly [K in keyof ExtKindsUntyped]: {
     [id: string]: ExtKindsUntyped[K]
   }

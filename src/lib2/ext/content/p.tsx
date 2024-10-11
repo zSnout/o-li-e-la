@@ -2,22 +2,18 @@ import { defineExt } from "../../define"
 import type { Content, Text } from "../../types"
 
 export const ext = defineExt<Text>()("content", "p", {
-  slide(data, slideshow) {
+  slide(data, exts) {
     return (
-      <p class="my-4 font-ex-eng first:mt-0 last:mb-0">
-        {slideshow.Text(data)}
-      </p>
+      <p class="my-4 font-ex-eng first:mt-0 last:mb-0">{exts.Text(data)}</p>
     )
   },
-  print(data, slideshow) {
+  print(data, exts) {
     return (
-      <p class="my-4 font-ex-eng first:mt-0 last:mb-0">
-        {slideshow.Text(data)}
-      </p>
+      <p class="my-4 font-ex-eng first:mt-0 last:mb-0">{exts.Text(data)}</p>
     )
   },
-  entry() {
-    return undefined
+  entry(data, exts) {
+    return exts.TextEntry(data)
   },
   presenter() {
     return []

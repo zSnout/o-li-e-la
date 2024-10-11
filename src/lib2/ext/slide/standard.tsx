@@ -8,7 +8,7 @@ export const ext = defineExt<{
   aside?: Aside
   centered?: boolean
 }>()("slide", "standard", {
-  render(data, slideshow) {
+  render(data, exts) {
     return (
       <article class="size-slide relative flex bg-white text-2xl text-z contain-strict">
         <main
@@ -19,26 +19,24 @@ export const ext = defineExt<{
           )}
         >
           <div>
-            <For each={data.content}>{(e) => slideshow.ContentSlide(e)}</For>
+            <For each={data.content}>{(e) => exts.ContentSlide(e)}</For>
           </div>
         </main>
-        <Show when={data.aside}>{slideshow.AsideSlide(data.aside!)}</Show>
+        <Show when={data.aside}>{exts.AsideSlide(data.aside!)}</Show>
       </article>
     )
   },
-  entry(data, slideshow) {
-    const res = data.content.map((content) => slideshow.ContentEntry(content))
+  entry(data, exts) {
+    const res = data.content.map((content) => exts.ContentEntry(content))
     if (data.aside) {
-      res.push(slideshow.AsideEntry(data.aside))
+      res.push(exts.AsideEntry(data.aside))
     }
     return res
   },
-  presenter(data, slideshow) {
-    const res = data.content.map((content) =>
-      slideshow.ContentPresenter(content),
-    )
+  presenter(data, exts) {
+    const res = data.content.map((content) => exts.ContentPresenter(content))
     if (data.aside) {
-      res.push(slideshow.AsidePresenter(data.aside))
+      res.push(exts.AsidePresenter(data.aside))
     }
     return res
   },

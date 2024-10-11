@@ -3,21 +3,21 @@ import type {
   Aside,
   Content,
   ExtKindsUntyped,
+  ExtsData,
   Slide,
-  SlideshowData,
   Text,
   Vocab,
 } from "./types"
 
-export class Slideshow implements SlideshowData {
-  readonly aside: SlideshowData["aside"] = Object.create(null)
-  readonly content: SlideshowData["content"] = Object.create(null)
-  readonly entry: SlideshowData["entry"] = Object.create(null)
-  readonly note: SlideshowData["note"] = Object.create(null)
-  readonly print: SlideshowData["print"] = Object.create(null)
-  readonly slide: SlideshowData["slide"] = Object.create(null)
-  readonly text: SlideshowData["text"] = Object.create(null)
-  readonly vocab: SlideshowData["vocab"] = Object.create(null)
+export class Exts implements ExtsData {
+  readonly aside: ExtsData["aside"] = Object.create(null)
+  readonly content: ExtsData["content"] = Object.create(null)
+  readonly entry: ExtsData["entry"] = Object.create(null)
+  readonly note: ExtsData["note"] = Object.create(null)
+  readonly print: ExtsData["print"] = Object.create(null)
+  readonly slide: ExtsData["slide"] = Object.create(null)
+  readonly text: ExtsData["text"] = Object.create(null)
+  readonly vocab: ExtsData["vocab"] = Object.create(null)
 
   add(...exts: ExtKindsUntyped[keyof ExtKindsUntyped][]): this {
     for (const ext of exts) {
@@ -31,7 +31,23 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'Text' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.render(item[1], this))
+    return untrack(() => el.render(item[1], this))
+  }
+
+  TextChallenge(item: Text): JSX.Element {
+    const el = this.text[item[0]]
+    if (!el) {
+      return err(`'TextChallenge' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.renderChallenge(item[1], this))
+  }
+
+  TextEntry(item: Text): JSX.Element {
+    const el = this.text[item[0]]
+    if (!el) {
+      return err(`'TextEntry' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.entry(item[1], this))
   }
 
   AsideSlide(item: Aside): JSX.Element {
@@ -39,7 +55,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'AsideSlide' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.slide(item[1], this))
+    return untrack(() => el.slide(item[1], this))
   }
 
   AsidePresenter(item: Aside): JSX.Element {
@@ -47,7 +63,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'AsidePresenter' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.presenter(item[1], this))
+    return untrack(() => el.presenter(item[1], this))
   }
 
   AsideEntry(item: Aside): JSX.Element {
@@ -55,7 +71,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'AsideEntry' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.entry(item[1], this))
+    return untrack(() => el.entry(item[1], this))
   }
 
   ContentSlide(item: Content): JSX.Element {
@@ -63,7 +79,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'ContentSlide' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.slide(item[1], this))
+    return untrack(() => el.slide(item[1], this))
   }
 
   ContentSheet(item: Content): JSX.Element {
@@ -71,7 +87,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'ContentSheet' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.print(item[1], this))
+    return untrack(() => el.print(item[1], this))
   }
 
   ContentPresenter(item: Content): JSX.Element {
@@ -79,7 +95,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'ContentPresenter' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.presenter(item[1], this))
+    return untrack(() => el.presenter(item[1], this))
   }
 
   ContentEntry(item: Content): JSX.Element {
@@ -87,7 +103,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'ContentEntry' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.entry(item[1], this))
+    return untrack(() => el.entry(item[1], this))
   }
 
   Slide(item: Slide): JSX.Element {
@@ -95,7 +111,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'SlideSlide' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.render(item[1], this))
+    return untrack(() => el.render(item[1], this))
   }
 
   SlidePresenter(item: Slide): JSX.Element {
@@ -103,7 +119,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'SlidePresenter' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.presenter(item[1], this))
+    return untrack(() => el.presenter(item[1], this))
   }
 
   SlideEntry(item: Slide): JSX.Element {
@@ -111,7 +127,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'SlideEntry' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.entry(item[1], this))
+    return untrack(() => el.entry(item[1], this))
   }
 
   Vocab(item: Vocab): JSX.Element {
@@ -119,7 +135,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'Vocab' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.render(item[1], this))
+    return untrack(() => el.render(item[1], this))
   }
 
   VocabWithoutDefinition(item: Vocab): JSX.Element {
@@ -127,7 +143,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'VocabWithoutDefinition' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.withoutDefinition(item[1], this))
+    return untrack(() => el.withoutDefinition(item[1], this))
   }
 
   VocabPresenter(item: Vocab): JSX.Element {
@@ -135,7 +151,7 @@ export class Slideshow implements SlideshowData {
     if (!el) {
       return err(`'VocabPresenter' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el?.presenter(item[1], this))
+    return untrack(() => el.presenter(item[1], this))
   }
 }
 
