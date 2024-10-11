@@ -135,10 +135,14 @@ export function createStyler<K extends string>(
   }
 }
 
-export function txRemoveWhitespace(styled: Styled[]): Styled[] {
+export function txPrettify(styled: Styled[]): Styled[] {
   for (let i = 1; i < styled.length; i++) {
     const [, prev] = styled[i - 1]!
-    const [, self] = styled[i]!
+    let [, self] = styled[i]!
+
+    if (self.includes("'")) {
+      self = styled[i]![1] = self.replace(/'/g, "’")
+    }
 
     if (self == "") {
       styled.splice(i, 1)
@@ -174,9 +178,17 @@ export function txRemoveWhitespace(styled: Styled[]): Styled[] {
       styled[i]![1] = " "
       continue
     }
+
+    if (self.includes("'")) {
+      styled[i] = ["", "hi"]
+    }
   }
 
   return styled
+}
+
+export function txApostrophize(text: string): string {
+  return text.replace(/[\p{L}\d?!.,]'/gu, (x) => x[0] + "’").replace(/'/gu, "‘")
 }
 
 export function tag(
@@ -237,7 +249,7 @@ export const styledTok = createStyler(
         (source, initial: string, head: string, tail: string) =>
           /\bli\b/.test(tail) ? source : initial + head + " @li " + tail,
       ),
-  txRemoveWhitespace,
+  txPrettify,
   "text-sky-600",
   "tok",
 )
@@ -262,7 +274,7 @@ export const styledEng = createStyler(
     "~": tag(""),
   },
   (x) => x,
-  txRemoveWhitespace,
+  txPrettify,
   "text-sky-600",
   "eng",
 )

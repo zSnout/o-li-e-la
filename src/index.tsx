@@ -25,10 +25,6 @@ const root = document.getElementById("root")
 
 render(() => {
   const s = new Slideshow().add(a, b, c, d, e, f, g, h, i, j, l, k, m, n)
-  const eng = styledEng(
-    "@@ Hi, cool being! Right now, la I li want to give e important information tawa to you all. o Don't make e my house o disappear. Why la li would @en you li want to do this? That li 's terrible! All beings en and all disgusting things, o don't do this! o Don't remove e any other buildings! Also, la do you li want e fruit ^e or bread?",
-  )
-
   const slide = standard(
     [
       title(str("goodbye world")),
@@ -40,7 +36,9 @@ render(() => {
 weka ala e tomo mi. seme la sina wile ni? ni li ike wawa a! ijo ale en jaki ale \
 oo, o ni ala a! o weka ala e tomo ante ale a! ante la sina wile e kili ^e anu pan?",
         ),
-        eng,
+        styledEng(
+          "@ Hi, cool being! Right now, la I li want to give e important information tawa to you all. o Don't make e my house o disappear. Why la li would @en you li want to do this? That li 's terrible! All beings en and all disgusting things, o don't do this! o Don't remove e any other buildings! Also, la do you li want e fruit ^e or bread?",
+        ),
       ]),
     ],
     vocab(
