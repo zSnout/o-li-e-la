@@ -1,7 +1,8 @@
 import type { JSX } from "solid-js"
 import type { Slideshow } from "./slideshow"
 
-export const KIND = Symbol()
+export declare const KIND: unique symbol
+export declare const LANG: unique symbol
 
 export type ItemUntagged = readonly [extId: string, data: unknown]
 export type Item<K extends string> = ItemUntagged & { [KIND]?: K }
@@ -14,6 +15,8 @@ export type Print = Item<"print">
 export type Slide = Item<"slide">
 export type Text = Item<"text">
 export type Vocab = Item<"vocab">
+
+export type TextOf<K extends string> = Item<"text"> & { [LANG]?: K }
 
 export interface Ext<K extends string, I extends string> {
   props?: unknown
@@ -84,3 +87,17 @@ export type SlideshowData = {
 
 export type ExtData<T> =
   T extends ExtKinds<infer U, infer _>[keyof ExtKindsUntyped] ? U : never
+
+export type Into<T> = T | { done(): T }
+
+export function finish<T>(x: Into<T>): T {
+  const f: unknown = (x as any)?.done
+  if (typeof f == "function") {
+    return f.call(x)
+  }
+  return x as T
+}
+
+export function finishAll<T>(x: readonly Into<T>[]): T[] {
+  return x.map(finish)
+}

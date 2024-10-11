@@ -8,6 +8,6 @@ export const plugin = definePlugin<readonly Text[]>()("text", "arr", {
   },
 })
 
-export function arr(...text: readonly Text[]): Text {
+export function arr(text: readonly Text[]): Text {
   return ["arr", text]
 }

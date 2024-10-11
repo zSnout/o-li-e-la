@@ -3,7 +3,11 @@ import type { Text } from "../../types"
 
 export const plugin = definePlugin<string>()("text", "", {
   render(data) {
-    return data
+    if (data.includes("\n")) {
+      return <span class="whitespace-pre-line">{data}</span>
+    } else {
+      return data
+    }
   },
 })
 
