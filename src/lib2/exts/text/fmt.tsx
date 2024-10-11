@@ -1,8 +1,8 @@
 import { clsx } from "../../../lib/clsx"
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Text } from "../../types"
 
-export const plugin = definePlugin<{
+export const ext = defineExt<{
   b: boolean
   i: boolean
   u: boolean

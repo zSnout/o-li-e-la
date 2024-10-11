@@ -1,7 +1,7 @@
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Content, Text } from "../../types"
 
-export const plugin = definePlugin<[content: Text, index: number]>()(
+export const ext = defineExt<[content: Text, index: number]>()(
   "content",
   "title_indexed",
   {

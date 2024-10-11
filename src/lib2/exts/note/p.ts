@@ -1,7 +1,7 @@
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Note, Text } from "../../types"
 
-export const plugin = definePlugin<Text>()("note", "p", {
+export const ext = defineExt<Text>()("note", "p", {
   presenter(data, slideshow) {
     return slideshow.Text(data)
   },

@@ -1,7 +1,7 @@
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Text, Vocab } from "../../types"
 
-export const plugin = definePlugin<{
+export const ext = defineExt<{
   word: string
   defnShort: Text
   defnLipamanka?: Text

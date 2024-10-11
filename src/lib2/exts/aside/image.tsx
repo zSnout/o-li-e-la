@@ -1,9 +1,9 @@
 import { Show } from "solid-js"
 import { clsx } from "../../clsx"
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Aside } from "../../types"
 
-export const plugin = definePlugin<{
+export const ext = defineExt<{
   src: string
   alt: string
   fit?: "contain" | "cover"

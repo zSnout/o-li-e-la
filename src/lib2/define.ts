@@ -8,7 +8,7 @@ function defineInner<K extends keyof ExtKindsUntyped, I extends string>(
   return { kind, id, ...data } as any
 }
 
-export function definePlugin<T>() {
+export function defineExt<T>() {
   return defineInner as <K extends keyof ExtKindsUntyped, I extends string>(
     kind: K,
     id: string extends I ? never : I,

@@ -1,8 +1,8 @@
 import { For } from "solid-js"
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import { finishAll, type Content, type Into, type Text } from "../../types"
 
-export const plugin = definePlugin<readonly Text[]>()("content", "ul", {
+export const ext = defineExt<readonly Text[]>()("content", "ul", {
   slide(data, slideshow) {
     return (
       <ul class="my-4 px-4 font-ex-eng">

@@ -1,9 +1,9 @@
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Text, TextOf } from "../../types"
 import { arr } from "./arr"
 import { str } from "./str"
 
-export const plugin = definePlugin<[classes: string, content: string]>()(
+export const ext = defineExt<[classes: string, content: string]>()(
   "text",
   "styled",
   {
@@ -135,6 +135,13 @@ export function createStyler<K extends string>(
   }
 }
 
+/**
+ * A post-transformer which makes several improvements to generated styles.
+ *
+ * 1. Whitespace is consolidated and merged.
+ * 2. Punctuation is merged with surrounding whitespace when appropriate.
+ * 3. Apostrophes are prettified and merged with surrounding whitespace.
+ */
 export function txPrettify(styled: Styled[]): Styled[] {
   for (let i = 1; i < styled.length; i++) {
     const [, prev] = styled[i - 1]!
@@ -178,17 +185,9 @@ export function txPrettify(styled: Styled[]): Styled[] {
       styled[i]![1] = " "
       continue
     }
-
-    if (self.includes("'")) {
-      styled[i] = ["", "hi"]
-    }
   }
 
   return styled
-}
-
-export function txApostrophize(text: string): string {
-  return text.replace(/[\p{L}\d?!.,]'/gu, (x) => x[0] + "’").replace(/'/gu, "‘")
 }
 
 export function tag(

@@ -1,7 +1,7 @@
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Content, Text } from "../../types"
 
-export const plugin = definePlugin<Text>()("content", "title", {
+export const ext = defineExt<Text>()("content", "title", {
   slide(data, slideshow) {
     return (
       <h1 class="mb-8 text-balance font-ex-title text-4xl text-z-heading last:mb-0">

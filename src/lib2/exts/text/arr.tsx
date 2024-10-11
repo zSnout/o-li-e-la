@@ -1,8 +1,8 @@
 import { For } from "solid-js"
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Text } from "../../types"
 
-export const plugin = definePlugin<readonly Text[]>()("text", "arr", {
+export const ext = defineExt<readonly Text[]>()("text", "arr", {
   render(data, slideshow) {
     return <For each={data}>{(x) => slideshow.Text(x)}</For>
   },

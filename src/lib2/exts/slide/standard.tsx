@@ -1,9 +1,9 @@
 import { For, Show } from "solid-js"
 import { clsx } from "../../clsx"
-import { definePlugin } from "../../define"
+import { defineExt } from "../../define"
 import type { Aside, Content, Slide } from "../../types"
 
-export const plugin = definePlugin<{
+export const ext = defineExt<{
   content: readonly Content[]
   aside?: Aside
   centered?: boolean
