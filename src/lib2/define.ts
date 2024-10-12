@@ -1,3 +1,4 @@
+import type { JSXElement } from "solid-js"
 import type { ExtKinds, ExtKindsUntyped, Json } from "./types"
 
 function defineInner<K extends keyof ExtKindsUntyped, I extends string>(
@@ -16,6 +17,6 @@ export function defineExt<T extends Json>() {
   ) => ExtKinds<T, I>[K]
 }
 
-export function unimpl(): never {
-  throw new Error("This method is unimplemented.")
+export function unimpl(): JSXElement {
+  return "unimplemented"
 }

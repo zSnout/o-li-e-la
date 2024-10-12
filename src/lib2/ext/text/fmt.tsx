@@ -119,24 +119,28 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
       }
 
       if (text.startsWith('$"')) {
-        const end = text.indexOf('"', 2)
+        let end = text.indexOf('"', 2)
         if (end == -1) {
-          throw new Error("Unclosed double quote in text`...` call")
+          end = text.length
         }
         const sub = text.slice(2, end)
         text = text.slice(end + 1)
+        output.push(str("“"))
         output.push(styledEng(sub))
+        output.push(str("”"))
         continue
       }
 
       if (text.startsWith('#"')) {
-        const end = text.indexOf('"', 1)
+        let end = text.indexOf('"', 2)
         if (end == -1) {
-          throw new Error('Unclosed #" in text`...` call')
+          end = text.length
         }
         const sub = text.slice(1, end)
         text = text.slice(end + 1)
+        output.push(str("“"))
         output.push(styledTok(sub))
+        output.push(str("”"))
         continue
       }
 
@@ -158,10 +162,6 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
         text = text.slice(idx)
       }
     }
-  }
-
-  if (output.length == 0) {
-    throw new Error("Cannot return empty text.")
   }
 
   return arr(output)
