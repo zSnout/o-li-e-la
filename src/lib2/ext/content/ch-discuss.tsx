@@ -3,7 +3,7 @@ import { defineExt, unimpl } from "../../define"
 import type { Content, Note, Text } from "../../types"
 
 export const ext = defineExt<
-  [label: Text, prompts: [prompt: Text, notes?: readonly Note[]][]]
+  [label: Text, prompts: [prompt: Text, notes: readonly Note[]][]]
 >()("content", "ch/discuss", {
   slide(data, exts) {
     return (
@@ -24,5 +24,8 @@ export function discuss(
   label: Text,
   prompts: [prompt: Text, notes?: readonly Note[]][],
 ): Content {
-  return ["ch/discuss", [label, prompts]]
+  return [
+    "ch/discuss",
+    [label, prompts.map(([prompt, notes]) => [prompt, notes ?? []])],
+  ]
 }

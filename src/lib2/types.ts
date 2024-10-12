@@ -9,7 +9,6 @@ export type Json =
   | string
   | boolean
   | null
-  | undefined
   | readonly Json[]
   | { readonly [x: string]: Json }
 
