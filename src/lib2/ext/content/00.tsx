@@ -1,4 +1,5 @@
 export { discuss } from "./ch-discuss"
+export { transl } from "./ch-translate"
 export { aligned } from "./ex-aligned"
 export { qa } from "./ex-qa"
 export { exTok } from "./ex-tok"
