@@ -7,7 +7,7 @@ export const ext = defineExt<[content: Text, index: number]>()(
   {
     slide(data, exts) {
       return (
-        <h1 class="mb-8 flex font-ex-title text-4xl text-z-heading last:mb-0">
+        <h1 class="my-8 flex font-ex-title text-4xl text-z-heading first:mt-0 last:mb-0">
           <span class="flex-1 text-balance text-center font-ex-title">
             {exts.Text(data[0])}
           </span>
@@ -17,7 +17,7 @@ export const ext = defineExt<[content: Text, index: number]>()(
     },
     print(data, exts) {
       return (
-        <h1 class="mb-4 flex text-xl text-z-heading last:mb-0">
+        <h1 class="my-4 flex text-xl text-z-heading first:mt-0 last:mb-0">
           <span class="flex-1 text-balance text-center font-ex-title">
             {exts.Text(data[0])}
           </span>

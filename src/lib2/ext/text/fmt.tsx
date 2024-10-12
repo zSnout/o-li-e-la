@@ -46,7 +46,7 @@ export const ext = defineExt<{
 })
 
 export function fmtManual(
-  text: Text,
+  content: Text,
   {
     b = false,
     i = false,
@@ -59,7 +59,7 @@ export function fmtManual(
     x?: boolean
   },
 ): Text {
-  return ["fmt", { text, b, i, u, x }]
+  return ["fmt", { content, b, i, u, x }]
 }
 
 export type TextParams = readonly [
@@ -144,11 +144,13 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
         continue
       }
 
-      const idx = text.match(/[*_"]|[$#]"|~~/)?.index
+      const idx = text.match(/[*_]|[$#]"|~~/)?.index
 
       const sub = (idx == null ? text : text.slice(0, idx))
         .replace(/[\p{L}\d?!.,]'/gu, (x) => x[0] + "’")
         .replace(/'/gu, "‘")
+        .replace(/[\p{L}\d?!.,]"/gu, (x) => x[0] + "”")
+        .replace(/"/gu, "“")
 
       if (b || i || u || x) {
         output.push(fmtManual(str(sub), { b, i, u, x }))

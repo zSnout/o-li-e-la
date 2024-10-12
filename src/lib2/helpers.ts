@@ -1,7 +1,8 @@
+import { image as defineImage } from "./ext/aside/image"
 import { vocab as defineVocab } from "./ext/aside/vocab"
 import { discuss as defineDiscuss } from "./ext/content/ch-discuss"
 import { p as defineP } from "./ext/content/p"
-import { title as defineTitle } from "./ext/content/title"
+import { titleRaw as defineTitle } from "./ext/content/title"
 import { ul as defineUl } from "./ext/content/ul"
 import { note as defineNote } from "./ext/note/p"
 import { standard as defineStandard } from "./ext/slide/standard"
@@ -21,6 +22,7 @@ import {
 } from "./types"
 
 export interface QSlideStandardContent {
+  note(...note: TextParams): this
   (...content: Into<Content>[]): Slide
   content(...content: Into<Content>[]): Slide
 }
@@ -28,6 +30,7 @@ export interface QSlideStandardContent {
 export interface QSlideStandardAside {
   aside(aside: Into<Aside>): QSlideStandardContent
   vocab(...vocab: Into<Vocab>[]): QSlideStandardContent
+  image(...args: Parameters<typeof defineImage>): QSlideStandardContent
 }
 
 export interface QSlideStandardCenterable
@@ -37,15 +40,16 @@ export interface QSlideStandardCenterable
 }
 
 export function slide(...title: TextParams): QSlideStandardCenterable {
+  const notes: Note[] = []
   let aside: Aside | undefined
   let centered = false
 
-  function content(...content: Into<Content>[]): Slide {
-    return defineStandard(
-      [defineTitle(fmt(...title)), ...finishAll(content)],
-      aside,
-      centered,
-    )
+  const content = function (...content: Into<Content>[]): Slide {
+    const inner = finishAll(content)
+    if (!(title.length == 1 && title[0].length == 1 && title[0][0] == "")) {
+      inner.unshift(defineTitle(fmt(...title)))
+    }
+    return defineStandard(inner, notes, aside, centered)
   }
 
   content.content = content
@@ -57,6 +61,16 @@ export function slide(...title: TextParams): QSlideStandardCenterable {
 
   content.vocab = (...vocab: Into<Vocab>[]) => {
     aside = defineVocab(finishAll(vocab))
+    return content
+  }
+
+  content.image = (...args: Parameters<typeof defineImage>) => {
+    aside = defineImage(...args)
+    return content
+  }
+
+  content.note = (...note: TextParams) => {
+    notes.push(defineNote(fmt(...note)))
     return content
   }
 

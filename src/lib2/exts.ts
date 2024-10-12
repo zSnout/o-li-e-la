@@ -4,6 +4,7 @@ import type {
   Content,
   ExtKindsUntyped,
   ExtsData,
+  Note,
   Slide,
   Text,
   Vocab,
@@ -82,10 +83,10 @@ export class Exts implements ExtsData {
     return untrack(() => el.slide(item[1], this))
   }
 
-  ContentSheet(item: Content): JSX.Element {
+  ContentPrint(item: Content): JSX.Element {
     const el = this.content[item[0]]
     if (!el) {
-      return err(`'ContentSheet' for '${item[0]}' does not exist`)
+      return err(`'ContentPrint' for '${item[0]}' does not exist`)
     }
     return untrack(() => el.print(item[1], this))
   }
@@ -128,6 +129,14 @@ export class Exts implements ExtsData {
       return err(`'SlideEntry' for '${item[0]}' does not exist`)
     }
     return untrack(() => el.entry(item[1], this))
+  }
+
+  NotePresenter(item: Note): JSX.Element {
+    const el = this.note[item[0]]
+    if (!el) {
+      return err(`'NotePresenter' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.presenter(item[1], this))
   }
 
   Vocab(item: Vocab): JSX.Element {

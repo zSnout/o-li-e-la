@@ -1,10 +1,15 @@
 import { For, Show } from "solid-js"
 import { clsx } from "../../clsx"
 import { defineExt } from "../../define"
-import type { Aside, Content, Slide } from "../../types"
+import type { Aside, Content, Note, Slide } from "../../types"
 
 export const ext = defineExt<
-  [content: readonly Content[], aside: Aside | null, centered: boolean]
+  [
+    content: readonly Content[],
+    notes: readonly Note[],
+    aside: Aside | null,
+    centered: boolean,
+  ]
 >()("slide", "standard", {
   render(data, exts) {
     return (
@@ -12,37 +17,41 @@ export const ext = defineExt<
         <main
           class={clsx(
             "w-full px-8 py-12",
-            data[2] && "flex flex-col items-center justify-center text-center",
+            data[3] && "flex flex-col items-center justify-center text-center",
           )}
         >
           <div>
             <For each={data[0]}>{(e) => exts.ContentSlide(e)}</For>
           </div>
         </main>
-        <Show when={data[1]}>{exts.AsideSlide(data[1]!)}</Show>
+        <Show when={data[2]}>{exts.AsideSlide(data[2]!)}</Show>
       </article>
     )
   },
   entry(data, exts) {
-    const res = data[0].map((content) => exts.ContentEntry(content))
-    if (data[1]) {
-      res.push(exts.AsideEntry(data[1]))
-    }
-    return res
+    return (
+      <>
+        <For each={data[0]}>{(x) => exts.ContentEntry(x)}</For>
+        <Show when={data[2]}>{exts.AsideEntry(data[2]!)}</Show>
+      </>
+    )
   },
   presenter(data, exts) {
-    const res = data[0].map((content) => exts.ContentPresenter(content))
-    if (data[1]) {
-      res.push(exts.AsidePresenter(data[1]))
-    }
-    return res
+    return (
+      <>
+        <For each={data[0]}>{(x) => exts.ContentPresenter(x)}</For>
+        <For each={data[1]}>{(x) => exts.NotePresenter(x)}</For>
+        <Show when={data[2]}>{exts.AsidePresenter(data[2]!)}</Show>
+      </>
+    )
   },
 })
 
 export function standard(
   content: readonly Content[],
+  notes: readonly Note[],
   aside?: Aside,
   centered?: boolean,
 ): Slide {
-  return ["standard", [content, aside ?? null, !!centered]]
+  return ["standard", [content, notes, aside ?? null, !!centered]]
 }

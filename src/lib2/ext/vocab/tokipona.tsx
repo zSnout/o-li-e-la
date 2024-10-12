@@ -4,7 +4,7 @@ import type { Text, Vocab } from "../../types"
 export const ext = defineExt<{
   word: string
   defnShort: Text
-  defnLipamanka?: Text
+  defnLipamanka: Text | null
   kind: { name: string }
 }>()("vocab", "tokipona", {
   render(data, exts) {
@@ -42,7 +42,7 @@ export const ext = defineExt<{
 export function tokipona(data: {
   word: string
   defnShort: Text
-  defnLipamanka?: Text
+  defnLipamanka: Text | null
   kind: { name: string }
 }): Vocab {
   return ["tokipona", data]

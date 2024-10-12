@@ -4,7 +4,7 @@ import type { Exts } from "../../exts"
 import type { Content, Many, Text } from "../../types"
 
 function render(
-  data: [lang: "tok" | "eng", src: Text, dst: Many<Text>, hint?: Text][],
+  data: [lang: "tok" | "eng", src: Text, dst: Many<Text>, hint: Text | null][],
   exts: Exts,
 ) {
   return (
@@ -35,7 +35,7 @@ function render(
 }
 
 export const ext = defineExt<
-  [lang: "tok" | "eng", src: Text, dst: Many<Text>, hint?: Text][]
+  [lang: "tok" | "eng", src: Text, dst: Many<Text>, hint: Text | null][]
 >()("content", "ch/transl", {
   slide: render,
   entry: unimpl,
@@ -44,7 +44,7 @@ export const ext = defineExt<
 })
 
 export function transl(
-  data: [lang: "tok" | "eng", src: Text, dst: Many<Text>, hint?: Text][],
+  data: [lang: "tok" | "eng", src: Text, dst: Many<Text>, hint: Text | null][],
 ): Content {
   return ["ch/transl", data]
 }

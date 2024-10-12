@@ -8,6 +8,7 @@ import { ext as ext7 } from "./content/ex-qa"
 import { ext as ext8 } from "./content/ex-tok"
 import { ext as ext9 } from "./content/la-box"
 import { ext as ext10 } from "./content/p"
+import { ext as ext22 } from "./content/split"
 import { ext as ext11 } from "./content/title"
 import { ext as ext12 } from "./content/titleIndexed"
 import { ext as ext13 } from "./content/ul"
@@ -50,5 +51,6 @@ export function all() {
     ext19,
     ext20,
     ext21,
+    ext22,
   ]
 }

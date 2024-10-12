@@ -3,7 +3,6 @@ import { render } from "solid-js/web"
 import { createRemSize } from "../lib/rem"
 import { createScreenSize } from "../lib/size"
 import { AsSvg } from "./AsSvg"
-import { standard } from "./ext/slide/standard"
 import { Exts } from "./exts"
 import type { Print, Slide, Text } from "./types"
 
@@ -13,13 +12,9 @@ export class Slideshow {
   readonly slides: Slide[] = []
   readonly prints: Print[] = []
 
-  /**
-   * If `unlink` is true, the returned `Group` will not save its slides or
-   * prints to this slideshow. This can be useful when creating draft
-   * slideshows, for instance.
-   */
-  group(title: Text, abbr: Text, unlink?: boolean): Group {
-    return new Group(unlink ? undefined : this, title, abbr)
+  adopt(group: Group) {
+    this.slides.push(...group.slides)
+    this.prints.push(...group.prints)
   }
 }
 
@@ -28,19 +23,16 @@ export class Group {
   readonly prints: Print[] = []
 
   constructor(
-    private readonly parent: Slideshow | undefined,
     readonly title: Text,
     readonly abbr: Text,
   ) {}
 
-  slide(slide: Slide) {
-    this.slides.push(slide)
-    this.parent?.slides.push(slide)
+  slide(...slides: Slide[]) {
+    this.slides.push(...slides)
   }
 
-  print(print: Print) {
-    this.prints.push(print)
-    this.parent?.prints.push(print)
+  print(...prints: Print[]) {
+    this.prints.push(...prints)
   }
 }
 
@@ -69,20 +61,15 @@ export function startBackgroundProcess(exts: Exts): () => void {
 
       el = document.createElement("div")
       document.body.appendChild(el)
-      const tuple = createSignal<Slide>(standard([]))
-      const slide = tuple[0]
-      setSlide = tuple[1]
+      const [slide, _] = createSignal(data)
+      setSlide = _
       dispose = render(
         () => (
-          <Show when={slide()}>
-            {(s) => (
-              <AsSvg
-                exts={exts}
-                slide={s()}
-                class="fixed bottom-0 left-0 right-0 top-0 h-full w-full bg-black object-contain"
-              />
-            )}
-          </Show>
+          <AsSvg
+            exts={exts}
+            slide={slide()}
+            class="fixed bottom-0 left-0 right-0 top-0 h-full w-full bg-black object-contain"
+          />
         ),
         el,
       )
@@ -185,11 +172,12 @@ export function ViewSpeaker({
           fallback={
             <p class="italic text-z-subtitle">No slide currently selected.</p>
           }
+          keyed
         >
-          {(k) => slideshow.exts.SlidePresenter(k())}
+          {(k) => slideshow.exts.SlidePresenter(k)}
         </Show>
         <button
-          class="z-field"
+          class="z-field mt-auto"
           onClick={() => {
             const popup = open(location.href)
             if (!popup) {
