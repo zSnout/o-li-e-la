@@ -5,6 +5,7 @@ import { defineTwoCol } from "../ext/content/two-col"
 import { note } from "../ext/note/p"
 import { defineNoPad } from "../ext/slide/no-pad"
 import { fmt } from "../ext/text/fmt"
+import { link } from "../ext/text/linked"
 import {
   im,
   p,
@@ -27,25 +28,27 @@ DECK_CONLANGS.slide(
       "A koi fish with five ripples on it and a sixth in front of it.",
       "cover",
     )
-    .content(
-      p`(constructed languages)`,
-    ),
+    .note`If you're viewing this online, you're hopefully in document view, where you see one column with all the slides and one column with these notes. If you're not in that view, ${link`/?view=doc``switch to it to make your viewing life easier`}.`
+    .note`If you're about to criticize me for only providing the slides in light mode, switch your computer to dark mode. If you're confused by why the slides are dark blue instead of white, switch your computer to light mode.`.content(
+    p`(constructed languages)`,
+  ),
   slide`guiding questions`.center()
     .note`This presentation will revolve around answering two important questions: what are conlangs, and why do people make them?`.content(
     ul.li`what are conlangs?`
       .li`why make conlangs?`,
   ),
   slide``.center()
-    .note`Languages can usually be divided into one of two classes.`
+    .note`What are conlangs? Conlangs are one of the two classes of languages.`
     .note`**Natural languages** are those like English, Chinese, Swahili, and Tok Pisin. These are formed when people speak normally and naturally evolve through the linguistic processes of change. Today, we have thousands of natural languages because groups of people split up and their languages diverged through continuous evolution.`
-    .note`**Constructed languages** are those like toki pona, Esperanto, Dothraki, and Ithkuil. These exist because somebody decided to create their own language _with intention_. Many constructed languages are intended to be spoken by humans, but certainly not all. While constructed languages often don't have many native speakers, they are still real languages.`
+    .note`**Constructed languages** are those like toki pona, Esperanto, Dothraki, Ithkuil, Viossa, Toaq, and Lojban. These exist because somebody decided to create their own language _with intention_. Many constructed languages are intended to be spoken by humans, but certainly not all. While constructed languages often don't have many native speakers, they are still real languages.`
     .note`These two are often called **natlangs** and **conlangs** respectively.`.content(
     title`natural languages`,
     title`constructed languages`,
   ),
   slide`a brief history`.center()
     .note`Many conlangs have been created over the years, with one very old one we we have direct evidence for being **Lingua Ignota**. Lingua Ignota was created in the 12th century by the nun Hildegard von Bingen as a way to connect more deeply with God. Its vocabulary drew primarily from Latin.`
-    .note`Many other languages have been created since then, with a massive explosion in the 20th and 21st centuries. Many recent movies have hired professional conlangers, who have made **Klingon** for Star Trek, **Na'vi** for Avatar, and **Dothraki** for Game of Thrones, among others.`(
+    .note`Hildegard cited divine inspiration for their language, and it thus fits into a subcategory of conlangs primarily used for spiritual purposes.`
+    .note`Many other languages have been created their own languages since then, with a massive explosion in the 20th and 21st centuries. Many recent movies have hired professional conlangers, who have made **Klingon** for Star Trek, **Na'vi** for Avatar, and **Dothraki** for Game of Thrones, among others.`(
     ul.li`1100s: Lingua Ignota`
       .li`1879: Volapük`
       .li`1887: Esperanto`
@@ -86,7 +89,9 @@ unite the world`
     )
     .note`**Dothraki** is another well-known conlang. It was created in 2009 by David J. Peterson as part of the TV series *Game of Thrones*.`
     .note`It was built off of the few phrases found in Game of Thrones's source series, *A Song of Ice and Fire*, originally written by George R. R. Martin.`
-    .note`Dothraki has since become well-known in the conlanging community, and even has a book created by DJP which teaches it. The book's cover is pictured here.`(
+    .note`Because it was created for a TV show, Dothraki had some constraints. First, it had to be pronouncable for native English speakers, the show's primary actors, and so Dothraki does not have as unique a **phonology** (sound system) as some other languages. However, the ways in which its sounds *are* combined with the few non-English sounds makes it sound highly foreign to English natives, perfect for a TV show portraying a different world.`
+    .note`Dothraki has since become well-known in the conlanging community, and even has a book created by DJP which teaches it. The book's cover is pictured here.`
+    .note`Dothraki is part of a category known as **artlangs**: languages created for artistic purposes.`(
     ul.li`2009`
       .li`David J. Peterson`
       .li`known due to Game of Thrones`,
@@ -101,7 +106,8 @@ unite the world`
     )
     .note`**Tshevu** \`/tsεβu/\`, created in 2020 by koallary, is semi-famous for its beautiful **non-linear writing system**.`
     .note`Instead of the standard rows of text, Tshevu's primary writing system, **Koiwrit**, is drawn using stylistic ripples on koi fish. The different rings of a ripple indicate different letters, the position of the ripple overall on a fish indicates its grammatical function in the sentence, and ripples outside of the fish convey additional information.`
-    .note`The art shown here is a recipe in Tshevu. The cover image of this slide deck was also a picture of Tshevu script.`(
+    .note`The art shown here is a recipe in Tshevu. The cover image of this slide deck was also a picture of Tshevu script.`
+    .note`Tshevu, like Dothraki, is an **artlang**.`(
     ul.li`2020`
       .li`koallary`
       .li`known for its writing system`,
@@ -115,9 +121,9 @@ unite the world`
     .note`**Ithkuil** is the ever-present example of a conlang created to test language.`
     .note`It was originally created in 2004 by John Quijada, and has a reputation as being the most difficult language to learn. This is primarily due to that Ithkuil stacks many grammatical categories into single words, and that there is no language on Earth which has all the same categories as Ithkuil.`
     .note`Ithkuil has undergone three major revisions since its initial debut. In the fourth and easiest version, it inflects for a minimum of 22 categories on each of its primary nominal words, with only two or three having English equivalents.`
+    .note`(These are concatenation, stem, version, root, function, specification, context, affiliation, configuration, extension, perspective, essence, case-scope/mood, valence/phase/effect/aspect, case/illocution/validation, and word category, respectively.)`
     .note`Ithkuil uses its expansive grammar to do away with a large lexicon, and thus only has around 6000 roots and 400 affixes. Even its native name, "malëuţřait", literally means "this feedback-driven/self-sustaining system based on linguistic utterances for communication", or "this language" in simple English. Because why include a word for "language" when you can derive it yourself?`
-    .note`(These are concatenation, stem, version, root, function, specification, context, affiliation, configuration, extension, perspective, essence, case-scope/mood, valence/phase/effect/aspect, case/illocution/validation, and word category, respectively.)`(
-    // TODO: notes
+    .note`Due to its systematic derivations, Ithkuil is considered a **loglang**, a logical language.`(
     ul.li`2004, 2007, 2011, 2023`
       .li`John Quijada`
       .li`notable for grammatical capability`,
