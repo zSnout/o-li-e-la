@@ -260,7 +260,7 @@ export function ViewLatest({ slideshow }: { slideshow: Slideshow }) {
   const h = createMemo(() => screen.height - 2 * rem())
 
   return (
-    <div class="grid h-full w-full grid-cols-[1fr,24rem]">
+    <div class="grid h-full w-full flex-1 grid-cols-[1fr,24rem]">
       <div class="flex h-full items-center justify-center p-4">
         <div
           style={{
@@ -271,7 +271,7 @@ export function ViewLatest({ slideshow }: { slideshow: Slideshow }) {
           <AsSvg exts={slideshow.exts} class="rounded-xl" slide={self()} />
         </div>
       </div>
-      <div class="flex h-full flex-col gap-2 overflow-y-auto bg-z-body px-3 py-4 font-sans">
+      <div class="flex h-full max-h-screen flex-col gap-2 overflow-y-auto bg-z-body px-3 py-4 font-sans">
         <Show
           when={self()}
           fallback={
@@ -280,24 +280,6 @@ export function ViewLatest({ slideshow }: { slideshow: Slideshow }) {
         >
           {(k) => slideshow.exts.SlidePresenter(k())}
         </Show>
-        <button
-          class="z-field"
-          onClick={() => {
-            const popup = open(location.href)
-            if (!popup) {
-              alert("Cannot control popup. Reload and try again.")
-              return
-            }
-            createEffect(() => {
-              const s = self()
-              if (s) {
-                popup.postMessage([MSG_FULLSCREEN, s], "/")
-              }
-            })
-          }}
-        >
-          popup
-        </button>
       </div>
     </div>
   )
