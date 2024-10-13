@@ -10,6 +10,7 @@ export const ext = defineExt<{
   i: boolean
   u: boolean
   x: boolean
+  p: boolean
   content: Text
 }>()("text", "fmt", {
   render(data, exts) {
@@ -20,6 +21,7 @@ export const ext = defineExt<{
           data.i && "italic",
           data.u && "underline underline-offset-2",
           data.x && "line-through",
+          data.p && "rounded bg-z-body-selected px-1 font-mono text-z-heading",
         )}
       >
         {exts.Text(data.content)}
@@ -34,6 +36,7 @@ export const ext = defineExt<{
           data.i && "italic",
           data.u && "underline underline-offset-2",
           data.x && "line-through",
+          data.p && "bg-z-body-selected font-mono",
         )}
       >
         {exts.TextChallenge(data.content)}
@@ -52,14 +55,16 @@ export function fmtManual(
     i = false,
     u = false,
     x = false,
+    p = false,
   }: {
-    b?: boolean
-    i?: boolean
-    u?: boolean
-    x?: boolean
+    b: boolean
+    i: boolean
+    u: boolean
+    x: boolean
+    p: boolean
   },
 ): Text {
-  return ["fmt", { content, b, i, u, x }]
+  return ["fmt", { content, b, i, u, x, p }]
 }
 
 export type TextParams = readonly [
@@ -73,6 +78,7 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
   let i = false
   let u = false
   let x = false
+  let p = false
   for (let index = 0; index < strings.length; index++) {
     if (index > 0) {
       output.push(interps[index - 1]!)
@@ -118,6 +124,12 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
         continue
       }
 
+      if (text.startsWith("`")) {
+        p = !p
+        text = text.slice(1)
+        continue
+      }
+
       if (text.startsWith('$"')) {
         let end = text.indexOf('"', 2)
         if (end == -1) {
@@ -144,7 +156,7 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
         continue
       }
 
-      const idx = text.match(/[*_]|[$#]"|~~/)?.index
+      const idx = text.match(/[*_`]|[$#]"|~~/)?.index
 
       const sub = (idx == null ? text : text.slice(0, idx))
         .replace(/[\p{L}\d?!.,]'/gu, (x) => x[0] + "’")
@@ -152,8 +164,8 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
         .replace(/[\p{L}\d?!.,]"/gu, (x) => x[0] + "”")
         .replace(/"/gu, "“")
 
-      if (b || i || u || x) {
-        output.push(fmtManual(str(sub), { b, i, u, x }))
+      if (b || i || u || x || p) {
+        output.push(fmtManual(str(sub), { b, i, u, x, p }))
       } else {
         output.push(str(sub))
       }

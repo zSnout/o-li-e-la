@@ -2,10 +2,11 @@ import { pssll } from "../ext/aside/pssll"
 import { defineIFrame } from "../ext/content/iframe"
 import { title } from "../ext/content/title"
 import { defineTwoCol } from "../ext/content/two-col"
-import { defineSlideImage } from "../ext/slide/image"
+import { note } from "../ext/note/p"
 import { defineNoPad } from "../ext/slide/no-pad"
 import { fmt } from "../ext/text/fmt"
 import {
+  im,
   p,
   slide,
   ul,
@@ -62,7 +63,7 @@ DECK_CONLANGS.slide(
       .li`because why not`,
   ),
   slide`esperanto: to
-unite the world`
+  unite the world`
     .center()
     .image(
       "/eo_flag_wikimedia.png",
@@ -85,21 +86,22 @@ unite the world`
     )
     .note`**Dothraki** is another well-known conlang. It was created in 2009 by David J. Peterson as part of the TV series *Game of Thrones*.`
     .note`It was built off of the few phrases found in Game of Thrones's source series, *A Song of Ice and Fire*, originally written by George R. R. Martin.`
-    .note`Dothraki has since become well-known in the conlang community, and even has a book created by DJP which teaches it. The book's cover is pictured here.`(
+    .note`Dothraki has since become well-known in the conlanging community, and even has a book created by DJP which teaches it. The book's cover is pictured here.`(
     ul.li`2009`
       .li`David J. Peterson`
       .li`known due to Game of Thrones`,
   ),
   slide`tshevu: as
-artistic expression`
+  artistic expression`
     .center()
     .image(
       // https://www.reddit.com/r/conlangs/comments/mocrjd/what_does_a_recipe_look_like_in_tsevhu/
       "/6mpmn36ures61.webp",
       "A work of Koiwrit created in the language Tshevu.",
     )
-    .note`Tshevu /tsεβu/`(
-    // TODO: notes
+    .note`**Tshevu** \`/tsεβu/\`, created in 2020 by koallary, is semi-famous for its beautiful **non-linear writing system**.`
+    .note`Instead of the standard rows of text, Tshevu's primary writing system, **Koiwrit**, is drawn using stylistic ripples on koi fish. The different rings of a ripple indicate different letters, the position of the ripple overall on a fish indicates its grammatical function in the sentence, and ripples outside of the fish convey additional information.`
+    .note`The art shown here is a recipe in Tshevu. The cover image of this slide deck was also a picture of Tshevu script.`(
     ul.li`2020`
       .li`koallary`
       .li`known for its writing system`,
@@ -109,24 +111,58 @@ artistic expression`
     .image(
       "/ocqvalaa-tali-sqio.svg",
       "The Ithkuil words “očvalá tali šio malëuţřaitie ogvbřalörxeu” written using Ithkuil calligraphic script.",
-    )(
+    )
+    .note`**Ithkuil** is the ever-present example of a conlang created to test language.`
+    .note`It was originally created in 2004 by John Quijada, and has a reputation as being the most difficult language to learn. This is primarily due to that Ithkuil stacks many grammatical categories into single words, and that there is no language on Earth which has all the same categories as Ithkuil.`
+    .note`Ithkuil has undergone three major revisions since its initial debut. In the fourth and easiest version, it inflects for a minimum of 22 categories on each of its primary nominal words, with only two or three having English equivalents.`
+    .note`Ithkuil uses its expansive grammar to do away with a large lexicon, and thus only has around 6000 roots and 400 affixes. Even its native name, "malëuţřait", literally means "this feedback-driven/self-sustaining system based on linguistic utterances for communication", or "this language" in simple English. Because why include a word for "language" when you can derive it yourself?`
+    .note`(These are concatenation, stem, version, root, function, specification, context, affiliation, configuration, extension, perspective, essence, case-scope/mood, valence/phase/effect/aspect, case/illocution/validation, and word category, respectively.)`(
     // TODO: notes
     ul.li`2004, 2007, 2011, 2023`
       .li`John Quijada`
       .li`notable for grammatical capability`,
   ),
+  im.src`/ithkuil_grammar.png`
+    .alt`A highly packed table containing the entirety of Ithkuil's grammar and conjugations on it. No definitions are given for any of the abbreviations used.`
+    .note`One neat thing about Ithkuil is that even though the grammar is complicated, it is almost perfectly regular. Thus, the entirety of Ithkuil's conjugations and modifiers can be written on a single sheet of paper. All the reader needs to know is the meaning of each abbreviation and the order to put these strings together in a word. And that's definitely possible /serious!`,
+  im.src`/ithkuil_script.png`
+    .alt`A highly packed table containing almost the entirety of Ithkuil's script on it. Every element is given with pointers written to explain when it is used, and only the numeric characters are missing.`
+    .note`Ithkuil also has a very beautiful and logical writing system. Its writing system is quite different from how spoken Ithkuil works, though, and so many analyze the two as related, but different languages.`
+    .note`As one tangible difference, spoken Ithkuil can differentiate between 9 types of names, but written Ithkuil can differentiate between 22 types of names.`
+    .note`Written Ithkuil is also somewhat more logical than spoken Ithkuil. While spoken Ithkuil has to make concessions so that it is efficiently pronounceable, increasing the spoken language's irregularities, written Ithkuil has zero irregularities. Everything is in perfect order.`,
   slide`pin suo sie lep lan:
-because why not`
+  because why not`
     .center()
     .aside(
       pssll`mai lep pak eis ein fet den der nin tik asa han sei res aet nin per ues eis bon kon mai rai pak eis ein fet den der uai han len ari nou kau kas sei mai kon sti pas nou ser den sei bon aet uon uer sie sli aet tui bed ibe sie dan ein lab bat isi ibe aso sie uak uer han ser ein epi pak ibe sie pat sem ein ade kas lab kas aso nou kur aso aso han ein mai uon spi sat mai tri uer bra has tuo kai bao fru uer sei nin api kot sei nin pit nin sae rie bat sei nou lai sat kas tru eis mai kao uer mai nok aet iet ade aet nai sou mai uon nin ame sti`,
-    )(
-    // TODO: notes
+    )
+    .note`While all the languages we've talked about today have clear reasons for their existence, not all languages are like that. **sakawi's stupid three-letter language** is such an example.`
+    .note`**sakawi's stupid three-letter language** is really only notable for its unique design decisions to 1) make all words precisely three letters long, 2) have no documentation anywhere other than past writings, and 3) elide the concept of sentences.`
+    .note`The text on the right here is a translation of a poem from my literature class. It has not been adjusted to be a perfect rectangle; it simply had a word count which was a perfect multiple of nine, enhancing the vision of it as a language where everything blends together in perfect regularity.`
+    .note`I originally created this language as part of a joke among friends. I have since revised it during most of my class periods during school.`(
     ul.li`2024`
       .li`sakawi`
       .li`not particularly notable`,
   ),
-  slide`your conlangs`.center()(), // TODO: notes
+  slide`toki pona`
+    .center()
+    .image(
+      // https://www.reddit.com/r/tokipona/comments/oklgka/len_anpa_pi_tomo_musi_toki_pona_arcade_carpet/?tl=nl
+      "/len_anpa.png",
+      "An array of colorful sitelen pona symbols.",
+      "cover",
+    )
+    .note`Bonus example! **toki pona** is one of my favorite languages, and it's renowned for being one of the simplest and most approachable languages.`
+    .note`Created in 2001 by Canadian linguist Sonja Lang, toki pona is a minimalist language with only around 130 words and a very simple grammar. It accomplishes this by having words which talk about very generic concepts, like "liquid" as opposed to "acid" or "orange juice made using yellow 3 dye".`
+    .note`toki pona is a great first second language, in that it's a great gateway drug into learning other languages. I originally learned toki pona because I thought it would be easy, and that experience opened me up to learning two and two halves more languges since!`
+    .note`toki pona also has its own writing system which uses easily-recognizable pictographs for its words, such that one icon represents one word. The picture on the right here is an array of rotated and colored icons, although they are normally written left-to-right, top-to-bottom, perfectly straight, just like English.`
+    .note`If you'd like to learn more about toki pona, come to toki pona club, hosted on Wednesdays in <room>!`(
+    ul.li`2001`
+      .li`Sonja Lang`
+      .li`best language /unbiased //s`,
+  ),
+  slide`your conlangs`.center()
+    .note`Have any audience members made conlangs? If so, feel free to share about them now!`(),
   defineNoPad(
     [
       defineTwoCol(
@@ -155,17 +191,21 @@ because why not`
       ),
     ],
     [
-      // TODO: notes
+      note(
+        fmt`This would be an incomplete presentation about conlangs without explaining the wonderful **Cursed Conlang Circus**. Hosted by **Agma Schwa**, also known as **/ŋə/**, each year for the past three years, the CCC is a contest where anybody who wants to may submit their own cursed constructed language. Languages are considered "cursed" when some aspect of the language is highly unnatural or unusual.`,
+      ),
+      note(
+        fmt`So many wonderful limit-testing and why-not languages have been created for the CCC, including three shown on-screen here, and countless others. If you've seen a video on YouTube about a strange language, chances are it was made for the Cursed Conlang Circus.`,
+      ),
     ],
   ),
-  defineSlideImage(
-    "/uscript-p1.png",
-    "The opening page of the Uscript self-defining sheet.",
-    "contain-white",
-    [
-      // TODO: notes
-    ],
-  ),
+  im.src`/uscript-p1.png`
+    .alt`The opening page of the Uscript self-defining sheet.`.containWhite()
+    .note`To finish off today's presentation, we'll talk about one final practical conlang. **Uscript**, short for "universal script", is a language which is meant to use mathematics and logic to be self-defining. In short, one can theoretically learn Uscript just by studying its source text, provided they have some background in mathematics, programming, and physics.`
+    .note`Uscript could theoretically be used on something like the Voyager spacecraft, where the goal is to communicate with another species who may have vastly different knowledge than us. Since it does not depend on human constructs (mathematics and physics are the same everywhere in the universe), it is a great way to communicate with far-away worlds.`
+    .note`A section of the first page of Uscript's source text is provided here. It is one of the easier parts of the Uscript source to understand, and does not require any background in programming, physics, or advanced mathematics.`
+    .note`I leave it here as a challenge for anybody who wants to decipher it. And while there are no rules for Uscript, that is, you may discuss it with others, I'd encourage you not to give a friend all the answers, especially if they're trying to learn it themselves.`
+    .note`Questions?`,
 )
 
 /* TODO:
@@ -173,7 +213,5 @@ because why not`
  - that one band
  - twin langs
  - viossa
- - toki pona
- - cc
  - conlang relay
  */

@@ -5,6 +5,8 @@ import { p as defineP } from "./ext/content/p"
 import { titleRaw as defineTitle } from "./ext/content/title"
 import { ul as defineUl } from "./ext/content/ul"
 import { note as defineNote } from "./ext/note/p"
+import { defineNoteSmall } from "./ext/note/p-small"
+import { defineSlideImage } from "./ext/slide/image"
 import { standard as defineStandard } from "./ext/slide/standard"
 import { fmt, type TextParams } from "./ext/text/fmt"
 import { str as defineStr } from "./ext/text/str"
@@ -23,6 +25,7 @@ import {
 
 export interface QSlideStandardContent {
   note(...note: TextParams): this
+  noteSmall(...note: TextParams): this
   (...content: Into<Content>[]): Slide
   content(...content: Into<Content>[]): Slide
 }
@@ -71,6 +74,11 @@ export function slide(...title: TextParams): QSlideStandardCenterable {
 
   content.note = (...note: TextParams) => {
     notes.push(defineNote(fmt(...note)))
+    return content
+  }
+
+  content.noteSmall = (...note: TextParams) => {
+    notes.push(defineNoteSmall(fmt(...note)))
     return content
   }
 
@@ -139,4 +147,45 @@ export function discuss(...prompt: TextParams): ChDiscuss {
   }
 
   return result
+}
+
+export interface QSlideImage {
+  note(...note: TextParams): QSlideImage
+  done(): Slide
+}
+
+export interface QSlideImageFit extends QSlideImage {
+  cover(): QSlideImage
+  containWhite(): QSlideImage
+}
+
+export const im = {
+  src([src]: readonly string[]) {
+    return {
+      alt([alt]: readonly string[]): QSlideImageFit {
+        let fit: "contain-white" | "cover" | undefined
+        const notes: Note[] = []
+
+        const result: QSlideImageFit = {
+          done() {
+            return defineSlideImage(src ?? "", alt ?? "", fit, notes)
+          },
+          note(...note) {
+            notes.push(defineNote(fmt(...note)))
+            return result
+          },
+          containWhite() {
+            fit = "contain-white"
+            return result
+          },
+          cover() {
+            fit = "cover"
+            return result
+          },
+        }
+
+        return result
+      },
+    }
+  },
 }

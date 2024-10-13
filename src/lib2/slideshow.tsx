@@ -4,7 +4,13 @@ import { createRemSize } from "../lib/rem"
 import { createScreenSize } from "../lib/size"
 import { AsSvg } from "./AsSvg"
 import { Exts } from "./exts"
-import type { Print, Slide, Text } from "./types"
+import {
+  finishAll,
+  type Into,
+  type Print,
+  type Slide,
+  type Text,
+} from "./types"
 
 export class Slideshow {
   readonly exts = new Exts()
@@ -27,12 +33,12 @@ export class Group {
     readonly abbr: Text,
   ) {}
 
-  slide(...slides: Slide[]) {
-    this.slides.push(...slides)
+  slide(...slides: Into<Slide>[]) {
+    this.slides.push(...finishAll(slides))
   }
 
-  print(...prints: Print[]) {
-    this.prints.push(...prints)
+  print(...prints: Into<Print>[]) {
+    this.prints.push(...finishAll(prints))
   }
 }
 
