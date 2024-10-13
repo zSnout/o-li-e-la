@@ -151,13 +151,13 @@ export function ViewSpeaker({
           <div class="mt-2 flex gap-2">
             <AsSvg
               exts={slideshow.exts}
-              class="aspect-video rounded-xl"
+              class="aspect-video select-none rounded-xl *:pointer-events-none"
               slide={prev()}
               onClick={() => setIndex((x) => Math.max(0, x - 1))}
             />
             <AsSvg
               exts={slideshow.exts}
-              class="aspect-video rounded-xl"
+              class="aspect-video select-none rounded-xl *:pointer-events-none"
               slide={next()}
               onClick={() =>
                 setIndex((x) => Math.min(slideshow.slides.length - 1, x + 1))
