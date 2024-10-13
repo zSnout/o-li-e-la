@@ -240,7 +240,7 @@ export function ViewSpeaker({
             Present
           </button>
           <button
-            class="z-field flex-1 rounded-none border-r-0 border-transparent border-t-z text-z-heading shadow-none hover:bg-z-body-selected"
+            class="z-field flex-1 rounded-none border-r-0 border-transparent border-l-z border-t-z text-z-heading shadow-none hover:bg-z-body-selected"
             onClick={() => setSidebar((x) => !x)}
           >
             Sidebar
