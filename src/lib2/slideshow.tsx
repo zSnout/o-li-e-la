@@ -196,6 +196,12 @@ export function ViewSpeaker({
                 popup.postMessage([MSG_FULLSCREEN, s], "/")
               }
             })
+            popup.addEventListener("load", () => {
+              const s = self()
+              if (s) {
+                popup.postMessage([MSG_FULLSCREEN, s], "/")
+              }
+            })
           }}
         >
           popup
