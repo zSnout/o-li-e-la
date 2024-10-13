@@ -20,6 +20,7 @@ import { ext as ext25 } from "./slide/no-pad"
 import { ext as ext16 } from "./slide/standard"
 import { ext as ext17 } from "./text/arr"
 import { ext as ext18 } from "./text/fmt"
+import { ext as ext27 } from "./text/linked"
 import { ext as ext19 } from "./text/str"
 import { ext as ext20 } from "./text/styled"
 import { ext as ext21 } from "./vocab/tokipona"
@@ -51,5 +52,6 @@ export function all() {
     ext24,
     ext25,
     ext26,
+    ext27,
   ]
 }
