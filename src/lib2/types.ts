@@ -139,8 +139,8 @@ export interface EntryFilter {
 
 export function createFilter(): EntryFilter {
   return {
-    embeds: false,
-    images: false,
-    links: false,
+    embeds: true,
+    images: true,
+    links: true,
   }
 }
