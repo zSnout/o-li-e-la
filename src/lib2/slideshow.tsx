@@ -310,3 +310,42 @@ export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
     </div>
   )
 }
+
+export function ViewEdit({ slideshow }: { slideshow: Slideshow }) {
+  const [current] = createSignal(slideshow.slides[slideshow.slides.length - 8])
+
+  return (
+    <div class="mx-auto grid h-screen max-h-screen flex-1 grid-cols-[8rem,960px,0.5rem,24rem,0.5rem]">
+      <div class="h-full space-y-2 overflow-y-auto p-2">
+        <For each={slideshow.slides}>
+          {(slide) => (
+            <AsSvg
+              exts={slideshow.exts}
+              slide={slide}
+              class="w-full rounded *:pointer-events-none"
+            />
+          )}
+        </For>
+      </div>
+      <div class="flex flex-1 flex-col gap-2 py-2">
+        <AsSvg
+          class="size-slide mx-auto rounded-lg"
+          exts={slideshow.exts}
+          slide={current()}
+        />
+        <pre class="flex flex-1 items-center justify-center rounded-lg bg-z-body italic text-z-subtitle">
+          this block reserved for future expansion
+        </pre>
+      </div>
+      <div />
+      <div class="flex h-full py-2">
+        <div class="flex flex-col gap-2 rounded-lg bg-z-body px-3 py-4">
+          <Show when={current()}>
+            {slideshow.exts.SlidePresenter(current()!)}
+          </Show>
+        </div>
+      </div>
+      <div />
+    </div>
+  )
+}
