@@ -3,6 +3,7 @@ import { render } from "solid-js/web"
 import { createRemSize } from "../lib/rem"
 import { createScreenSize } from "../lib/size"
 import { AsSvg } from "./AsSvg"
+import { clsx } from "./clsx"
 import { fmt, type FmtParams } from "./ext/text/fmt"
 import { Exts } from "./exts"
 import {
@@ -137,6 +138,7 @@ export function ViewSpeaker({
   index: number
 }) {
   const [index, setIndex] = createSignal(initialIndex)
+  const [sidebar, setSidebar] = createSignal(true)
 
   const self = createMemo(() => slideshow.slides[index()])
   const prev = createMemo(() => slideshow.slides[index() - 1])
@@ -144,11 +146,32 @@ export function ViewSpeaker({
 
   const screen = createScreenSize()
   const rem = createRemSize()
-  const w = createMemo(() => screen.width - 26 * rem())
+  const w = createMemo(
+    () => screen.width - 26 * rem() + -sidebar() * 10 * rem(),
+  )
   const h = createMemo(() => screen.height - 2 * rem())
 
   return (
-    <div class="grid h-full w-full flex-1 grid-cols-[1fr,24rem]">
+    <div
+      class={clsx(
+        "grid h-full w-full flex-1",
+        sidebar() ? "grid-cols-[10rem,1fr,24rem]" : "grid-cols-[1fr,24rem]",
+      )}
+    >
+      <Show when={sidebar()}>
+        <div class="h-full max-h-screen space-y-2 overflow-y-auto p-2 pr-0">
+          <For each={slideshow.slides}>
+            {(slide, index) => (
+              <AsSvg
+                class="rounded *:pointer-events-none"
+                exts={slideshow.exts}
+                slide={slide}
+                onClick={() => setIndex(index())}
+              />
+            )}
+          </For>
+        </div>
+      </Show>
       <div class="flex items-center justify-center p-4">
         <div
           style={{
@@ -179,40 +202,50 @@ export function ViewSpeaker({
           </div>
         </div>
       </div>
-      <div class="flex h-full flex-col gap-2 overflow-y-auto bg-z-body px-3 pt-4 font-sans">
-        <Show
-          when={self()}
-          fallback={
-            <p class="italic text-z-subtitle">No slide currently selected.</p>
-          }
-          keyed
-        >
-          {(k) => slideshow.exts.SlidePresenter(k)}
-        </Show>
-        <button
-          class="z-field -mx-3 mt-auto rounded-none border-l-0 border-transparent border-t-z text-z-heading shadow-none hover:bg-z-body-selected"
-          onClick={() => {
-            const popup = open(location.href)
-            if (!popup) {
-              alert("Cannot control popup. Reload and try again.")
-              return
+      <div class="flex h-full max-h-screen flex-col overflow-y-auto bg-z-body font-sans">
+        <div class="flex flex-col gap-2 px-3 py-4">
+          <Show
+            when={self()}
+            fallback={
+              <p class="italic text-z-subtitle">No slide currently selected.</p>
             }
-            createEffect(() => {
-              const s = self()
-              if (s) {
-                popup.postMessage([MSG_FULLSCREEN, s], "/")
+            keyed
+          >
+            {(k) => slideshow.exts.SlidePresenter(k)}
+          </Show>
+        </div>
+        <div class="sticky bottom-0 mt-auto flex">
+          <button
+            class="z-field flex-1 rounded-none border-l-0 border-transparent border-t-z text-z-heading shadow-none hover:bg-z-body-selected"
+            onClick={() => {
+              const popup = open(location.href)
+              if (!popup) {
+                alert("Cannot control popup. Reload and try again.")
+                return
               }
-            })
-            popup.addEventListener("load", () => {
-              const s = self()
-              if (s) {
-                popup.postMessage([MSG_FULLSCREEN, s], "/")
-              }
-            })
-          }}
-        >
-          Present
-        </button>
+              createEffect(() => {
+                const s = self()
+                if (s) {
+                  popup.postMessage([MSG_FULLSCREEN, s], "/")
+                }
+              })
+              popup.addEventListener("load", () => {
+                const s = self()
+                if (s) {
+                  popup.postMessage([MSG_FULLSCREEN, s], "/")
+                }
+              })
+            }}
+          >
+            Present
+          </button>
+          <button
+            class="z-field flex-1 rounded-none border-r-0 border-transparent border-t-z text-z-heading shadow-none hover:bg-z-body-selected"
+            onClick={() => setSidebar((x) => !x)}
+          >
+            Sidebar
+          </button>
+        </div>
       </div>
     </div>
   )
