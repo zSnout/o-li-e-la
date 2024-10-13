@@ -126,7 +126,7 @@ because why not`
       .li`sakawi`
       .li`not particularly notable`,
   ),
-  slide`your conlangs`.center()(),
+  slide`your conlangs`.center()(), // TODO: notes
   defineNoPad(
     [
       defineTwoCol(
@@ -154,13 +154,26 @@ because why not`
         ],
       ),
     ],
-    [],
+    [
+      // TODO: notes
+    ],
   ),
   defineSlideImage(
     "/uscript-p1.png",
     "The opening page of the Uscript self-defining sheet.",
     "contain-white",
-    [],
-    // TODO: notes
+    [
+      // TODO: notes
+    ],
   ),
 )
+
+/* TODO:
+ - na'vi
+ - that one band
+ - twin langs
+ - viossa
+ - toki pona
+ - cc
+ - conlang relay
+ */
