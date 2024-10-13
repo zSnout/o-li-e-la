@@ -2,7 +2,7 @@ import { Show } from "solid-js"
 import { clsx } from "../../clsx"
 import { defineExt } from "../../define"
 import type { Content, Text } from "../../types"
-import { fmt, type TextParams } from "../text/fmt"
+import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<
   [content: Text, index: number | null, center: boolean]
@@ -50,6 +50,6 @@ export function titleRaw(
   return ["title", [text, index, center]]
 }
 
-export function title(...text: TextParams): Content {
+export function title(...text: FmtParams): Content {
   return titleRaw(fmt(...text))
 }

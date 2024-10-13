@@ -8,7 +8,7 @@ import { note as defineNote } from "./ext/note/p"
 import { defineNoteSmall } from "./ext/note/p-small"
 import { defineSlideImage } from "./ext/slide/image"
 import { standard as defineStandard } from "./ext/slide/standard"
-import { fmt, type TextParams } from "./ext/text/fmt"
+import { fmt, type FmtParams } from "./ext/text/fmt"
 import { str as defineStr } from "./ext/text/str"
 
 import {
@@ -24,8 +24,8 @@ import {
 } from "./types"
 
 export interface QSlideStandardContent {
-  note(...note: TextParams): this
-  noteSmall(...note: TextParams): this
+  note(...note: FmtParams): this
+  noteSmall(...note: FmtParams): this
   (...content: Into<Content>[]): Slide
   content(...content: Into<Content>[]): Slide
 }
@@ -42,7 +42,7 @@ export interface QSlideStandardCenterable
   center(): QSlideStandardAside & QSlideStandardContent
 }
 
-export function slide(...title: TextParams): QSlideStandardCenterable {
+export function slide(...title: FmtParams): QSlideStandardCenterable {
   const notes: Note[] = []
   let aside: Aside | undefined
   let centered = false
@@ -72,12 +72,12 @@ export function slide(...title: TextParams): QSlideStandardCenterable {
     return content
   }
 
-  content.note = (...note: TextParams) => {
+  content.note = (...note: FmtParams) => {
     notes.push(defineNote(fmt(...note)))
     return content
   }
 
-  content.noteSmall = (...note: TextParams) => {
+  content.noteSmall = (...note: FmtParams) => {
     notes.push(defineNoteSmall(fmt(...note)))
     return content
   }
@@ -90,12 +90,12 @@ export function slide(...title: TextParams): QSlideStandardCenterable {
   return content
 }
 
-export function p(...text: TextParams): Content {
+export function p(...text: FmtParams): Content {
   return defineP(fmt(...text))
 }
 
 export interface Ul {
-  li(...text: TextParams): Ul
+  li(...text: FmtParams): Ul
   done(): Content
 }
 
@@ -121,12 +121,12 @@ export const ul: Ul = /* @__PURE__ */ {
 }
 
 export interface ChDiscuss {
-  note(...note: TextParams): ChDiscuss
-  also(...prompt: TextParams): ChDiscuss
+  note(...note: FmtParams): ChDiscuss
+  also(...prompt: FmtParams): ChDiscuss
   done(): Content
 }
 
-export function discuss(...prompt: TextParams): ChDiscuss {
+export function discuss(...prompt: FmtParams): ChDiscuss {
   let lastNotes: Note[] = []
   const prompts: [prompt: Text, notes?: readonly Note[]][] = [
     [fmt(...prompt), lastNotes],
@@ -150,7 +150,7 @@ export function discuss(...prompt: TextParams): ChDiscuss {
 }
 
 export interface QSlideImage {
-  note(...note: TextParams): QSlideImage
+  note(...note: FmtParams): QSlideImage
   done(): Slide
 }
 

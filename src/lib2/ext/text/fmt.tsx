@@ -1,6 +1,6 @@
 import { clsx } from "../../../lib/clsx"
 import { defineExt } from "../../define"
-import type { Text } from "../../types"
+import { finish, type Into, type Text } from "../../types"
 import { arr } from "./arr"
 import { str } from "./str"
 import { styledEng, styledTok } from "./styled"
@@ -67,12 +67,15 @@ export function fmtManual(
   return ["fmt", { content, b, i, u, x, p }]
 }
 
-export type TextParams = readonly [
+export type FmtParams = readonly [
   strings: readonly string[],
-  ...interps: Text[],
+  ...interps: Into<Text>[],
 ]
 
-export function fmt(strings: readonly string[], ...interps: Text[]): Text {
+export function fmt(
+  strings: readonly string[],
+  ...interps: Into<Text>[]
+): Text {
   const output: Text[] = []
   let b = false
   let i = false
@@ -81,7 +84,7 @@ export function fmt(strings: readonly string[], ...interps: Text[]): Text {
   let p = false
   for (let index = 0; index < strings.length; index++) {
     if (index > 0) {
-      output.push(interps[index - 1]!)
+      output.push(finish(interps[index - 1]!))
     }
 
     let text = strings[index]!

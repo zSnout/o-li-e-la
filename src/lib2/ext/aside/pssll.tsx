@@ -1,6 +1,6 @@
 import { defineExt } from "../../define"
 import type { Aside, Text } from "../../types"
-import { fmt, type TextParams } from "../text/fmt"
+import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<Text>()("aside", "pssll", {
   entry(data, exts) {
@@ -16,6 +16,6 @@ export const ext = defineExt<Text>()("aside", "pssll", {
   },
 })
 
-export function pssll(...text: TextParams): Aside {
+export function pssll(...text: FmtParams): Aside {
   return ["pssll", fmt(...text)]
 }
