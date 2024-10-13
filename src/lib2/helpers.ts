@@ -5,7 +5,6 @@ import { p as defineP } from "./ext/content/p"
 import { titleRaw as defineTitle } from "./ext/content/title"
 import { ul as defineUl } from "./ext/content/ul"
 import { note as defineNote } from "./ext/note/p"
-import { defineNoteSmall } from "./ext/note/p-small"
 import { defineSlideImage } from "./ext/slide/image"
 import { standard as defineStandard } from "./ext/slide/standard"
 import { fmt, type FmtParams } from "./ext/text/fmt"
@@ -25,7 +24,6 @@ import {
 
 export interface QSlideStandardContent {
   note(...note: FmtParams): this
-  noteSmall(...note: FmtParams): this
   (...content: Into<Content>[]): Slide
   content(...content: Into<Content>[]): Slide
 }
@@ -74,11 +72,6 @@ export function slide(...title: FmtParams): QSlideStandardCenterable {
 
   content.note = (...note: FmtParams) => {
     notes.push(defineNote(fmt(...note)))
-    return content
-  }
-
-  content.noteSmall = (...note: FmtParams) => {
-    notes.push(defineNoteSmall(fmt(...note)))
     return content
   }
 

@@ -3,8 +3,8 @@ import type { Aside, Text } from "../../types"
 import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<Text>()("aside", "pssll", {
-  entry(data, exts) {
-    return exts.TextEntry(data)
+  entry(data, exts, filter) {
+    return exts.TextEntry(data, filter)
   },
   presenter(): undefined {},
   slide(data, exts) {

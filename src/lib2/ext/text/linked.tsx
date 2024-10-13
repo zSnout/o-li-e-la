@@ -1,3 +1,4 @@
+import { Show } from "solid-js"
 import { defineExt } from "../../define"
 import type { Text } from "../../types"
 import { fmt, type FmtParams } from "./fmt"
@@ -20,11 +21,33 @@ export const ext = defineExt<[href: string, content: Text]>()(
         </a>
       )
     },
-    entry(data, exts) {
+    entry(data, exts, filter) {
       return (
         <>
-          {/* entry for link itself */}
-          {exts.TextEntry(data[1])}
+          <Show when={filter.links}>
+            <a
+              class="flex items-center justify-center font-sans text-z-link underline underline-offset-2"
+              href={data[0]}
+            >
+              {data[0]}
+            </a>
+          </Show>
+          {exts.TextEntry(data[1], filter)}
+        </>
+      )
+    },
+    entryNote(data, exts, filter) {
+      return (
+        <>
+          <Show when={filter.links}>
+            <a
+              class="flex items-center justify-center rounded border border-dashed border-z-text-link p-4 font-sans text-z-link underline underline-offset-2"
+              href={data[0]}
+            >
+              {data[0]}
+            </a>
+          </Show>
+          {exts.TextEntry(data[1], filter)}
         </>
       )
     },

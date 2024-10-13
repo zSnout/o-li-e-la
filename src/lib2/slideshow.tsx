@@ -3,8 +3,10 @@ import { render } from "solid-js/web"
 import { createRemSize } from "../lib/rem"
 import { createScreenSize } from "../lib/size"
 import { AsSvg } from "./AsSvg"
+import { fmt, type FmtParams } from "./ext/text/fmt"
 import { Exts } from "./exts"
 import {
+  createFilter,
   finishAll,
   type Into,
   type Print,
@@ -19,12 +21,17 @@ export class Slideshow {
   readonly prints: Print[] = []
 
   adopt(group: Group) {
+    this.groups.push(group)
     this.slides.push(...group.slides)
     this.prints.push(...group.prints)
   }
 }
 
 export class Group {
+  static of(...abbr: FmtParams) {
+    return (...title: FmtParams) => new Group(fmt(...title), fmt(...abbr))
+  }
+
   readonly slides: Slide[] = []
   readonly prints: Print[] = []
 
@@ -274,6 +281,28 @@ export function ViewDocument({ slideshow }: { slideshow: Slideshow }) {
             </div>
             <div class="flex flex-col gap-2 border-t border-z bg-z-body px-3 py-6 font-sans group-first/gridel:border-t-0">
               {slideshow.exts.SlidePresenter(slide)}
+            </div>
+          </div>
+        )}
+      </For>
+    </div>
+  )
+}
+
+export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
+  return (
+    <div class="flex flex-col p-4">
+      <For each={slideshow.groups}>
+        {(group) => (
+          <div class="flex flex-col gap-2">
+            <h2 class="rounded-b rounded-t-xl bg-z-body-selected px-4 py-3 font-sans text-2xl font-semibold text-z-heading">
+              {slideshow.exts.Text(group.title)}
+            </h2>
+
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-2">
+              <For each={group.slides}>
+                {(slide) => slideshow.exts.SlideEntry(slide, createFilter())}
+              </For>
             </div>
           </div>
         )}

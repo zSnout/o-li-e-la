@@ -8,6 +8,7 @@ import {
   Slideshow,
   startBackgroundProcess,
   ViewDocument,
+  ViewEntry,
   ViewSpeaker,
 } from "./lib2/slideshow"
 
@@ -22,6 +23,10 @@ render(() => {
 
   if (new URL(location.href).searchParams.get("view") == "doc") {
     return <ViewDocument slideshow={slideshow} />
+  } else if (new URL(location.href).searchParams.get("view") == "entry") {
+    document.documentElement.classList.remove("bg-z-body-selected")
+    document.documentElement.classList.add("bg-z-body")
+    return <ViewEntry slideshow={slideshow} />
   } else {
     return (
       <ViewSpeaker

@@ -9,8 +9,11 @@ export const ext = defineExt<readonly Text[]>()("text", "arr", {
   renderChallenge(data, exts) {
     return <For each={data}>{(x) => exts.TextChallenge(x)}</For>
   },
-  entry(data, exts) {
-    return <For each={data}>{(x) => exts.TextEntry(x)}</For>
+  entry(data, exts, filter) {
+    return <For each={data}>{(x) => exts.TextEntry(x, filter)}</For>
+  },
+  entryNote(data, exts, filter) {
+    return <For each={data}>{(x) => exts.TextEntryNote(x, filter)}</For>
   },
 })
 

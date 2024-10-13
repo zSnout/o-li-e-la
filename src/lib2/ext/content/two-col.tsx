@@ -50,10 +50,10 @@ export const ext = defineExt<[items: Content[][], center: boolean]>()(
         </For>
       )
     },
-    entry(data, exts) {
+    entry(data, exts, filter) {
       return (
         <For each={data[0]}>
-          {(e) => <For each={e}>{(e) => exts.ContentEntry(e)}</For>}
+          {(e) => <For each={e}>{(e) => exts.ContentEntry(e, filter)}</For>}
         </For>
       )
     },

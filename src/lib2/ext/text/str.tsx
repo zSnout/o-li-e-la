@@ -17,6 +17,7 @@ export const ext = defineExt<string>()("text", "", {
     }
   },
   entry(): undefined {},
+  entryNote(): undefined {},
 })
 
 export function str(text: string): Text {

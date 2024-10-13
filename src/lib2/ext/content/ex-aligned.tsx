@@ -22,13 +22,13 @@ export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">][]>()(
         </div>
       )
     },
-    entry(data, exts) {
+    entry(data, exts, filter) {
       return (
         <For each={data}>
           {(entry) => (
             <>
-              {exts.TextEntry(entry[0])}
-              {exts.TextEntry(entry[1])}
+              {exts.TextEntry(entry[0], filter)}
+              {exts.TextEntry(entry[1], filter)}
             </>
           )}
         </For>

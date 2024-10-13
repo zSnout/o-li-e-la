@@ -36,8 +36,8 @@ export const ext = defineExt<
       </h1>
     )
   },
-  entry(data, exts) {
-    return exts.TextEntry(data[0])
+  entry(data, exts, filter) {
+    return exts.TextEntry(data[0], filter)
   },
   presenter(): undefined {},
 })

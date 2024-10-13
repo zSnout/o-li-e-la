@@ -12,8 +12,8 @@ export const ext = defineExt<Text>()("content", "p", {
       <p class="my-4 font-ex-eng first:mt-0 last:mb-0">{exts.Text(data)}</p>
     )
   },
-  entry(data, exts) {
-    return exts.TextEntry(data)
+  entry(data, exts, filter) {
+    return exts.TextEntry(data, filter)
   },
   presenter() {
     return []

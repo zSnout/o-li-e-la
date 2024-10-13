@@ -2,6 +2,7 @@ import { untrack, type JSX } from "solid-js"
 import type {
   Aside,
   Content,
+  EntryFilter,
   ExtKindsUntyped,
   ExtsData,
   Note,
@@ -43,12 +44,20 @@ export class Exts implements ExtsData {
     return untrack(() => el.renderChallenge(item[1], this))
   }
 
-  TextEntry(item: Text): JSX.Element {
+  TextEntry(item: Text, filter: EntryFilter): JSX.Element {
     const el = this.text[item[0]]
     if (!el) {
       return err(`'TextEntry' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el.entry(item[1], this))
+    return untrack(() => el.entry(item[1], this, filter))
+  }
+
+  TextEntryNote(item: Text, filter: EntryFilter): JSX.Element {
+    const el = this.text[item[0]]
+    if (!el) {
+      return err(`'TextEntryNote' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.entryNote(item[1], this, filter))
   }
 
   AsideSlide(item: Aside): JSX.Element {
@@ -67,12 +76,12 @@ export class Exts implements ExtsData {
     return untrack(() => el.presenter(item[1], this))
   }
 
-  AsideEntry(item: Aside): JSX.Element {
+  AsideEntry(item: Aside, filter: EntryFilter): JSX.Element {
     const el = this.aside[item[0]]
     if (!el) {
       return err(`'AsideEntry' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el.entry(item[1], this))
+    return untrack(() => el.entry(item[1], this, filter))
   }
 
   ContentSlide(item: Content): JSX.Element {
@@ -99,12 +108,12 @@ export class Exts implements ExtsData {
     return untrack(() => el.presenter(item[1], this))
   }
 
-  ContentEntry(item: Content): JSX.Element {
+  ContentEntry(item: Content, filter: EntryFilter): JSX.Element {
     const el = this.content[item[0]]
     if (!el) {
       return err(`'ContentEntry' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el.entry(item[1], this))
+    return untrack(() => el.entry(item[1], this, filter))
   }
 
   Slide(item: Slide): JSX.Element {
@@ -123,12 +132,12 @@ export class Exts implements ExtsData {
     return untrack(() => el.presenter(item[1], this))
   }
 
-  SlideEntry(item: Slide): JSX.Element {
+  SlideEntry(item: Slide, filter: EntryFilter): JSX.Element {
     const el = this.slide[item[0]]
     if (!el) {
       return err(`'SlideEntry' for '${item[0]}' does not exist`)
     }
-    return untrack(() => el.entry(item[1], this))
+    return untrack(() => el.entry(item[1], this, filter))
   }
 
   NotePresenter(item: Note): JSX.Element {
@@ -137,6 +146,14 @@ export class Exts implements ExtsData {
       return err(`'NotePresenter' for '${item[0]}' does not exist`)
     }
     return untrack(() => el.presenter(item[1], this))
+  }
+
+  NoteEntry(item: Note, filter: EntryFilter): JSX.Element {
+    const el = this.note[item[0]]
+    if (!el) {
+      return err(`'NoteEntry' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.entry(item[1], this, filter))
   }
 
   Vocab(item: Vocab): JSX.Element {

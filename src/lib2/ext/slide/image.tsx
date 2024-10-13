@@ -36,7 +36,25 @@ export const ext = defineExt<
       </article>
     )
   },
-  entry(): undefined {},
+  entry(data, _, filter) {
+    return (
+      <Show when={filter.images}>
+        <div class="relative overflow-hidden rounded">
+          <div class="aspect-video w-full" />
+          <img
+            src={data[0]}
+            alt={data[1]}
+            class="absolute left-0 top-0 h-full w-full scale-110 object-cover opacity-50 blur"
+          />
+          <img
+            src={data[0]}
+            alt={data[1]}
+            class="absolute left-0 top-0 h-full w-full object-contain"
+          />
+        </div>
+      </Show>
+    )
+  },
   presenter(data, exts) {
     return <For each={data[3]}>{(x) => exts.NotePresenter(x)}</For>
   },

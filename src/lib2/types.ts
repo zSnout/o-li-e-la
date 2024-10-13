@@ -44,16 +44,16 @@ export interface Ext<K extends string, I extends string> {
 export interface ExtAside<T extends Json, I extends string>
   extends Ext<"aside", I> {
   slide(data: T, exts: Exts): JSX.Element
-  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
-  entry(data: NoInfer<T>, exts: Exts): JSX.Element
+  presenter(data: T, exts: Exts): JSX.Element
+  entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
 }
 
 export interface ExtContent<T extends Json, I extends string>
   extends Ext<"content", I> {
   slide(data: T, exts: Exts): JSX.Element
-  print(data: NoInfer<T>, exts: Exts): JSX.Element
-  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
-  entry(data: NoInfer<T>, exts: Exts): JSX.Element
+  print(data: T, exts: Exts): JSX.Element
+  presenter(data: T, exts: Exts): JSX.Element
+  entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
 }
 
 export interface ExtEntry<T extends Json, I extends string>
@@ -64,33 +64,35 @@ export interface ExtEntry<T extends Json, I extends string>
 export interface ExtNote<T extends Json, I extends string>
   extends Ext<"note", I> {
   presenter(data: T, exts: Exts): JSX.Element
+  entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
 }
 
 export interface ExtPrint<T extends Json, I extends string>
   extends Ext<"print", I> {
   render(data: T, exts: Exts): JSX.Element
-  entry(data: NoInfer<T>, exts: Exts): JSX.Element
+  entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
 }
 
 export interface ExtSlide<T extends Json, I extends string>
   extends Ext<"slide", I> {
   render(data: T, exts: Exts): JSX.Element
-  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
-  entry(data: NoInfer<T>, exts: Exts): JSX.Element
+  presenter(data: T, exts: Exts): JSX.Element
+  entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
 }
 
 export interface ExtText<T extends Json, I extends string>
   extends Ext<"text", I> {
   render(data: T, exts: Exts): JSX.Element
   renderChallenge(data: T, exts: Exts): JSX.Element
-  entry(data: NoInfer<T>, exts: Exts): JSX.Element
+  entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  entryNote(data: T, exts: Exts, filter: EntryFilter): JSX.Element
 }
 
 export interface ExtVocab<T extends Json, I extends string>
   extends Ext<"vocab", I> {
   render(data: T, exts: Exts): JSX.Element
-  withoutDefinition(data: NoInfer<T>, exts: Exts): JSX.Element
-  presenter(data: NoInfer<T>, exts: Exts): JSX.Element
+  withoutDefinition(data: T, exts: Exts): JSX.Element
+  presenter(data: T, exts: Exts): JSX.Element
 }
 
 export interface ExtKinds<T extends Json, I extends string> {
@@ -127,4 +129,18 @@ export function finish<T>(x: Into<T>): T {
 
 export function finishAll<T>(x: readonly Into<T>[]): T[] {
   return x.map(finish)
+}
+
+export interface EntryFilter {
+  embeds: boolean
+  images: boolean
+  links: boolean
+}
+
+export function createFilter(): EntryFilter {
+  return {
+    embeds: false,
+    images: false,
+    links: false,
+  }
 }

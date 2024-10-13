@@ -28,11 +28,12 @@ export const ext = defineExt<
       </article>
     )
   },
-  entry(data, exts) {
+  entry(data, exts, filter) {
     return (
       <>
-        <For each={data[0]}>{(x) => exts.ContentEntry(x)}</For>
-        <Show when={data[2]}>{exts.AsideEntry(data[2]!)}</Show>
+        <For each={data[0]}>{(x) => exts.ContentEntry(x, filter)}</For>
+        <Show when={data[2]}>{exts.AsideEntry(data[2]!, filter)}</Show>
+        <For each={data[1]}>{(x) => exts.NoteEntry(x, filter)}</For>
       </>
     )
   },

@@ -15,6 +15,7 @@ export const ext = defineExt<[classes: string, content: string]>()(
       return <span>{data[1]}</span>
     },
     entry(): undefined {},
+    entryNote(): undefined {},
   },
 )
 

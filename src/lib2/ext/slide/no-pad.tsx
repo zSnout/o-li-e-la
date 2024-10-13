@@ -16,8 +16,13 @@ export const ext = defineExt<
       </article>
     )
   },
-  entry(data, exts) {
-    return <For each={data[0]}>{(x) => exts.ContentEntry(x)}</For>
+  entry(data, exts, filter) {
+    return (
+      <>
+        <For each={data[0]}>{(x) => exts.ContentEntry(x, filter)}</For>
+        <For each={data[1]}>{(x) => exts.NoteEntry(x, filter)}</For>
+      </>
+    )
   },
   presenter(data, exts) {
     return (

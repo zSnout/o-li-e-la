@@ -43,8 +43,11 @@ export const ext = defineExt<{
       </span>
     )
   },
-  entry(data, exts) {
-    return exts.TextEntry(data.content)
+  entry(data, exts, filter) {
+    return exts.TextEntry(data.content, filter)
+  },
+  entryNote(data, exts, filter) {
+    return exts.TextEntryNote(data.content, filter)
   },
 })
 

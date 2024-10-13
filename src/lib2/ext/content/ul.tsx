@@ -29,8 +29,8 @@ export const ext = defineExt<readonly Text[]>()("content", "ul", {
       <span class="inline-block size-2 min-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed" />
     ))
   },
-  entry(data, exts) {
-    return <For each={data}>{(x) => exts.TextEntry(x)}</For>
+  entry(data, exts, filter) {
+    return <For each={data}>{(x) => exts.TextEntry(x, filter)}</For>
   },
   presenter(): undefined {},
 })

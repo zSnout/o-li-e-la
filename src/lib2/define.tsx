@@ -18,5 +18,5 @@ export function defineExt<T extends Json>() {
 }
 
 export function unimpl(): JSXElement {
-  return "unimplemented"
+  return <span>unimplemented</span>
 }

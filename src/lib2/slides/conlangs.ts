@@ -14,11 +14,7 @@ import {
 } from "../helpers"
 import { Group } from "../slideshow"
 
-export const DECK_CONLANGS =
-  new Group(
-    fmt`conlangs`,
-    fmt`00`,
-  )
+export const DECK_CONLANGS = Group.of`00``conlangs`
 
 DECK_CONLANGS.slide(
   slide`conlangs`

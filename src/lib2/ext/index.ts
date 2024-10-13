@@ -14,7 +14,6 @@ import { ext as ext11 } from "./content/title"
 import { ext as ext22 } from "./content/two-col"
 import { ext as ext13 } from "./content/ul"
 import { ext as ext14 } from "./note/p"
-import { ext as ext26 } from "./note/p-small"
 import { ext as ext15 } from "./slide/image"
 import { ext as ext25 } from "./slide/no-pad"
 import { ext as ext16 } from "./slide/standard"
@@ -51,7 +50,6 @@ export function all() {
     ext23,
     ext24,
     ext25,
-    ext26,
     ext27,
   ]
 }

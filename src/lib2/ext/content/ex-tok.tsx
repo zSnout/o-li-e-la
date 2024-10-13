@@ -16,11 +16,11 @@ export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
         </div>
       )
     },
-    entry(data, exts) {
+    entry(data, exts, filter) {
       return (
         <>
-          {exts.TextEntry(data[0])}
-          <For each={data[1]}>{(phrase) => exts.TextEntry(phrase)}</For>
+          {exts.TextEntry(data[0], filter)}
+          <For each={data[1]}>{(phrase) => exts.TextEntry(phrase, filter)}</For>
         </>
       )
     },
