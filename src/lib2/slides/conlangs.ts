@@ -63,7 +63,7 @@ DECK_CONLANGS.slide(
       .li`because why not`,
   ),
   slide`esperanto: to
-  unite the world`
+unite the world`
     .center()
     .image(
       "/eo_flag_wikimedia.png",
