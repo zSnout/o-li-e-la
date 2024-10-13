@@ -20,6 +20,9 @@ render(() => {
   slideshow.adopt(DECK_CONLANGS)
 
   return (
-    <ViewSpeaker slideshow={slideshow} index={slideshow.slides.length - 1} />
+    <ViewSpeaker
+      slideshow={slideshow}
+      index={import.meta.env.DEV ? slideshow.slides.length - 1 : 0}
+    />
   )
 }, root!)
