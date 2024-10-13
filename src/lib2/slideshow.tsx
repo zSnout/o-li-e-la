@@ -148,7 +148,7 @@ export function ViewSpeaker({
   const h = createMemo(() => screen.height - 2 * rem())
 
   return (
-    <div class="grid h-full w-full grid-cols-[1fr,24rem]">
+    <div class="grid h-full w-full flex-1 grid-cols-[1fr,24rem]">
       <div class="flex items-center justify-center p-4">
         <div
           style={{
