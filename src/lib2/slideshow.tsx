@@ -265,14 +265,14 @@ export function ViewLatest({ slideshow }: { slideshow: Slideshow }) {
 
 export function ViewDocument({ slideshow }: { slideshow: Slideshow }) {
   return (
-    <div class="relative flex h-full w-full flex-col">
+    <div class="relative mx-auto flex h-full w-full max-w-7xl flex-col">
       <For each={slideshow.slides}>
         {(slide) => (
-          <div class="grid w-full grid-cols-[auto,24rem]">
-            <div class="border-t border-transparent px-4 py-6">
+          <div class="group/gridel grid w-full grid-cols-[auto,24rem]">
+            <div class="border-t border-transparent px-4 py-6 group-first/gridel:border-t-0">
               <AsSvg exts={slideshow.exts} class="rounded-xl" slide={slide} />
             </div>
-            <div class="relative flex flex-col gap-2 border-t border-z bg-z-body px-3 py-6 font-sans">
+            <div class="flex flex-col gap-2 border-t border-z bg-z-body px-3 py-6 font-sans group-first/gridel:border-t-0">
               {slideshow.exts.SlidePresenter(slide)}
             </div>
           </div>
