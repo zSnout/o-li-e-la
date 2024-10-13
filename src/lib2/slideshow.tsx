@@ -179,7 +179,7 @@ export function ViewSpeaker({
           </div>
         </div>
       </div>
-      <div class="flex h-full flex-col gap-2 overflow-y-auto bg-z-body px-3 py-4 font-sans">
+      <div class="flex h-full flex-col gap-2 overflow-y-auto bg-z-body px-3 pt-4 font-sans">
         <Show
           when={self()}
           fallback={
@@ -190,7 +190,7 @@ export function ViewSpeaker({
           {(k) => slideshow.exts.SlidePresenter(k)}
         </Show>
         <button
-          class="z-field mt-auto"
+          class="z-field -mx-3 mt-auto rounded-none border-l-0 border-transparent border-t-z text-z-heading shadow-none hover:bg-z-body-selected"
           onClick={() => {
             const popup = open(location.href)
             if (!popup) {
@@ -211,7 +211,7 @@ export function ViewSpeaker({
             })
           }}
         >
-          popup
+          Present
         </button>
       </div>
     </div>
