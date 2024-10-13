@@ -13,7 +13,7 @@ export const ext = defineExt<
 >()("slide", "image", {
   render(data) {
     return (
-      <article class="size-slide relative flex bg-white text-2xl text-z contain-strict">
+      <article class="size-slide relative flex bg-z-body text-2xl text-z contain-strict">
         <Show when={data[2] == "contain"}>
           <img
             src={data[0]}

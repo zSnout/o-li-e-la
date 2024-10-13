@@ -13,7 +13,7 @@ export const ext = defineExt<
 >()("slide", "standard", {
   render(data, exts) {
     return (
-      <article class="size-slide relative flex bg-white text-2xl text-z contain-strict">
+      <article class="size-slide relative flex bg-z-body text-2xl text-z contain-strict">
         <main
           class={clsx(
             "w-full px-8 py-12",

@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en" class="flex h-full w-full flex-1 flex-col bg-slate-300">
+<html
+  lang="en"
+  class="flex min-h-full w-full flex-1 flex-col bg-z-body-selected"
+>
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -7,9 +10,21 @@
     <title>sitelen ilo pi toki pona</title>
   </head>
   <body
-    class="flex h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500"
+    class="flex min-h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500 dark:bg-slate-950"
   >
     <div id="root" class="flex h-full w-full flex-1 flex-col"></div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
+
+<script>
+  if (typeof matchMedia == "function") {
+    const media = matchMedia("(prefers-color-scheme: dark)")
+
+    document.documentElement.classList.toggle("dark", media.matches)
+
+    media.onchange = () => {
+      document.documentElement.classList.toggle("dark", media.matches)
+    }
+  }
+</script>

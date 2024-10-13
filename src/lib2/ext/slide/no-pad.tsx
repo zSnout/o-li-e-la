@@ -7,7 +7,7 @@ export const ext = defineExt<
 >()("slide", "no_pad", {
   render(data, exts) {
     return (
-      <article class="size-slide relative flex bg-white text-2xl text-z contain-strict">
+      <article class="size-slide relative flex bg-z-body text-2xl text-z contain-strict">
         <main class="flex w-full flex-col items-center justify-center text-center">
           <div class="w-full">
             <For each={data[0]}>{(e) => exts.ContentSlide(e)}</For>
