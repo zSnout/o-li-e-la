@@ -7,6 +7,7 @@ import { DECK_CONLANGS } from "./lib2/slides/conlangs"
 import {
   Slideshow,
   startBackgroundProcess,
+  ViewDocument,
   ViewSpeaker,
 } from "./lib2/slideshow"
 
@@ -19,10 +20,14 @@ render(() => {
 
   slideshow.adopt(DECK_CONLANGS)
 
-  return (
-    <ViewSpeaker
-      slideshow={slideshow}
-      index={import.meta.env.DEV ? slideshow.slides.length - 1 : 0}
-    />
-  )
+  if (new URL(location.href).searchParams.get("view") == "doc") {
+    return <ViewDocument slideshow={slideshow} />
+  } else {
+    return (
+      <ViewSpeaker
+        slideshow={slideshow}
+        index={import.meta.env.DEV ? slideshow.slides.length - 1 : 0}
+      />
+    )
+  }
 }, root!)

@@ -1,4 +1,4 @@
-import { createEffect, createMemo, createSignal, Show } from "solid-js"
+import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { render } from "solid-js/web"
 import { createRemSize } from "../lib/rem"
 import { createScreenSize } from "../lib/size"
@@ -259,6 +259,25 @@ export function ViewLatest({ slideshow }: { slideshow: Slideshow }) {
           popup
         </button>
       </div>
+    </div>
+  )
+}
+
+export function ViewDocument({ slideshow }: { slideshow: Slideshow }) {
+  return (
+    <div class="relative flex h-full w-full flex-col">
+      <For each={slideshow.slides}>
+        {(slide) => (
+          <div class="grid w-full grid-cols-[auto,24rem]">
+            <div class="border-t border-transparent px-4 py-6">
+              <AsSvg exts={slideshow.exts} class="rounded-xl" slide={slide} />
+            </div>
+            <div class="relative flex flex-col gap-2 border-t border-z bg-z-body px-3 py-6 font-sans">
+              {slideshow.exts.SlidePresenter(slide)}
+            </div>
+          </div>
+        )}
+      </For>
     </div>
   )
 }
