@@ -1,7 +1,7 @@
 import { For } from "solid-js"
 import { defineExt } from "../../define"
 import type { Content, TextOf } from "../../types"
-import { fmt, type FmtParams } from "../text/fmt"
+import { styledEng, styledTok } from "../text/styled"
 
 export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
   "content",
@@ -44,25 +44,25 @@ export function exTok(tok: TextOf<"tok">, eng: TextOf<"eng">[]): Content {
 }
 
 export interface NeedsEng {
-  eng(...eng: FmtParams): Done
+  eng(eng: TemplateStringsArray): Done
 }
 
 export interface Done {
-  alt(...eng: FmtParams): Done
+  alt(eng: TemplateStringsArray): Done
   done(): Content
 }
 
-export function buildExTok(...tok: FmtParams): NeedsEng {
+export function buildExTok([tok]: TemplateStringsArray): NeedsEng {
   return {
-    eng(...x) {
-      const eng = [fmt(...x)]
+    eng([x]) {
+      const eng = [styledEng(x!)]
       const result: Done = {
-        alt(...x) {
-          eng.push(fmt(...x))
+        alt([x]) {
+          eng.push(styledEng(x!))
           return result
         },
         done() {
-          return exTok(fmt(...tok), eng)
+          return exTok(styledTok(tok!), eng)
         },
       }
       return result

@@ -42,9 +42,11 @@ function LaBox({
         <p class="whitespace-nowrap font-ex-tok font-semibold">
           {challenge ? exts.TextChallenge(tokCtx) : exts.Text(tokCtx)}
         </p>
-        <p class="ml-auto whitespace-nowrap font-ex-eng">
-          {challenge ? exts.TextChallenge(engCtx) : exts.Text(engCtx)}
-        </p>
+        <Show when={!challenge}>
+          <p class="ml-auto whitespace-nowrap font-ex-eng">
+            {exts.Text(engCtx)} <span class="text-violet-800">la</span>
+          </p>
+        </Show>
       </div>
       <div
         class={clsx(
@@ -52,10 +54,10 @@ function LaBox({
           challenge ? "border-slate-600" : "border-violet-800",
         )}
       >
-        <Show when={challenge}>
-          <p class="whitespace-nowrap font-ex-tok font-semibold">
-            {exts.Text(tokMain)}
-          </p>
+        <p class="whitespace-nowrap font-ex-tok font-semibold">
+          {challenge ? exts.TextChallenge(tokMain) : exts.Text(tokMain)}
+        </p>
+        <Show when={!challenge}>
           <p class="ml-auto whitespace-nowrap font-ex-eng">
             {exts.Text(engMain)}
           </p>
@@ -114,10 +116,8 @@ function split<K extends string>(
   if (!result) {
     return [str("no la clause found"), base(source)]
   } else {
-    return [
-      base(source.slice(0, result.index!).trim()),
-      base(source.slice(result.index!).trim()),
-    ]
+    const idx = result.index! + result[0].length
+    return [base(source.slice(0, idx).trim()), base(source.slice(idx).trim())]
   }
 }
 

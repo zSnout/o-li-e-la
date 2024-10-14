@@ -6,7 +6,7 @@ import { styledTok } from "../text/styled"
 
 type Prompt = [a: TextOf<"tok">, b: TextOf<"tok">, explanation: Many<Text>]
 
-export const ext = defineExt<Prompt[]>()("content", "ch/discuss", {
+export const ext = defineExt<Prompt[]>()("content", "ch/diff", {
   slide(data, exts) {
     return (
       <div class="my-4 flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">
@@ -47,7 +47,7 @@ export interface NeedsExplain {
 }
 
 export function chDiff(prompts: Prompt[]): Content {
-  return ["ch/discuss", prompts]
+  return ["ch/diff", prompts]
 }
 
 export function builderDiff([tok]: TemplateStringsArray): NeedsAgainst {

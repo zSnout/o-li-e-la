@@ -154,7 +154,7 @@ export function fmt(
         if (end == -1) {
           end = text.length
         }
-        const sub = text.slice(1, end)
+        const sub = text.slice(2, end)
         text = text.slice(end + 1)
         output.push(str("“"))
         output.push(styledTok(sub))

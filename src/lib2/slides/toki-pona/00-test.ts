@@ -11,12 +11,12 @@ import {
   pilin,
 } from "./vocab"
 
-const group = Group.of`00``test of various functionalities`
+export const DECK_TOK_00 = Group.of`00``test of various functionalities`
 
 export const SLIDE_TEST_SYNTAX_HIGHLIGHTING =
   slide`syntax highlighting test`(
-    ex.tok`mu, ijo wawa o! tenpo ni la mi wile pana e sona suli tawa sina ale. o weka ala e tomo mi. seme la sina wile ni? ni li ike wawa a! ijo ale en jaki ale o, o ni ala a! o weka ala e tomo ante ale a! ante la sina wile e kili anu e pan?`
-      .eng`@@ Hi, cool being o! Right now, la I li want to give e important information tawa to you all. o Don't make e my house o disappear. Why la li would @en you li want to do this? That li 's terrible! All beings en and all disgusting things, o don't do this! o Don't remove e any other buildings! Also, la do you li want e fruit anu e or bread?`,
+    ex.tok`@ mu, ijo wawa oo! tenpo ni la mi wile pana e sona suli tawa sina ale. o weka ala e tomo mi. seme la sina wile ni? ni li ike wawa a! ijo ale en jaki ale oo, o ni ala a! o weka ala e tomo ante ale a! ante la sina wile e kili anu e pan?`
+      .eng`@ Hi, cool being o! Right now, la I li want to give e important information tawa to you all. o Don't make e my house o disappear. Why la li would @en you li want to do this? That li 's terrible! All beings en and all disgusting things, o don't do this! o Don't remove e any other buildings! Also, la do you li want e fruit anu e or bread?`,
   )
 
 export const SLIDE_PREPOSITIONS_AS_PREDICATES =
@@ -58,12 +58,12 @@ export const SLIDE_LA_FOR_MARKING_TIME =
 export const SLIDE_THE_PARTICLE_LA =
   slide`the particle la`(
     p`the particle #"la" works like this, where the context phrase can be a phrase or a sentence`,
-    ex.tok`[context phrase] la [main sentence].`
-      .eng`prela In_the_context_of [context phrase], [main sentence].`,
+    ex.tok`context phrase la main sentence.`
+      .eng`^la In_the_context_of context phrase, main sentence.`,
     ex.la`tenpo pini poka la jan li alasa pona e mi`
       .eng`nearby past la somebody li tried to improve e me`
       .full`recently, la somebody li tried to improve e me`,
-    ex.la`kon li wawa la mi ken ala tawa lon wile`
+    ex.la`kon li wawa la mi ken ala $tawa lon wile`
       .eng`the wind is strong la I li cannot move lon on my will`
       .full`because the wind is strong, la I li cannot move lon on my will`,
   )
@@ -81,19 +81,19 @@ export const SLIDE_MODIFIER_STACKING =
       .tok`~ kulupu jan suli`
       .eng`~ large group of people`
       .tok`~ kulupu jan suli ike`
-      .eng`~ bad, large group of people`,
-    ch.eng`~% sleeping adult`
-      .into`~% jan suli lape`
-      .hint`decompose $"pb adult"`
-      .eng`~% nice picture of fruit`
-      .into`~% sitelen kili pona`
+      .eng`~ bad, ~ large group of people`,
+    ch.eng`~ sleeping adult`
+      .into`~ jan suli lape`
+      .hint`decompose "adult"`
+      .eng`~ nice picture of fruit`
+      .into`~ sitelen kili pona`
       .hint`find the core word first`,
   )
 
 export const SLIDE_THE_PARTICLE_SEME =
   slide`the particle seme (for open-ended questions)`(
-    ul.li`to make a fill-in-the-blank question, make a normal sentence and use #"@@ seme" to replace what you want to know`
-      .li`don't change the word order from what the sentence would be without #"@@ seme"`
+    ul.li`to make a fill-in-the-blank question, make a normal sentence and use #"@ seme" to replace what you want to know`
+      .li`don't change the word order from what the sentence would be without #"@ seme"`
       .li`you can response with a full sentence, or with just what was asked for`,
     ex.qa`sina wile e seme?`
       .eng`you li want e what?`
@@ -147,7 +147,7 @@ export const SLIDE_THE_PARTICLE_PI =
       .expl`While #"pb jan poka mute" refers to many close people (maybe many friends, or maybe the people next to you in class), #"pb jan pp poka mute" refers to people who are very close by (think: the people next to you in a tight crowd).`,
   )
 
-group.slide(
+DECK_TOK_00.slide(
   SLIDE_TEST_SYNTAX_HIGHLIGHTING,
   SLIDE_PREPOSITIONS_AS_PREDICATES,
   SLIDE_LA_FOR_MARKING_TIME,

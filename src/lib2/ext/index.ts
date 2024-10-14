@@ -2,6 +2,7 @@ import { ext as ext1 } from "./aside/image"
 import { ext as ext23 } from "./aside/pssll"
 import { ext as ext2 } from "./aside/vocab"
 import { ext as ext3 } from "./aside/vocabWithoutDefinition"
+import { ext as ext28 } from "./content/ch-diff"
 import { ext as ext4 } from "./content/ch-discuss"
 import { ext as ext5 } from "./content/ch-translate"
 import { ext as ext6 } from "./content/ex-aligned"
@@ -51,5 +52,6 @@ export function all() {
     ext24,
     ext25,
     ext27,
+    ext28,
   ]
 }

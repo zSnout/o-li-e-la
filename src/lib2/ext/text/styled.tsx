@@ -149,6 +149,10 @@ export function createStyler<K extends string>(
  * 3. Apostrophes are prettified and merged with surrounding whitespace.
  */
 export function txPrettify(styled: Styled[]): Styled[] {
+  while (styled[0]?.[1].trim() == "") {
+    styled.shift()
+  }
+
   for (let i = 1; i < styled.length; i++) {
     const [, prev] = styled[i - 1]!
     let [, self] = styled[i]!
@@ -236,8 +240,8 @@ export const styledTok = createStyler(
     en: tag("text-sky-600", "text-sky-800", "en"),
     e: tag("text-green-600", "text-green-800", "e"),
     la: tag("text-violet-600", "text-violet-800", "la", true),
-    pp: tag("text-violet-600", "text-violet-800", "pp"),
-    pb: tag("text-orange-600", "text-orange-800", "pb"),
+    pp: tag("text-violet-600", "text-violet-800", "pi"),
+    pb: tag("text-orange-600", "text-orange-800", ""),
     lon: tag("text-orange-600", "text-orange-800", "lon"),
     tan: tag("text-orange-600", "text-orange-800", "tan"),
     tawa: tag("text-orange-600", "text-orange-800", "tawa"),

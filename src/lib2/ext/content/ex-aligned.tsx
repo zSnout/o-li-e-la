@@ -43,7 +43,7 @@ export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">][]>()(
 export function aligned(
   items: [tok: TextOf<"tok">, eng: TextOf<"eng">][],
 ): Content {
-  return ["ext/aligned", items]
+  return ["ex/aligned", items]
 }
 
 export interface NeedsEng {

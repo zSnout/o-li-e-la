@@ -1,9 +1,11 @@
 import "./refresh"
 
-import { render } from "solid-js/web"
+import { For, render } from "solid-js/web"
+import { RenderScalable } from "./el/Slide"
 import "./index.css"
+import { AsSvg } from "./lib2/AsSvg"
 import { all } from "./lib2/ext"
-import { DECK_CONLANGS } from "./lib2/slides/misc/conlangs"
+import { DECK_TOK_00 } from "./lib2/slides/toki-pona/00-test"
 import {
   Slideshow,
   startBackgroundProcess,
@@ -14,6 +16,9 @@ import {
   ViewSpeaker,
 } from "./lib2/slideshow"
 
+import { slides } from "./lib/helpers"
+import "./slides/02-dev/99-test"
+
 const root = document.getElementById("root")
 
 render(() => {
@@ -21,7 +26,21 @@ render(() => {
   slideshow.exts.add(...all())
   startBackgroundProcess(slideshow.exts)
 
-  slideshow.adopt(DECK_CONLANGS)
+  // slideshow.adopt(DECK_CONLANGS)
+  slideshow.adopt(DECK_TOK_00)
+
+  return (
+    <div class="grid grid-cols-2">
+      <For each={slideshow.slides}>
+        {(slide, idx) => (
+          <>
+            <AsSvg exts={slideshow.exts} slide={slide} />
+            <RenderScalable>{slides[idx()]!}</RenderScalable>
+          </>
+        )}
+      </For>
+    </div>
+  )
 
   if (new URL(location.href).searchParams.get("view") == "doc") {
     return <ViewDocument slideshow={slideshow} />

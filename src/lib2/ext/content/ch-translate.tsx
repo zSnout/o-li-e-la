@@ -99,6 +99,7 @@ function create(lang: "eng" | "tok", src: Text, dst: Text): DoneOrHint {
       return {
         into([dst]) {
           last = ["eng", styledEng(src!), [styledTok(dst!)], null]
+          out.push(last)
           return done
         },
       }
@@ -107,6 +108,7 @@ function create(lang: "eng" | "tok", src: Text, dst: Text): DoneOrHint {
       return {
         into([dst]) {
           last = ["tok", styledTok(src!), [styledEng(dst!)], null]
+          out.push(last)
           return done
         },
       }
