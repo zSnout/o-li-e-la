@@ -2,7 +2,17 @@ import { Show } from "solid-js"
 import { clsx } from "../../clsx"
 import { defineExt, unimpl } from "../../define"
 import type { Exts } from "../../exts"
-import type { Content, Many, TextCtx, TextCtxFull, TextOf } from "../../types"
+import {
+  type Content,
+  type Many,
+  type ManyMut,
+  type TextCtx,
+  type TextCtxFull,
+  type TextCtxFullMut,
+  type TextOf,
+} from "../../types"
+import { str } from "../text/str"
+import { styledEng, styledTok } from "../text/styled"
 
 function LaBox({
   engCtx,
@@ -94,4 +104,63 @@ export function laBox(
   challenge: boolean,
 ): Content {
   return ["la_box", [tok, eng, challenge]]
+}
+
+function split<K extends string>(
+  base: (text: string) => TextOf<K>,
+  source: string,
+): TextCtx<K> {
+  const result = source.match(/(?:^|\s)la(?:$|[\s?,.:;])/)
+  if (!result) {
+    return [str("no la clause found"), base(source)]
+  } else {
+    return [
+      base(source.slice(0, result.index!).trim()),
+      base(source.slice(result.index!).trim()),
+    ]
+  }
+}
+
+export interface NeedsFull {
+  full(strings: TemplateStringsArray): Done
+}
+
+export interface Done extends NeedsFull {
+  eng(strings: TemplateStringsArray): NeedsFull
+  done(): Content
+}
+
+export function createLaBuilder(challenge: boolean) {
+  return ([tok]: TemplateStringsArray) => ({
+    eng([eng]: TemplateStringsArray): NeedsFull {
+      return {
+        full([full]) {
+          let last: TextCtxFullMut<"eng"> = [
+            split(styledEng, eng!),
+            [styledEng(full!)],
+          ]
+          const result: ManyMut<typeof last> = [last]
+          const done: Done = {
+            done() {
+              return laBox(split(styledTok, tok!), result, challenge)
+            },
+            eng([eng]) {
+              return {
+                full([full]) {
+                  last = [split(styledEng, eng!), [styledEng(full!)]]
+                  result.push(last)
+                  return done
+                },
+              }
+            },
+            full([full]) {
+              last[1].push(styledEng(full!))
+              return done
+            },
+          }
+          return done
+        },
+      }
+    },
+  })
 }

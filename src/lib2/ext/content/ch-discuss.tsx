@@ -22,7 +22,7 @@ export const ext = defineExt<
 
 export function discuss(
   label: Text,
-  prompts: [prompt: Text, notes?: readonly Note[]][],
+  prompts: [prompt: Text, notes: readonly Note[]][],
 ): Content {
   return [
     "ch/discuss",

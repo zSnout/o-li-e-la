@@ -56,8 +56,8 @@ export function createStyler<K extends string>(
   txPost: (x: Styled[]) => Styled[],
   initial: string,
   _lang: K,
-): (text: string) => TextOf<K> {
-  return (text) => {
+) {
+  return (text: string): TextOf<K> => {
     text = txPre(text)
 
     let currentClasses = initial

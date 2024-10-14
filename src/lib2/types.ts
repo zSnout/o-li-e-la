@@ -13,6 +13,7 @@ export type Json =
   | { readonly [x: string]: Json }
 
 export type Many<T> = readonly [T, ...T[]]
+export type ManyMut<T> = [T, ...T[]]
 
 export type ItemUntagged = readonly [extId: string, data: Json]
 export type Item<K extends string> = ItemUntagged & { [KIND]?: K }
@@ -34,6 +35,10 @@ export type TextCtx<K extends string> = readonly [
 export type TextCtxFull<K extends string> = readonly [
   split: TextCtx<K>,
   full: Many<TextOf<K>>,
+]
+export type TextCtxFullMut<K extends string> = readonly [
+  split: TextCtx<K>,
+  full: ManyMut<TextOf<K>>,
 ]
 
 export interface Ext<K extends string, I extends string> {

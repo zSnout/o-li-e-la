@@ -1,18 +1,18 @@
-import { pssll } from "../ext/aside/pssll"
-import { defineIFrame } from "../ext/content/iframe"
-import { title } from "../ext/content/title"
-import { defineTwoCol } from "../ext/content/two-col"
-import { note } from "../ext/note/p"
-import { defineNoPad } from "../ext/slide/no-pad"
-import { fmt } from "../ext/text/fmt"
-import { link } from "../ext/text/linked"
+import { pssll } from "../../ext/aside/pssll"
+import { defineIFrame } from "../../ext/content/iframe"
+import { title } from "../../ext/content/title"
+import { defineTwoCol } from "../../ext/content/two-col"
+import { note } from "../../ext/note/p"
+import { defineNoPad } from "../../ext/slide/no-pad"
+import { fmt } from "../../ext/text/fmt"
+import { link } from "../../ext/text/linked"
 import {
   im,
   p,
   slide,
   ul,
-} from "../helpers"
-import { Group } from "../slideshow"
+} from "../../helpers"
+import { Group } from "../../slideshow"
 
 export const DECK_CONLANGS = Group.of`00``conlangs`
 

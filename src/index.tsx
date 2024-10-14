@@ -3,7 +3,7 @@ import "./refresh"
 import { render } from "solid-js/web"
 import "./index.css"
 import { all } from "./lib2/ext"
-import { DECK_CONLANGS } from "./lib2/slides/conlangs"
+import { DECK_CONLANGS } from "./lib2/slides/misc/conlangs"
 import {
   Slideshow,
   startBackgroundProcess,

@@ -1,5 +1,6 @@
 import { defineExt } from "../../define"
 import type { Text, Vocab } from "../../types"
+import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<{
   word: string
@@ -43,7 +44,123 @@ export function tokipona(data: {
   word: string
   defnShort: Text
   defnLipamanka: Text | null
-  kind: { name: string }
+  kind: WordKind
 }): Vocab {
   return ["tokipona", data]
 }
+
+// Intentionally not an interface.
+export type WordKind = {
+  content: boolean
+  particle: boolean
+  prep: boolean
+  preverb: boolean
+  name: string
+  abbr: string
+  color: string
+}
+
+const kinds = {
+  content: {
+    content: true,
+    particle: false,
+    prep: false,
+    preverb: false,
+
+    name: "content word",
+    abbr: "c.",
+    color: "bg-sky-500 text-sky-50",
+  } satisfies WordKind as WordKind,
+  particle: {
+    content: false,
+    particle: true,
+    prep: false,
+    preverb: false,
+
+    name: "particle",
+    abbr: "p.",
+    color: "bg-orange-500 text-orange-50",
+  } satisfies WordKind as WordKind,
+  semiparticle: {
+    content: true,
+    particle: true,
+    prep: false,
+    preverb: false,
+
+    name: "semiparticle",
+    abbr: "sp.",
+    color: "bg-green-500 text-green-50",
+  } satisfies WordKind as WordKind,
+  prep: {
+    content: true,
+    particle: false,
+    prep: true,
+    preverb: false,
+
+    name: "preposition",
+    abbr: "prep.",
+    color: "bg-violet-500 text-violet-50",
+  } satisfies WordKind as WordKind,
+  preverb: {
+    content: true,
+    particle: false,
+    prep: false,
+    preverb: true,
+
+    name: "preverb",
+    abbr: "pv.",
+    color: "bg-rose-500 text-rose-50",
+  } satisfies WordKind as WordKind,
+  emoticle: {
+    content: true,
+    particle: true,
+    prep: false,
+    preverb: true,
+
+    name: "emoticle",
+    abbr: "emo.",
+    color: "bg-fuchsia-500 text-fuchsia-50",
+  } satisfies WordKind as WordKind,
+}
+
+function createDefiner(kind: WordKind) {
+  return ([name]: readonly string[]) => ({
+    short(...short: FmtParams) {
+      return {
+        get noLipa(): Vocab {
+          return tokipona({
+            kind,
+            defnShort: fmt(...short),
+            defnLipamanka: null,
+            word: name!,
+          })
+        },
+        lipa(...lipa: FmtParams): Vocab {
+          return tokipona({
+            kind,
+            defnShort: fmt(...short),
+            defnLipamanka: fmt(...lipa),
+            word: name!,
+          })
+        },
+      }
+    },
+  })
+}
+
+export const content = /* @__PURE__ */ createDefiner(
+  /* @__PURE__ */ kinds.content,
+)
+export const particle = /* @__PURE__ */ createDefiner(
+  /* @__PURE__ */ kinds.particle,
+)
+export const semiparticle = /* @__PURE__ */ createDefiner(
+  /* @__PURE__ */ kinds.semiparticle,
+)
+export const prep = /* @__PURE__ */ createDefiner(/* @__PURE__ */ kinds.prep)
+export const preverb = /* @__PURE__ */ createDefiner(
+  /* @__PURE__ */ kinds.preverb,
+)
+export const emoticle = /* @__PURE__ */ createDefiner(
+  /* @__PURE__ */ kinds.emoticle,
+)

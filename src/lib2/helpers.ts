@@ -1,6 +1,12 @@
 import { image as defineImage } from "./ext/aside/image"
 import { vocab as defineVocab } from "./ext/aside/vocab"
+import { builderDiff } from "./ext/content/ch-diff"
 import { discuss as defineDiscuss } from "./ext/content/ch-discuss"
+import { builderChTranslate } from "./ext/content/ch-translate"
+import { builderAligned } from "./ext/content/ex-aligned"
+import { builderExQa } from "./ext/content/ex-qa"
+import { buildExTok } from "./ext/content/ex-tok"
+import { createLaBuilder } from "./ext/content/la-box"
 import { p as defineP } from "./ext/content/p"
 import { titleRaw as defineTitle } from "./ext/content/title"
 import { ul as defineUl } from "./ext/content/ul"
@@ -8,7 +14,7 @@ import { note as defineNote } from "./ext/note/p"
 import { defineSlideImage } from "./ext/slide/image"
 import { standard as defineStandard } from "./ext/slide/standard"
 import { fmt, type FmtParams } from "./ext/text/fmt"
-import { str as defineStr } from "./ext/text/str"
+import { str } from "./ext/text/str"
 
 import {
   finish,
@@ -119,27 +125,29 @@ export interface ChDiscuss {
   done(): Content
 }
 
-export function discuss(...prompt: FmtParams): ChDiscuss {
-  let lastNotes: Note[] = []
-  const prompts: [prompt: Text, notes?: readonly Note[]][] = [
-    [fmt(...prompt), lastNotes],
-  ]
-  const result: ChDiscuss = {
-    note(...note) {
-      lastNotes.push(defineNote(fmt(...note)))
-      return result
-    },
-    also(...prompt) {
-      lastNotes = []
-      prompts.push([fmt(...prompt), lastNotes])
-      return result
-    },
-    done() {
-      return defineDiscuss(defineStr("Discuss:"), prompts)
-    },
-  }
+function discussOf(label: Text) {
+  return (...prompt: FmtParams): ChDiscuss => {
+    let lastNotes: Note[] = []
+    const prompts: [prompt: Text, notes: readonly Note[]][] = [
+      [fmt(...prompt), lastNotes],
+    ]
+    const result: ChDiscuss = {
+      note(...note) {
+        lastNotes.push(defineNote(fmt(...note)))
+        return result
+      },
+      also(...prompt) {
+        lastNotes = []
+        prompts.push([fmt(...prompt), lastNotes])
+        return result
+      },
+      done() {
+        return defineDiscuss(label, prompts)
+      },
+    }
 
-  return result
+    return result
+  }
 }
 
 export interface QSlideImage {
@@ -180,5 +188,29 @@ export const im = {
         return result
       },
     }
+  },
+}
+
+export const ex = {
+  tok: buildExTok,
+  la: /* @__PURE__ */ createLaBuilder(false),
+  align: builderAligned,
+  qa: builderExQa,
+}
+
+export const ch = {
+  tok: /* @__PURE__ */ builderChTranslate.tok,
+  eng: /* @__PURE__ */ builderChTranslate.eng,
+  la: /* @__PURE__ */ createLaBuilder(true),
+  diff: builderDiff,
+  label(...label: FmtParams) {
+    return {
+      discuss(...prompt: FmtParams) {
+        return discussOf(fmt(...label))(...prompt)
+      },
+    }
+  },
+  discuss(...prompt: FmtParams) {
+    return discussOf(str("Discuss:"))(...prompt)
   },
 }
