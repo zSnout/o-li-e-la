@@ -203,7 +203,7 @@ export function ViewSpeaker({
         </div>
       </div>
       <div class="flex h-full max-h-screen flex-col overflow-y-auto bg-z-body font-sans">
-        <div class="flex flex-col gap-2 px-3 py-4">
+        <div class="flex flex-col gap-4 px-3 py-4">
           <Show
             when={self()}
             fallback={
@@ -271,7 +271,7 @@ export function ViewLatest({ slideshow }: { slideshow: Slideshow }) {
           <AsSvg exts={slideshow.exts} class="rounded-xl" slide={self()} />
         </div>
       </div>
-      <div class="flex h-full max-h-screen flex-col gap-2 overflow-y-auto bg-z-body px-3 py-4 font-sans">
+      <div class="flex h-full max-h-screen flex-col gap-4 overflow-y-auto bg-z-body px-3 py-4 font-sans">
         <Show
           when={self()}
           fallback={
@@ -294,7 +294,7 @@ export function ViewDocument({ slideshow }: { slideshow: Slideshow }) {
             <div class="border-t border-transparent px-4 py-6 group-first/gridel:border-t-0">
               <AsSvg exts={slideshow.exts} class="rounded-xl" slide={slide} />
             </div>
-            <div class="flex flex-col gap-2 border-t border-z bg-z-body px-3 py-6 font-sans group-first/gridel:border-t-0">
+            <div class="flex flex-col gap-4 border-t border-z bg-z-body px-3 py-6 font-sans group-first/gridel:border-t-0">
               {slideshow.exts.SlidePresenter(slide)}
             </div>
           </div>
@@ -354,7 +354,7 @@ export function ViewEdit({ slideshow }: { slideshow: Slideshow }) {
       </div>
       <div />
       <div class="flex h-full py-2">
-        <div class="flex flex-col gap-2 rounded-lg bg-z-body px-3 py-4">
+        <div class="flex flex-col gap-4 rounded-lg bg-z-body px-3 py-4">
           <Show when={current()}>
             {slideshow.exts.SlidePresenter(current()!)}
           </Show>

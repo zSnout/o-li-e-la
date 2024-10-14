@@ -1,7 +1,7 @@
 import "./refresh"
 
-import { For, render } from "solid-js/web"
-import { RenderScalable } from "./el/Slide"
+import { For, render, Show } from "solid-js/web"
+import { PresenterNotes, RenderScalable } from "./el/Slide"
 import "./index.css"
 import { AsSvg } from "./lib2/AsSvg"
 import { all } from "./lib2/ext"
@@ -26,16 +26,23 @@ render(() => {
   slideshow.exts.add(...all())
   startBackgroundProcess(slideshow.exts)
 
-  // slideshow.adopt(DECK_CONLANGS)
   slideshow.adopt(DECK_TOK_00)
 
   return (
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-[auto,24rem,auto,24rem]">
       <For each={slideshow.slides}>
         {(slide, idx) => (
           <>
             <AsSvg exts={slideshow.exts} slide={slide} />
-            <RenderScalable>{slides[idx()]!}</RenderScalable>
+            <div class="flex h-full flex-col gap-4 bg-z-body px-3 py-4">
+              {slideshow.exts.SlidePresenter(slide)}
+            </div>
+            <Show when={slides[idx()]}>
+              <RenderScalable>{slides[idx()]!}</RenderScalable>
+              <div class="flex h-full flex-col gap-4 bg-z-body px-3 py-4">
+                <PresenterNotes>{slides[idx()]!}</PresenterNotes>
+              </div>
+            </Show>
           </>
         )}
       </For>

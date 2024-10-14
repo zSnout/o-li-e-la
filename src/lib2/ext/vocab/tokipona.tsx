@@ -1,3 +1,4 @@
+import { Show } from "solid-js"
 import { defineExt } from "../../define"
 import type { Text, Vocab } from "../../types"
 import { fmt, type FmtParams } from "../text/fmt"
@@ -32,9 +33,22 @@ export const ext = defineExt<{
           <span class="text-z-subtitle">({data.kind.name})</span>
         </summary>
 
-        <p class="pl-8 pt-1 font-ex-eng text-z">
+        <p class="pl-8 pt-1 font-sans text-z">
           {exts.Text(data.defnLipamanka ?? data.defnShort)}
         </p>
+
+        <Show when={data.defnLipamanka}>
+          <p class="mt-1 pl-8 font-sans text-sm text-z-subtitle">
+            (Written by lipamanka,{" "}
+            <a
+              href="https://lipamanka.gay/essays/dictionary"
+              class="text-z-link underline underline-offset-2"
+            >
+              whose full dictionary may be found on its website
+            </a>
+            .)
+          </p>
+        </Show>
       </details>
     )
   },

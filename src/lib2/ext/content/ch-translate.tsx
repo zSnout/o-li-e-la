@@ -1,4 +1,5 @@
 import { For, Show } from "solid-js"
+import { clsx } from "../../clsx"
 import { defineExt, unimpl } from "../../define"
 import type { Exts } from "../../exts"
 import type { Content, Many, ManyMut, Text } from "../../types"
@@ -52,8 +53,32 @@ export const ext = defineExt<readonly ChTranslateOne[]>()(
   "ch/transl",
   {
     slide: render,
+    presenter(data, exts) {
+      return (
+        <For each={data}>
+          {([lang, src, dst]) => (
+            <div class="text-z">
+              <p
+                class={clsx(
+                  "font-semibold",
+                  { tok: "font-ex-tok", eng: "font-ex-eng" }[lang],
+                )}
+              >
+                {exts.Text(src)}
+              </p>
+              <For each={dst}>
+                {(x) => (
+                  <p class={{ tok: "font-ex-eng", eng: "font-ex-tok" }[lang]}>
+                    {exts.Text(x)}
+                  </p>
+                )}
+              </For>
+            </div>
+          )}
+        </For>
+      )
+    },
     entry: unimpl,
-    presenter: unimpl,
     print: render,
   },
 )
