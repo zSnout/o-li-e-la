@@ -45,7 +45,7 @@ export const SLIDE_PREPOSITIONS_AS_PREDICATES =
 export const SLIDE_LA_FOR_MARKING_TIME =
   slide`la for marking time`(
     p`#"tenpo ... la" phrases are used to mark when something occurs in time`,
-    ex.la`tenpo kama la soweli kama tawa ma kasi`
+    ex.la`tenpo kama la soweli li kama tawa ma kasi`
       .eng`coming time la furry creatures li come tawa to the forest`
       .full`in the future, la furry creatures li will come tawa to the forest`,
     ch.la`tenpo weka la toki uta li ante mute`
