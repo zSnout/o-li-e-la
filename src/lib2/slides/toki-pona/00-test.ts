@@ -50,7 +50,7 @@ export const SLIDE_LA_FOR_MARKING_TIME =
       .full`in the future, la furry creatures li will come tawa to the forest`,
     ch.la`tenpo weka la toki uta li ante mute`
       .eng`far time la spoken language li was/will be very different`
-      .full`in a distant time, spoken language was/will be very different`,
+      .full`in a distant time,la  spoken language li was/will be very different`,
     ch.eng`right now, la my parents li are grounding e me.`
       .into`tenpo ni la mama mi li awen e mi lon tomo.`,
   )
@@ -125,13 +125,13 @@ export const SLIDE_RESPONDING_TO_X_ALA_X =
       .tok`mi ni ala.`
       .eng`I li didn't do that.`,
     ch.label`Respond to these questions:`
-      .discuss`"akesi li moli ala moli?"`
+      .discuss`akesi li moli ala moli?`
       .note`hi`
       .note`world`
       .note`goodbye`
-      .also`"mi o moli ala moli e ona?"`
+      .also`mi o moli ala moli e ona?`
       .note`goodbye`
-      .also`"sina pana ala pana e ona tawa sike?"`,
+      .also`sina pana ala pana e ona tawa sike?`,
   )
 
 export const SLIDE_THE_PARTICLE_PI =

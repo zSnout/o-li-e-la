@@ -24,7 +24,7 @@ export const ext = defineExt<[href: string, content: Text]>()(
     entry(data, exts, filter) {
       return (
         <>
-          <Show when={filter.links}>
+          <Show when={filter.media.links}>
             <a
               class="flex items-center justify-center font-sans text-z-link underline underline-offset-2"
               href={data[0]}
@@ -39,7 +39,7 @@ export const ext = defineExt<[href: string, content: Text]>()(
     entryNote(data, exts, filter) {
       return (
         <>
-          <Show when={filter.links}>
+          <Show when={filter.media.links}>
             <a
               class="flex items-center justify-center rounded border border-dashed border-z-text-link p-4 font-sans text-z-link underline underline-offset-2"
               href={data[0]}

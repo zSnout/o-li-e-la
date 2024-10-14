@@ -311,6 +311,9 @@ export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
         {(group) => (
           <div class="flex flex-col gap-2">
             <h2 class="rounded-b rounded-t-xl bg-z-body-selected px-4 py-3 font-sans text-2xl font-semibold text-z-heading">
+              <span class="mr-3 font-['Fira_Code',monospace] font-normal text-z-subtitle">
+                {slideshow.exts.Text(group.abbr)}
+              </span>
               {slideshow.exts.Text(group.title)}
             </h2>
 

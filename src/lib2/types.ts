@@ -40,6 +40,7 @@ export type TextCtxFullMut<K extends string> = readonly [
   split: TextCtx<K>,
   full: ManyMut<TextOf<K>>,
 ]
+export type TokEng = readonly [tok: TextOf<"tok">, eng: TextOf<"eng">]
 
 export interface Ext<K extends string, I extends string> {
   id: I
@@ -137,15 +138,35 @@ export function finishAll<T>(x: readonly Into<T>[]): T[] {
 }
 
 export interface EntryFilter {
-  embeds: boolean
-  images: boolean
-  links: boolean
+  ch: {
+    diff: boolean
+    discuss: boolean
+    transl: boolean
+  }
+  ex: {
+    transl: boolean
+  }
+  media: {
+    embeds: boolean
+    images: boolean
+    links: boolean
+  }
 }
 
 export function createFilter(): EntryFilter {
   return {
-    embeds: true,
-    images: true,
-    links: true,
+    ch: {
+      diff: true,
+      discuss: true,
+      transl: true,
+    },
+    ex: {
+      transl: true,
+    },
+    media: {
+      embeds: true,
+      images: true,
+      links: true,
+    },
   }
 }

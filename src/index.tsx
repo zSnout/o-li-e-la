@@ -17,6 +17,7 @@ import {
 } from "./lib2/slideshow"
 
 import { slides } from "./lib/helpers"
+import { VIEW } from "./lib/query"
 import "./slides/02-dev/99-test"
 
 const root = document.getElementById("root")
@@ -28,36 +29,36 @@ render(() => {
 
   slideshow.adopt(DECK_TOK_00)
 
-  return (
-    <div class="grid grid-cols-[auto,24rem,auto,24rem]">
-      <For each={slideshow.slides}>
-        {(slide, idx) => (
-          <>
-            <AsSvg exts={slideshow.exts} slide={slide} />
-            <div class="flex h-full flex-col gap-4 bg-z-body px-3 py-4">
-              {slideshow.exts.SlidePresenter(slide)}
-            </div>
-            <Show when={slides[idx()]}>
-              <RenderScalable>{slides[idx()]!}</RenderScalable>
+  if (VIEW == "diff") {
+    return (
+      <div class="grid grid-cols-[auto,24rem,auto,24rem]">
+        <For each={slideshow.slides}>
+          {(slide, idx) => (
+            <>
+              <AsSvg exts={slideshow.exts} slide={slide} />
               <div class="flex h-full flex-col gap-4 bg-z-body px-3 py-4">
-                <PresenterNotes>{slides[idx()]!}</PresenterNotes>
+                {slideshow.exts.SlidePresenter(slide)}
               </div>
-            </Show>
-          </>
-        )}
-      </For>
-    </div>
-  )
-
-  if (new URL(location.href).searchParams.get("view") == "doc") {
+              <Show when={slides[idx()]}>
+                <RenderScalable>{slides[idx()]!}</RenderScalable>
+                <div class="flex h-full flex-col gap-4 bg-z-body px-3 py-4">
+                  <PresenterNotes>{slides[idx()]!}</PresenterNotes>
+                </div>
+              </Show>
+            </>
+          )}
+        </For>
+      </div>
+    )
+  } else if (VIEW == "doc") {
     return <ViewDocument slideshow={slideshow} />
-  } else if (new URL(location.href).searchParams.get("view") == "latest") {
+  } else if (VIEW == "latest") {
     return <ViewLatest slideshow={slideshow} />
-  } else if (new URL(location.href).searchParams.get("view") == "entry") {
+  } else if (VIEW == "entry") {
     document.documentElement.classList.remove("bg-z-body-selected")
     document.documentElement.classList.add("bg-z-body")
     return <ViewEntry slideshow={slideshow} />
-  } else if (new URL(location.href).searchParams.get("view") == "edit") {
+  } else if (VIEW == "edit") {
     return <ViewEdit slideshow={slideshow} />
   } else {
     return (

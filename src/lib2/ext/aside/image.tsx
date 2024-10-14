@@ -47,7 +47,7 @@ export const ext = defineExt<
   },
   entry(data, _, filter) {
     return (
-      <Show when={filter.images}>
+      <Show when={filter.media.images}>
         <div class="relative overflow-hidden rounded">
           <div class="aspect-video w-full" />
           <img

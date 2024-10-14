@@ -1,60 +1,65 @@
 import { For } from "solid-js"
 import { defineExt, unimpl } from "../../define"
-import type { Content, Many, ManyMut, TextOf } from "../../types"
+import type { Exts } from "../../exts"
+import type { Content, Many, ManyMut, TextOf, TokEng } from "../../types"
 import { styledEng, styledTok } from "../text/styled"
 
-export const ext = defineExt<
-  [
-    q: [tok: TextOf<"tok">, eng: TextOf<"eng">],
-    a: Many<[tok: TextOf<"tok">, eng: TextOf<"eng">]>,
-  ]
->()("content", "ex/qa", {
-  slide(data, exts) {
-    if (data[1].length == 1) {
+export const ext = defineExt<[q: TokEng, ...a: Many<TokEng>]>()(
+  "content",
+  "ex/qa",
+  {
+    slide: render,
+    entry(data, exts, filter) {
       return (
-        <div class="my-4 grid grid-cols-2 gap-x-8">
-          <p class="text-right font-ex-tok font-semibold">
-            {exts.Text(data[0][0])}
-          </p>
-          <p class="font-ex-tok font-semibold">{exts.Text(data[1][0][0])}</p>
-
-          <p class="text-right font-ex-eng">{exts.Text(data[0][1])}</p>
-          <p class="font-ex-eng">{exts.Text(data[1][0][1])}</p>
-        </div>
+        <For each={data.flat()}>{(text) => exts.TextEntry(text, filter)}</For>
       )
-    }
+    },
+    presenter(): undefined {},
+    print: unimpl,
+  },
+)
 
+function render(data: [q: TokEng, ...a: Many<TokEng>], exts: Exts) {
+  if (data.length == 2) {
     return (
-      <div class="my-4 flex flex-col">
-        <p class="text-center font-ex-tok font-semibold">
+      <div class="my-4 grid grid-cols-2 gap-x-8">
+        <p class="text-right font-ex-tok font-semibold">
           {exts.Text(data[0][0])}
         </p>
-        <p class="text-center font-ex-eng">{exts.Text(data[0][1])}</p>
-        <div class="mt-4 grid grid-cols-2 gap-x-8">
-          <For each={data[1]}>
-            {(a) => (
-              <>
-                <p class="text-right font-ex-tok font-semibold">
-                  {exts.Text(a[0])}
-                </p>
-                <p class="font-ex-eng">{exts.Text(a[1])}</p>
-              </>
-            )}
-          </For>
-        </div>
+        <p class="font-ex-tok font-semibold">{exts.Text(data[1][0])}</p>
+        <p class="text-right font-ex-eng">{exts.Text(data[0][1])}</p>
+        <p class="font-ex-eng">{exts.Text(data[1][1])}</p>
       </div>
     )
-  },
-  entry: unimpl,
-  presenter: unimpl,
-  print: unimpl,
-})
+  }
+
+  return (
+    <div class="my-4 flex flex-col">
+      <p class="text-center font-ex-tok font-semibold">
+        {exts.Text(data[0][0])}
+      </p>
+      <p class="text-center font-ex-eng">{exts.Text(data[0][1])}</p>
+      <div class="mt-4 grid grid-cols-2 gap-x-8">
+        <For each={data.slice(1)}>
+          {(a) => (
+            <>
+              <p class="text-right font-ex-tok font-semibold">
+                {exts.Text(a[0])}
+              </p>
+              <p class="font-ex-eng">{exts.Text(a[1])}</p>
+            </>
+          )}
+        </For>
+      </div>
+    </div>
+  )
+}
 
 export function qa(
   q: [tok: TextOf<"tok">, eng: TextOf<"eng">],
   a: Many<[tok: TextOf<"tok">, eng: TextOf<"eng">]>,
 ): Content {
-  return ["ex/qa", [q, a]]
+  return ["ex/qa", [q, ...a]]
 }
 
 export interface NeedsEng<T> {

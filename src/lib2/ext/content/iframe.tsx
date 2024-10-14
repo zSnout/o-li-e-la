@@ -23,7 +23,7 @@ export const ext = defineExt<string>()("content", "iframe", {
   },
   entry(data, _, filter) {
     return (
-      <Show when={filter.embeds}>
+      <Show when={filter.media.embeds}>
         <AsSvgGeneric class="rounded">
           <iframe
             class="origin-top-left scale-[200%]"

@@ -1,4 +1,5 @@
-import { For } from "solid-js"
+import { For, Show } from "solid-js"
+import { Ch } from "../../Ch"
 import { defineExt, unimpl } from "../../define"
 import type { Content, Many, ManyMut, Text, TextOf } from "../../types"
 import { fmt, type FmtParams } from "../text/fmt"
@@ -28,8 +29,43 @@ export const ext = defineExt<Prompt[]>()("content", "ch/diff", {
       </div>
     )
   },
-  entry: unimpl,
-  presenter: unimpl,
+  entry(data, exts, filter) {
+    return (
+      <For each={data}>
+        {([a, b, expls]) => (
+          <>
+            <Show when={filter.ch.diff}>
+              <Ch>
+                <p class="absolute right-1 top-1 rounded-sm bg-z-body px-1 font-sans">
+                  diff
+                </p>
+                <p class="font-ex-tok font-semibold">{exts.Text(a)}</p>
+                <p class="font-ex-tok font-semibold">{exts.Text(b)}</p>
+              </Ch>
+            </Show>
+            {exts.TextEntry(a, filter)}
+            {exts.TextEntry(b, filter)}
+            <For each={expls}>{(expl) => exts.TextEntry(expl, filter)}</For>
+          </>
+        )}
+      </For>
+    )
+  },
+  presenter(data, exts) {
+    return (
+      <For each={data}>
+        {([a, b, expls]) => (
+          <div class="text-z">
+            <p class="font-ex-tok font-semibold">{exts.Text(a)}</p>
+            <p class="font-ex-tok font-semibold">{exts.Text(b)}</p>
+            <For each={expls}>
+              {(expl) => <p class="font-sans text-z">{exts.Text(expl)}</p>}
+            </For>
+          </div>
+        )}
+      </For>
+    )
+  },
   print: unimpl,
 })
 

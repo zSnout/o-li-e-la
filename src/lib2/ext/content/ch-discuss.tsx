@@ -1,4 +1,5 @@
-import { For } from "solid-js"
+import { For, Show } from "solid-js"
+import { Ch } from "../../Ch"
 import { defineExt, unimpl } from "../../define"
 import type { Content, Note, Text } from "../../types"
 
@@ -15,8 +16,39 @@ export const ext = defineExt<
       </div>
     )
   },
-  entry: unimpl,
-  presenter: unimpl,
+  entry(data, exts, filter) {
+    return (
+      <>
+        {exts.TextEntry(data[0], filter)}
+        <For each={data[1]}>
+          {([prompt, notes]) => (
+            <>
+              <Show when={filter.ch.discuss}>
+                <Ch>
+                  <p class="font-sans">{exts.Text(prompt)}</p>
+                </Ch>
+              </Show>
+              <For each={notes}>{(note) => exts.NoteEntry(note, filter)}</For>
+            </>
+          )}
+        </For>
+      </>
+    )
+  },
+  presenter(data, exts) {
+    return (
+      <For each={data[1]}>
+        {([prompt, notes]) => (
+          <Show when={notes.length}>
+            <div class="text-z">
+              <p class="font-sans font-semibold">{exts.Text(prompt)}</p>
+              <For each={notes}>{(note) => exts.NotePresenter(note)}</For>
+            </div>
+          </Show>
+        )}
+      </For>
+    )
+  },
   print: unimpl,
 })
 

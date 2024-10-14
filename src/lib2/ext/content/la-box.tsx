@@ -1,6 +1,7 @@
-import { Show } from "solid-js"
+import { For, Show } from "solid-js"
+import { MaybeCh } from "../../Ch"
 import { clsx } from "../../clsx"
-import { defineExt, unimpl } from "../../define"
+import { defineExt } from "../../define"
 import type { Exts } from "../../exts"
 import {
   type Content,
@@ -83,8 +84,53 @@ export const ext = defineExt<
       />
     )
   },
-  entry: unimpl,
-  presenter: unimpl,
+  entry(data, exts, filter) {
+    return (
+      <>
+        <Show when={filter.ex.transl}>
+          <MaybeCh ch={data[2]}>
+            <p class="font-ex-tok font-semibold">
+              {exts.Text(data[0][0])} {exts.Text(data[0][1])}
+            </p>
+            <For each={data[1]}>
+              {(eng) => (
+                <>
+                  <p class="font-ex-eng">
+                    {exts.Text(eng[0][0])}{" "}
+                    <span class="text-purple-800">la</span>{" "}
+                    {exts.Text(eng[0][1])}
+                  </p>
+                  <For each={eng[1]}>
+                    {(full) => <p class="font-ex-eng">{exts.Text(full)}</p>}
+                  </For>
+                </>
+              )}
+            </For>
+          </MaybeCh>
+        </Show>
+      </>
+    )
+  },
+  presenter(data, exts) {
+    return (
+      <For each={data[1]}>
+        {(eng) => (
+          <div class="text-z">
+            <p class="font-ex-tok font-semibold">
+              {exts.Text(data[0][0])} {exts.Text(data[0][1])}
+            </p>
+            <p class="font-ex-eng">
+              {exts.Text(eng[0][0])} <span class="text-purple-800">la</span>{" "}
+              {exts.Text(eng[0][1])}
+            </p>
+            <For each={eng[1]}>
+              {(full) => <p class="font-ex-eng">{exts.Text(full)}</p>}
+            </For>
+          </div>
+        )}
+      </For>
+    )
+  },
   print(data, exts) {
     return (
       <LaBox

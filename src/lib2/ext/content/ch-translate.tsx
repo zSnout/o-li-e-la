@@ -1,6 +1,7 @@
 import { For, Show } from "solid-js"
+import { Ch } from "../../Ch"
 import { clsx } from "../../clsx"
-import { defineExt, unimpl } from "../../define"
+import { defineExt } from "../../define"
 import type { Exts } from "../../exts"
 import type { Content, Many, ManyMut, Text } from "../../types"
 import { fmt, type FmtParams } from "../text/fmt"
@@ -78,7 +79,39 @@ export const ext = defineExt<readonly ChTranslateOne[]>()(
         </For>
       )
     },
-    entry: unimpl,
+    entry(data, exts, filter) {
+      return (
+        <For each={data}>
+          {([lang, src, dst]) => (
+            <>
+              <Show when={filter.ch.transl}>
+                <Ch>
+                  <p
+                    class={clsx(
+                      "font-semibold",
+                      { tok: "font-ex-tok", eng: "font-ex-eng" }[lang],
+                    )}
+                  >
+                    {exts.Text(src)}
+                  </p>
+                  <For each={dst}>
+                    {(x) => (
+                      <p
+                        class={{ tok: "font-ex-eng", eng: "font-ex-tok" }[lang]}
+                      >
+                        {exts.Text(x)}
+                      </p>
+                    )}
+                  </For>
+                </Ch>
+              </Show>
+              {exts.TextEntry(src, filter)}
+              <For each={dst}>{(x) => exts.TextEntry(x, filter)}</For>
+            </>
+          )}
+        </For>
+      )
+    },
     print: render,
   },
 )
