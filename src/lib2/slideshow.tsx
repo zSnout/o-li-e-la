@@ -46,6 +46,7 @@ export class Group {
   }
 
   print(...prints: Into<PrintFull>[]) {
+    console.log(prints)
     this.prints.push(...finishAll(prints))
   }
 }
@@ -365,5 +366,24 @@ export function ViewEdit({ slideshow }: { slideshow: Slideshow }) {
       </div>
       <div />
     </div>
+  )
+}
+
+export function ViewPrint({ slideshow }: { slideshow: Slideshow }) {
+  return (
+    <For each={slideshow.prints}>
+      {([front, back]) => (
+        <>
+          <div class="flex break-inside-auto">
+            {slideshow.exts.Print(front)}
+            {slideshow.exts.Print(front)}
+          </div>
+          <div class="flex break-inside-auto">
+            {slideshow.exts.Print(back)}
+            {slideshow.exts.Print(back)}
+          </div>
+        </>
+      )}
+    </For>
   )
 }

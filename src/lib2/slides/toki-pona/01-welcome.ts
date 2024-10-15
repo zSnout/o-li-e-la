@@ -18,9 +18,9 @@ import {
   wan,
 } from "./vocab"
 
-const group = Group.of`01``welcome!`
+export const DECK_TOK_01 = Group.of`01``welcome!`
 
-group.slide(
+DECK_TOK_01.slide(
   slide`welcome to toki pona club!`.center()(),
 
   slide`our goals`.center()(
@@ -134,7 +134,7 @@ group.slide(
       .li`both systems are very common`,
     ch.discuss`guess the meanings of the sitelen pona below.
 remember: toki pona words are quite general!`,
-    sp`ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo`,
+    sp`~ ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo`,
   ),
 
   slide`questions are valuable`(
@@ -154,13 +154,13 @@ remember: toki pona words are quite general!`,
       .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
     ul.li`toki pona often uses **sitelen pona** to write`
       .li`sitelen pona uses one symbol per word:`,
-    sp`ala alasa ale jan kasi kili mun pakala seme tenpo`,
+    sp`~ ala alasa ale jan kasi kili mun pakala seme tenpo`,
   ),
 )
 
-group.print(
+DECK_TOK_01.print(
   print(
-    group,
+    DECK_TOK_01,
   ).vocab()(
     p`our goals:`,
     ul.li`to teach you toki pona`
@@ -180,6 +180,6 @@ group.print(
     p`writing:`,
     ul.li`toki pona has an alternate system called **sitelen pona**`
       .li`sitelen pona uses one symbol per word`,
-    sp`ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo`,
+    sp`~ ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo`,
   ),
 )

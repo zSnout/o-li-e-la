@@ -6,6 +6,7 @@ import "./index.css"
 import { AsSvg } from "./lib2/AsSvg"
 import { all } from "./lib2/ext"
 import { DECK_TOK_00 } from "./lib2/slides/toki-pona/00-test"
+import { DECK_TOK_01 } from "./lib2/slides/toki-pona/01-welcome"
 import {
   Slideshow,
   startBackgroundProcess,
@@ -13,6 +14,7 @@ import {
   ViewEdit,
   ViewEntry,
   ViewLatest,
+  ViewPrint,
   ViewSpeaker,
 } from "./lib2/slideshow"
 
@@ -28,6 +30,7 @@ render(() => {
   startBackgroundProcess(slideshow.exts)
 
   slideshow.adopt(DECK_TOK_00)
+  slideshow.adopt(DECK_TOK_01)
 
   if (VIEW == "diff") {
     return (
@@ -60,6 +63,8 @@ render(() => {
     return <ViewEntry slideshow={slideshow} />
   } else if (VIEW == "edit") {
     return <ViewEdit slideshow={slideshow} />
+  } else if (VIEW == "print") {
+    return <ViewPrint slideshow={slideshow} />
   } else {
     return (
       <ViewSpeaker

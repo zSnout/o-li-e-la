@@ -13,6 +13,7 @@ import { ext as ext9 } from "./content/la-box"
 import { ext as ext10 } from "./content/p"
 import { ext as ext31 } from "./content/print-vocab-back"
 import { ext as ext30 } from "./content/print-vocab-front"
+import { ext as ext32 } from "./content/sitelen-pona"
 import { ext as ext11 } from "./content/title"
 import { ext as ext22 } from "./content/two-col"
 import { ext as ext13 } from "./content/ul"
@@ -59,5 +60,6 @@ export function all() {
     ext29,
     ext30,
     ext31,
+    ext32,
   ]
 }

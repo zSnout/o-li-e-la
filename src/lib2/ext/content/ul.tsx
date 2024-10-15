@@ -21,12 +21,12 @@ function UlInner(data: readonly Text[], exts: Exts, Marker: () => JSX.Element) {
 export const ext = defineExt<readonly Text[]>()("content", "ul", {
   slide(data, exts) {
     return UlInner(data, exts, () => (
-      <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-z-text-dimmed group-[]/small:size-2 group-[]/small:min-w-2" />
+      <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-z-text-dimmed [-webkit-print-color-adjust:exact] [print-color-adjust:exact] group-[]/small:size-2 group-[]/small:min-w-2" />
     ))
   },
   print(data, exts) {
     return UlInner(data, exts, () => (
-      <span class="inline-block size-2 min-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed" />
+      <span class="inline-block size-2 min-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed [-webkit-print-color-adjust:exact] [print-color-adjust:exact]" />
     ))
   },
   entry(data, exts, filter) {
