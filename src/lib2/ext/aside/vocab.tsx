@@ -13,7 +13,9 @@ export const ext = defineExt<readonly Vocab[]>()("aside", "vocab", {
   presenter(data, exts) {
     return <For each={data}>{(word) => exts.VocabPresenter(word)}</For>
   },
-  entry(): undefined {},
+  entry(data, exts, filter) {
+    return <For each={data}>{(x) => exts.VocabEntry(x, filter)}</For>
+  },
 })
 
 export function vocab(words: readonly Vocab[]): Aside {

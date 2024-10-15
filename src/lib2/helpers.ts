@@ -1,5 +1,6 @@
 import { image as defineImage } from "./ext/aside/image"
 import { vocab as defineVocab } from "./ext/aside/vocab"
+import { vocabWithoutDefinition } from "./ext/aside/vocabWithoutDefinition"
 import { builderDiff } from "./ext/content/ch-diff"
 import { discuss as defineDiscuss } from "./ext/content/ch-discuss"
 import { builderChTranslate } from "./ext/content/ch-translate"
@@ -15,6 +16,7 @@ import { defineSlideImage } from "./ext/slide/image"
 import { standard as defineStandard } from "./ext/slide/standard"
 import { fmt, type FmtParams } from "./ext/text/fmt"
 import { str } from "./ext/text/str"
+export { defineSitelenPona as sp } from "./ext/content/sitelen-pona"
 
 import {
   finish,
@@ -37,6 +39,7 @@ export interface QSlideStandardContent {
 export interface QSlideStandardAside {
   aside(aside: Into<Aside>): QSlideStandardContent
   vocab(...vocab: Into<Vocab>[]): QSlideStandardContent
+  vocabNoDefn(...vocab: Into<Vocab>[]): QSlideStandardContent
   image(...args: Parameters<typeof defineImage>): QSlideStandardContent
 }
 
@@ -68,6 +71,11 @@ export function slide(...title: FmtParams): QSlideStandardCenterable {
 
   content.vocab = (...vocab: Into<Vocab>[]) => {
     aside = defineVocab(finishAll(vocab))
+    return content
+  }
+
+  content.vocabNoDefn = (...vocab: Into<Vocab>[]) => {
+    aside = vocabWithoutDefinition(finishAll(vocab))
     return content
   }
 

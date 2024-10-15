@@ -265,9 +265,6 @@ function createSlideshowFn(kind: Kind) {
                           : !a.defnLipamanka && b.defnLipamanka ? 1
                           : 0,
                         ),
-                      titles: slides
-                        .map((x) => x.type == "insa" && x.title)
-                        .filter((x) => !!x),
                     }
 
                     slides.push(slide)

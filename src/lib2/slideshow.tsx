@@ -10,7 +10,7 @@ import {
   createFilter,
   finishAll,
   type Into,
-  type Print,
+  type PrintFull,
   type Slide,
   type Text,
 } from "./types"
@@ -19,7 +19,7 @@ export class Slideshow {
   readonly exts = new Exts()
   readonly groups: Group[] = []
   readonly slides: Slide[] = []
-  readonly prints: Print[] = []
+  readonly prints: PrintFull[] = []
 
   adopt(group: Group) {
     this.groups.push(group)
@@ -34,7 +34,7 @@ export class Group {
   }
 
   readonly slides: Slide[] = []
-  readonly prints: Print[] = []
+  readonly prints: PrintFull[] = []
 
   constructor(
     readonly title: Text,
@@ -45,7 +45,7 @@ export class Group {
     this.slides.push(...finishAll(slides))
   }
 
-  print(...prints: Into<Print>[]) {
+  print(...prints: Into<PrintFull>[]) {
     this.prints.push(...finishAll(prints))
   }
 }

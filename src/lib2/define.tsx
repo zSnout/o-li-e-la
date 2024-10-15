@@ -18,5 +18,9 @@ export function defineExt<T extends Json>() {
 }
 
 export function unimpl(): JSXElement {
-  return <span>unimplemented</span>
+  return (
+    <span class="bg-red-300 text-black">
+      unimplemented at {new Error().stack?.split("\n", 4).join("")}
+    </span>
+  )
 }

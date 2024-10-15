@@ -52,6 +52,28 @@ export const ext = defineExt<{
       </details>
     )
   },
+  entry(data, exts, filter) {
+    return (
+      <>
+        {exts.TextEntry(data.defnShort, filter)}
+        <Show when={data.defnLipamanka}>
+          {exts.TextEntry(data.defnLipamanka!, filter)}
+        </Show>
+      </>
+    )
+  },
+  partIcon(data) {
+    return <span class="font-sp-sans">{data.word}</span>
+  },
+  partWord(data) {
+    return <span class="font-ex-eng">{data.word}</span>
+  },
+  partDefnShort(data, exts) {
+    return exts.Text(data.defnShort)
+  },
+  partDefnLong(data, exts) {
+    return exts.Text(data.defnLipamanka ?? data.defnShort)
+  },
 })
 
 export function tokipona(data: {

@@ -41,6 +41,7 @@ export type TextCtxFullMut<K extends string> = readonly [
   full: ManyMut<TextOf<K>>,
 ]
 export type TokEng = readonly [tok: TextOf<"tok">, eng: TextOf<"eng">]
+export type PrintFull = readonly [front: Print, back: Print]
 
 export interface Ext<K extends string, I extends string> {
   id: I
@@ -99,6 +100,11 @@ export interface ExtVocab<T extends Json, I extends string>
   render(data: T, exts: Exts): JSX.Element
   withoutDefinition(data: T, exts: Exts): JSX.Element
   presenter(data: T, exts: Exts): JSX.Element
+  entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  partIcon(data: T, exts: Exts): JSX.Element
+  partWord(data: T, exts: Exts): JSX.Element
+  partDefnShort(data: T, exts: Exts): JSX.Element
+  partDefnLong(data: T, exts: Exts): JSX.Element
 }
 
 export interface ExtKinds<T extends Json, I extends string> {

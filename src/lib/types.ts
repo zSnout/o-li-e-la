@@ -310,7 +310,6 @@ export interface SlideReview extends SlideBase {
   readonly index: number
   readonly type: "pini"
   readonly titleEng: Text
-  readonly titles: Text[]
   readonly vocab: Word[]
   readonly sources: Source[]
   readonly contentSlide: Content[]

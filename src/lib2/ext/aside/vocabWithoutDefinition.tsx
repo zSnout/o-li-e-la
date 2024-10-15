@@ -16,6 +16,6 @@ export const ext = defineExt<readonly Vocab[]>()("aside", "vocab_no_defn", {
   entry(): undefined {},
 })
 
-export function vocabWithoutDefinition(...words: readonly Vocab[]): Aside {
+export function vocabWithoutDefinition(words: readonly Vocab[]): Aside {
   return ["vocab_no_defn", words]
 }

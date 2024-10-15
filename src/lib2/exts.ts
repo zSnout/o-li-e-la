@@ -6,6 +6,7 @@ import type {
   ExtKindsUntyped,
   ExtsData,
   Note,
+  Print,
   Slide,
   Text,
   Vocab,
@@ -116,6 +117,22 @@ export class Exts implements ExtsData {
     return untrack(() => el.entry(item[1], this, filter))
   }
 
+  Print(item: Print): JSX.Element {
+    const el = this.print[item[0]]
+    if (!el) {
+      return err(`'Print' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.render(item[1], this))
+  }
+
+  PrintEntry(item: Print, filter: EntryFilter): JSX.Element {
+    const el = this.print[item[0]]
+    if (!el) {
+      return err(`'PrintEntry' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.entry(item[1], this, filter))
+  }
+
   Slide(item: Slide): JSX.Element {
     const el = this.slide[item[0]]
     if (!el) {
@@ -178,6 +195,46 @@ export class Exts implements ExtsData {
       return err(`'VocabPresenter' for '${item[0]}' does not exist`)
     }
     return untrack(() => el.presenter(item[1], this))
+  }
+
+  VocabEntry(item: Vocab, filter: EntryFilter): JSX.Element {
+    const el = this.vocab[item[0]]
+    if (!el) {
+      return err(`'VocabFilter' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.entry(item[1], this, filter))
+  }
+
+  VocabPartIcon(item: Vocab): JSX.Element {
+    const el = this.vocab[item[0]]
+    if (!el) {
+      return err(`'VocabPartIcon' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.partIcon(item[1], this))
+  }
+
+  VocabPartWord(item: Vocab): JSX.Element {
+    const el = this.vocab[item[0]]
+    if (!el) {
+      return err(`'VocabPartWord' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.partWord(item[1], this))
+  }
+
+  VocabPartDefnShort(item: Vocab): JSX.Element {
+    const el = this.vocab[item[0]]
+    if (!el) {
+      return err(`'VocabPartDefnShort' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.partDefnShort(item[1], this))
+  }
+
+  VocabPartDefnLong(item: Vocab): JSX.Element {
+    const el = this.vocab[item[0]]
+    if (!el) {
+      return err(`'VocabPartDefnLong' for '${item[0]}' does not exist`)
+    }
+    return untrack(() => el.partDefnLong(item[1], this))
   }
 }
 
