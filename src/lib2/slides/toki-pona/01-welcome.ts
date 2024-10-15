@@ -1,6 +1,7 @@
 import {
   ch,
   p,
+  print,
   slide,
   sp,
   ul,
@@ -155,38 +156,30 @@ remember: toki pona words are quite general!`,
       .li`sitelen pona uses one symbol per word:`,
     sp`ala alasa ale jan kasi kili mun pakala seme tenpo`,
   ),
+)
 
-  // createReview`review: welcome!`
-  //   .slide(
-  //     ul.li`goal: teach toki pona (a 130-word language)`
-  //       .li`toki pona was created in 2001 by Sonja Lang`,
-  //     ul.li`consonants: **j k l m n p s t w**`
-  //       .li`vowels **(a e i o u)** are like **ah eh ee l__o__t uu**`
-  //       .li`everything is lowercase except names`
-  //       .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
-  //     ul.li`toki pona often uses **sitelen pona** to write`
-  //       .li`sitelen pona uses one symbol per word:`,
-  //     sp`ala alasa ale jan kasi kili mun pakala seme tenpo`,
-  //   )
-  //   .sheet(
-  //     p`our goals:`,
-  //     ul.li`to teach you toki pona`
-  //       .li`to explore toki pona's culture`
-  //       .li`to have fun!`,
-  //     p`what is toki pona?`,
-  //     ul.li`toki pona was created in 2001`
-  //       .li`by Canadian linguist Sonja Lang`
-  //       .li`it only has around 130 words`,
-  //     p`spelling and pronunciation:`,
-  //     ul.li`consonants: **j k l m n p s t w**`
-  //       .li`**j** is pronounced like English **y**`,
-  //     ul.li`vowels **(a e i o u)** are like Spanish`
-  //       .li`**ah eh ee oh oo**`,
-  //     ul.li`everything is lowercase except names`
-  //       .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
-  //     p`writing:`,
-  //     ul.li`toki pona has an alternate system called **sitelen pona**`
-  //       .li`sitelen pona uses one symbol per word`,
-  //     sp`ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo`,
-  //   ),
+group.print(
+  print(
+    group,
+  ).vocab()(
+    p`our goals:`,
+    ul.li`to teach you toki pona`
+      .li`to explore toki pona's culture`
+      .li`to have fun!`,
+    p`what is toki pona?`,
+    ul.li`toki pona was created in 2001`
+      .li`by Canadian linguist Sonja Lang`
+      .li`it only has around 130 words`,
+    p`spelling and pronunciation:`,
+    ul.li`consonants: **j k l m n p s t w**`
+      .li`**j** is pronounced like English **y**`,
+    ul.li`vowels **(a e i o u)** are like Spanish`
+      .li`**ah eh ee oh oo**`,
+    ul.li`everything is lowercase except names`
+      .li`stress the first syllable: it's **LU**kin, not lu**KIN**`,
+    p`writing:`,
+    ul.li`toki pona has an alternate system called **sitelen pona**`
+      .li`sitelen pona uses one symbol per word`,
+    sp`ala alasa ale ike jan kasi kili mun pakala pilin seme tenpo`,
+  ),
 )

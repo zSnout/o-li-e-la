@@ -1,7 +1,10 @@
 import { Show } from "solid-js"
 import { clsx } from "../../clsx"
 import { defineExt } from "../../define"
-import type { Aside } from "../../types"
+import type { Aside, Note, Slide } from "../../types"
+import { note } from "../note/p"
+import { defineSlideImage } from "../slide/image"
+import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<
   [
@@ -73,4 +76,43 @@ export function image(
   aspect: "square" | "half" | "auto" = "half",
 ): Aside {
   return ["image", [src, alt, fit, aspect]]
+}
+
+export interface QSlideImage {
+  note(...note: FmtParams): QSlideImage
+  done(): Slide
+}
+
+export interface QSlideImageFit extends QSlideImage {
+  cover(): QSlideImage
+  containWhite(): QSlideImage
+}
+
+export function builderImage(src: string) {
+  return {
+    alt([alt]: readonly string[]): QSlideImageFit {
+      let fit: "contain-white" | "cover" | undefined
+      const notes: Note[] = []
+
+      const result: QSlideImageFit = {
+        done() {
+          return defineSlideImage(src, alt ?? "", fit, notes)
+        },
+        note(...n) {
+          notes.push(note(fmt(...n)))
+          return result
+        },
+        containWhite() {
+          fit = "contain-white"
+          return result
+        },
+        cover() {
+          fit = "cover"
+          return result
+        },
+      }
+
+      return result
+    },
+  }
 }

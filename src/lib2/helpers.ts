@@ -1,4 +1,4 @@
-import { image as defineImage } from "./ext/aside/image"
+import { builderImage, image as defineImage } from "./ext/aside/image"
 import { vocab as defineVocab } from "./ext/aside/vocab"
 import { vocabWithoutDefinition } from "./ext/aside/vocabWithoutDefinition"
 import { builderDiff } from "./ext/content/ch-diff"
@@ -12,11 +12,11 @@ import { p as defineP } from "./ext/content/p"
 import { titleRaw as defineTitle } from "./ext/content/title"
 import { ul as defineUl } from "./ext/content/ul"
 import { note as defineNote } from "./ext/note/p"
-import { defineSlideImage } from "./ext/slide/image"
 import { standard as defineStandard } from "./ext/slide/standard"
 import { fmt, type FmtParams } from "./ext/text/fmt"
 import { str } from "./ext/text/str"
 export { defineSitelenPona as sp } from "./ext/content/sitelen-pona"
+export { defineSheet as print } from "./ext/print/standard"
 
 import {
   finish,
@@ -158,44 +158,9 @@ function discussOf(label: Text) {
   }
 }
 
-export interface QSlideImage {
-  note(...note: FmtParams): QSlideImage
-  done(): Slide
-}
-
-export interface QSlideImageFit extends QSlideImage {
-  cover(): QSlideImage
-  containWhite(): QSlideImage
-}
-
 export const im = {
   src([src]: readonly string[]) {
-    return {
-      alt([alt]: readonly string[]): QSlideImageFit {
-        let fit: "contain-white" | "cover" | undefined
-        const notes: Note[] = []
-
-        const result: QSlideImageFit = {
-          done() {
-            return defineSlideImage(src ?? "", alt ?? "", fit, notes)
-          },
-          note(...note) {
-            notes.push(defineNote(fmt(...note)))
-            return result
-          },
-          containWhite() {
-            fit = "contain-white"
-            return result
-          },
-          cover() {
-            fit = "cover"
-            return result
-          },
-        }
-
-        return result
-      },
-    }
+    return builderImage(src!)
   },
 }
 

@@ -11,10 +11,13 @@ import { ext as ext8 } from "./content/ex-tok"
 import { ext as ext24 } from "./content/iframe"
 import { ext as ext9 } from "./content/la-box"
 import { ext as ext10 } from "./content/p"
+import { ext as ext31 } from "./content/print-vocab-back"
+import { ext as ext30 } from "./content/print-vocab-front"
 import { ext as ext11 } from "./content/title"
 import { ext as ext22 } from "./content/two-col"
 import { ext as ext13 } from "./content/ul"
 import { ext as ext14 } from "./note/p"
+import { ext as ext29 } from "./print/standard"
 import { ext as ext15 } from "./slide/image"
 import { ext as ext25 } from "./slide/no-pad"
 import { ext as ext16 } from "./slide/standard"
@@ -53,5 +56,8 @@ export function all() {
     ext25,
     ext27,
     ext28,
+    ext29,
+    ext30,
+    ext31,
   ]
 }

@@ -72,7 +72,9 @@ export const ext = defineExt<{
     return exts.Text(data.defnShort)
   },
   partDefnLong(data, exts) {
-    return exts.Text(data.defnLipamanka ?? data.defnShort)
+    return (
+      <Show when={data.defnLipamanka}>{exts.Text(data.defnLipamanka!)}</Show>
+    )
   },
 })
 

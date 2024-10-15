@@ -5,7 +5,7 @@ import type { Content, Text } from "../../types"
 import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<
-  [content: Text, index: number | null, center: boolean]
+  [content: Text, index: Text | null, center: boolean]
 >()("content", "title", {
   slide(data, exts) {
     return (
@@ -19,7 +19,9 @@ export const ext = defineExt<
           {exts.Text(data[0])}
         </span>
         <Show when={data[1] != null}>
-          <span class="font-ex-eng text-z-subtitle">#{data[1]}</span>
+          <span class="font-ex-eng text-z-subtitle">
+            #{exts.Text(data[1]!)}
+          </span>
         </Show>
       </h1>
     )
@@ -31,7 +33,9 @@ export const ext = defineExt<
           {exts.Text(data[0])}
         </span>
         <Show when={data[1] != null}>
-          <span class="font-ex-eng text-z-subtitle">#{data[1]}</span>
+          <span class="font-ex-eng text-z-subtitle">
+            #{exts.Text(data[1]!)}
+          </span>
         </Show>
       </h1>
     )
@@ -44,7 +48,7 @@ export const ext = defineExt<
 
 export function titleRaw(
   text: Text,
-  index: number | null = null,
+  index: Text | null = null,
   center = false,
 ): Content {
   return ["title", [text, index, center]]

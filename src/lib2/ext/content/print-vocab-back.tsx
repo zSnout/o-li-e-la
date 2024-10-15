@@ -1,10 +1,10 @@
 import { For } from "solid-js"
 import { defineExt, unimpl } from "../../define"
-import type { Vocab } from "../../types"
+import type { Content, Vocab } from "../../types"
 
 export const ext = defineExt<readonly Vocab[]>()(
   "content",
-  "print-vocab-front",
+  "print-vocab-back",
   {
     entry: unimpl,
     presenter: unimpl,
@@ -41,3 +41,7 @@ export const ext = defineExt<readonly Vocab[]>()(
     },
   },
 )
+
+export function definePrintVocabBack(vocab: readonly Vocab[]): Content {
+  return ["print-vocab-back", vocab]
+}
