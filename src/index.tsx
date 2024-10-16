@@ -20,7 +20,17 @@ import {
 
 import { slides } from "./lib/helpers"
 import { VIEW } from "./lib/query"
+import { DECK_TOK_02 } from "./lib2/slides/toki-pona/02-li"
+import { DECK_TOK_03 } from "./lib2/slides/toki-pona/03-objects"
+import { DECK_TOK_04 } from "./lib2/slides/toki-pona/04-modifiers"
+import { DECK_TOK_05 } from "./lib2/slides/toki-pona/05-la"
+
 import "./slides/02-dev/99-test"
+import "./slides/03-tok/01-welcome"
+import "./slides/03-tok/02-li"
+import "./slides/03-tok/03-objects"
+import "./slides/03-tok/04-modifiers"
+import "./slides/03-tok/05-la"
 
 const root = document.getElementById("root")
 
@@ -31,6 +41,10 @@ render(() => {
 
   slideshow.adopt(DECK_TOK_00)
   slideshow.adopt(DECK_TOK_01)
+  slideshow.adopt(DECK_TOK_02)
+  slideshow.adopt(DECK_TOK_03)
+  slideshow.adopt(DECK_TOK_04)
+  slideshow.adopt(DECK_TOK_05)
 
   if (VIEW == "diff") {
     return (

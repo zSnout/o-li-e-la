@@ -16,7 +16,7 @@ import { standard as defineStandard } from "./ext/slide/standard"
 import { fmt, type FmtParams } from "./ext/text/fmt"
 import { str } from "./ext/text/str"
 export { defineSitelenPona as sp } from "./ext/content/sitelen-pona"
-export { defineSheet as print } from "./ext/print/standard"
+export { defineSheet as print } from "./ext/sheet/standard"
 
 import {
   finish,
