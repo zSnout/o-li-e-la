@@ -1,8 +1,8 @@
 import { For, Show } from "solid-js"
+import { Ex } from "../../lib/Ch"
 import { defineExt } from "../../lib/define"
 import type { Content, TextOf } from "../../lib/types"
 import { styledEng, styledTok } from "../text/styled"
-import { Ex } from "../../lib/Ch"
 
 export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
   "content",

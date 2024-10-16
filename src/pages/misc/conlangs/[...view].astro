@@ -1,10 +1,10 @@
 ---
-import { ALL_VIEWS } from ".."
-import Layout from "../Layout.astro"
+import { ALL_VIEWS } from "../../.."
+import Layout from "../../../Layout.astro"
 import { Main } from "./_index"
 
 export function getStaticPaths() {
-  return ALL_VIEWS.map((view) => ({ params: { view } }))
+  return ALL_VIEWS.map((view) => ({ params: { view: view } }))
 }
 ---
 

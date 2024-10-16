@@ -12,13 +12,14 @@ import {
 } from "./lib/slideshow"
 
 export const ALL_VIEWS = [
+  undefined,
   "doc",
   "latest",
   "entry",
   "edit",
   "print",
   "present",
-] as const satisfies readonly string[]
+] as const
 
 export type View = (typeof ALL_VIEWS)[number]
 
@@ -29,6 +30,7 @@ export function start(view: View, prepare: (slideshow: Slideshow) => void) {
   prepare(slideshow)
 
   switch (view) {
+    case undefined:
     case "doc":
       return <ViewDocument slideshow={slideshow} />
     case "latest":

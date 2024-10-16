@@ -5,7 +5,6 @@ import { defineTwoCol } from "../../ext/content/two-col"
 import { note } from "../../ext/note/p"
 import { defineNoPad } from "../../ext/slide/no-pad"
 import { fmt } from "../../ext/text/fmt"
-import { link } from "../../ext/text/linked"
 import {
   im,
   p,
@@ -24,7 +23,6 @@ DECK_CONLANGS.slide(
       "A koi fish with five ripples on it and a sixth in front of it.",
       "cover",
     )
-    .note`If you're viewing this online, you're hopefully in document view, where you see one column with all the slides and one column with these notes. If you're not in that view, ${link`/?view=doc``switch to it to make your viewing life easier`}.`
     .note`If you're about to criticize me for only providing the slides in light mode, switch your computer to dark mode. If you're confused by why the slides are dark blue instead of white, switch your computer to light mode.`.content(
     p`(constructed languages)`,
   ),
