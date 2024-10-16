@@ -92,7 +92,7 @@
 }
 
 .dark {
-  @apply z-dark-mq z-dark-slate z-dark-focus-blue;
+  @apply z-dark-mq z-dark-zinc z-dark-focus-blue;
   color-scheme: dark;
 
   --z-bg-checkbox-selected: theme(colors.blue.500);
@@ -102,17 +102,17 @@
   --z-text-learn-learning: theme(colors.red.300);
   --z-text-learn-review: theme(colors.green.300);
 
-  --z-table-row-alt: theme(colors.slate.950);
+  --z-table-row-alt: theme(colors.zinc.950);
   --z-table-row-selected: theme(colors.blue.700);
   --z-table-row-selected-alt: theme(colors.blue.700);
   --z-table-row-selected-border: theme(colors.blue.900);
   --z-table-row-selected-text: theme(colors.blue.50);
 
-  --z-border-grid-line: theme(colors.slate.50/0.1);
-  --z-text-grid-label: theme(colors.slate.50/0.6);
+  --z-border-grid-line: theme(colors.zinc.50/0.1);
+  --z-text-grid-label: theme(colors.zinc.50/0.6);
 
   --x-la-box: theme(colors.violet.800);
-  --x-la-box-ch: theme(colors.slate.700);
+  --x-la-box-ch: theme(colors.zinc.700);
 
   --xp-rose: theme(colors.rose.300);
   --xp-orange: theme(colors.orange.300);
@@ -165,14 +165,6 @@
 
 .mq-selection.mq-blur .mq-empty {
   --z-mq-root-maybe-selected: var(--z-mq-filled-selection-blur);
-}
-
-.force-light {
-  @apply z-light-mq z-light-slate z-light-focus-blue;
-}
-
-.force-dark {
-  @apply z-dark-mq z-dark-slate z-dark-focus-blue;
 }
 
 html.no-transition,
