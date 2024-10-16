@@ -37,6 +37,23 @@ export default {
         "z-border-grid-line": "var(--z-border-grid-line)",
         "z-text-grid-label": "var(--z-text-grid-label)",
         "z-ch": "var(--z-border)",
+
+        "x-la-box": "var(--x-la-box)",
+        "x-la-box-ch": "var(--x-la-box-ch)",
+
+        "xp-rose": "var(--xp-rose)",
+        "xp-orange": "var(--xp-orange)",
+        "xp-green": "var(--xp-green)",
+        "xp-sky": "var(--xp-sky)",
+        "xp-violet": "var(--xp-violet)",
+        "xp-fuchsia": "var(--xp-fuchsia)",
+
+        "xw-rose": "var(--xw-rose)",
+        "xw-orange": "var(--xw-orange)",
+        "xw-green": "var(--xw-green)",
+        "xw-sky": "var(--xw-sky)",
+        "xw-violet": "var(--xw-violet)",
+        "xw-fuchsia": "var(--xw-fuchsia)",
       },
       textColor: {
         "z-grid-label": "var(--z-text-grid-label)",
@@ -48,7 +65,6 @@ export default {
   },
   plugins: [
     zSnoutTheme(),
-
     /** @type {import("tailwindcss/types/config").PluginCreator} */
     ({ addVariant, matchVariant, addComponents, matchComponents }) => {
       addComponents({

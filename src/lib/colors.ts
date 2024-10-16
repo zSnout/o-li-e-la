@@ -45,31 +45,31 @@ function withAffix(
   }
 }
 
-const EN_PARTICLE = "text-sky-800"
+const EN_PARTICLE = "text-xp-sky"
 
-export const LA_PARTICLE = "text-violet-800"
-export const LA_CONTENT = "text-violet-600"
-export const LA_BORDER = "border-violet-800"
+export const LA_PARTICLE = "text-xp-violet"
+export const LA_CONTENT = "text-xw-violet"
+export const LA_BORDER = "border-xp-violet"
 export const LA_BORDER_GRAY = "border-slate-600"
 
-const pb = tag("text-orange-800", "text-orange-600", "")
-const pp = tag("text-violet-800", "text-violet-600", "pi")
+const pb = tag("text-xp-orange", "text-xw-orange", "")
+const pp = tag("text-xp-violet", "text-xw-violet", "pi")
 
-const li = tag("text-rose-800", "text-rose-600", "li")
-const o = tag("text-rose-800", "text-rose-600", "o")
-const e = tag("text-green-800", "text-green-600", "e")
-const en = tag(EN_PARTICLE, "text-sky-600", "en")
+const li = tag("text-xp-rose", "text-xw-rose", "li")
+const o = tag("text-xp-rose", "text-xw-rose", "o")
+const e = tag("text-xp-green", "text-xw-green", "e")
+const en = tag(EN_PARTICLE, "text-xw-sky", "en")
 const la = tag(LA_PARTICLE, LA_CONTENT, "la", true)
 const prela = tag(LA_PARTICLE, LA_CONTENT, "la")
 const postla = tag(LA_PARTICLE, LA_CONTENT, "la")
 
-const lon = tag("text-orange-800", "text-orange-600", "lon")
-const tawa = tag("text-orange-800", "text-orange-600", "tawa")
-const tan = tag("text-orange-800", "text-orange-600", "tan")
-const sama = tag("text-orange-800", "text-orange-600", "sama")
-const kepeken = tag("text-orange-800", "text-orange-600", "kepeken")
+const lon = tag("text-xp-orange", "text-xw-orange", "lon")
+const tawa = tag("text-xp-orange", "text-xw-orange", "tawa")
+const tan = tag("text-xp-orange", "text-xw-orange", "tan")
+const sama = tag("text-xp-orange", "text-xw-orange", "sama")
+const kepeken = tag("text-xp-orange", "text-xw-orange", "kepeken")
 
-const interj = tag("text-fuchsia-800", "text-fuchsia-600", "")
+const interj = tag("text-xp-fuchsia", "text-xw-fuchsia", "")
 const none = tag("text-current", "text-current", "")
 
 const tags: Record<string, Tag> = {

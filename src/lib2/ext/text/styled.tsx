@@ -259,14 +259,14 @@ export function txPrettify(styled: Styled[]): Styled[] {
 }
 
 export function tag(
-  mainClass: `${string}-600`,
-  affixClass: `${string}-800`,
+  mainClass: `text-xw-${string}`,
+  affixClass: `text-xp-${string}`,
   affixText?: string,
   rev?: boolean,
 ): StyleTag
 
 export function tag(
-  mainClass: `${string}-600` | "",
+  mainClass: `text-xw-${string}` | "",
   affixClass?: undefined,
   affixText?: undefined,
   rev?: boolean,
@@ -293,19 +293,19 @@ export function tag(
 
 export const styledTok = createStyler(
   {
-    li: tag("text-rose-600", "text-rose-800", "li"),
-    o: tag("text-rose-600", "text-rose-800", "o"),
-    en: tag("text-sky-600", "text-sky-800", "en"),
-    e: tag("text-green-600", "text-green-800", "e"),
-    la: tag("text-violet-600", "text-violet-800", "la", true),
-    pp: tag("text-violet-600", "text-violet-800", "pi"),
-    pb: tag("text-orange-600", "text-orange-800", ""),
-    lon: tag("text-orange-600", "text-orange-800", "lon"),
-    tan: tag("text-orange-600", "text-orange-800", "tan"),
-    tawa: tag("text-orange-600", "text-orange-800", "tawa"),
-    sama: tag("text-orange-600", "text-orange-800", "sama"),
-    kepeken: tag("text-orange-600", "text-orange-800", "kepeken"),
-    "@": tag("text-fuchsia-600"),
+    li: tag("text-xw-rose", "text-xp-rose", "li"),
+    o: tag("text-xw-rose", "text-xp-rose", "o"),
+    en: tag("text-xw-sky", "text-xp-sky", "en"),
+    e: tag("text-xw-green", "text-xp-green", "e"),
+    la: tag("text-xw-violet", "text-xp-violet", "la", true),
+    pp: tag("text-xw-violet", "text-xp-violet", "pi"),
+    pb: tag("text-xw-orange", "text-xp-orange", ""),
+    lon: tag("text-xw-orange", "text-xp-orange", "lon"),
+    tan: tag("text-xw-orange", "text-xp-orange", "tan"),
+    tawa: tag("text-xw-orange", "text-xp-orange", "tawa"),
+    sama: tag("text-xw-orange", "text-xp-orange", "sama"),
+    kepeken: tag("text-xw-orange", "text-xp-orange", "kepeken"),
+    "@": tag("text-xw-fuchsia"),
     "~": tag(""),
   },
   (x) =>
@@ -317,31 +317,31 @@ export const styledTok = createStyler(
           /\bli\b/.test(tail) ? source : initial + head + " @li " + tail,
       ),
   txPrettify,
-  "text-sky-600",
+  "text-xw-sky",
   "tok",
 )
 
-const prep = tag("text-orange-600", "text-orange-800")
+const prep = tag("text-xw-orange", "text-xp-orange")
 
 export const styledEng = createStyler(
   {
-    li: tag("text-rose-600", "text-rose-800", ""),
-    o: tag("text-rose-600", "text-rose-800", ""),
-    en: tag("text-sky-600", "text-sky-800"),
-    e: tag("text-green-600", "text-green-800", ""),
-    la: tag("text-violet-600", "text-violet-800", "", true),
-    pp: tag("text-violet-600", "text-violet-800", ""),
-    pb: tag("text-orange-600", "text-orange-800", ""),
+    li: tag("text-xw-rose", "text-xp-rose", ""),
+    o: tag("text-xw-rose", "text-xp-rose", ""),
+    en: tag("text-xw-sky", "text-xp-sky"),
+    e: tag("text-xw-green", "text-xp-green", ""),
+    la: tag("text-xw-violet", "text-xp-violet", "", true),
+    pp: tag("text-xw-violet", "text-xp-violet", ""),
+    pb: tag("text-xw-orange", "text-xp-orange", ""),
     lon: prep,
     tan: prep,
     tawa: prep,
     sama: prep,
     kepeken: prep,
-    "@": tag("text-fuchsia-600"),
+    "@": tag("text-xw-fuchsia"),
     "~": tag(""),
   },
   (x) => x,
   txPrettify,
-  "text-sky-600",
+  "text-xw-sky",
   "eng",
 )

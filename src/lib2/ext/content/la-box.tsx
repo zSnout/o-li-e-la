@@ -45,14 +45,14 @@ function LaBox({
         </p>
         <Show when={!challenge}>
           <p class="ml-auto whitespace-nowrap font-ex-eng">
-            {exts.Text(engCtx)} <span class="text-violet-800">la</span>
+            {exts.Text(engCtx)} <span class="text-xp-violet">la</span>
           </p>
         </Show>
       </div>
       <div
         class={clsx(
           "flex w-full rounded-xl border-[0.25rem] px-3 py-1",
-          challenge ? "border-slate-600" : "border-violet-800",
+          challenge ? "border-x-la-box-ch" : "border-x-la-box",
         )}
       >
         <p class="whitespace-nowrap font-ex-tok font-semibold">
@@ -97,7 +97,7 @@ export const ext = defineExt<
                 <>
                   <p class="font-ex-eng">
                     {exts.Text(eng[0][0])}{" "}
-                    <span class="text-purple-800">la</span>{" "}
+                    <span class="text-xp-violet">la</span>{" "}
                     {exts.Text(eng[0][1])}
                   </p>
                   <For each={eng[1]}>
@@ -120,7 +120,7 @@ export const ext = defineExt<
               {exts.Text(data[0][0])} {exts.Text(data[0][1])}
             </p>
             <p class="font-ex-eng">
-              {exts.Text(eng[0][0])} <span class="text-purple-800">la</span>{" "}
+              {exts.Text(eng[0][0])} <span class="text-xp-violet">la</span>{" "}
               {exts.Text(eng[0][1])}
             </p>
             <For each={eng[1]}>
