@@ -35,6 +35,7 @@ export interface StyleTag {
 
 const WORD = /[.!?"`,()[\]{}•:;]|[^.!?"`,()\s()[\]{}•:;]+|\r?\n|\s+/g
 const PUNC = /^[.!?"`,()[\]{}•:;]$/
+const PUNC_RESET_COLOR = /^[.!?"`,•:;]$/
 const PUNC_SENTENCE_END = /^[.!?:;]$/
 const WS = /^\s+$/
 const LINE_BREAK = /^\r?\n$/
@@ -74,7 +75,9 @@ export function createStyler<K extends string>(
       }
 
       if (PUNC.test(word)) {
-        currentClasses = nextClasses = initial
+        if (PUNC_RESET_COLOR.test(word)) {
+          currentClasses = nextClasses = initial
+        }
         output.push([null, word])
         if (PUNC_SENTENCE_END.test(word)) {
           finalized = output.length
@@ -147,24 +150,29 @@ export function createStyler<K extends string>(
  * 1. Whitespace is consolidated and merged.
  * 2. Punctuation is merged with surrounding whitespace when appropriate.
  * 3. Apostrophes are prettified and merged with surrounding whitespace.
+ * 4. Uncolored brackets will take styles from the adjacent word.
  */
 export function txPrettify(styled: Styled[]): Styled[] {
   while (styled[0]?.[1].trim() == "") {
     styled.shift()
   }
 
+  while (styled[styled.length - 1]?.[1].trim() == "") {
+    styled.pop()
+  }
+
   for (let i = 1; i < styled.length; i++) {
     const [, prev] = styled[i - 1]!
     let [, self] = styled[i]!
-
-    if (self.includes("'")) {
-      self = styled[i]![1] = self.replace(/'/g, "’")
-    }
 
     if (self == "") {
       styled.splice(i, 1)
       i--
       continue
+    }
+
+    if (self.includes("'")) {
+      self = styled[i]![1] = self.replace(/'/g, "’")
     }
 
     if (LINE_BREAK.test(prev) || LINE_BREAK.test(self)) {
@@ -194,6 +202,56 @@ export function txPrettify(styled: Styled[]): Styled[] {
 
       styled[i]![1] = " "
       continue
+    }
+  }
+
+  // color closing brackets appropriately
+  {
+    let last: string | null = null
+    for (let i = 0; i < styled.length; i++) {
+      const [style, self] = styled[i]!
+
+      if (style != null) {
+        last = style
+        continue
+      }
+
+      switch (self) {
+        case ")":
+        case "]":
+        case "}":
+          styled[i]![0] = last
+          break
+
+        default:
+          last = null
+          break
+      }
+    }
+  }
+
+  // color opening brackets appropriately
+  {
+    let last: string | null = null
+    for (let i = styled.length - 1; i >= 0; i--) {
+      const [style, self] = styled[i]!
+
+      if (style != null) {
+        last = style
+        continue
+      }
+
+      switch (self) {
+        case "(":
+        case "[":
+        case "{":
+          styled[i]![0] = last
+          break
+
+        default:
+          last = null
+          break
+      }
     }
   }
 
@@ -254,7 +312,7 @@ export const styledTok = createStyler(
     x
       .replace(/oo/g, "^en $o")
       .replace(
-        /(^|[.!?"`,()[\]{}•\s]+|la\s+)(mi|sina)\s+([\w\s]+)/g,
+        /(^|[.!?"`,()[\]{}•\s]+|la\s+)(mi|sina)\s+([$\w\s]+)/g,
         (source, initial: string, head: string, tail: string) =>
           /\bli\b/.test(tail) ? source : initial + head + " @li " + tail,
       ),

@@ -31,7 +31,7 @@ DECK_TOK_04.slide(
     lukin,
     ale,
   )
-    .note`Careful of $"That time li doesn't work"! It uses $"li work" as in "@li pali", but there, $"li work" contextually means $"li bad", not $"li something you put effort into".`(
+    .note`Careful of $"That time li doesn't work"! It uses $"li work" as in #"@li pali", but there, $"li work" contextually means $"li bad", not $"li something you put effort into".`(
     p`to modify a word, put any modifier after the base word. both must be content words.`,
     ex.align`~ jan`
       .eng`~ person`

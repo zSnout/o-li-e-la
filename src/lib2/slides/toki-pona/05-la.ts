@@ -122,7 +122,7 @@ DECK_TOK_05.slide(
     weka,
     ante,
   )
-    .note`Interestingly, $"tenpo weka la" can be both the distant past and the distant future! From that, we can interpret this either as the weakness of young children or the weakness of old age.`(
+    .note`Interestingly, $"@la tenpo weka" can be both the distant past and the distant future! From that, we can interpret this either as the weakness of young children or the weakness of old age.`(
     ul.li`#"la" can give locations in space and time`
       .li`$"^la at ..." or $"^la in ..."`
       .li`$"^la during ..."`,
