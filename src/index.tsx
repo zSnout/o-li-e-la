@@ -1,10 +1,8 @@
 import "./refresh"
 
 import { render } from "solid-js/web"
-import "./index.css"
 import { all } from "./ext"
-import { DECK_TOK_00 } from "./slides/toki-pona/00-test"
-import { DECK_TOK_01 } from "./slides/toki-pona/01-welcome"
+import "./index.css"
 import {
   Slideshow,
   startBackgroundProcess,
@@ -15,7 +13,7 @@ import {
   ViewPrint,
   ViewSpeaker,
 } from "./lib/slideshow"
-
+import { DECK_TOK_01 } from "./slides/toki-pona/01-welcome"
 import { DECK_TOK_02 } from "./slides/toki-pona/02-li"
 import { DECK_TOK_03 } from "./slides/toki-pona/03-objects"
 import { DECK_TOK_04 } from "./slides/toki-pona/04-modifiers"
@@ -30,7 +28,6 @@ render(() => {
   slideshow.exts.add(...all())
   startBackgroundProcess(slideshow.exts)
 
-  slideshow.adopt(DECK_TOK_00)
   slideshow.adopt(DECK_TOK_01)
   slideshow.adopt(DECK_TOK_02)
   slideshow.adopt(DECK_TOK_03)
