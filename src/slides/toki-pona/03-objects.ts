@@ -20,8 +20,6 @@ import {
   wile,
 } from "./vocab"
 
-// TODO: quotes
-
 export const DECK_TOK_03 = Group.of`03``objects`
 
 DECK_TOK_03.slide(

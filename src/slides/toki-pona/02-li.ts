@@ -21,8 +21,6 @@ import {
   toki,
 } from "./vocab"
 
-// TODO: quotes
-
 export const DECK_TOK_02 = Group.of`02``basic sentences`
 
 DECK_TOK_02.slide(

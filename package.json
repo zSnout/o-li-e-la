@@ -40,12 +40,6 @@
         "options": {
           "printWidth": 0
         }
-      },
-      {
-        "files": "src/slides_old/**/*",
-        "options": {
-          "printWidth": 0
-        }
       }
     ]
   }
