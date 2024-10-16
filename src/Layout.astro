@@ -5,15 +5,14 @@
 >
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sitelen ilo pi toki pona</title>
+    <meta name="generator" content={Astro.generator} />
+    <title>o li e la</title>
   </head>
   <body
     class="flex min-h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500 dark:bg-zinc-950"
   >
-    <div id="root" class="flex h-full w-full flex-1 flex-col"></div>
-    <script type="module" src="/src/index.tsx"></script>
+    <slot />
   </body>
 </html>
 

@@ -1,38 +1,24 @@
 import { Show, type JSX } from "solid-js"
-import { clsx } from "./clsx"
 
-export function Ch(props: { children: JSX.Element; class?: string }) {
+export function Ch(props: { children: JSX.Element }) {
   return (
-    <div
-      class={clsx(
-        "relative flex flex-col items-center justify-center rounded border-l border-z bg-z-body-darkened px-4 py-3 text-z",
-        props.class,
-      )}
-    >
+    <div class="relative flex flex-col items-center justify-center rounded border-l border-z bg-z-body-darkened px-4 py-3 text-z">
       {props.children}
     </div>
   )
 }
 
-export function MaybeCh(props: {
-  children: JSX.Element
-  ch: boolean
-  class?: string
-}) {
+export function Ex(props: { children: JSX.Element }) {
   return (
-    <Show
-      when={props.ch}
-      fallback={
-        <div
-          class={clsx(
-            "flex flex-col items-center justify-center p-1 text-z",
-            props.class,
-          )}
-        >
-          {props.children}
-        </div>
-      }
-    >
+    <div class="flex flex-col items-center justify-center p-1 text-z">
+      {props.children}
+    </div>
+  )
+}
+
+export function MaybeCh(props: { children: JSX.Element; ch: boolean }) {
+  return (
+    <Show when={props.ch} fallback={<Ex>{props.children}</Ex>}>
       <Ch>{props.children}</Ch>
     </Show>
   )

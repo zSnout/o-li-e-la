@@ -1,5 +1,5 @@
 import { defineExt } from "../../lib/define"
-import { Text, type Content } from "../../lib/types"
+import type { Content, Text } from "../../lib/types"
 import { styledTok } from "../text/styled"
 
 export const ext = defineExt<Text>()("content", "sitelen-pona", {

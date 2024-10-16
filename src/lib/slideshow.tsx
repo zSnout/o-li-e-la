@@ -1,11 +1,11 @@
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
 import { render } from "solid-js/web"
-import { createRemSize } from "../lib/rem"
-import { createScreenSize } from "../lib/size"
+import { fmt, type FmtParams } from "../ext/text/fmt"
 import { AsSvg } from "./AsSvg"
 import { clsx } from "./clsx"
-import { fmt, type FmtParams } from "../ext/text/fmt"
 import { Exts } from "./exts"
+import { createRemSize } from "./rem"
+import { createScreenSize } from "./size"
 import {
   createFilter,
   finishAll,
@@ -46,7 +46,6 @@ export class Group {
   }
 
   print(...prints: Into<PrintFull>[]) {
-    console.log(prints)
     this.prints.push(...finishAll(prints))
   }
 }
@@ -118,8 +117,10 @@ export function startBackgroundProcess(exts: Exts): () => void {
     ])
   }
 
-  addEventListener("message", onMessage)
-  addEventListener("keydown", onKeyDown)
+  if (typeof window == "object") {
+    addEventListener("message", onMessage)
+    addEventListener("keydown", onKeyDown)
+  }
 
   return () => {
     if (disposed) return
@@ -307,7 +308,7 @@ export function ViewDocument({ slideshow }: { slideshow: Slideshow }) {
 
 export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
   return (
-    <div class="flex flex-col p-4">
+    <div class="flex flex-col gap-16 p-4">
       <For each={slideshow.groups}>
         {(group) => (
           <div class="flex flex-col gap-2">

@@ -1,7 +1,8 @@
-import { For } from "solid-js"
+import { For, Show } from "solid-js"
 import { defineExt } from "../../lib/define"
 import type { Content, TextOf } from "../../lib/types"
 import { styledEng, styledTok } from "../text/styled"
+import { Ex } from "../../lib/Ch"
 
 export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
   "content",
@@ -20,6 +21,14 @@ export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
     entry(data, exts, filter) {
       return (
         <>
+          <Show when={filter.ex.transl}>
+            <Ex>
+              <p class="font-ex-tok font-semibold">{exts.Text(data[0])}</p>
+              <For each={data[1]}>
+                {(phrase) => <p class="font-ex-eng">{exts.Text(phrase)}</p>}
+              </For>
+            </Ex>
+          </Show>
           {exts.TextEntry(data[0], filter)}
           <For each={data[1]}>{(phrase) => exts.TextEntry(phrase, filter)}</For>
         </>
