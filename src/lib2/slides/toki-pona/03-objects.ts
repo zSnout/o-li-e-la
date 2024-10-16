@@ -40,14 +40,14 @@ DECK_TOK_03.slide(
       .into`sona li mi.`,
   ),
 
-  slide`basics of "e"`.vocab(
+  slide`basics of #"e"`.vocab(
     wile,
     ona,
     mute,
     e,
     tan,
   )(
-    p`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
+    p`to add a direct object to a sentence, write #"e" followed by the object at the end of the sentence.`,
     ex.tok`mi wile e ni.`
       .eng`I li want e that.`,
     ex.tok`ona li sona e mute.`
@@ -58,7 +58,7 @@ DECK_TOK_03.slide(
       .into`ona li sona e jan.`,
   ),
 
-  slide`~"make ..." predicates with "e"`.vocab(
+  slide`"make ..." predicates with #"e"`.vocab(
     kama,
     ike,
     ken,
@@ -68,7 +68,7 @@ DECK_TOK_03.slide(
   )
     .note`"@li weka" is perfect for the first English challenge, but it hasn't appeared yet.`
     .note`"@li wawa" and "@li awen" are wonderful for the second, but, again, they haven't appeared yet.`(
-    p`"e" can also mean ~"to give a target a quality"`,
+    p`#"e" can also mean "to give a target a quality"`,
     ex.tok`sina kama e ona.`
       .eng`you li make-arrive e him.`
       .alt`you li bring e him.`,
@@ -88,7 +88,7 @@ DECK_TOK_03.slide(
       .into`sitelen li awen e ona.`,
   ),
 
-  slide`review: direct objects with "e"`.vocab(
+  slide`review: direct objects with #"e"`.vocab(
     wile,
     ona,
     mute,
@@ -101,12 +101,12 @@ DECK_TOK_03.slide(
     lili,
     sitelen,
   )(
-    p`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
+    p`to add a direct object to a sentence, write #"e" followed by the object at the end of the sentence.`,
     ex.tok`mi wile e ni.`
       .eng`I li want e that.`,
     ex.tok`ona li sona e mute.`
       .eng`they li know e a lot.`,
-    p`"e" can also mean ~"to give a target a quality"`,
+    p`#"e" can also mean "to give a target a quality"`,
     ex.tok`sina kama e ona.`
       .eng`you li make-arrive e him.`
       .alt`you li bring e him.`,
@@ -129,12 +129,12 @@ DECK_TOK_03.print(
     lili,
     sitelen,
   )(
-    p`to add a direct object to a sentence, write "e" followed by the object at the end of the sentence.`,
+    p`to add a direct object to a sentence, write #"e" followed by the object at the end of the sentence.`,
     ex.tok`mi wile e ni.`
       .eng`I li want e that.`,
     ex.tok`ona li sona e mute.`
       .eng`they li know e a lot.`,
-    p`"e" can also mean ~"to give a target a quality"`,
+    p`#"e" can also mean "to give a target a quality"`,
     ex.tok`sina kama e ona.`
       .eng`you li make-arrive e him.`
       .alt`you li bring e him.`,
@@ -143,13 +143,13 @@ DECK_TOK_03.print(
   ),
 )
 
-// ,slide`"e ni" to embed sentences`.vocab(
+// ,slide`#"e ni" to embed sentences`.vocab(
 //   sitelen,
 //   ona,
 //   wile,
 // )(
-//   ul`in english, we sometimes embed sentences, as in ~"I want __you to duplicate the paintings__"`
-//     .li`toki pona doesn't allow sentence embedding, but we can use "e ni" to point at a sentence`,
+//   ul`in english, we sometimes embed sentences, as in "I want __you to duplicate the paintings__"`
+//     .li`toki pona doesn't allow sentence embedding, but we can use #"e ni" to point at a sentence`,
 //   ex.tok`ona li wile e ni @~ : @en sina @li mute e sitelen`
 //     .eng`it li wants e this @~ : @en you li duplicate e the paintings`
 //     .alt`it li wants e you to duplicate the paintings`,

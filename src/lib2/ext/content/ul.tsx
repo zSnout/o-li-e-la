@@ -26,7 +26,7 @@ export const ext = defineExt<readonly Text[]>()("content", "ul", {
   },
   print(data, exts) {
     return UlInner(data, exts, () => (
-      <span class="inline-block size-2 min-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed [-webkit-print-color-adjust:exact] [print-color-adjust:exact]" />
+      <span class="inline-block size-2 min-w-2 max-w-2 -translate-y-0.5 rounded-full bg-z-text-dimmed [-webkit-print-color-adjust:exact] [print-color-adjust:exact]" />
     ))
   },
   entry(data, exts, filter) {

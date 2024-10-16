@@ -21,33 +21,33 @@ import {
   weka,
 } from "./vocab"
 
-export const DECK_TOK_05 = Group.of`05``"la"`
+export const DECK_TOK_05 = Group.of`05``#"la"`
 
 DECK_TOK_05.slide(
-  slide`basics of "la"`.vocab(
+  slide`basics of #"la"`.vocab(
     ilo,
     la,
     moku,
     ante,
   )(
-    p`"la" adds context to an utterance. the context comes first.`,
-    ex.tok`[context phrase] la [main sentence].`
-      .eng`prela In_the_context_of [context_phrase], [main sentence].`,
-    p`we will use boxes to represent how "la" provides context for a sentence:`,
-    ex.la`tenpo la mi ante e moku mi`
-      .eng`time la I li change e my food`
-      .full`sometimes la I li change e what I eat`,
+    p`#"la" adds context to an utterance. the context comes first.`,
+    ex.tok`context phrase la main sentence.`
+      .eng`^la In_the_context_of context_phrase, main sentence.`,
+    p`we will use boxes to represent how #"la" provides context for a sentence:`,
+    ex.la`tenpo ni la mi ante e moku mi`
+      .eng`this time la I li change e my food`
+      .full`now la I li change e what I eat`,
     ch.discuss`Translate the above to a coherent English sentence.`,
   ),
 
-  slide`"la" for chaining`.vocab(
+  slide`#"la" for chaining`.vocab(
     mu,
     moku,
   )
     .note`$"tan from the premises" doesn't have to be translated.`(
-    ul.li`"la" is often used for conditional or causative chains`
-      .li`conditional = ~"if ... then ..."`
-      .li`causative = ~"because of ..., ... happened"`,
+    ul.li`#"la" is often used for conditional or causative chains`
+      .li`$"^la if ..."`
+      .li`$"^la because_of ..."`,
     ex.la`tomo la mi pona pilin`
       .eng`home la I li 'm happy`
       .full`when I'm at home, la I li 'm happy`,
@@ -58,7 +58,7 @@ DECK_TOK_05.slide(
       .into`sina mu suli la mi $lon ala e sina`,
   ),
 
-  slide`"la" for themes and topics`.vocab(
+  slide`#"la" for themes and topics`.vocab(
     wawa,
     ilo,
     weka,
@@ -66,11 +66,11 @@ DECK_TOK_05.slide(
     soweli,
     nasin,
   )
-    .note`$"tan from the premises" doesn't have to be translated, but it could be "tan ma ni".`
-    .note`"nasin (suli)" is a neat translation for $"social hierarchy", but others will possibly have other ideas.`(
-    ul.li`"la" is often used to set an overall theme`
-      .li`$"postla regarding ..."`
-      .li`$"postla speaking_of ..."`,
+    .note`$"tan from the premises" doesn't have to be translated, but it could be #"tan ma ni".`
+    .note`#"nasin (suli)" is a neat translation for $"social hierarchy", but others will possibly have other ideas.`(
+    ul.li`#"la" is often used to set an overall theme`
+      .li`$"^la regarding ..."`
+      .li`$"^la speaking_of ..."`,
     ex.la`ilo la mi wawa e mute`
       .eng`tools la I li empower e many things`
       .full`Using tools, la I li make e many things li more pwoerful.`,
@@ -81,12 +81,12 @@ DECK_TOK_05.slide(
       .into`nasin (suli) la sina wawa ala`,
   ),
 
-  slide`"la" for sentence-level modifiers`.vocab(
+  slide`#"la" for sentence-level modifiers`.vocab(
     sama,
     ante,
     mu,
   )(
-    ul.li`"la" can make a word modify an entire sentence`
+    ul.li`#"la" can make a word modify an entire sentence`
       .li`this is similar to english adverbs`,
     ex.la`sama la soweli li mu`
       .eng`similar la creatures li make noises`
@@ -99,13 +99,13 @@ DECK_TOK_05.slide(
       .into`ante la ilo weka mi li weka e jan`,
   ),
 
-  slide`"la" for perspective and opinions`.vocab(
+  slide`#"la" for perspective and opinions`.vocab(
     ma,
     nasin,
     sama,
   )(
-    ul.li`"la" can represent perspectives and opinions`
-      .li`$"postla from_the_perspective_of ..."`,
+    ul.li`#"la" can represent perspectives and opinions`
+      .li`$"^la from_the_perspective_of ..."`,
     ex.la`ona la $sama li ike`
       .eng`them la similarity li is bad`
       .full`they think la similarity li is bad`
@@ -113,31 +113,31 @@ DECK_TOK_05.slide(
     ch.la`mi la nasin ma li ilo pilin`
       .eng`me la the roads li feel robotic`
       .full`to me, la the roads li feel robotic`,
-    ch.discuss`Give a perspective of your own using "la".`,
+    ch.discuss`Give a perspective of your own using #"la".`,
   ),
 
-  slide`"la" for location`.vocab(
+  slide`#"la" for location`.vocab(
     mu,
     wawa,
     weka,
     ante,
   )
     .note`Interestingly, $"tenpo weka la" can be both the distant past and the distant future! From that, we can interpret this either as the weakness of young children or the weakness of old age.`(
-    ul.li`"la" can give locations in space and time`
-      .li`$"postla at ..." or $"postla in ..."`
-      .li`$"postla during ..."`,
+    ul.li`#"la" can give locations in space and time`
+      .li`$"^la at ..." or $"^la in ..."`
+      .li`$"^la during ..."`,
     ex.la`tenpo weka la sina wawa lili`
       .eng`distant time la you li 're a little strong`
       .full`a long time ago, la you li were a little strong`
       .full`in a long time, la you li will be a little strong`,
     ch.la`tomo mu la mi weka`
       .eng`music room la I li 'm absent`
-      .full`I li 'm absent @prela from the music room`,
+      .full`I li 'm absent @la from the music room`,
     ch.eng`in the spy center, la we li know e everything`
       .into`ma lukin la mi sona e ale`,
   ),
 
-  slide`review: "la"`.vocab(
+  slide`review: #"la"`.vocab(
     ilo,
     la,
     moku,
@@ -150,10 +150,10 @@ DECK_TOK_05.slide(
     nasin,
     sama,
   )(
-    p`"la" goes between $"context la" and ~"the main sentence"`,
-    ex.la`tenpo la mi ante e moku mi`
-      .eng`time la I li change e my food`
-      .full`sometimes la I li change e what I eat`,
+    p`#"la" goes between $"context la" and "the main sentence"`,
+    ex.la`tenpo ni la mi ante e moku mi`
+      .eng`this time la I li change e my food`
+      .full`now la I li change e what I eat`,
     p`the context can be a full sentence or just a phrase`,
     ex.la`sina mu suli la mi $lon ala e sina`
       .eng`if you're loud, la we li 'll remove e you`
@@ -177,20 +177,20 @@ DECK_TOK_05.print(
     nasin,
     sama,
   )(
-    p`"la" goes between $"context la" and ~"the main sentence"`,
-    ex.la`tenpo la mi ante e moku mi`
-      .eng`time la I li change e my food`
-      .full`sometimes la I li change e what I eat`,
+    p`#"la" goes between $"context la" and "the main sentence"`,
+    ex.la`tenpo ni la mi ante e moku mi`
+      .eng`this time la I li change e my food`
+      .full`now la I li change e what I eat`,
     p`the context can be a full sentence or just a phrase`,
     ex.la`sina mu suli la mi $lon ala e sina`
       .eng`if you're loud, la we li 'll remove e you`
       .full`if you're loud, la we li 'll remove e you`,
-    p`some kinds of context "la" can provide:`,
-    ul.li`chains: $"postla if ..." or $"postla because_of ..."`
-      .li`themes: $"postla regarding ..."`
-      .li`adverbs: $"@prela similarly ..." or $"@prela unrelatedly ..." or $"@prela possibly ..."`
-      .li`opinions: $"postla from_the_perspective_of ..."`
-      .li`locations: $"postla at ..." or $"postla during ..."`,
+    p`some kinds of context #"la" can provide:`,
+    ul.li`chains: $"^la if ..." or $"^la because_of ..."`
+      .li`themes: $"^la regarding ..."`
+      .li`adverbs: $"@la similarly ..." or $"@la unrelatedly ..." or $"@la possibly ..."`
+      .li`opinions: $"^la from_the_perspective_of ..."`
+      .li`locations: $"^la at ..." or $"^la during ..."`,
   ),
 )
 
