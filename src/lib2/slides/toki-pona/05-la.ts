@@ -139,7 +139,6 @@ DECK_TOK_05.slide(
 
   slide`review: #"la"`.vocab(
     ilo,
-    la,
     moku,
     ante,
     mu,
@@ -149,6 +148,7 @@ DECK_TOK_05.slide(
     soweli,
     nasin,
     sama,
+    la,
   )(
     p`#"la" goes between $"context la" and "the main sentence"`,
     ex.la`tenpo ni la mi ante e moku mi`
@@ -166,7 +166,6 @@ DECK_TOK_05.print(
     DECK_TOK_05,
   ).vocab(
     ilo,
-    la,
     moku,
     ante,
     mu,
@@ -176,6 +175,7 @@ DECK_TOK_05.print(
     soweli,
     nasin,
     sama,
+    la,
   )(
     p`#"la" goes between $"context la" and "the main sentence"`,
     ex.la`tenpo ni la mi ante e moku mi`

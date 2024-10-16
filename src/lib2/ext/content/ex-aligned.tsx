@@ -1,5 +1,5 @@
 import { For } from "solid-js"
-import { defineExt, unimpl } from "../../define"
+import { defineExt } from "../../define"
 import type { Content, TextOf } from "../../types"
 import { styledEng, styledTok } from "../text/styled"
 
@@ -36,7 +36,22 @@ export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">][]>()(
       )
     },
     presenter(): undefined {},
-    print: unimpl,
+    print(data, exts) {
+      return (
+        <div class="my-4 grid grid-cols-2 gap-x-8">
+          <For each={data}>
+            {(entry) => (
+              <>
+                <p class="text-right font-ex-tok font-semibold">
+                  {exts.Text(entry[0])}
+                </p>
+                <p class="font-ex-eng">{exts.Text(entry[1])}</p>
+              </>
+            )}
+          </For>
+        </div>
+      )
+    },
   },
 )
 

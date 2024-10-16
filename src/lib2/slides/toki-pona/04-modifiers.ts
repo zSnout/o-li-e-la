@@ -165,16 +165,16 @@ DECK_TOK_04.slide(
   ),
 
   slide`review: modifiers and #"pp"`.vocab(
-    kin,
     pali,
     musi,
     lukin,
     ale,
     ala,
     tomo,
-    a,
     suli,
     nimi,
+    kin,
+    a,
     pi,
   )(
     p`to modify a word, put a _modifer_ after the _base word_. multiple modifiers all modify the first word.`,
@@ -196,16 +196,16 @@ DECK_TOK_04.print(
   print(
     DECK_TOK_04,
   ).vocab(
-    kin,
     pali,
     musi,
     lukin,
     ale,
     ala,
     tomo,
-    a,
     suli,
     nimi,
+    kin,
+    a,
     pi,
   )(
     p`to modify a word, put the _modifer_ after the _base word_`,

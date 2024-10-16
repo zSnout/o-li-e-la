@@ -92,7 +92,6 @@ DECK_TOK_03.slide(
     wile,
     ona,
     mute,
-    e,
     tan,
     kama,
     ike,
@@ -100,6 +99,7 @@ DECK_TOK_03.slide(
     pilin,
     lili,
     sitelen,
+    e,
   )(
     p`to add a direct object to a sentence, write #"e" followed by the object at the end of the sentence.`,
     ex.tok`mi wile e ni.`
@@ -120,7 +120,6 @@ DECK_TOK_03.print(
     wile,
     ona,
     mute,
-    e,
     tan,
     kama,
     ike,
@@ -128,6 +127,7 @@ DECK_TOK_03.print(
     pilin,
     lili,
     sitelen,
+    e,
   )(
     p`to add a direct object to a sentence, write #"e" followed by the object at the end of the sentence.`,
     ex.tok`mi wile e ni.`
