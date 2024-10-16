@@ -77,6 +77,8 @@ DECK_TOK_02.slide(
   slide`context saves the day!`.image(
     `/IMG_7604.jpeg`,
     `person at the bottom of a tower with a kijetesantakalu at the top of the tower and an extended tail at the bottom.`,
+    "cover",
+    "auto",
   )
     .note`This picture uses many words that haven't been introduced yet. That's okay; we're trying to get people into the toki pona mindset, not teach them vocabulary.`(
     p`$"you li understand" and $"you li are knowledge" are the same??`,
