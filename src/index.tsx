@@ -1,5 +1,4 @@
 import { all } from "./ext"
-import "./index.css"
 import {
   Slideshow,
   startBackgroundProcess,
