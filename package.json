@@ -42,16 +42,7 @@
         }
       },
       {
-        "files": "src/lib2/slides/**/*",
-        "options": {
-          "printWidth": 0
-        }
-      },
-      {
-        "files": [
-          "src/lib/vocab.ts",
-          "src/lib/groups.ts"
-        ],
+        "files": "src/slides_old/**/*",
         "options": {
           "printWidth": 0
         }

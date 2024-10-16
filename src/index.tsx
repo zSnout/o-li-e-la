@@ -1,12 +1,10 @@
 import "./refresh"
 
-import { For, render, Show } from "solid-js/web"
-import { PresenterNotes, RenderScalable } from "./el/Slide"
+import { render } from "solid-js/web"
 import "./index.css"
-import { AsSvg } from "./lib2/AsSvg"
-import { all } from "./lib2/ext"
-import { DECK_TOK_00 } from "./lib2/slides/toki-pona/00-test"
-import { DECK_TOK_01 } from "./lib2/slides/toki-pona/01-welcome"
+import { all } from "./ext"
+import { DECK_TOK_00 } from "./slides/toki-pona/00-test"
+import { DECK_TOK_01 } from "./slides/toki-pona/01-welcome"
 import {
   Slideshow,
   startBackgroundProcess,
@@ -16,23 +14,16 @@ import {
   ViewLatest,
   ViewPrint,
   ViewSpeaker,
-} from "./lib2/slideshow"
+} from "./lib/slideshow"
 
-import { slides } from "./lib/helpers"
-import { VIEW } from "./lib/query"
-import { DECK_TOK_02 } from "./lib2/slides/toki-pona/02-li"
-import { DECK_TOK_03 } from "./lib2/slides/toki-pona/03-objects"
-import { DECK_TOK_04 } from "./lib2/slides/toki-pona/04-modifiers"
-import { DECK_TOK_05 } from "./lib2/slides/toki-pona/05-la"
-
-import "./slides/02-dev/99-test"
-import "./slides/03-tok/01-welcome"
-import "./slides/03-tok/02-li"
-import "./slides/03-tok/03-objects"
-import "./slides/03-tok/04-modifiers"
-import "./slides/03-tok/05-la"
+import { DECK_TOK_02 } from "./slides/toki-pona/02-li"
+import { DECK_TOK_03 } from "./slides/toki-pona/03-objects"
+import { DECK_TOK_04 } from "./slides/toki-pona/04-modifiers"
+import { DECK_TOK_05 } from "./slides/toki-pona/05-la"
 
 const root = document.getElementById("root")
+
+const VIEW = new URL(location.href).searchParams.get("view")
 
 render(() => {
   const slideshow = new Slideshow()
@@ -46,28 +37,7 @@ render(() => {
   slideshow.adopt(DECK_TOK_04)
   slideshow.adopt(DECK_TOK_05)
 
-  if (VIEW == "diff") {
-    return (
-      <div class="grid grid-cols-[auto,24rem,auto,24rem]">
-        <For each={slideshow.slides}>
-          {(slide, idx) => (
-            <>
-              <AsSvg exts={slideshow.exts} slide={slide} />
-              <div class="flex h-full flex-col gap-4 bg-z-body px-3 py-4">
-                {slideshow.exts.SlidePresenter(slide)}
-              </div>
-              <Show when={slides[idx()]}>
-                <RenderScalable>{slides[idx()]!}</RenderScalable>
-                <div class="flex h-full flex-col gap-4 bg-z-body px-3 py-4">
-                  <PresenterNotes>{slides[idx()]!}</PresenterNotes>
-                </div>
-              </Show>
-            </>
-          )}
-        </For>
-      </div>
-    )
-  } else if (VIEW == "doc") {
+  if (VIEW == "doc") {
     return <ViewDocument slideshow={slideshow} />
   } else if (VIEW == "latest") {
     return <ViewLatest slideshow={slideshow} />
