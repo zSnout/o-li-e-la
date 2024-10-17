@@ -1,11 +1,16 @@
 import { For } from "solid-js"
 import { defineExt, unimpl } from "../../lib/define"
-import type { Content, Vocab } from "../../lib/types"
+import { VocabVis, type Content, type Vocab } from "../../lib/types"
 
 export const ext = defineExt<readonly Vocab[]>()(
   "content",
   "print-vocab-front",
   {
+    vocab(data, exts, proxy) {
+      for (const vocab of data) {
+        exts.VocabVocab(vocab, proxy, VocabVis.EX)
+      }
+    },
     entry: unimpl,
     presenter: unimpl,
     slide: unimpl,

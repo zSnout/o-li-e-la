@@ -4,6 +4,7 @@ import { clsx } from "../../lib/clsx"
 import { defineExt } from "../../lib/define"
 import type { Exts } from "../../lib/exts"
 import {
+  VocabVis,
   type Content,
   type Many,
   type ManyMut,
@@ -71,6 +72,11 @@ function LaBox({
 export const ext = defineExt<
   [tok: TextCtx<"tok">, eng: Many<TextCtxFull<"eng">>, challenge: boolean]
 >()("content", "la_box", {
+  vocab([tok, , challenge], exts, proxy) {
+    const vis = challenge ? VocabVis.CH_Q : VocabVis.EX
+    exts.TextVocab(tok[0], proxy, vis)
+    exts.TextVocab(tok[1], proxy, vis)
+  },
   slide(data, exts) {
     return (
       <LaBox

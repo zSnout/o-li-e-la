@@ -9,8 +9,17 @@ export const ext = defineExt<{
   word: string
   defnShort: Text
   defnLipamanka: Text | null
-  kind: { name: string }
+  kind: WordKind
 }>()("vocab", VOCAB_TOKIPONA, {
+  vocab(data, exts, proxy, vis) {
+    proxy.def(tokipona(data), vis)
+    if (vis.isDefn()) {
+      exts.TextVocab(data.defnShort, proxy, vis)
+      if (data.defnLipamanka) {
+        exts.TextVocab(data.defnLipamanka, proxy, vis)
+      }
+    }
+  },
   render(data, exts) {
     return (
       <li class="flex w-full flex-col font-sans">

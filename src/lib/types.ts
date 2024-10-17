@@ -188,32 +188,44 @@ export function createFilter(): EntryFilter {
 
 export class VocabVis {
   /** Used in examples. */
-  static readonly EX = new VocabVis("ex", false)
+  static readonly EX = new VocabVis("ex", "defn")
+
+  /** Used in descriptions (paragraphs, lists). */
+  static readonly DESC = new VocabVis("ex", "ref")
 
   /** Used in challenge prompts. */
-  static readonly CH_Q = new VocabVis("chq", false)
+  static readonly CH_Q = new VocabVis("chq", "defn")
 
   /** Used in challenge labels. */
-  static readonly CH_LABEL = new VocabVis("chq", true)
+  static readonly CH_LABEL = new VocabVis("chq", "ref")
 
   /** Used in challenge answers. */
-  static readonly CH_A = new VocabVis("cha", false)
+  static readonly CH_A = new VocabVis("cha", "defn")
 
   /** Used in challenge explanations. */
-  static readonly CH_EXPL = new VocabVis("cha", true)
+  static readonly CH_EXPL = new VocabVis("cha", "ref")
 
   /** Used in speaker notes. */
-  static readonly NOTE = new VocabVis("note", true)
+  static readonly NOTE = new VocabVis("note", "ref")
 
   private constructor(
     /** Where the vocab was used. */
     private readonly loc: "ex" | "chq" | "cha" | "note",
     /**
      * Whether it was a defining usage (an example or translation challenge
-     * prompt) or a referential usage (in the middle of a paragraph).
+     * prompt), a referential usage (in the middle of a paragraph), or in a
+     * properly semanticized portion of a paragraph.
      */
-    private readonly isRef: boolean,
+    private readonly ctx: "defn" | "ref" | "ref_inner",
   ) {}
+
+  asRefInner() {
+    return new VocabVis(this.loc, "ref_inner")
+  }
+
+  isDefn() {
+    return this.ctx == "defn" || this.ctx == "ref_inner"
+  }
 }
 
 export class VocabList {
@@ -221,7 +233,7 @@ export class VocabList {
   def(group: Group, word: Vocab, vis: VocabVis) {}
 
   /** Marks a word as being referenced in this section. */
-  ref(group: Group, id: string, word: string, vis: VocabVis) {}
+  ref(group: Group, word: string, vis: VocabVis) {}
 }
 
 export class VocabProxy {
@@ -236,7 +248,7 @@ export class VocabProxy {
   }
 
   /** Marks a word as being referenced in this section. */
-  ref(id: string, word: string, vis: VocabVis) {
-    this.list.ref(this.group, id, word, vis)
+  ref(word: string, vis: VocabVis) {
+    this.list.ref(this.group, word, vis)
   }
 }
