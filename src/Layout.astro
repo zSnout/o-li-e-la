@@ -1,0 +1,34 @@
+---
+import "./index.css"
+import { clsx } from "./lib/clsx"
+---
+
+<!doctype html>
+<html lang="en" class="flex min-h-full w-full flex-1 flex-col">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>o li e la</title>
+  </head>
+  <body
+    class={clsx(
+      "flex min-h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500",
+      !Astro.props.clear && "dark:bg-zinc-950 bg-z-body-selected",
+    )}
+  >
+    <slot />
+  </body>
+</html>
+
+<script>
+  if (typeof matchMedia == "function") {
+    const media = matchMedia("(prefers-color-scheme: dark)")
+
+    document.documentElement.classList.toggle("dark", media.matches)
+
+    media.onchange = () => {
+      document.documentElement.classList.toggle("dark", media.matches)
+    }
+  }
+</script>

@@ -1,0 +1,34 @@
+---
+import { ALL_VIEWS } from "@"
+import { decks } from "@/index"
+import Layout from "@l"
+import type { GetStaticPaths } from "astro"
+import { Main } from "./_load"
+
+export const getStaticPaths = (async () => {
+  return (
+    await Promise.all(
+      Object.entries(decks).map(
+        async ([slug, { title, load }]) =>
+          await Promise.all(
+            ALL_VIEWS.map(async (view) => ({
+              params: { path: view ? slug + "/" + view : slug },
+              props: { slug, title, view, groups: await load() },
+            })),
+          ),
+      ),
+    )
+  ).flat()
+}) satisfies GetStaticPaths
+---
+
+<Layout clear={Astro.props.view == "entry"}>
+  <Main
+    slug={Astro.props.slug as keyof typeof decks}
+    view={Astro.props.view}
+    groups={Astro.props.groups.default}
+    client:load={Astro.props.view == "edit" ||
+      Astro.props.view == "latest" ||
+      Astro.props.view == "present"}
+  />
+</Layout>

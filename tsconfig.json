@@ -1,7 +1,13 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "paths": {
+      "@": ["src/index.tsx"],
+      "@l": ["src/Layout.astro"],
+      "@/*": ["src/slides/*"]
+    },
+    "baseUrl": "."
+  }
 }

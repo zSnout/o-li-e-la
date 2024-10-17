@@ -1,9 +1,63 @@
-import "./refresh"
+import { all } from "./ext"
+import {
+  Slideshow,
+  startBackgroundProcess,
+  ViewDocument,
+  ViewEdit,
+  ViewEntry,
+  ViewIndex,
+  ViewLatest,
+  ViewPrint,
+  ViewSpeaker,
+} from "./lib/slideshow"
+import type { Text } from "./lib/types"
 
-import { render } from "solid-js/web"
-import App from "./App"
-import "./index.css"
+export const ALL_VIEWS = [
+  undefined,
+  "doc",
+  "latest",
+  "entry",
+  "edit",
+  "print",
+  "present",
+] as const
 
-const root = document.getElementById("root")
+export type View = (typeof ALL_VIEWS)[number]
 
-render(() => <App />, root!)
+export function start(
+  slug: string,
+  view: View,
+  title: Text,
+  prepare: (slideshow: Slideshow) => void,
+) {
+  const slideshow = new Slideshow()
+  slideshow.exts.add(...all())
+  startBackgroundProcess(slideshow.exts)
+  prepare(slideshow)
+
+  switch (view) {
+    case undefined:
+      return <ViewIndex title={title} slug={slug} slideshow={slideshow} />
+    case "doc":
+      return <ViewDocument slideshow={slideshow} />
+    case "latest":
+      return <ViewLatest slideshow={slideshow} />
+    case "entry":
+      if (typeof document == "object") {
+        document.documentElement.classList.remove("bg-z-body-selected")
+        document.documentElement.classList.add("bg-z-body")
+      }
+      return <ViewEntry slideshow={slideshow} />
+    case "edit":
+      return <ViewEdit slideshow={slideshow} />
+    case "print":
+      return <ViewPrint slideshow={slideshow} />
+    case "present":
+      return (
+        <ViewSpeaker
+          slideshow={slideshow}
+          index={import.meta.env.DEV ? slideshow.slides.length - 1 : 0}
+        />
+      )
+  }
+}

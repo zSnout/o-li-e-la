@@ -72,11 +72,29 @@
 
   --z-border-grid-line: theme(colors.slate.950/0.1);
   --z-text-grid-label: theme(colors.slate.950/0.6);
+
+  --x-la-box: theme(colors.violet.800);
+  --x-la-box-ch: theme(colors.slate.600);
+
+  --xp-rose: theme(colors.rose.800);
+  --xp-orange: theme(colors.orange.800);
+  --xp-green: theme(colors.green.800);
+  --xp-sky: theme(colors.sky.800);
+  --xp-violet: theme(colors.violet.800);
+  --xp-fuchsia: theme(colors.fuchsia.800);
+
+  --xw-rose: theme(colors.rose.600);
+  --xw-orange: theme(colors.orange.600);
+  --xw-green: theme(colors.green.600);
+  --xw-sky: theme(colors.sky.600);
+  --xw-violet: theme(colors.violet.600);
+  --xw-fuchsia: theme(colors.fuchsia.600);
 }
 
 .dark {
-  @apply z-dark-mq z-dark-slate z-dark-focus-blue;
+  @apply z-dark-mq z-dark-zinc z-dark-focus-blue;
   color-scheme: dark;
+
   --z-bg-checkbox-selected: theme(colors.blue.500);
   --z-text-checkbox-selected: white;
   --z-bg-modal: rgb(1 3 12 / 0.75);
@@ -84,14 +102,31 @@
   --z-text-learn-learning: theme(colors.red.300);
   --z-text-learn-review: theme(colors.green.300);
 
-  --z-table-row-alt: theme(colors.slate.950);
+  --z-table-row-alt: theme(colors.zinc.950);
   --z-table-row-selected: theme(colors.blue.700);
   --z-table-row-selected-alt: theme(colors.blue.700);
   --z-table-row-selected-border: theme(colors.blue.900);
   --z-table-row-selected-text: theme(colors.blue.50);
 
-  --z-border-grid-line: theme(colors.slate.50/0.1);
-  --z-text-grid-label: theme(colors.slate.50/0.6);
+  --z-border-grid-line: theme(colors.zinc.50/0.1);
+  --z-text-grid-label: theme(colors.zinc.50/0.6);
+
+  --x-la-box: theme(colors.violet.800);
+  --x-la-box-ch: theme(colors.zinc.700);
+
+  --xp-rose: theme(colors.rose.300);
+  --xp-orange: theme(colors.orange.300);
+  --xp-green: theme(colors.green.300);
+  --xp-sky: theme(colors.sky.300);
+  --xp-violet: theme(colors.violet.300);
+  --xp-fuchsia: theme(colors.fuchsia.300);
+
+  --xw-rose: theme(colors.rose.400);
+  --xw-orange: theme(colors.orange.400);
+  --xw-green: theme(colors.green.400);
+  --xw-sky: theme(colors.sky.400);
+  --xw-violet: theme(colors.violet.400);
+  --xw-fuchsia: theme(colors.fuchsia.400);
 }
 
 :root {
@@ -130,14 +165,6 @@
 
 .mq-selection.mq-blur .mq-empty {
   --z-mq-root-maybe-selected: var(--z-mq-filled-selection-blur);
-}
-
-.force-light {
-  @apply z-light-mq z-light-slate z-light-focus-blue;
-}
-
-.force-dark {
-  @apply z-dark-mq z-dark-slate z-dark-focus-blue;
 }
 
 html.no-transition,

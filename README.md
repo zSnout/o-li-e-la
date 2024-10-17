@@ -1,99 +1,47 @@
-# o li e la
+# Astro Starter Kit: Minimal
 
-**o li e la** is a slideshow software designed for teaching toki pona.
-
-## Conventions
-
-All text is lowercase except speaker notes, which are always properly
-capitalized.
-
-Slides should use short phrases as bullet points. More information can be moved
-into speaker notes, which are then easily accessible.
-
-## Text Features
-
-**o li e la** can automatically color and stylize certain fragments of text in
-slideshows. There are two main stylization categories: phrase and sentence.
-
-### Sentence Stylization
-
-Sentences may be stylized using slightly altered Markdown syntax.
-
-```
-This is some text with **bolded text**, *italicized text*, __underlines__, and ~~strikethroughs~~. Regarding embedded toki pona, "ona li ken toki pona kepeken poki Double Quote" and may have %"toki lili". Regarding embedded colored English, $"dollar signs li mark e embeds", and $%"dollar signs followed by percent signs" mark phrases. Writing ~"a quote starting with ~ will avoid text highlighting".
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-See the section below for rules on coloring text.
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
 
-### Phrase Stylization
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-There are four phrase types: toki pona, English, toki pona pi phrases, and
-English pi phrases.
+## 🚀 Project Structure
 
-See the `SLIDE_TEST_SYNTAX_HIGHLIGHTING` slide in
-[`src/slides/00-test`](./src/slides/00-test.ts) for a wonderful example of all
-the features described below in use. It may be more helpful than the set of
-rules outlined below.
+Inside of your Astro project, you'll see the following folders and files:
 
-Stylized toki pona works as expected, with these special features:
-
-- `taso,` alone at the beginning of a paragraph will have the comma removed and
-  will be colored black to distinguish from surrounding text.
-- `anu` phrases must be written as `anu e ...` or `anu li ...` to indicate what
-  `anu` marks.
-- `@li` will highlight the following text as if it follows the word `li`, but
-  will not actually write `li`. This works with other particles as well.
-
-Stylized English is quite strange. Because it is not automatically parseable, it
-is written using additional syntax.
-
-- Words following `li` or `e` will be highlighted appropriately, and the words
-  `li` and `e` themselves will be removed.
-- `prela word` will highlight `word` in the dark `la` color, and everything
-  after it in the `la` color.
-- `lon word ...` will highlight `word` in the dark `lon` color, and everything
-  after it in the `lon` color. This works with other prepositions and `en`.
-- `anu` must be written as `anu e word` to highlight `word` in the dark `e`
-  color and everything after in the normal `e` color. This works with particles
-  other than `e`.
-- `@@ word` will highlight `word` in the `mu` color.
-- `@li` will highlight the following text as if it follows the word `li`, but
-  will not actually write `li`. This works with other particles as well.
-- `'s` alone will prefix onto the previous word. This is useful for
-  contractions, as in `That li 's terrible!`.
-
-`pi` phrase styles for both languages are simpler. Everything is orange until
-the first `pi`. `pi ...` then highlights like a normal particle. Note that `pi`
-phrase styles only apply in `%"..."` and `$%"..."` quotes; normally, `pi` is
-treated as a plain word.
-
-## Usage
-
-```bash
-$ npm install # or pnpm install or yarn install
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-Learn more on the [Solid Website](https://solidjs.com) and come chat with us on
-our [Discord](https://discord.com/invite/solidjs)
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-## Available Scripts
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-In the project directory, you can run:
+Any static assets, like images, can be placed in the `public/` directory.
 
-### `npm run dev`
+## 🧞 Commands
 
-Runs the app in the development mode.<br> Open
-[http://localhost:5173](http://localhost:5173) to view it in the browser.
+All commands are run from the root of the project, from a terminal:
 
-### `npm run build`
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-Builds the app for production to the `dist` folder.<br> It correctly bundles
-Solid in production mode and optimizes the build for the best performance.
+## 👀 Want to learn more?
 
-The build is minified and the filenames include the hashes.<br> Your app is
-ready to be deployed!
-
-## Deployment
-
-Learn more about deploying your application with the
-[documentations](https://vitejs.dev/guide/static-deploy.html)
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
