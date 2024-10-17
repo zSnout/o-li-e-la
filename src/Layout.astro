@@ -13,8 +13,8 @@ import { clsx } from "./lib/clsx"
   </head>
   <body
     class={clsx(
-      "flex min-h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500",
-      !Astro.props.clear && "dark:bg-zinc-950 bg-z-body-selected",
+      "flex min-h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500 dark:bg-zinc-950",
+      Astro.props.clear ? 0 : "bg-z-body-selected",
     )}
   >
     <slot />
