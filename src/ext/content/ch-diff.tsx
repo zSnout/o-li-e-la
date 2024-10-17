@@ -1,14 +1,8 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { Ch } from "../../lib/Ch"
 import { defineExt, unimpl } from "../../lib/define"
-import {
-  VocabVis,
-  type Content,
-  type Many,
-  type ManyMut,
-  type Text,
-  type TextOf,
-} from "../../lib/types"
+import type { Content, Many, ManyMut, Text, TextOf } from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
 import { styledTok } from "../text/styled"
 

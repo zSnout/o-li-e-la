@@ -1,15 +1,10 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { Ch } from "../../lib/Ch"
 import { clsx } from "../../lib/clsx"
 import { defineExt } from "../../lib/define"
 import type { Exts } from "../../lib/exts"
-import {
-  VocabVis,
-  type Content,
-  type Many,
-  type ManyMut,
-  type Text,
-} from "../../lib/types"
+import type { Content, Many, ManyMut, Text } from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
 import { styledEng, styledTok } from "../text/styled"
 

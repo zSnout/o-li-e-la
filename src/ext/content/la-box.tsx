@@ -1,17 +1,17 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { MaybeCh } from "../../lib/Ch"
 import { clsx } from "../../lib/clsx"
 import { defineExt } from "../../lib/define"
 import type { Exts } from "../../lib/exts"
-import {
-  VocabVis,
-  type Content,
-  type Many,
-  type ManyMut,
-  type TextCtx,
-  type TextCtxFull,
-  type TextCtxFullMut,
-  type TextOf,
+import type {
+  Content,
+  Many,
+  ManyMut,
+  TextCtx,
+  TextCtxFull,
+  TextCtxFullMut,
+  TextOf,
 } from "../../lib/types"
 import { str } from "../text/str"
 import { styledEng, styledTok } from "../text/styled"

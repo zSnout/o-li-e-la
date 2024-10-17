@@ -1,7 +1,8 @@
 import { Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { clsx } from "../../lib/clsx"
 import { defineExt } from "../../lib/define"
-import { VocabVis, type Content, type Text } from "../../lib/types"
+import type { Content, Text } from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<

@@ -1,7 +1,8 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { Ch } from "../../lib/Ch"
 import { defineExt, unimpl } from "../../lib/define"
-import { VocabVis, type Content, type Note, type Text } from "../../lib/types"
+import type { Content, Note, Text } from "../../lib/types"
 
 export const ext = defineExt<
   [label: Text, prompts: [prompt: Text, notes: readonly Note[]][]]

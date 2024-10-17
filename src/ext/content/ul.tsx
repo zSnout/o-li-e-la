@@ -1,13 +1,8 @@
 import { For, type JSX } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { defineExt } from "../../lib/define"
 import type { Exts } from "../../lib/exts"
-import {
-  finishAll,
-  VocabVis,
-  type Content,
-  type Into,
-  type Text,
-} from "../../lib/types"
+import { finishAll, type Content, type Into, type Text } from "../../lib/types"
 
 function UlInner(data: readonly Text[], exts: Exts, Marker: () => JSX.Element) {
   return (

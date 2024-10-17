@@ -1,5 +1,6 @@
 import { defineExt } from "../../lib/define"
-import { VocabVis, type Note, type Text } from "../../lib/types"
+import { type Note, type Text } from "../../lib/types"
+import { VocabVis } from "../../lib/vocab"
 
 export const ext = defineExt<Text>()("note", "p", {
   vocab(data, exts, proxy) {

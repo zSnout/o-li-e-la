@@ -26,13 +26,12 @@ import { createScreenSize } from "./size"
 import {
   createFilter,
   finishAll,
-  VocabList,
-  VocabProxy,
   type Into,
   type PrintFull,
   type Slide,
   type Text,
 } from "./types"
+import { VocabList, VocabProxy } from "./vocab"
 
 export class Slideshow {
   readonly exts = new Exts()

@@ -1,6 +1,7 @@
 import { For } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { defineExt } from "../../lib/define"
-import { VocabVis, type Aside, type Vocab } from "../../lib/types"
+import type { Aside, Vocab } from "../../lib/types"
 
 export const ext = defineExt<readonly Vocab[]>()("aside", "vocab", {
   vocab(data, exts, proxy) {

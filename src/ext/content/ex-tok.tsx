@@ -1,7 +1,8 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { Ex } from "../../lib/Ch"
 import { defineExt } from "../../lib/define"
-import { VocabVis, type Content, type TextOf } from "../../lib/types"
+import type { Content, TextOf } from "../../lib/types"
 import { styledEng, styledTok } from "../text/styled"
 
 export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(

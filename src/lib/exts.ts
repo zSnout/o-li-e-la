@@ -10,9 +10,8 @@ import type {
   Slide,
   Text,
   Vocab,
-  VocabProxy,
-  VocabVis,
 } from "./types"
+import type { VocabProxy, VocabVis } from "./vocab"
 
 export class Exts implements ExtsData {
   readonly aside: ExtsData["aside"] = Object.create(null)
