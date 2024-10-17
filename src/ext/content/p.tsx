@@ -1,7 +1,11 @@
+import { VocabVis } from "src/lib/vocab"
 import { defineExt } from "../../lib/define"
 import type { Content, Text } from "../../lib/types"
 
 export const ext = defineExt<Text>()("content", "p", {
+  vocab(data, exts, proxy) {
+    exts.TextVocab(data, proxy, VocabVis.DESC)
+  },
   slide(data, exts) {
     return (
       <p class="my-4 font-ex-eng first:mt-0 last:mb-0">{exts.Text(data)}</p>

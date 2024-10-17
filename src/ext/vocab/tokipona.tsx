@@ -1,14 +1,26 @@
 import { Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { defineExt } from "../../lib/define"
 import type { Text, Vocab } from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
+
+export const VOCAB_TOKIPONA = "tokipona"
 
 export const ext = defineExt<{
   word: string
   defnShort: Text
   defnLipamanka: Text | null
-  kind: { name: string }
-}>()("vocab", "tokipona", {
+  kind: WordKind
+}>()("vocab", VOCAB_TOKIPONA, {
+  vocab(data, exts, proxy, vis) {
+    proxy.def(data.word, tokipona(data), vis)
+    if (vis.isDefn()) {
+      exts.TextVocab(data.defnShort, proxy, VocabVis.DESC)
+      if (data.defnLipamanka) {
+        exts.TextVocab(data.defnLipamanka, proxy, VocabVis.DESC)
+      }
+    }
+  },
   render(data, exts) {
     return (
       <li class="flex w-full flex-col font-sans">
@@ -65,6 +77,9 @@ export const ext = defineExt<{
   partIcon(data) {
     return <span class="font-sp-sans">{data.word}</span>
   },
+  partEntryLabel(data) {
+    return <span class="font-sp-sans">{data.word}</span>
+  },
   partWord(data) {
     return <span class="font-ex-eng">{data.word}</span>
   },
@@ -76,6 +91,9 @@ export const ext = defineExt<{
       <Show when={data.defnLipamanka}>{exts.Text(data.defnLipamanka!)}</Show>
     )
   },
+  word(data) {
+    return data.word
+  },
 })
 
 export function tokipona(data: {
@@ -84,7 +102,7 @@ export function tokipona(data: {
   defnLipamanka: Text | null
   kind: WordKind
 }): Vocab {
-  return ["tokipona", data]
+  return [VOCAB_TOKIPONA, data]
 }
 
 // Intentionally not an interface.

@@ -13,6 +13,9 @@ export const ext = defineExt<{
   p: boolean
   content: Text
 }>()("text", "fmt", {
+  vocab(data, exts, proxy, vis) {
+    exts.TextVocab(data.content, proxy, vis)
+  },
   render(data, exts) {
     return (
       <span

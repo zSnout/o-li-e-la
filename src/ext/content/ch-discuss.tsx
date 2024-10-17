@@ -1,4 +1,5 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { Ch } from "../../lib/Ch"
 import { defineExt, unimpl } from "../../lib/define"
 import type { Content, Note, Text } from "../../lib/types"
@@ -6,6 +7,15 @@ import type { Content, Note, Text } from "../../lib/types"
 export const ext = defineExt<
   [label: Text, prompts: [prompt: Text, notes: readonly Note[]][]]
 >()("content", "ch/discuss", {
+  vocab(data, exts, proxy) {
+    exts.TextVocab(data[0], proxy, VocabVis.CH_EXPL)
+    for (const [prompt, notes] of data[1]) {
+      exts.TextVocab(prompt, proxy, VocabVis.CH_LABEL)
+      for (const note of notes) {
+        exts.NoteVocab(note, proxy)
+      }
+    }
+  },
   slide(data, exts) {
     return (
       <div class="my-4 flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">

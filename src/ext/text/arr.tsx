@@ -3,6 +3,11 @@ import { defineExt } from "../../lib/define"
 import type { Text } from "../../lib/types"
 
 export const ext = defineExt<readonly Text[]>()("text", "arr", {
+  vocab(data, exts, proxy, vis) {
+    for (const el of data) {
+      exts.TextVocab(el, proxy, vis)
+    }
+  },
   render(data, exts) {
     return <For each={data}>{(x) => exts.Text(x)}</For>
   },

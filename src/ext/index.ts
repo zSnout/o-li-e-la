@@ -28,6 +28,7 @@ import { ext as ext18 } from "./text/fmt"
 import { ext as ext27 } from "./text/linked"
 import { ext as ext19 } from "./text/str"
 import { ext as ext20 } from "./text/styled"
+import { ext as ext34 } from "./text/tok"
 import { ext as ext21 } from "./vocab/tokipona"
 
 export function all() {
@@ -63,5 +64,6 @@ export function all() {
     ext31,
     ext32,
     ext33,
+    ext34,
   ]
 }

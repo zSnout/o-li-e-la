@@ -3,6 +3,9 @@ import type { Aside, Text } from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
 
 export const ext = defineExt<Text>()("aside", "pssll", {
+  vocab() {
+    // TODO: maybe this should be counted as pssll vocabulary
+  },
   entry(data, exts, filter) {
     return exts.TextEntry(data, filter)
   },

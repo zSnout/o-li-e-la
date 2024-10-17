@@ -8,6 +8,9 @@ export const ext = defineExt<[classes: string, content: string]>()(
   "text",
   "styled",
   {
+    vocab(data, exts, proxy, vis) {
+      exts.TextVocab(str(data[1]), proxy, vis)
+    },
     render(data) {
       return <span class={data[0]}>{data[1]}</span>
     },

@@ -1,4 +1,5 @@
 import { For, type JSX } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { defineExt } from "../../lib/define"
 import type { Exts } from "../../lib/exts"
 import { finishAll, type Content, type Into, type Text } from "../../lib/types"
@@ -19,6 +20,11 @@ function UlInner(data: readonly Text[], exts: Exts, Marker: () => JSX.Element) {
 }
 
 export const ext = defineExt<readonly Text[]>()("content", "ul", {
+  vocab(data, exts, proxy) {
+    for (const li of data) {
+      exts.TextVocab(li, proxy, VocabVis.DESC)
+    }
+  },
   slide(data, exts) {
     return UlInner(data, exts, () => (
       <span class="inline-block size-2.5 min-w-2.5 -translate-y-0.5 rounded-full bg-z-text-dimmed [-webkit-print-color-adjust:exact] [print-color-adjust:exact] group-[]/small:size-2 group-[]/small:min-w-2" />

@@ -11,6 +11,11 @@ export const ext = defineExt<
     notes: readonly Note[],
   ]
 >()("slide", "image", {
+  vocab(data, exts, proxy) {
+    for (const note of data[3]) {
+      exts.NoteVocab(note, proxy)
+    }
+  },
   render(data) {
     return (
       <article class="size-slide relative flex bg-z-body text-2xl text-z contain-strict">

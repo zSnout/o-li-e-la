@@ -7,6 +7,9 @@ export const ext = defineExt<[href: string, content: Text]>()(
   "text",
   "linked",
   {
+    vocab(data, exts, proxy, vis) {
+      exts.TextVocab(data[1], proxy, vis)
+    },
     render(data, exts) {
       return (
         <a href={data[0]} class="text-z-link underline underline-offset-2">
