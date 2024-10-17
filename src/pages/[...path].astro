@@ -23,12 +23,22 @@ export const getStaticPaths = (async () => {
 ---
 
 <Layout clear={Astro.props.view == "entry"}>
-  <Main
-    slug={Astro.props.slug as keyof typeof decks}
-    view={Astro.props.view}
-    groups={Astro.props.groups.default}
-    client:load={Astro.props.view == "edit" ||
+  {
+    (
+      Astro.props.view == "edit" ||
       Astro.props.view == "latest" ||
-      Astro.props.view == "present"}
-  />
+      Astro.props.view == "present"
+    ) ?
+      <Main
+        slug={Astro.props.slug as keyof typeof decks}
+        view={Astro.props.view}
+        groups={Astro.props.groups.default}
+        client:load
+      />
+    : <Main
+        slug={Astro.props.slug as keyof typeof decks}
+        view={Astro.props.view}
+        groups={Astro.props.groups.default}
+      />
+  }
 </Layout>
