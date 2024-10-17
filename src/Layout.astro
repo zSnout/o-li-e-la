@@ -1,12 +1,10 @@
 ---
 import "./index.css"
+import { clsx } from "./lib/clsx"
 ---
 
 <!doctype html>
-<html
-  lang="en"
-  class="flex min-h-full w-full flex-1 flex-col bg-z-body-selected"
->
+<html lang="en" class="flex min-h-full w-full flex-1 flex-col">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +12,10 @@ import "./index.css"
     <title>o li e la</title>
   </head>
   <body
-    class="flex min-h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500 dark:bg-zinc-950"
+    class={clsx(
+      "flex min-h-full w-full flex-1 flex-col font-['Comic_Sans_MS'] text-teal-500",
+      !Astro.props.clear && "dark:bg-zinc-950 bg-z-body-selected",
+    )}
   >
     <slot />
   </body>

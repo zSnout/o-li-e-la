@@ -13,7 +13,7 @@ import {
 } from "../../lib/helpers"
 import { Group } from "../../lib/slideshow"
 
-export const DECK_CONLANGS = Group.of`00``conlangs`
+export const DECK_CONLANGS = Group.of`01``conlangs`
 
 DECK_CONLANGS.slide(
   slide`conlangs`
@@ -207,6 +207,10 @@ unite the world`
     .note`I leave it here as a challenge for anybody who wants to decipher it. And while there are no rules for Uscript, that is, you may discuss it with others, I'd encourage you not to give a friend all the answers, especially if they're trying to learn it themselves.`
     .note`Questions?`,
 )
+
+export default [
+  DECK_CONLANGS,
+]
 
 /* TODO:
  - na'vi

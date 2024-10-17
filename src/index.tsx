@@ -5,10 +5,12 @@ import {
   ViewDocument,
   ViewEdit,
   ViewEntry,
+  ViewIndex,
   ViewLatest,
   ViewPrint,
   ViewSpeaker,
 } from "./lib/slideshow"
+import type { Text } from "./lib/types"
 
 export const ALL_VIEWS = [
   undefined,
@@ -22,7 +24,12 @@ export const ALL_VIEWS = [
 
 export type View = (typeof ALL_VIEWS)[number]
 
-export function start(view: View, prepare: (slideshow: Slideshow) => void) {
+export function start(
+  slug: string,
+  view: View,
+  title: Text,
+  prepare: (slideshow: Slideshow) => void,
+) {
   const slideshow = new Slideshow()
   slideshow.exts.add(...all())
   startBackgroundProcess(slideshow.exts)
@@ -30,6 +37,7 @@ export function start(view: View, prepare: (slideshow: Slideshow) => void) {
 
   switch (view) {
     case undefined:
+      return <ViewIndex title={title} slug={slug} slideshow={slideshow} />
     case "doc":
       return <ViewDocument slideshow={slideshow} />
     case "latest":

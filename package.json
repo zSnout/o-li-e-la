@@ -38,6 +38,12 @@
         "options": {
           "printWidth": 0
         }
+      },
+      {
+        "files": "src/slides/index.ts",
+        "options": {
+          "printWidth": 80
+        }
       }
     ]
   }

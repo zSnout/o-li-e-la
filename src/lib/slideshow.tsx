@@ -1,9 +1,26 @@
-import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
+import {
+  faFileText,
+  type IconDefinition,
+} from "@fortawesome/free-regular-svg-icons"
+import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
+import { faPrint } from "@fortawesome/free-solid-svg-icons/faPrint"
+import { faTableCellsLarge } from "@fortawesome/free-solid-svg-icons/faTableCellsLarge"
+import { faTv } from "@fortawesome/free-solid-svg-icons/faTv"
+import {
+  createEffect,
+  createMemo,
+  createSignal,
+  For,
+  Show,
+  type JSX,
+} from "solid-js"
 import { render } from "solid-js/web"
+import type { View } from ".."
 import { fmt, type FmtParams } from "../ext/text/fmt"
 import { AsSvg } from "./AsSvg"
 import { clsx } from "./clsx"
 import { Exts } from "./exts"
+import { Fa } from "./Fa"
 import { createRemSize } from "./rem"
 import { createScreenSize } from "./size"
 import {
@@ -387,4 +404,88 @@ export function ViewPrint({ slideshow }: { slideshow: Slideshow }) {
       )}
     </For>
   )
+}
+
+export function ViewIndex({
+  slug,
+  slideshow,
+  title,
+}: {
+  slug: string
+  slideshow: Slideshow
+  title: Text
+}) {
+  return (
+    <div class="m-auto flex w-96 max-w-full flex-col font-sans text-z">
+      <h1 class="mb-4 text-center text-2xl font-semibold text-z-heading">
+        {slideshow.exts.Text(title)}
+      </h1>
+      <div class="flex flex-col gap-2">
+        <A
+          view="doc"
+          label="Doc"
+          icon={faFileText}
+          desc="Recommended for reviewing the slide deck."
+        />
+        <A
+          view="present"
+          label="Present"
+          icon={faTv}
+          desc="Displays the slide deck for an audience."
+        />
+        <A
+          view="print"
+          label="Print"
+          icon={faPrint}
+          desc="Generates this slideshow's print-outs."
+        />
+        <A
+          view="entry"
+          label="Entry"
+          icon={faTableCellsLarge}
+          desc="Collects media, examples, and vocab."
+        />
+      </div>
+      <p class="mt-8 text-center text-lg font-semibold text-z-heading">
+        Sections
+      </p>
+      <div class="flex flex-col">
+        <For each={slideshow.groups}>
+          {(group) => (
+            <div class="flex gap-2">
+              <span class="font-mono text-z-subtitle">
+                {slideshow.exts.Text(group.abbr)}
+              </span>
+              <span>{slideshow.exts.Text(group.title)}</span>
+            </div>
+          )}
+        </For>
+      </div>
+    </div>
+  )
+
+  function A(props: {
+    view: Exclude<View, "" | undefined>
+    label: string
+    icon: IconDefinition
+    desc: JSX.Element
+  }) {
+    return (
+      <a
+        class="z-field relative flex flex-1 px-4 shadow-none"
+        href={`/${slug}/${props.view}`}
+      >
+        <div class="grid w-full grid-cols-[1.5rem,auto] items-center gap-x-4">
+          <Fa icon={props.icon} class="row-span-2 block size-6" title={false} />
+          <p class="font-semibold text-z-heading">{props.label}</p>
+          <p class="text-sm text-z-subtitle">{props.desc}</p>
+        </div>
+        <Fa
+          class="absolute right-2 top-2 size-4 icon-blue-500"
+          icon={faExternalLink}
+          title="Open Link"
+        />
+      </a>
+    )
+  }
 }
