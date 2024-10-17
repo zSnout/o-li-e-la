@@ -101,7 +101,7 @@ DECK_TOK_02.slide(
       .eng`that li 's true.`,
     ch.eng`that li 's wonderful!`
       .into`ni li pona!`
-      .eng`that's running away.`
+      .eng`that li 's running away.`
       .into`ni li $tawa.`,
     ch.tok`tenpo li $tawa.`
       .into`time li flows.`

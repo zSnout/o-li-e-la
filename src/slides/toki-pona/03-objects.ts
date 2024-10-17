@@ -50,7 +50,7 @@ DECK_TOK_03.slide(
       .eng`I li want e that.`,
     ex.tok`ona li sona e mute.`
       .eng`they li know e a lot.`,
-    ch.tok`ona li toki e tan.`
+    ch.tok`ona li toki e $tan.`
       .into`she li said e the reason.`,
     ch.eng`it li knows e the people.`
       .into`ona li sona e jan.`,
