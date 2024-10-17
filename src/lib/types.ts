@@ -186,7 +186,13 @@ export function createFilter(): EntryFilter {
   }
 }
 
+export type VocabVisLoc = "ex" | "chq" | "cha" | "note"
+export type VocabVisCtx = "defn" | "ref" | "ref_inner"
+
 export class VocabVis {
+  private static readonly map: Map<VocabVisLoc, Map<VocabVisCtx, VocabVis>> =
+    new Map()
+
   /** Used in examples. */
   static readonly EX = new VocabVis("ex", "defn")
 
@@ -210,14 +216,28 @@ export class VocabVis {
 
   private constructor(
     /** Where the vocab was used. */
-    private readonly loc: "ex" | "chq" | "cha" | "note",
+    private readonly loc: VocabVisLoc,
     /**
      * Whether it was a defining usage (an example or translation challenge
      * prompt), a referential usage (in the middle of a paragraph), or in a
      * properly semanticized portion of a paragraph.
      */
     private readonly ctx: "defn" | "ref" | "ref_inner",
-  ) {}
+  ) {
+    let map = VocabVis.map.get(loc)
+    if (!map) {
+      map = new Map()
+      VocabVis.map.set(loc, map)
+    }
+
+    let el = map.get(ctx)
+    if (!el) {
+      el = this
+      map.set(ctx, el)
+    }
+
+    return el
+  }
 
   asRefInner() {
     return new VocabVis(this.loc, "ref_inner")
@@ -229,11 +249,42 @@ export class VocabVis {
 }
 
 export class VocabList {
+  readonly defs: Map<Group, Map<VocabVis, Map<string, Vocab>>> = new Map()
+  readonly refs: Map<Group, Map<VocabVis, string[]>> = new Map()
+
   /** Marks a word as being defined in this section. */
-  def(group: Group, word: Vocab, vis: VocabVis) {}
+  def(group: Group, word: string, vocab: Vocab, vis: VocabVis) {
+    let map = this.defs.get(group)
+    if (!map) {
+      map = new Map()
+      this.defs.set(group, map)
+    }
+
+    let arr = map.get(vis)
+    if (!arr) {
+      arr = new Map()
+      map.set(vis, arr)
+    }
+
+    arr.set(word, vocab)
+  }
 
   /** Marks a word as being referenced in this section. */
-  ref(group: Group, word: string, vis: VocabVis) {}
+  ref(group: Group, word: string, vis: VocabVis) {
+    let map = this.refs.get(group)
+    if (!map) {
+      map = new Map()
+      this.refs.set(group, map)
+    }
+
+    let arr = map.get(vis)
+    if (!arr) {
+      arr = []
+      map.set(vis, arr)
+    }
+
+    arr.push(word)
+  }
 }
 
 export class VocabProxy {
@@ -243,8 +294,8 @@ export class VocabProxy {
   ) {}
 
   /** Marks a word as being defined in this section. */
-  def(word: Vocab, vis: VocabVis) {
-    this.list.def(this.group, word, vis)
+  def(word: string, vocab: Vocab, vis: VocabVis) {
+    this.list.def(this.group, word, vocab, vis)
   }
 
   /** Marks a word as being referenced in this section. */

@@ -12,7 +12,7 @@ export const ext = defineExt<{
   kind: WordKind
 }>()("vocab", VOCAB_TOKIPONA, {
   vocab(data, exts, proxy, vis) {
-    proxy.def(tokipona(data), vis)
+    proxy.def(data.word, tokipona(data), vis)
     if (vis.isDefn()) {
       exts.TextVocab(data.defnShort, proxy, vis)
       if (data.defnLipamanka) {
