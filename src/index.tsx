@@ -43,10 +43,6 @@ export function start(
     case "latest":
       return <ViewLatest slideshow={slideshow} />
     case "entry":
-      if (typeof document == "object") {
-        document.documentElement.classList.remove("bg-z-body-selected")
-        document.documentElement.classList.add("bg-z-body")
-      }
       return <ViewEntry slideshow={slideshow} />
     case "edit":
       return <ViewEdit slideshow={slideshow} />
