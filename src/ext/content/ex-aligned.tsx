@@ -1,63 +1,68 @@
 import { For } from "solid-js"
 import { defineExt } from "../../lib/define"
-import type { Content, TextOf } from "../../lib/types"
+import {
+  VocabVis,
+  type Content,
+  type TextOf,
+  type TokEng,
+} from "../../lib/types"
 import { styledEng, styledTok } from "../text/styled"
 
-export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">][]>()(
-  "content",
-  "ex/aligned",
-  {
-    slide(data, exts) {
-      return (
-        <div class="my-4 grid grid-cols-2 gap-x-8">
-          <For each={data}>
-            {(entry) => (
-              <>
-                <p class="text-right font-ex-tok font-semibold">
-                  {exts.Text(entry[0])}
-                </p>
-                <p class="font-ex-eng">{exts.Text(entry[1])}</p>
-              </>
-            )}
-          </For>
-        </div>
-      )
-    },
-    entry(data, exts, filter) {
-      return (
+export const ext = defineExt<TokEng[]>()("content", "ex/aligned", {
+  vocab(data, exts, proxy) {
+    for (const [tok, eng] of data) {
+      exts.TextVocab(tok, proxy, VocabVis.EX)
+      exts.TextVocab(eng, proxy, VocabVis.EX)
+    }
+  },
+  slide(data, exts) {
+    return (
+      <div class="my-4 grid grid-cols-2 gap-x-8">
         <For each={data}>
           {(entry) => (
             <>
-              {exts.TextEntry(entry[0], filter)}
-              {exts.TextEntry(entry[1], filter)}
+              <p class="text-right font-ex-tok font-semibold">
+                {exts.Text(entry[0])}
+              </p>
+              <p class="font-ex-eng">{exts.Text(entry[1])}</p>
             </>
           )}
         </For>
-      )
-    },
-    presenter(): undefined {},
-    print(data, exts) {
-      return (
-        <div class="my-4 grid grid-cols-2 gap-x-8">
-          <For each={data}>
-            {(entry) => (
-              <>
-                <p class="text-right font-ex-tok font-semibold">
-                  {exts.Text(entry[0])}
-                </p>
-                <p class="font-ex-eng">{exts.Text(entry[1])}</p>
-              </>
-            )}
-          </For>
-        </div>
-      )
-    },
+      </div>
+    )
   },
-)
+  entry(data, exts, filter) {
+    return (
+      <For each={data}>
+        {(entry) => (
+          <>
+            {exts.TextEntry(entry[0], filter)}
+            {exts.TextEntry(entry[1], filter)}
+          </>
+        )}
+      </For>
+    )
+  },
+  presenter(): undefined {},
+  print(data, exts) {
+    return (
+      <div class="my-4 grid grid-cols-2 gap-x-8">
+        <For each={data}>
+          {(entry) => (
+            <>
+              <p class="text-right font-ex-tok font-semibold">
+                {exts.Text(entry[0])}
+              </p>
+              <p class="font-ex-eng">{exts.Text(entry[1])}</p>
+            </>
+          )}
+        </For>
+      </div>
+    )
+  },
+})
 
-export function aligned(
-  items: [tok: TextOf<"tok">, eng: TextOf<"eng">][],
-): Content {
+export function aligned(items: TokEng[]): Content {
   return ["ex/aligned", items]
 }
 

@@ -3,7 +3,13 @@ import { Ch } from "../../lib/Ch"
 import { clsx } from "../../lib/clsx"
 import { defineExt } from "../../lib/define"
 import type { Exts } from "../../lib/exts"
-import type { Content, Many, ManyMut, Text } from "../../lib/types"
+import {
+  VocabVis,
+  type Content,
+  type Many,
+  type ManyMut,
+  type Text,
+} from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
 import { styledEng, styledTok } from "../text/styled"
 
@@ -53,6 +59,17 @@ export const ext = defineExt<readonly ChTranslateOne[]>()(
   "content",
   "ch/transl",
   {
+    vocab(data, exts, proxy) {
+      for (const [, src, dst, hint] of data) {
+        exts.TextVocab(src, proxy, VocabVis.CH_Q)
+        if (hint) {
+          exts.TextVocab(src, proxy, VocabVis.CH_LABEL)
+        }
+        for (const d of dst) {
+          exts.TextVocab(d, proxy, VocabVis.CH_A)
+        }
+      }
+    },
     slide: render,
     presenter(data, exts) {
       return (

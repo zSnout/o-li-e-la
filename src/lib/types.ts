@@ -1,5 +1,6 @@
 import type { JSX } from "solid-js"
 import type { Exts } from "./exts"
+import type { Group } from "./slideshow"
 
 export declare const KIND: unique symbol
 export declare const LANG: unique symbol
@@ -53,6 +54,7 @@ export interface ExtAside<T extends Json, I extends string>
   slide(data: T, exts: Exts): JSX.Element
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtContent<T extends Json, I extends string>
@@ -61,6 +63,7 @@ export interface ExtContent<T extends Json, I extends string>
   print(data: T, exts: Exts): JSX.Element
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtEntry<T extends Json, I extends string>
@@ -72,6 +75,7 @@ export interface ExtNote<T extends Json, I extends string>
   extends Ext<"note", I> {
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtPrint<T extends Json, I extends string>
@@ -85,6 +89,7 @@ export interface ExtSlide<T extends Json, I extends string>
   render(data: T, exts: Exts): JSX.Element
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtText<T extends Json, I extends string>
@@ -93,6 +98,7 @@ export interface ExtText<T extends Json, I extends string>
   renderChallenge(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
   entryNote(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy, vis: VocabVis): void
 }
 
 export interface ExtVocab<T extends Json, I extends string>
@@ -105,6 +111,9 @@ export interface ExtVocab<T extends Json, I extends string>
   partWord(data: T, exts: Exts): JSX.Element
   partDefnShort(data: T, exts: Exts): JSX.Element
   partDefnLong(data: T, exts: Exts): JSX.Element
+  partEntryLabel(data: T, exts: Exts): JSX.Element
+  word(data: T, exts: Exts): string
+  vocab(data: T, exts: Exts, proxy: VocabProxy, vis: VocabVis): void
 }
 
 export interface ExtKinds<T extends Json, I extends string> {
@@ -174,5 +183,60 @@ export function createFilter(): EntryFilter {
       images: true,
       links: true,
     },
+  }
+}
+
+export class VocabVis {
+  /** Used in examples. */
+  static readonly EX = new VocabVis("ex", false)
+
+  /** Used in challenge prompts. */
+  static readonly CH_Q = new VocabVis("chq", false)
+
+  /** Used in challenge labels. */
+  static readonly CH_LABEL = new VocabVis("chq", true)
+
+  /** Used in challenge answers. */
+  static readonly CH_A = new VocabVis("cha", false)
+
+  /** Used in challenge explanations. */
+  static readonly CH_EXPL = new VocabVis("cha", true)
+
+  /** Used in speaker notes. */
+  static readonly NOTE = new VocabVis("note", true)
+
+  private constructor(
+    /** Where the vocab was used. */
+    private readonly loc: "ex" | "chq" | "cha" | "note",
+    /**
+     * Whether it was a defining usage (an example or translation challenge
+     * prompt) or a referential usage (in the middle of a paragraph).
+     */
+    private readonly isRef: boolean,
+  ) {}
+}
+
+export class VocabList {
+  /** Marks a word as being defined in this section. */
+  def(group: Group, word: Vocab, vis: VocabVis) {}
+
+  /** Marks a word as being referenced in this section. */
+  ref(group: Group, id: string, word: string, vis: VocabVis) {}
+}
+
+export class VocabProxy {
+  constructor(
+    private readonly list: VocabList,
+    private readonly group: Group,
+  ) {}
+
+  /** Marks a word as being defined in this section. */
+  def(word: Vocab, vis: VocabVis) {
+    this.list.def(this.group, word, vis)
+  }
+
+  /** Marks a word as being referenced in this section. */
+  ref(id: string, word: string, vis: VocabVis) {
+    this.list.ref(this.group, id, word, vis)
   }
 }

@@ -341,6 +341,12 @@ export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
                 {(slide) => slideshow.exts.SlideEntry(slide, createFilter())}
               </For>
             </div>
+
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-2 border-t border-dashed border-z pt-2">
+              <For each={group.prints.flat()}>
+                {(print) => slideshow.exts.PrintEntry(print, createFilter())}
+              </For>
+            </div>
           </div>
         )}
       </For>

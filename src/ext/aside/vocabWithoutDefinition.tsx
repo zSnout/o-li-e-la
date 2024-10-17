@@ -3,6 +3,9 @@ import { defineExt } from "../../lib/define"
 import type { Aside, Vocab } from "../../lib/types"
 
 export const ext = defineExt<readonly Vocab[]>()("aside", "vocab_no_defn", {
+  vocab() {
+    // TODO: `VocabWithoutDefinition` could theoretically include vocab words in it
+  },
   slide(data, exts) {
     return (
       <ul class="wx-80 hx-[calc(540px_-_2rem)] my-4 flex flex-col gap-2 border-l border-z py-4 pl-6 pr-8 text-lg">

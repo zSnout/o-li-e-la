@@ -14,6 +14,7 @@ export const ext = defineExt<
     aspect: "square" | "half" | "auto",
   ]
 >()("aside", "image", {
+  vocab() {},
   slide(data) {
     return (
       <>

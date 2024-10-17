@@ -1,13 +1,29 @@
 import { For, Show } from "solid-js"
 import { Ch } from "../../lib/Ch"
 import { defineExt, unimpl } from "../../lib/define"
-import type { Content, Many, ManyMut, Text, TextOf } from "../../lib/types"
+import {
+  VocabVis,
+  type Content,
+  type Many,
+  type ManyMut,
+  type Text,
+  type TextOf,
+} from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
 import { styledTok } from "../text/styled"
 
 type Prompt = [a: TextOf<"tok">, b: TextOf<"tok">, explanation: Many<Text>]
 
 export const ext = defineExt<Prompt[]>()("content", "ch/diff", {
+  vocab(data, exts, proxy) {
+    for (const [a, b, c] of data) {
+      exts.TextVocab(a, proxy, VocabVis.CH_Q)
+      exts.TextVocab(b, proxy, VocabVis.CH_Q)
+      for (const el of c) {
+        exts.TextVocab(el, proxy, VocabVis.CH_EXPL)
+      }
+    }
+  },
   slide(data, exts) {
     return (
       <div class="my-4 flex w-full flex-col border-l border-z-ch px-4 font-ex-eng">

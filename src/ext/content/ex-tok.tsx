@@ -1,13 +1,19 @@
 import { For, Show } from "solid-js"
 import { Ex } from "../../lib/Ch"
 import { defineExt } from "../../lib/define"
-import type { Content, TextOf } from "../../lib/types"
+import { VocabVis, type Content, type TextOf } from "../../lib/types"
 import { styledEng, styledTok } from "../text/styled"
 
 export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
   "content",
   "ex/tok",
   {
+    vocab([tok, e], exts, proxy) {
+      exts.TextVocab(tok, proxy, VocabVis.EX)
+      for (const eng of e) {
+        exts.TextVocab(eng, proxy, VocabVis.EX)
+      }
+    },
     slide(data, exts) {
       return (
         <div class="my-4 flex flex-col items-center">
