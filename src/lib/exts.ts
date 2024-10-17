@@ -239,7 +239,7 @@ export class Exts implements ExtsData {
     return untrack(() => el.partDefnLong(item[1], this))
   }
 
-  AsideVocab(item: Aside, proxy: VocabProxy): JSX.Element {
+  AsideVocab(item: Aside, proxy: VocabProxy) {
     const el = this.aside[item[0]]
     if (!el) {
       return err(`'AsideVocab' for '${item[0]}' does not exist`)
@@ -247,7 +247,7 @@ export class Exts implements ExtsData {
     el.vocab(item[1], this, proxy)
   }
 
-  ContentVocab(item: Content, proxy: VocabProxy): JSX.Element {
+  ContentVocab(item: Content, proxy: VocabProxy) {
     const el = this.content[item[0]]
     if (!el) {
       return err(`'ContentVocab' for '${item[0]}' does not exist`)
@@ -255,7 +255,7 @@ export class Exts implements ExtsData {
     el.vocab(item[1], this, proxy)
   }
 
-  NoteVocab(item: Note, proxy: VocabProxy): JSX.Element {
+  NoteVocab(item: Note, proxy: VocabProxy) {
     const el = this.note[item[0]]
     if (!el) {
       return err(`'Note' for '${item[0]}' does not exist`)
@@ -263,7 +263,7 @@ export class Exts implements ExtsData {
     el.vocab(item[1], this, proxy)
   }
 
-  SlideVocab(item: Slide, proxy: VocabProxy): JSX.Element {
+  SlideVocab(item: Slide, proxy: VocabProxy) {
     const el = this.slide[item[0]]
     if (!el) {
       return err(`'SlideVocab' for '${item[0]}' does not exist`)
@@ -271,7 +271,7 @@ export class Exts implements ExtsData {
     el.vocab(item[1], this, proxy)
   }
 
-  TextVocab(item: Text, proxy: VocabProxy, vis: VocabVis): JSX.Element {
+  TextVocab(item: Text, proxy: VocabProxy, vis: VocabVis) {
     const el = this.text[item[0]]
     if (!el) {
       return err(`'TextVocab' for '${item[0]}' does not exist`)
@@ -279,7 +279,7 @@ export class Exts implements ExtsData {
     el.vocab(item[1], this, proxy, vis)
   }
 
-  VocabVocab(item: Vocab, proxy: VocabProxy, vis: VocabVis): JSX.Element {
+  VocabVocab(item: Vocab, proxy: VocabProxy, vis: VocabVis) {
     const el = this.vocab[item[0]]
     if (!el) {
       return err(`'VocabVocab' for '${item[0]}' does not exist`)

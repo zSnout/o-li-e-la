@@ -11,7 +11,7 @@ export const ext = defineExt<readonly Vocab[]>()(
         exts.VocabVocab(vocab, proxy, VocabVis.EX)
       }
     },
-    entry: unimpl,
+    entry(): undefined {},
     presenter: unimpl,
     slide: unimpl,
     print(data, exts) {

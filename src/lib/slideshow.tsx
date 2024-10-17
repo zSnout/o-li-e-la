@@ -26,6 +26,8 @@ import { createScreenSize } from "./size"
 import {
   createFilter,
   finishAll,
+  VocabList,
+  VocabProxy,
   type Into,
   type PrintFull,
   type Slide,
@@ -324,6 +326,17 @@ export function ViewDocument({ slideshow }: { slideshow: Slideshow }) {
 }
 
 export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
+  const list = new VocabList()
+
+  for (const group of slideshow.groups) {
+    const proxy = new VocabProxy(list, group)
+    for (const slide of slideshow.slides) {
+      slideshow.exts.SlideVocab(slide, proxy)
+    }
+  }
+
+  console.log(list)
+
   return (
     <div class="flex flex-col gap-16 p-4">
       <For each={slideshow.groups}>
