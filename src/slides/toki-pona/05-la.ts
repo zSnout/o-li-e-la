@@ -137,7 +137,7 @@ DECK_TOK_05.slide(
       .into`ma lukin la mi sona e ale`,
   ),
 
-  slide`review: #"la"`.vocab(
+  slide`review: #"la"`.vocabReview(
     ilo,
     moku,
     ante,

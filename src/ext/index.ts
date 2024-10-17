@@ -1,6 +1,7 @@
 import { ext as ext1 } from "./aside/image"
 import { ext as ext23 } from "./aside/pssll"
 import { ext as ext2 } from "./aside/vocab"
+import { ext as ext33 } from "./aside/vocabReview"
 import { ext as ext3 } from "./aside/vocabWithoutDefinition"
 import { ext as ext28 } from "./content/ch-diff"
 import { ext as ext4 } from "./content/ch-discuss"
@@ -61,5 +62,6 @@ export function all() {
     ext30,
     ext31,
     ext32,
+    ext33,
   ]
 }

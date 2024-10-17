@@ -86,7 +86,7 @@ DECK_TOK_03.slide(
       .into`sitelen li awen e ona.`,
   ),
 
-  slide`review: direct objects with #"e"`.vocab(
+  slide`review: direct objects with #"e"`.vocabReview(
     wile,
     ona,
     mute,

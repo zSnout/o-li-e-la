@@ -1,3 +1,4 @@
+import { defineVocabReview } from "src/ext/aside/vocabReview"
 import { builderImage, image as defineImage } from "../ext/aside/image"
 import { vocab as defineVocab } from "../ext/aside/vocab"
 import { vocabWithoutDefinition } from "../ext/aside/vocabWithoutDefinition"
@@ -39,6 +40,7 @@ export interface QSlideStandardContent {
 export interface QSlideStandardAside {
   aside(aside: Into<Aside>): QSlideStandardContent
   vocab(...vocab: Into<Vocab>[]): QSlideStandardContent
+  vocabReview(...vocab: Into<Vocab>[]): QSlideStandardContent
   vocabNoDefn(...vocab: Into<Vocab>[]): QSlideStandardContent
   image(...args: Parameters<typeof defineImage>): QSlideStandardContent
 }
@@ -76,6 +78,11 @@ export function slide(...title: FmtParams): QSlideStandardCenterable {
 
   content.vocabNoDefn = (...vocab: Into<Vocab>[]) => {
     aside = vocabWithoutDefinition(finishAll(vocab))
+    return content
+  }
+
+  content.vocabReview = (...vocab: Into<Vocab>[]) => {
+    aside = defineVocabReview(finishAll(vocab))
     return content
   }
 

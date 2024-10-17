@@ -164,7 +164,7 @@ DECK_TOK_04.slide(
       .also`Why or why not? If not, how could you fix it?`,
   ),
 
-  slide`review: modifiers and #"pp"`.vocab(
+  slide`review: modifiers and #"pp"`.vocabReview(
     pali,
     musi,
     lukin,

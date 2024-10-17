@@ -120,7 +120,7 @@ DECK_TOK_02.slide(
       .also`is "tawa" a content word or a particle?`,
   ),
 
-  slide`review: basic sentences`.vocab(
+  slide`review: basic sentences`.vocabReview(
     mi,
     sina,
     jan,
