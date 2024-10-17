@@ -31,7 +31,7 @@ import {
   type Slide,
   type Text,
 } from "./types"
-import { VocabList, VocabProxy } from "./vocab"
+import { countShownToAudience, getVocab, type VocabList } from "./vocab"
 
 export class Slideshow {
   readonly exts = new Exts()
@@ -325,16 +325,7 @@ export function ViewDocument({ slideshow }: { slideshow: Slideshow }) {
 }
 
 export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
-  const list = new VocabList()
-
-  for (const group of slideshow.groups) {
-    const proxy = new VocabProxy(list, group)
-    for (const slide of slideshow.slides) {
-      slideshow.exts.SlideVocab(slide, proxy)
-    }
-  }
-
-  console.log(list)
+  const list = getVocab(slideshow)
 
   return (
     <div class="flex flex-col gap-16 p-4">
@@ -347,6 +338,8 @@ export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
               </span>
               {slideshow.exts.Text(group.title)}
             </h2>
+
+            <Vocab exts={slideshow.exts} group={group} list={list} />
 
             <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-2">
               <For each={group.slides}>
@@ -361,6 +354,63 @@ export function ViewEntry({ slideshow }: { slideshow: Slideshow }) {
             </div>
           </div>
         )}
+      </For>
+    </div>
+  )
+}
+
+function Vocab({
+  exts,
+  group,
+  list,
+}: {
+  exts: Exts
+  group: Group
+  list: VocabList
+}): JSX.Element {
+  const refMap = list.refs.get(group)
+  if (!refMap) return
+
+  const counted = countShownToAudience(refMap)
+
+  return (
+    <div class="-mt-2 flex flex-col gap-1">
+      <For each={Array.from(list.defs)}>
+        {([group, defMap]) => {
+          const counts = new Map<string, number>()
+          for (const words of defMap.values()) {
+            for (const word of words.keys()) {
+              counts.set(word, counted.get(word) ?? 0)
+            }
+          }
+
+          let areAnyFilled = false
+          for (const value of counts.values()) {
+            if (value != 0) {
+              areAnyFilled = true
+              break
+            }
+          }
+          if (!areAnyFilled) return
+
+          return (
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(4rem,1fr))] items-center rounded bg-z-body-darkened px-4 first:mt-2">
+              <p class="font-mono text-lg text-z-subtitle">
+                {exts.Text(group.abbr)}
+              </p>
+              <For each={Array.from(counts).sort(([, a], [, b]) => b - a)}>
+                {([word, count]) => (
+                  <p>
+                    <span class="font-sp-sans text-2xl text-z-heading">
+                      {word}
+                    </span>
+                    <span class="font-sans text-sm text-z">{count}</span>
+                  </p>
+                )}
+              </For>
+            </div>
+          )
+        }}
       </For>
     </div>
   )

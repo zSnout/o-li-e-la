@@ -9,11 +9,8 @@ export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
   "content",
   "ex/tok",
   {
-    vocab([tok, e], exts, proxy) {
+    vocab([tok], exts, proxy) {
       exts.TextVocab(tok, proxy, VocabVis.EX)
-      for (const eng of e) {
-        exts.TextVocab(eng, proxy, VocabVis.EX)
-      }
     },
     slide(data, exts) {
       return (

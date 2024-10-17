@@ -1,4 +1,5 @@
 import { Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { defineExt } from "../../lib/define"
 import type { Text, Vocab } from "../../lib/types"
 import { fmt, type FmtParams } from "../text/fmt"
@@ -14,9 +15,9 @@ export const ext = defineExt<{
   vocab(data, exts, proxy, vis) {
     proxy.def(data.word, tokipona(data), vis)
     if (vis.isDefn()) {
-      exts.TextVocab(data.defnShort, proxy, vis)
+      exts.TextVocab(data.defnShort, proxy, VocabVis.DESC)
       if (data.defnLipamanka) {
-        exts.TextVocab(data.defnLipamanka, proxy, vis)
+        exts.TextVocab(data.defnLipamanka, proxy, VocabVis.DESC)
       }
     }
   },

@@ -8,7 +8,6 @@ export const ext = defineExt<TokEng[]>()("content", "ex/aligned", {
   vocab(data, exts, proxy) {
     for (const [tok, eng] of data) {
       exts.TextVocab(tok, proxy, VocabVis.EX)
-      exts.TextVocab(eng, proxy, VocabVis.EX)
     }
   },
   slide(data, exts) {

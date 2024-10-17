@@ -55,13 +55,17 @@ export const ext = defineExt<readonly ChTranslateOne[]>()(
   "ch/transl",
   {
     vocab(data, exts, proxy) {
-      for (const [, src, dst, hint] of data) {
-        exts.TextVocab(src, proxy, VocabVis.CH_Q)
+      for (const [lang, src, dst, hint] of data) {
+        if (lang == "tok") {
+          exts.TextVocab(src, proxy, VocabVis.CH_Q)
+        }
         if (hint) {
           exts.TextVocab(src, proxy, VocabVis.CH_LABEL)
         }
-        for (const d of dst) {
-          exts.TextVocab(d, proxy, VocabVis.CH_A)
+        if (lang == "eng") {
+          for (const d of dst) {
+            exts.TextVocab(d, proxy, VocabVis.CH_A)
+          }
         }
       }
     },
