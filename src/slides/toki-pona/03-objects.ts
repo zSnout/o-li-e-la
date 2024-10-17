@@ -64,8 +64,8 @@ DECK_TOK_03.slide(
     lili,
     sitelen,
   )
-    .note`"@li weka" is perfect for the first English challenge, but it hasn't appeared yet.`
-    .note`"@li wawa" and "@li awen" are wonderful for the second, but, again, they haven't appeared yet.`(
+    .note`#"@li weka" is perfect for the first English challenge, but it hasn't appeared yet.`
+    .note`#"@li wawa" and #"@li awen" are wonderful for the second, but, again, they haven't appeared yet.`(
     p`#"e" can also mean "to give a target a quality"`,
     ex.tok`sina kama e ona.`
       .eng`you li make-arrive e him.`
