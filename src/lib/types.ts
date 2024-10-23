@@ -1,5 +1,6 @@
 import type { JSX } from "solid-js"
 import type { Exts } from "./exts"
+import type { VocabProxy, VocabVis } from "./vocab"
 
 export declare const KIND: unique symbol
 export declare const LANG: unique symbol
@@ -53,6 +54,7 @@ export interface ExtAside<T extends Json, I extends string>
   slide(data: T, exts: Exts): JSX.Element
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtContent<T extends Json, I extends string>
@@ -61,6 +63,7 @@ export interface ExtContent<T extends Json, I extends string>
   print(data: T, exts: Exts): JSX.Element
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtEntry<T extends Json, I extends string>
@@ -72,6 +75,7 @@ export interface ExtNote<T extends Json, I extends string>
   extends Ext<"note", I> {
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtPrint<T extends Json, I extends string>
@@ -85,6 +89,7 @@ export interface ExtSlide<T extends Json, I extends string>
   render(data: T, exts: Exts): JSX.Element
   presenter(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy): void
 }
 
 export interface ExtText<T extends Json, I extends string>
@@ -93,6 +98,7 @@ export interface ExtText<T extends Json, I extends string>
   renderChallenge(data: T, exts: Exts): JSX.Element
   entry(data: T, exts: Exts, filter: EntryFilter): JSX.Element
   entryNote(data: T, exts: Exts, filter: EntryFilter): JSX.Element
+  vocab(data: T, exts: Exts, proxy: VocabProxy, vis: VocabVis): void
 }
 
 export interface ExtVocab<T extends Json, I extends string>
@@ -105,6 +111,9 @@ export interface ExtVocab<T extends Json, I extends string>
   partWord(data: T, exts: Exts): JSX.Element
   partDefnShort(data: T, exts: Exts): JSX.Element
   partDefnLong(data: T, exts: Exts): JSX.Element
+  partEntryLabel(data: T, exts: Exts): JSX.Element
+  word(data: T, exts: Exts): string
+  vocab(data: T, exts: Exts, proxy: VocabProxy, vis: VocabVis): void
 }
 
 export interface ExtKinds<T extends Json, I extends string> {

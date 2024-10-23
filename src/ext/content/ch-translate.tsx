@@ -1,4 +1,5 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { Ch } from "../../lib/Ch"
 import { clsx } from "../../lib/clsx"
 import { defineExt } from "../../lib/define"
@@ -53,6 +54,21 @@ export const ext = defineExt<readonly ChTranslateOne[]>()(
   "content",
   "ch/transl",
   {
+    vocab(data, exts, proxy) {
+      for (const [lang, src, dst, hint] of data) {
+        if (lang == "tok") {
+          exts.TextVocab(src, proxy, VocabVis.CH_Q)
+        }
+        if (hint) {
+          exts.TextVocab(src, proxy, VocabVis.CH_LABEL)
+        }
+        if (lang == "eng") {
+          for (const d of dst) {
+            exts.TextVocab(d, proxy, VocabVis.CH_A)
+          }
+        }
+      }
+    },
     slide: render,
     presenter(data, exts) {
       return (

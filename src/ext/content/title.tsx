@@ -1,4 +1,5 @@
 import { Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { clsx } from "../../lib/clsx"
 import { defineExt } from "../../lib/define"
 import type { Content, Text } from "../../lib/types"
@@ -7,6 +8,9 @@ import { fmt, type FmtParams } from "../text/fmt"
 export const ext = defineExt<
   [content: Text, index: Text | null, center: boolean]
 >()("content", "title", {
+  vocab(data, exts, proxy) {
+    exts.TextVocab(data[0], proxy, VocabVis.DESC)
+  },
   slide(data, exts) {
     return (
       <h1 class="my-8 flex font-ex-title text-4xl text-z-heading first:mt-0 last:mb-0">

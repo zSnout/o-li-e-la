@@ -11,6 +11,17 @@ export const ext = defineExt<
     centered: boolean,
   ]
 >()("slide", "standard", {
+  vocab(data, exts, proxy) {
+    for (const content of data[0]) {
+      exts.ContentVocab(content, proxy)
+    }
+    for (const note of data[1]) {
+      exts.NoteVocab(note, proxy)
+    }
+    if (data[2]) {
+      exts.AsideVocab(data[2], proxy)
+    }
+  },
   render(data, exts) {
     return (
       <article class="size-slide relative flex bg-z-body text-2xl text-z contain-strict">

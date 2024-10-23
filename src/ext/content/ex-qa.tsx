@@ -1,4 +1,5 @@
 import { For } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { defineExt, unimpl } from "../../lib/define"
 import type { Exts } from "../../lib/exts"
 import type { Content, Many, ManyMut, TextOf, TokEng } from "../../lib/types"
@@ -8,6 +9,11 @@ export const ext = defineExt<[q: TokEng, ...a: Many<TokEng>]>()(
   "content",
   "ex/qa",
   {
+    vocab(data, exts, proxy) {
+      for (const [tok] of data) {
+        exts.TextVocab(tok, proxy, VocabVis.EX)
+      }
+    },
     slide: render,
     entry(data, exts, filter) {
       return (

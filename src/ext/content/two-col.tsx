@@ -7,6 +7,12 @@ export const ext = defineExt<[items: Content[][], center: boolean]>()(
   "content",
   "two_col",
   {
+    vocab(data, exts, proxy) {
+      for (const [a, b] of data[0]) {
+        exts.ContentVocab(a, proxy)
+        exts.ContentVocab(b, proxy)
+      }
+    },
     slide(data, exts) {
       return (
         <div

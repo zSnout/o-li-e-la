@@ -1,4 +1,5 @@
 import { For, Show } from "solid-js"
+import { VocabVis } from "src/lib/vocab"
 import { Ex } from "../../lib/Ch"
 import { defineExt } from "../../lib/define"
 import type { Content, TextOf } from "../../lib/types"
@@ -8,6 +9,9 @@ export const ext = defineExt<[tok: TextOf<"tok">, eng: TextOf<"eng">[]]>()(
   "content",
   "ex/tok",
   {
+    vocab([tok], exts, proxy) {
+      exts.TextVocab(tok, proxy, VocabVis.EX)
+    },
     slide(data, exts) {
       return (
         <div class="my-4 flex flex-col items-center">

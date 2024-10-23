@@ -4,6 +4,7 @@ import { defineExt, unimpl } from "../../lib/define"
 import type { Content } from "../../lib/types"
 
 export const ext = defineExt<string>()("content", "iframe", {
+  vocab() {},
   slide(data) {
     return (
       <AsSvgGeneric>

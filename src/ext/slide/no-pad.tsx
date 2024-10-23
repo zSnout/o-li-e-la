@@ -5,6 +5,14 @@ import type { Content, Note, Slide } from "../../lib/types"
 export const ext = defineExt<
   [content: readonly Content[], notes: readonly Note[]]
 >()("slide", "no_pad", {
+  vocab(data, exts, proxy) {
+    for (const content of data[0]) {
+      exts.ContentVocab(content, proxy)
+    }
+    for (const note of data[1]) {
+      exts.NoteVocab(note, proxy)
+    }
+  },
   render(data, exts) {
     return (
       <article class="size-slide relative flex bg-z-body text-2xl text-z contain-strict">
