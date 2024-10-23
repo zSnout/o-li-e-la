@@ -6,7 +6,7 @@ import { styledEng, styledTok } from "../text/styled"
 
 export const ext = defineExt<TokEng[]>()("content", "ex/aligned", {
   vocab(data, exts, proxy) {
-    for (const [tok, eng] of data) {
+    for (const [tok] of data) {
       exts.TextVocab(tok, proxy, VocabVis.EX)
     }
   },

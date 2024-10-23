@@ -246,6 +246,7 @@ export function ViewSpeaker({
               createEffect(() => {
                 const s = self()
                 if (s) {
+                  console.log("POSTING")
                   popup.postMessage([MSG_FULLSCREEN, s], "/")
                 }
               })
