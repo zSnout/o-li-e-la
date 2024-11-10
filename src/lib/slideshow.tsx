@@ -7,20 +7,20 @@ import { faPrint } from "@fortawesome/free-solid-svg-icons/faPrint"
 import { faTableCellsLarge } from "@fortawesome/free-solid-svg-icons/faTableCellsLarge"
 import { faTv } from "@fortawesome/free-solid-svg-icons/faTv"
 import {
+  For,
+  Show,
   createEffect,
   createMemo,
   createSignal,
-  For,
-  Show,
   type JSX,
 } from "solid-js"
 import { render } from "solid-js/web"
 import type { View } from ".."
 import { fmt, type FmtParams } from "../ext/text/fmt"
 import { AsSvg } from "./AsSvg"
+import { Fa } from "./Fa"
 import { clsx } from "./clsx"
 import { Exts } from "./exts"
-import { Fa } from "./Fa"
 import { createRemSize } from "./rem"
 import { createScreenSize } from "./size"
 import {
@@ -472,6 +472,20 @@ export function ViewPrint({ slideshow }: { slideshow: Slideshow }) {
         </>
       )}
     </For>
+  )
+}
+
+export function ViewCover({ slideshow }: { slideshow: Slideshow }) {
+  const slide = slideshow.slides[0]
+  if (!slide) {
+    return undefined
+  }
+  return (
+    <AsSvg
+      exts={slideshow.exts}
+      slide={slide}
+      class="fixed bottom-0 left-0 right-0 top-0 h-full w-full bg-black object-contain"
+    />
   )
 }
 
