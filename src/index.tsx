@@ -2,6 +2,7 @@ import { all } from "./ext"
 import {
   Slideshow,
   startBackgroundProcess,
+  ViewCover,
   ViewDocument,
   ViewEdit,
   ViewEntry,
@@ -20,6 +21,7 @@ export const ALL_VIEWS = [
   "edit",
   "print",
   "present",
+  "cover",
 ] as const
 
 export type View = (typeof ALL_VIEWS)[number]
@@ -48,6 +50,8 @@ export function start(
       return <ViewEdit slideshow={slideshow} />
     case "print":
       return <ViewPrint slideshow={slideshow} />
+    case "cover":
+      return <ViewCover slideshow={slideshow} />
     case "present":
       return (
         <ViewSpeaker

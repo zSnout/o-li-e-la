@@ -8,9 +8,8 @@ export const ext = defineExt<[items: Content[][], center: boolean]>()(
   "two_col",
   {
     vocab(data, exts, proxy) {
-      for (const [a, b] of data[0]) {
-        exts.ContentVocab(a, proxy)
-        exts.ContentVocab(b, proxy)
+      for (const content of data[0].flat()) {
+        exts.ContentVocab(content, proxy)
       }
     },
     slide(data, exts) {

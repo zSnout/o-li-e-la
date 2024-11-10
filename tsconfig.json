@@ -8,6 +8,9 @@
       "@l": ["src/Layout.astro"],
       "@/*": ["src/slides/*"]
     },
-    "baseUrl": "."
+    "baseUrl": ".",
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true
   }
 }
