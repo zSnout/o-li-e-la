@@ -10,6 +10,7 @@ import { Group } from "../../lib/slideshow"
 import {
   ante,
   ilo,
+  kalama,
   la,
   ma,
   moku,
@@ -121,6 +122,7 @@ DECK_TOK_05.slide(
     wawa,
     weka,
     ante,
+    kalama,
   )
     .note`Interestingly, $"@la tenpo weka" can be both the distant past and the distant future! From that, we can interpret this either as the weakness of young children or the weakness of old age.`(
     ul.li`#"la" can give locations in space and time`
@@ -130,7 +132,7 @@ DECK_TOK_05.slide(
       .eng`distant time la you li 're a little strong`
       .full`a long time ago, la you li were a little strong`
       .full`in a long time, la you li will be a little strong`,
-    ch.la`tomo mu la mi weka`
+    ch.la`tomo kalama la mi weka`
       .eng`music room la I li 'm absent`
       .full`I li 'm absent @la from the music room`,
     ch.eng`in the spy center, la we li know e everything`
