@@ -130,20 +130,6 @@ unite the world`
     .note`Ithkuil also has a very beautiful and logical writing system. Its writing system is quite different from how spoken Ithkuil works, though, and so many analyze the two as related, but different languages.`
     .note`As one tangible difference, spoken Ithkuil can differentiate between 9 types of names, but written Ithkuil can differentiate between 22 types of names.`
     .note`Written Ithkuil is also somewhat more logical than spoken Ithkuil. While spoken Ithkuil has to make concessions so that it is efficiently pronounceable, increasing the spoken language's irregularities, written Ithkuil has zero irregularities. Everything is in perfect order.`,
-  slide`pin suo sie lep lan:
-  because why not`
-    .center()
-    .aside(
-      pssll`mai lep pak eis ein fet den der nin tik asa han sei res aet nin per ues eis bon kon mai rai pak eis ein fet den der uai han len ari nou kau kas sei mai kon sti pas nou ser den sei bon aet uon uer sie sli aet tui bed ibe sie dan ein lab bat isi ibe aso sie uak uer han ser ein epi pak ibe sie pat sem ein ade kas lab kas aso nou kur aso aso han ein mai uon spi sat mai tri uer bra has tuo kai bao fru uer sei nin api kot sei nin pit nin sae rie bat sei nou lai sat kas tru eis mai kao uer mai nok aet iet ade aet nai sou mai uon nin ame sti`,
-    )
-    .note`While all the languages we've talked about today have clear reasons for their existence, not all languages are like that. **sakawi's stupid three-letter language** is such an example.`
-    .note`**sakawi's stupid three-letter language** is really only notable for its unique design decisions to 1) make all words precisely three letters long, 2) have no documentation anywhere other than past writings, and 3) elide the concept of sentences.`
-    .note`The text on the right here is a translation of a poem from my literature class. It has not been adjusted to be a perfect rectangle; it simply had a word count which was a perfect multiple of nine, enhancing the vision of it as a language where everything blends together in perfect regularity.`
-    .note`I originally created this language as part of a joke among friends. I have since revised it during most of my class periods during school.`(
-    ul.li`2024`
-      .li`sakawi`
-      .li`not particularly notable`,
-  ),
   slide`toki pona`
     .center()
     .image(
