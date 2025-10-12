@@ -1,4 +1,3 @@
-import { pssll } from "../../ext/aside/pssll"
 import { defineIFrame } from "../../ext/content/iframe"
 import { title } from "../../ext/content/title"
 import { defineTwoCol } from "../../ext/content/two-col"
