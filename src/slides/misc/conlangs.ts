@@ -115,13 +115,22 @@ language systematic`
     )
     .note`**Lojban** \`/loʒban/\`, created in 1987 by the Logical Language Group, is famous as one of the first logical languages.`
     .note`Lojban tried to apply a precise logic to how grammatical structures are “filled in”. Each content word (noun/verb amalgamation) has multiple slots, which can be filled in by other nouns to make a complete sentence. This gives Lojban its classic “x1 does x2 in the presence of x3 with instrument x4 after x5” definitions, to avoid introducing prepositions into the language.`
-    .note`Lojban's name is a compound of “logji” and “bangu”, meaning “logic” and “language” respectively, since its goal is to formalize language.`(
+    .note`Lojban's name is a compound of “logji” and “bangu”, meaning “logic” and “language” respectively, since its goal is to formalize language.`
+    .note`Another notable loglang is Toaq, but I don't have a slide for it.`(
     ul.li`1987`
       .li`Logical Language Group`
       .li`early “loglang”`,
   ),
-  // TODO: toaq
-  // TODO: seraphim, kay(f)bop(t)
+  slide`seraphim:
+for cursedness`
+    .center()
+    .image(
+      "/seraphim.png",
+      "Thumbnail for “Seraphim” on YouTube; the text BE NOT AFRAID is written above two wings which intersect at a massive flaming eye. Behind these, a barrage of varied unicode symbols, next to screenshots from the video describing the Seraphim language.",
+    )
+    .note`**Seraphim**, created in 2022 by Babelingua for the Cursed Conlang Circus 1, is an example of a cursed conlang.`
+    .note`While it calls itself an “angelic conlang”, since it's designed to be spoken by biblically accurate angels, Seraphim includes many features which harm its practical usability. A speaker must possess seven mouths to properly enunciate it, pronunciation can involve time travel, and words must be carefully crafted to simultaneously be Hebrew prayers and Seraphim phrases.`
+    .note`Another notable cursed conlang is kay(f)bop(t), but I don't have a slide for it.`(),
   slide`ithkuil: to test language`
     .center()
     .image(
