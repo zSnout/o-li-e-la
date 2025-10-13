@@ -90,7 +90,7 @@ unite the world`
       .li`known due to Game of Thrones`,
   ),
   slide`tshevu: as
-  artistic expression`
+artistic expression`
     .center()
     .image(
       // https://www.reddit.com/r/conlangs/comments/mocrjd/what_does_a_recipe_look_like_in_tsevhu/
@@ -105,6 +105,23 @@ unite the world`
       .li`koallary`
       .li`known for its writing system`,
   ),
+  slide`lojban: to make
+language systematic`
+    .center()
+    .image(
+      // https://imgs.xkcd.com/comics/lojban_translated.png
+      "/xkcd-lojban.png",
+      "A Lojban translation of xkcd 191 “lojban”.",
+    )
+    .note`**Lojban** \`/loʒban/\`, created in 1987 by the Logical Language Group, is famous as one of the first logical languages.`
+    .note`Lojban tried to apply a precise logic to how grammatical structures are “filled in”. Each content word (noun/verb amalgamation) has multiple slots, which can be filled in by other nouns to make a complete sentence. This gives Lojban its classic “x1 does x2 in the presence of x3 with instrument x4 after x5” definitions, to avoid introducing prepositions into the language.`
+    .note`Lojban's name is a compound of “logji” and “bangu”, meaning “logic” and “language” respectively, since its goal is to formalize language.`(
+    ul.li`1987`
+      .li`Logical Language Group`
+      .li`early “loglang”`,
+  ),
+  // TODO: toaq
+  // TODO: seraphim, kay(f)bop(t)
   slide`ithkuil: to test language`
     .center()
     .image(
@@ -153,24 +170,16 @@ unite the world`
       defineTwoCol(
         [
           [
-            defineIFrame(
-              "https://www.youtube.com/embed/AcctlGjvLnY",
-            ),
+            defineIFrame`https://www.youtube.com/embed/AcctlGjvLnY`,
           ],
           [
-            defineIFrame(
-              "https://www.youtube.com/embed/Ql0VKM7tCCo",
-            ),
+            defineIFrame`https://www.youtube.com/embed/Ql0VKM7tCCo`,
           ],
           [
-            defineIFrame(
-              "https://www.youtube.com/embed/DDwf0dorgN8",
-            ),
+            defineIFrame`https://www.youtube.com/embed/DDwf0dorgN8`,
           ],
           [
-            defineIFrame(
-              "https://www.youtube.com/embed/hwQlRshsxyk",
-            ),
+            defineIFrame`https://www.youtube.com/embed/hwQlRshsxyk`,
           ],
         ],
       ),

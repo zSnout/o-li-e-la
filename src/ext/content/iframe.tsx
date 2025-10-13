@@ -45,6 +45,6 @@ export const ext = defineExt<string>()("content", "iframe", {
   print: unimpl,
 })
 
-export function defineIFrame(src: string): Content {
-  return ["iframe", src]
+export function defineIFrame(src: TemplateStringsArray): Content {
+  return ["iframe", src[0]!]
 }
